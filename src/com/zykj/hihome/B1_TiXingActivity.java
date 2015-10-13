@@ -10,10 +10,10 @@ import com.zykj.hihome.base.BaseActivity;
  * @author LSS 2015年9月29日 上午8:50:02
  *
  */
-public class B1_ShouYeActivity extends BaseActivity {
+public class B1_TiXingActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ui_b1_shouye);
+		setContentView(R.layout.ui_b1_tixing);
 		initView();
 	}
 

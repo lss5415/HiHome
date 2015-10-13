@@ -9,11 +9,11 @@ import com.zykj.hihome.base.BaseActivity;
  * @author LSS 2015年9月29日 上午8:55:45
  *
  */
-public class B3_FaXianActivity extends BaseActivity {
+public class B3_RenWuActivity extends BaseActivity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ui_b3_faxian);
+		setContentView(R.layout.ui_b3_renwu);
 		initView();
 	}
 	

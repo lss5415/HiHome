@@ -48,7 +48,7 @@
         <item name="android:singleLine">true</item>
         <item name="android:textColor">#fff</item>
         <item name="android:layout_centerInParent">true</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
      <!-- dialog风格 -->
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">

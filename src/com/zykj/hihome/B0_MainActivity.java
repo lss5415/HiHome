@@ -42,10 +42,10 @@ public class B0_MainActivity extends BaseTabActivity {
 		// 设置圆角边线不启用
 		// final TabWidget _widget = m_tab.getTabWidget();
 		// _widget.setStripEnabled(false);
-		intent_1 = new Intent(this, B1_ShouYeActivity.class);
-		intent_2 = new Intent(this, B2_FuJinActivity.class);
-		intent_3 = new Intent(this, B3_FaXianActivity.class);
-		intent_4 = new Intent(this, B4_WoDeActivity.class);
+		intent_1 = new Intent(this, B1_TiXingActivity.class);
+		intent_2 = new Intent(this, B2_LiaoTianActivity.class);
+		intent_3 = new Intent(this, B3_RenWuActivity.class);
+		intent_4 = new Intent(this, B4_HaoYouActivity.class);
 
 		m_tab.addTab(buildTagSpec("test1", 0, intent_1));
 		m_tab.addTab(buildTagSpec("test2", 1, intent_2));

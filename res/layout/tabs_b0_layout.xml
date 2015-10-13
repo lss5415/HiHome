@@ -2,7 +2,8 @@
 <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/tabhost"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="#FFF" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -31,25 +32,25 @@
                 style="@style/tab_button_bottom"
                 android:checked="true"
                 android:drawableTop="@drawable/tab_dw_shouye"
-                android:text="首页" />
+                android:text="提醒" />
 
             <RadioButton
                 android:id="@+id/tab_radio2"
                 style="@style/tab_button_bottom"
                 android:drawableTop="@drawable/tab_dw_fujin" 
-                android:text="附近"/>
+                android:text="聊天"/>
 
             <RadioButton
                 android:id="@+id/tab_radio3"
                 style="@style/tab_button_bottom"
                 android:drawableTop="@drawable/tab_dw_faxian"
-                android:text="发现"/>
+                android:text="任务"/>
 
             <RadioButton
                 android:id="@+id/tab_radio4"
                 style="@style/tab_button_bottom"
                 android:drawableTop="@drawable/tab_dw_wode" 
-                android:text="我的"/>
+                android:text="好友"/>
 
             
         </RadioGroup>

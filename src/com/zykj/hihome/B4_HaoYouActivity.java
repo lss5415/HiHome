@@ -11,7 +11,7 @@ import com.zykj.hihome.base.BaseActivity;
  * @author lss 2015年8月8日	我的
  *
  */
-public class B4_WoDeActivity extends BaseActivity {
+public class B4_HaoYouActivity extends BaseActivity {
 	private ImageView im_denglu;//登录
 	
 //	@Override
@@ -23,7 +23,7 @@ public class B4_WoDeActivity extends BaseActivity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ui_b4_wode);
+		setContentView(R.layout.ui_b4_haoyou);
 		initView();
 	}
 
@@ -51,7 +51,7 @@ public class B4_WoDeActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.im_denglu:
 				Intent itdenglu = new Intent();
-				itdenglu.setClass(B4_WoDeActivity.this, B4_1_DengLuActivity.class);
+				itdenglu.setClass(B4_HaoYouActivity.this, B4_1_DengLuActivity.class);
 				startActivity(itdenglu);
 			break;
 		
