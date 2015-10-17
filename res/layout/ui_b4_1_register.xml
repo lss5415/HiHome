@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_logiin"
+    android:orientation="vertical" >
+
+    <com.zykj.hihome.view.MyCommonTitle
+        android:id="@+id/aci_mytitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty"
+        android:layout_marginTop="@dimen/ten"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/user_mobile"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/thirty_five"
+                android:layout_weight="1"
+                android:background="@drawable/bg_null_white"
+                android:hint="@string/user_mobile"
+                android:inputType="textPassword"
+                android:textColor="@color/edit_hint_color" />
+
+            <Button
+                android:id="@+id/idenfy_code"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/twenty_five"
+                android:background="@drawable/bg_null_grey"
+                android:layout_marginBottom="@dimen/five"
+                android:padding="@dimen/five"
+                android:text="@string/get_code"
+                android:textColor="@color/text_Btn_color"
+                android:textSize="@dimen/fourteen" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/text_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/user_mobile_code"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/thirty_five"
+            android:background="@drawable/bg_null_white"
+            android:hint="@string/mobile_code"
+            android:inputType="textPassword"
+            android:textColor="@color/edit_hint_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/text_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/user_new_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/thirty_five"
+            android:background="@drawable/bg_null_white"
+            android:hint="@string/new_pass"
+            android:inputType="textPassword"
+            android:textColor="@color/edit_hint_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/text_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/user_comfirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/thirty_five"
+            android:background="@drawable/bg_null_white"
+            android:hint="@string/comfirm_pass"
+            android:inputType="textPassword"
+            android:textColor="@color/edit_hint_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/text_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <CheckBox
+            android:id="@+id/cb_service_protocol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ten"
+            android:text="@string/service_protocol" 
+            android:textColor="@color/theme_color"/>
+
+        <CheckBox
+            android:id="@+id/cb_secret_policy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/secret_policy"
+            android:textColor="@color/theme_color" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/forty"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/positive"
+            style="@style/button_text"
+            android:layout_width="@dimen/one_hundred_fifty"
+            android:layout_height="@dimen/forty"
+            android:gravity="center"
+            android:text="@string/comfirm" />
+    </LinearLayout>
+
+</LinearLayout>
