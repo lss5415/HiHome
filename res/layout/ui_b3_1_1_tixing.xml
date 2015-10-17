@@ -15,78 +15,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-  <GridView >
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="@color/bg_tixing"
-                android:text="正点" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:background="@color/bg_tixing"
-                android:text="五分钟前" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:background="@color/bg_tixing"
-                android:text="十分钟前" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:background="@color/bg_tixing"
-                android:text="一小时之前" />
-        </GridView>
-                <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten"
             android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp" >
+            android:padding="@dimen/ten" >
 
-            <Button
-                android:layout_width="0dp"
+            <GridView
+                android:id="@+id/clock_gridview"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="@color/bg_tixing"
-                android:text="一天之前" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:background="@color/bg_tixing"
-                android:text="三天之前" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:background="@color/bg_tixing"
-                android:text="不提醒" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:background="@color/divide_color_grey"
-                android:text="" />
+                android:numColumns="4"
+                android:verticalSpacing="20dp" />
+        </LinearLayout>
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+            
         </LinearLayout>
     </LinearLayout>
 
