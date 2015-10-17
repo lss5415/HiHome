@@ -1,78 +1,106 @@
 package com.zykj.hihome;
 
-import android.content.Intent;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 
+import com.alibaba.fastjson.JSON;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.data.Friend;
+import com.zykj.hihome.utils.CircularImage;
+import com.zykj.hihome.utils.HttpUtils;
 
 /**
  * @author lss 2015年8月8日	我的
  *
  */
 public class B4_HaoYouActivity extends BaseActivity {
-	private ImageView im_denglu;//登录
 	
-//	@Override
-//	protected void onResume() {
-//		// TODO Auto-generated method stub
-//		super.onResume();
-//		
-//	}
+	private CircularImage rv_me_avatar;
+	private ImageView add_friend;
+	private EditText firend_search;
+	private ListView friend_list;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ui_b4_haoyou);
+		initView(R.layout.ui_b4_haoyou);
+		
 		initView();
+		requestData();
 	}
 
-
+	/**
+	 * 初始化页面
+	 */
 	public void initView() {
-		im_denglu = (ImageView) findViewById(R.id.im_denglu);
-//		if (isLoged()) {
-//			//请求头像，如果没有头像，提示用户上传头像
-//			ll_yidenglu.setVisibility(View.VISIBLE);
-//			im_denglu.setVisibility(View.GONE);
-//			tv_invitecode.setText(getSharedPreferenceValue("invitecode"));
-//			tv_username.setText(getSharedPreferenceValue("name"));
-//		}else {
-//			//未登陆，不做操作
-//			ll_yidenglu.setVisibility(View.GONE);
-//			im_denglu.setVisibility(View.VISIBLE);
-//		}
+		rv_me_avatar = (CircularImage)findViewById(R.id.rv_me_avatar);//头像
+		add_friend = (ImageView)findViewById(R.id.add_friend);//添加好友
+		firend_search = (EditText)findViewById(R.id.firend_search);//搜索
 		
-		setListener(im_denglu);
+		friend_list = (ListView)findViewById(R.id.friend_list);//搜索
+		setListener(rv_me_avatar, add_friend);
+	}
+
+	private void requestData() {
+		HttpUtils.getFriendsList(new JsonHttpResponseHandler(){
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				super.onSuccess(statusCode, headers, response);
+				try {
+					int code = response.getInt("code");
+					if(code == 200){
+						JSONArray JSONArray = response.getJSONObject("datas").getJSONArray("list");
+						final List<Friend> friends = JSON.parseArray(JSONArray.toString(), Friend.class);
+						friend_list.setAdapter(new BaseAdapter() {
+							@Override
+							public int getCount() {
+								return friends.size();
+							}
+							@Override
+							public Friend getItem(int position) {
+								return friends.get(position);
+							}
+							@Override
+							public long getItemId(int checkedId) {
+								return 0;
+							}
+							@Override
+							public View getView(int arg0, View arg1, ViewGroup arg2) {
+								return null;
+							}
+						});
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}, "5");
 	}
 
 	@Override
 	public void onClick(View v) {
-		super.onClick(v);
 		switch (v.getId()) {
-		case R.id.im_denglu:
-				Intent itdenglu = new Intent();
-				itdenglu.setClass(B4_HaoYouActivity.this, B4_1_LoginActivity.class);
-				startActivity(itdenglu);
+		case R.id.rv_me_avatar:
+			/*点击头像侧滑*/
 			break;
-		
+		case R.id.add_friend:
+			/*点击添加好友*/
+			break;
 		default:
 			break;
-
 		}
 	}
-//	public  boolean isLoged() {
-//		String isLoged = null;
-//		if (getSharedPreferenceValue("isLoged")!=null) {
-//			isLoged = getSharedPreferenceValue("isLoged");
-//			if (isLoged.equals("1")) {
-//				return true;
-//			}else {
-//				return false;
-//			}
-//		}else {
-//			putSharedPreferenceValue("isLoged", "0");
-//			return false;
-//		}
-//	}
-//	
 }
