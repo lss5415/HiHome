@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/theme_color"
-        android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="5dp" >
 
@@ -27,17 +26,17 @@
         <ImageView
             android:contentDescription="@string/app_name"
             android:id="@+id/img_create_anniversary"
-            android:layout_width="@dimen/twenty"
-            android:layout_height="@dimen/twenty"
+            android:layout_width="@dimen/thirty"
+            android:layout_height="@dimen/thirty"
             android:src="@drawable/ic_create_anniversary"
             android:layout_toLeftOf="@+id/img_publish_task"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="20dp"/>
 
         <ImageView
             android:contentDescription="@string/app_name"
             android:id="@+id/img_publish_task"
-            android:layout_width="@dimen/twenty"
-            android:layout_height="@dimen/twenty"
+            android:layout_width="@dimen/thirty"
+            android:layout_height="@dimen/thirty"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_publish_task" />

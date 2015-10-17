@@ -4,7 +4,7 @@
     android:layout_height="@dimen/fifty"
     android:background="@color/theme_color" >
     <ImageView
-         android:visibility="gone"
+         android:visibility="visible"
         android:id="@+id/aci_back_btn"
         android:layout_width="@dimen/fifty"
         android:layout_height="match_parent"

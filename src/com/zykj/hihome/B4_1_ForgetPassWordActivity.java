@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
-
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.utils.StringUtil;
@@ -37,18 +36,18 @@ public class B4_1_ForgetPassWordActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		initView(R.layout.ui_b4_1_forgetpassword);
 		// 初始化短信验证
-//		SMSSDK.initSDK(this, APPKEY, APPKEYSECRET);
-//		EventHandler eh = new EventHandler() {
-//			@Override
-//			public void afterEvent(int event, int result, Object data) {
-//				Message msg = new Message();
-//				msg.arg1 = event;
-//				msg.arg2 = result;
-//				msg.obj = data;
-//				handler.sendMessage(msg);
-//			}
-//		};
-//		SMSSDK.registerEventHandler(eh);
+		SMSSDK.initSDK(this, APPKEY, APPKEYSECRET);
+		EventHandler eh = new EventHandler() {
+			@Override
+			public void afterEvent(int event, int result, Object data) {
+				Message msg = new Message();
+				msg.arg1 = event;
+				msg.arg2 = result;
+				msg.obj = data;
+				handler.sendMessage(msg);
+			}
+		};
+		SMSSDK.registerEventHandler(eh);
 		initView();
 	}
 
