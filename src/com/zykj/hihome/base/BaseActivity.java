@@ -13,7 +13,7 @@ import android.view.WindowManager;
 
 import com.zykj.hihome.data.AppValue;
 import com.zykj.hihome.socket.SocketListener;
-import com.zykj.hihome.util.Tools;
+import com.zykj.hihome.utils.Tools;
 
 public abstract class BaseActivity extends Activity implements
 		android.view.View.OnClickListener {

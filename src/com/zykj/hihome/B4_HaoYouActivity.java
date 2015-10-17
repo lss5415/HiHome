@@ -51,7 +51,7 @@ public class B4_HaoYouActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.im_denglu:
 				Intent itdenglu = new Intent();
-				itdenglu.setClass(B4_HaoYouActivity.this, B4_1_DengLuActivity.class);
+				itdenglu.setClass(B4_HaoYouActivity.this, B4_1_LoginActivity.class);
 				startActivity(itdenglu);
 			break;
 		

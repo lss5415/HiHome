@@ -3,10 +3,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <TextView 
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:textSize="40sp"
-        android:text="发现"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theme_color"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" >
+
+        <ImageView
+            android:layout_width="@dimen/twenty"
+            android:layout_height="@dimen/twenty"
+            android:src="@drawable/ic_user_avtor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="任务"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:contentDescription="@string/app_name"
+            android:id="@+id/img_create_anniversary"
+            android:layout_width="@dimen/twenty"
+            android:layout_height="@dimen/twenty"
+            android:src="@drawable/ic_create_anniversary"
+            android:layout_toLeftOf="@+id/img_publish_task"
+            android:layout_marginRight="10dp"/>
+
+        <ImageView
+            android:contentDescription="@string/app_name"
+            android:id="@+id/img_publish_task"
+            android:layout_width="@dimen/twenty"
+            android:layout_height="@dimen/twenty"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_publish_task" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white" >
+
+        <RadioGroup
+            android:id="@+id/tab_rwGroup"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/eighty"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp" >
+
+            <RadioButton
+                android:id="@+id/tab_radio1"
+                style="@style/tab_rw_button"
+                android:checked="true"
+                android:drawableTop="@drawable/tab_rw_self"
+                android:text="自己的任务" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/grey" />
+
+            <RadioButton
+                android:id="@+id/tab_radio2"
+                style="@style/tab_rw_button"
+                android:drawableTop="@drawable/tab_rw_receive"
+                android:text="接受的任务" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/grey" />
+
+            <RadioButton
+                android:id="@+id/tab_radio3"
+                style="@style/tab_rw_button"
+                android:drawableTop="@drawable/tab_rw_publish"
+                android:text="发布的任务" />
+        </RadioGroup>
+    </LinearLayout>
 
 </LinearLayout>

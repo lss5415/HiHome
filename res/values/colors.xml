@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white">#ffffff</color>
-    <color name="black">#000000</color>
-    <color name="grey">#EEEEEE</color> 
 
+    <color name="white">#ffffff</color>
+    <color name="bg_tixing">#F7F7F7</color>
+    <color name="black">#000000</color>
+    <color name="grey">#EEEEEE</color>
+    <color name="text_grey">#B4B4B4</color>
     <color name="tab_font_normal">#A0A0A0</color>
-	<color name="tab_font_select">#ED6D00</color>
+    <color name="tab_font_select">#ED6D00</color>
     <color name="index_type_font_color">#ED6D00</color>
     <color name="background_color">#f5f0ea</color>
-    <color name="theme_color">#73498b</color> 
-    <color name="edit_hint_color">#B3B3B3</color>
+    <color name="theme_color">#EA5414</color>
+    <color name="divide_color_grey">#EEEEEE</color>
+    <color name="edit_hint_color">#B4B4B4</color>
     <color name="all_huang_color">#ED6D00</color>
-    
     <color name="yellow">#ffED6D00</color>
-    
-	<color name="result_view">#b0000000</color>
-	<color name="viewfinder_mask">#60000000</color>
-	<color name="possible_result_points">#c0ffff00</color> 
-	
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
     <color name="classify_checked">#FFFFFF</color>
     <color name="classify_back">#E8E8E8</color>
+    
+    <!-- 登录 -->
+    <color name="text_devide">#D5C1AA</color>
+    <color name="text_online">#E0D8CE</color>
+    <color name="text_color">#A06932</color>
+    <color name="text_Btn_color">#985A11</color>
+    <color name="background_logiin">#FFFFFF</color>
 
 </resources>

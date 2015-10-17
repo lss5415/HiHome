@@ -4,16 +4,29 @@ import java.util.Stack;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.util.Log;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.zykj.hihome.util.Tools;
+import com.zykj.hihome.data.AppModel;
+import com.zykj.hihome.utils.StringUtil;
+import com.zykj.hihome.utils.Tools;
 
 public class BaseApp extends Application {
+	/**
+	 * 存储的sharePerfence
+	 */
+	public static final String config = "config";//存储的sharePerfence
+	public static final String IS_INTRO = "is_intro";//当前的是否已经进行过指引
+	public static final String VERSION = "version";//当前应用中存储的版本号
+	
+	private static Context context;
 	private static Stack<Activity> activityStack;
 	public static BaseApp singleton;
+	private static AppModel model;
 
 	public void onCreate() {
 		super.onCreate();
@@ -26,7 +39,32 @@ public class BaseApp extends Application {
 	public static BaseApp getInstance() {
 		return singleton;
 	}
+	  private void initModel() {
+	    	/*初始化用户Model*/
+	        model=AppModel.init(this);
+	    }
 
+		/**
+		 * 获取用户信息
+		 */
+	    public static AppModel getModel(){
+	        if(model == null){
+	            Log.e("application","appmodel is null");
+	        }
+	        return model;
+	    }
+
+		/**
+		 * 验证用户是否登录
+		 */
+	    public static boolean validateUserLogin(){
+	        if(StringUtil.isEmpty(model.getUserid())){
+	            return false;
+	        }else{
+	            return true;
+	        }
+	    }
+	
 	/**
 	 * 
 	 */

@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.data.AppValue;
-import com.zykj.hihome.util.Tools;
+import com.zykj.hihome.utils.Tools;
 
 public class A0_Welcome extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {

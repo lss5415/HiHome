@@ -8,7 +8,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
 
 import com.zykj.hihome.base.BaseTabActivity;
-import com.zykj.hihome.util.Tools;
+import com.zykj.hihome.utils.Tools;
 
 /**
  * @author lss 2015年8月8日	控制底部栏 Activity
