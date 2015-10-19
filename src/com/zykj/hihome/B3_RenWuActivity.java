@@ -54,12 +54,12 @@ public class B3_RenWuActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.img_create_anniversary:// 创建纪念日
 			startActivity(new Intent(B3_RenWuActivity.this,
-					B3_1_RenWuCreateAnniversaryActivity.class));
+					B3_RenWuCreateAnniversaryActivity.class));
 
 			break;
 		case R.id.img_publish_task:// 发布任务
 			startActivity(new Intent(B3_RenWuActivity.this,
-					B3_1_RenWuPublishTaskActivity.class));
+					B3_RenWuPublishTaskActivity.class));
 			break;
 		case R.id.radio_selfTask:// 发布任务
 			

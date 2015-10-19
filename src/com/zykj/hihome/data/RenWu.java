@@ -3,7 +3,9 @@ package com.zykj.hihome.data;
 import java.io.Serializable;
 
 public class RenWu implements Serializable {
-
+/**
+ * 任务
+ */
 	private static final long serialVersionUID = 1L;
 
 	private String uid;// 用户ID编号

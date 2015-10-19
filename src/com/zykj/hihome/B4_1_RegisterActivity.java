@@ -100,10 +100,6 @@ public class B4_1_RegisterActivity extends BaseActivity {
 			break;
 
 		case R.id.positive:// 确定
-			if (!TextUtil.isMobile(mobile)) {
-				Tools.toast(B4_1_RegisterActivity.this, "手机号格式不正确");
-				return;
-			}
 			if (StringUtil.isEmpty(mobilecode)) {
 				Tools.toast(B4_1_RegisterActivity.this, "验证码不能为空");
 				return;
@@ -112,7 +108,7 @@ public class B4_1_RegisterActivity extends BaseActivity {
 				Tools.toast(B4_1_RegisterActivity.this, "新密码不能为空");
 				return;
 			}
-			if (TextUtil.isPasswordLengthLegal(newpass)) {
+			if (!TextUtil.isPasswordLengthLegal(newpass)) {
 				Tools.toast(B4_1_RegisterActivity.this, "密码长度合法性校验6-20位任意字符");
 				return;
 			}
@@ -120,7 +116,7 @@ public class B4_1_RegisterActivity extends BaseActivity {
 				Tools.toast(B4_1_RegisterActivity.this, "再次输入的新密码不能为空");
 				return;
 			}
-			if (TextUtil.isPasswordLengthLegal(confirmpass)) {
+			if (!TextUtil.isPasswordLengthLegal(confirmpass)) {
 				Tools.toast(B4_1_RegisterActivity.this, "密码长度合法性校验6-20位任意字符");
 				return;
 			}
@@ -152,8 +148,7 @@ public class B4_1_RegisterActivity extends BaseActivity {
 				}
 			} else {
 				 ((Throwable) data).printStackTrace();
-//				 int resId =
-//				 getStringRes(B4_1_ForgetPassWordActivity.this,"smssdk_network_error");
+//				 int resId = getStringRes(B4_1_ForgetPassWordActivity.this,"smssdk_network_error");
 //				 Tools.toast(
 //				 B4_1_ForgetPassWordActivity.this,
 //				 event == SMSSDK.EVENT_GET_VERIFICATION_CODE ? "验证码频繁，请稍后再试！"
@@ -168,6 +163,13 @@ public class B4_1_RegisterActivity extends BaseActivity {
 			RequestParams params=new RequestParams();
 			params.put("mob", mobile);
 			params.put("pass", newpass);
+			HttpUtils.register(new JsonHttpResponseHandler(){
+				public void onSuccess(int statusCode, Header[] headers, org.json.JSONArray response) {
+					MyRequestDailog.closeDialog();
+					Tools.toast(B4_1_RegisterActivity.this, "注册成功");
+					finish();
+				};
+			}, params);
 		}
 
 	};
