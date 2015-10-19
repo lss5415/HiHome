@@ -27,5 +27,9 @@
     <color name="text_color">#A06932</color>
     <color name="text_Btn_color">#985A11</color>
     <color name="background_logiin">#FFFFFF</color>
+    
+    <!-- 好友 -->
+    <color name="gray_font">#818181</color>
+    <color name="gray">#AFAFAF</color>
 
 </resources>
