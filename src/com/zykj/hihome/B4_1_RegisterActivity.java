@@ -165,27 +165,11 @@ public class B4_1_RegisterActivity extends BaseActivity {
 		}
 
 		private void registerNewUser() {
-			RequestParams params = new RequestParams();
+			RequestParams params=new RequestParams();
 			params.put("mob", mobile);
-			params.put("password", newpass);
-			// HttpUtils.resetPassword(new HttpErrorHandler() {
-			// @Override
-			// public void onRecevieSuccess(JSONObject json) {
-			// MyRequestDailog.closeDialog();
-			// Tools.toast(UserResetPwdActivity.this,
-			// json.getString("message"));
-			// // Tools.toast(B4_1_ForgetPassWordActivity.this, "密码重置成功");
-			// finish();
-			// }
-			//
-			// @Override
-			// public void onRecevieFailed(String status, JSONObject json) {
-			// MyRequestDailog.closeDialog();
-			// Tools.toast(B4_1_ForgetPassWordActivity.this,
-			// json.getString("message"));
-			// }
-			// }, params);
+			params.put("pass", newpass);
 		}
+
 	};
 
 	@Override

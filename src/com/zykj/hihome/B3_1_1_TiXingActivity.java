@@ -7,6 +7,7 @@ import javax.security.auth.PrivateCredentialPermission;
 
 import android.os.Bundle;
 import android.widget.GridView;
+import android.widget.ListView;
 
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.utils.StringUtil;
@@ -16,7 +17,8 @@ public class B3_1_1_TiXingActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private GridView gridView;
 	private List<String> clocksList=new ArrayList<String>();
-	private CommonAdapter<String > clockAdapter;
+	private ListView mListView;
+	private CommonAdapter<String > clockAdapter,addClockAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,10 @@ public class B3_1_1_TiXingActivity extends BaseActivity {
 		myCommonTitle.setTitle("提醒");
 		myCommonTitle.setEditTitle("完成");
 		
+		gridView=(GridView) findViewById(R.id.clock_gridview);
+		
+		mListView=(ListView) findViewById(R.id.list_tixing);
+		
 		clocksList.add("正点");
 		clocksList.add("五分钟前");
 		clocksList.add("十分钟前");
@@ -39,7 +45,7 @@ public class B3_1_1_TiXingActivity extends BaseActivity {
 		clocksList.add("一天前");
 		clocksList.add("三天前");
 		clocksList.add("不提醒");
-		gridView=(GridView) findViewById(R.id.clock_gridview);
+		
 		
 		clockAdapter=new CommonAdapter<String>(B3_1_1_TiXingActivity.this,R.layout.ui_b3_1_item_clock ,clocksList) {
 			
@@ -51,6 +57,19 @@ public class B3_1_1_TiXingActivity extends BaseActivity {
 		};
 		gridView.setAdapter(clockAdapter);
 		
+		addClockAdapter=new CommonAdapter<String>(B3_1_1_TiXingActivity.this,R.layout.ui_b3_1_item_add_clock,getData()) {
+			
+			@Override
+			public void convert(ViewHolder holder, String t) {
+				holder.setText(R.id.tv_tixing_time, StringUtil.toString(clocksList.get(holder.getPosition())+"提醒："));
+//				.setText(R.id.tv_tixing_datetime,StringUtil.toString(obj);
+			}
+		};
+	}
+
+	private List<String> getData() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

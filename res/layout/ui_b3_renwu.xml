@@ -12,8 +12,8 @@
         android:paddingTop="5dp" >
 
         <ImageView
-            android:layout_width="@dimen/twenty"
-            android:layout_height="@dimen/twenty"
+            android:layout_width="@dimen/thirty"
+            android:layout_height="@dimen/thirty"
             android:src="@drawable/ic_user_avtor" />
 
         <TextView
@@ -56,7 +56,7 @@
             android:paddingTop="5dp" >
 
             <RadioButton
-                android:id="@+id/tab_radio1"
+                android:id="@+id/radio_selfTask"
                 style="@style/tab_rw_button"
                 android:checked="true"
                 android:drawableTop="@drawable/tab_rw_self"
@@ -68,7 +68,7 @@
                 android:background="@color/grey" />
 
             <RadioButton
-                android:id="@+id/tab_radio2"
+                android:id="@+id/radio_receiveTask"
                 style="@style/tab_rw_button"
                 android:drawableTop="@drawable/tab_rw_receive"
                 android:text="接受的任务" />
@@ -79,11 +79,15 @@
                 android:background="@color/grey" />
 
             <RadioButton
-                android:id="@+id/tab_radio3"
+                android:id="@+id/radio_publishTask"
                 style="@style/tab_rw_button"
                 android:drawableTop="@drawable/tab_rw_publish"
                 android:text="发布的任务" />
         </RadioGroup>
     </LinearLayout>
-
+    
+    <ListView 
+        android:id="@+id/list_renwu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

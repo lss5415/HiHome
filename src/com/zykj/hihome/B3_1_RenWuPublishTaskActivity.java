@@ -1,6 +1,7 @@
 package com.zykj.hihome;
 
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.utils.DateTimePickDialogUtil;
 import com.zykj.hihome.view.MyCommonTitle;
 
 import android.content.Intent;
@@ -18,8 +19,11 @@ public class B3_1_RenWuPublishTaskActivity extends BaseActivity {
 			img_photo;
 	private ToggleButton toggleButton;
 	private LinearLayout ly_clock, ly_repeat, ly_location, ly_add_img;
-	private EditText ed_taskname, ed_taskexcutor, ed_taskcontent;
-	private TextView tv_starttime, tv_finishtime;
+	private TextView ed_taskexcutor;
+	private EditText ed_taskname,  ed_taskcontent;
+	private EditText tv_starttime, tv_finishtime;
+    private String initStartDateTime = "2013年9月3日 14:44"; // 初始化开始时间  
+    private String initEndDateTime = "2014年8月23日 17:44"; // 初始化结束时间  
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +40,15 @@ public class B3_1_RenWuPublishTaskActivity extends BaseActivity {
 		myCommonTitle.setEditTitle("完成");
 
 		ed_taskname = (EditText) findViewById(R.id.input_taskname);
-		ed_taskexcutor = (EditText) findViewById(R.id.input_taskexcutor);
+		ed_taskexcutor = (TextView) findViewById(R.id.input_taskexcutor);
 		img_read_contacts = (ImageView) findViewById(R.id.img_read_contacts);
 		ed_taskcontent = (EditText) findViewById(R.id.input_taskcontent);
 		img_camere = (ImageView) findViewById(R.id.img_camere);
 		img_photo = (ImageView) findViewById(R.id.img_photo);
 		img_input_content = (ImageView) findViewById(R.id.img_input_content);
 		toggleButton = (ToggleButton) findViewById(R.id.toggle_on_off);
-		tv_starttime = (TextView) findViewById(R.id.input_task_starttime);
-		tv_finishtime = (TextView) findViewById(R.id.input_task_finishtime);
+		tv_starttime = (EditText) findViewById(R.id.input_task_starttime);
+		tv_finishtime = (EditText) findViewById(R.id.input_task_finishtime);
 		ly_add_img = (LinearLayout) findViewById(R.id.ly_add_img);
 		ly_clock = (LinearLayout) findViewById(R.id.ly_clock);
 		ly_repeat = (LinearLayout) findViewById(R.id.ly_repeat);
@@ -80,17 +84,24 @@ public class B3_1_RenWuPublishTaskActivity extends BaseActivity {
 
 			break;
 		case R.id.input_task_starttime:// 开始时间
-
+			 DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(  
+                     B3_1_RenWuPublishTaskActivity.this, initEndDateTime);  
+             dateTimePicKDialog.dateTimePicKDialog( tv_starttime);  
 			break;
 		case R.id.input_task_finishtime:// 结束时间
-
+			 DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(  
+					 B3_1_RenWuPublishTaskActivity.this, initEndDateTime);  
+             dateTimePicKDialog2.dateTimePicKDialog(tv_finishtime); 
+			
+			
 			break;
 		case R.id.ly_clock:// 设置提醒
 			startActivity(new Intent(B3_1_RenWuPublishTaskActivity.this,
 					B3_1_1_TiXingActivity.class));
 			break;
 		case R.id.ly_repeat:// 设置重复
-
+			startActivity(new Intent(B3_1_RenWuPublishTaskActivity.this,
+					B3_1_1_RepeatActivity.class));
 			break;
 		case R.id.ly_dingwei:// 设置定位
 

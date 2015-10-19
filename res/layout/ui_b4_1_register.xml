@@ -26,7 +26,7 @@
             <EditText
                 android:id="@+id/user_mobile"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/thirty_five"
+                android:layout_height="@dimen/forty_five"
                 android:layout_weight="1"
                 android:background="@drawable/bg_null_white"
                 android:hint="@string/user_mobile"
@@ -36,13 +36,12 @@
             <Button
                 android:id="@+id/idenfy_code"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/twenty_five"
+                android:layout_height="@dimen/thirty_five"
                 android:background="@drawable/bg_null_grey"
-                android:layout_marginBottom="@dimen/five"
-                android:padding="@dimen/five"
+                android:layout_marginBottom="@dimen/two"
                 android:text="@string/get_code"
                 android:textColor="@color/text_Btn_color"
-                android:textSize="@dimen/fourteen" />
+                android:textSize="@dimen/fifteen" />
         </LinearLayout>
 
         <View
@@ -61,7 +60,7 @@
         <EditText
             android:id="@+id/user_mobile_code"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/thirty_five"
+            android:layout_height="@dimen/forty_five"
             android:background="@drawable/bg_null_white"
             android:hint="@string/mobile_code"
             android:inputType="textPassword"
@@ -83,7 +82,7 @@
         <EditText
             android:id="@+id/user_new_password"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/thirty_five"
+            android:layout_height="@dimen/forty_five"
             android:background="@drawable/bg_null_white"
             android:hint="@string/new_pass"
             android:inputType="textPassword"
@@ -105,7 +104,7 @@
         <EditText
             android:id="@+id/user_comfirm_password"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/thirty_five"
+            android:layout_height="@dimen/forty_five"
             android:background="@drawable/bg_null_white"
             android:hint="@string/comfirm_pass"
             android:inputType="textPassword"
