@@ -12,9 +12,10 @@
 	    <ImageView 
 	        android:id="@+id/left_ico"
 		    android:layout_width="wrap_content"
-		    android:layout_height="@dimen/thirty"
+		    android:layout_height="@dimen/twenty_eight"
 		    android:layout_centerVertical="true"
 		    android:layout_marginLeft="@dimen/ten"
+		    android:layout_marginRight="@dimen/three"
 		    android:contentDescription="@string/app_name"
 		    android:src="@drawable/avatar_ico"/>
         <com.zykj.hihome.utils.CircularImage
@@ -23,7 +24,7 @@
             android:layout_height="@dimen/thirty_five"
             android:layout_toRightOf="@id/left_ico"
 		    android:layout_centerVertical="true"
-            android:background="@drawable/buerhaitao"/>
+            android:background="@drawable/gerentouxiang"/>
         <TextView 
             style="@style/title_head"
             android:text="@string/friend_title"/>
@@ -40,7 +41,7 @@
 	</RelativeLayout>
 	<RelativeLayout 
 	    android:layout_width="match_parent"
-	    android:layout_height="@dimen/forty_five"
+	    android:layout_height="@dimen/forty"
 	    android:layout_marginLeft="@dimen/ten"
 	    android:layout_marginRight="@dimen/ten"
 	    android:layout_marginTop="@dimen/five"
@@ -50,6 +51,7 @@
 		    android:layout_width="match_parent"
 		    android:layout_height="match_parent"
 		    android:padding="@dimen/five"
+		    android:background="@drawable/bg_round_white"
 	    	android:inputType="text"/>
         <TextView
             android:layout_width="wrap_content"

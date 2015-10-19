@@ -2,7 +2,6 @@ package com.zykj.hihome;
 
 import java.util.List;
 
-import android.R.integer;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

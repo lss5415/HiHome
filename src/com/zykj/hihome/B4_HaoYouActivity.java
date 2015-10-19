@@ -1,6 +1,5 @@
 package com.zykj.hihome;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -8,13 +7,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -22,23 +22,32 @@ import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.data.Friend;
 import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.HttpUtils;
+import com.zykj.hihome.utils.StringUtil;
+import com.zykj.hihome.utils.Tools;
 
 /**
  * @author lss 2015年8月8日	我的
  *
  */
-public class B4_HaoYouActivity extends BaseActivity {
+public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListener{
 	
 	private CircularImage rv_me_avatar;
 	private ImageView add_friend;
 	private EditText firend_search;
 	private ListView friend_list;
+	private List<Friend> friends;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initView(R.layout.ui_b4_haoyou);
 		
 		initView();
+		requestData();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		requestData();
 	}
 
@@ -51,6 +60,8 @@ public class B4_HaoYouActivity extends BaseActivity {
 		firend_search = (EditText)findViewById(R.id.firend_search);//搜索
 		
 		friend_list = (ListView)findViewById(R.id.friend_list);//搜索
+		friend_list.setDividerHeight(0);
+		friend_list.setOnItemClickListener(this);
 		setListener(rv_me_avatar, add_friend);
 	}
 
@@ -63,25 +74,21 @@ public class B4_HaoYouActivity extends BaseActivity {
 					int code = response.getInt("code");
 					if(code == 200){
 						JSONArray JSONArray = response.getJSONObject("datas").getJSONArray("list");
-						final List<Friend> friends = JSON.parseArray(JSONArray.toString(), Friend.class);
-						friend_list.setAdapter(new BaseAdapter() {
+						friends = JSON.parseArray(JSONArray.toString(), Friend.class);
+						friends.add(new Friend("通讯录"));
+						friend_list.setAdapter(new CommonAdapter<Friend>(B4_HaoYouActivity.this, R.layout.ui_b4_haoyou_item, friends) {
 							@Override
-							public int getCount() {
-								return friends.size();
-							}
-							@Override
-							public Friend getItem(int position) {
-								return friends.get(position);
-							}
-							@Override
-							public long getItemId(int checkedId) {
-								return 0;
-							}
-							@Override
-							public View getView(int arg0, View arg1, ViewGroup arg2) {
-								return null;
+							public void convert(ViewHolder holder, Friend friend) {
+								if(holder.getPosition() == 0){
+									holder.setImageView(R.id.aci_image, R.drawable.tongxunlu);
+								}else{
+									holder.setImageUrl(R.id.aci_image, StringUtil.toString(friend.getAvatar(), "http://"), 10f);
+								}
+								holder.setText(R.id.aci_name, friend.getNick());
 							}
 						});
+					}else{
+						Tools.toast(B4_HaoYouActivity.this, "没有好友");
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -98,9 +105,19 @@ public class B4_HaoYouActivity extends BaseActivity {
 			break;
 		case R.id.add_friend:
 			/*点击添加好友*/
+			startActivity(new Intent(this, B4_2_HaoYouAddActivity.class));
 			break;
 		default:
 			break;
+		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parentView, View currentView, int position, long id) {
+		if(position == 0){
+			startActivity(new Intent(this, B4_2_TongXunLuActivity.class));
+		}else{
+			Tools.toast(this, friends.get(position).getNick());
 		}
 	}
 }

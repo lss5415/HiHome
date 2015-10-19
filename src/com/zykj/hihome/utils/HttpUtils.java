@@ -35,14 +35,22 @@ public class HttpUtils {
 	 * @param userId 用户Id
 	 */
 	public static void getFriendsList(AsyncHttpResponseHandler res, String userId) {
-		client.get(base_url + "c=friend&a=getList&state=1&uid=" + userId, res);
+		client.get(base_url + "c=friend&a=getList&uid=" + userId, res);/*&state=1*/
 	}
 
 	/**
-	 * 1 添加好友
+	 * 2 添加好友
 	 * @param params参数(fid 要添加好友的ID编号,uid用户ID编号,intro 备注信息)
 	 */
 	public static void addFriend(AsyncHttpResponseHandler res, RequestParams params) {
 		client.post(base_url + "c=friend&a=addFriend", params, res);
+	}
+
+	/**
+	 * 3 搜索联系人
+	 * @param params参数(keys 搜索关键词,uid(非必须),nowpage(非必须),perpage(非必须))
+	 */
+	public static void getSearchUser(AsyncHttpResponseHandler res, RequestParams params) {
+		client.post(base_url + "c=user&a=getSearchUser", params, res);
 	}
 }

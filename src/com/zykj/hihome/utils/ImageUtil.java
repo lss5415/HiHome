@@ -115,9 +115,9 @@ public class ImageUtil {
 
 	public static DisplayImageOptions getLogoOptions(boolean round) {
 		DisplayImageOptions.Builder m_options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.icon_image_default)
-				.showImageForEmptyUri(R.drawable.icon_image_default)
-				.showImageOnFail(R.drawable.icon_image_default).cacheInMemory(true)
+				.showImageOnLoading(R.drawable.buerhaitao)
+				.showImageForEmptyUri(R.drawable.buerhaitao)
+				.showImageOnFail(R.drawable.buerhaitao).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true);
 		if (round) {// 如果是圆角
 			m_options.displayer(new RoundedBitmapDisplayer(5));
@@ -133,9 +133,9 @@ public class ImageUtil {
 	 */
 	public static DisplayImageOptions getGoodsOptions(boolean round) {
 		DisplayImageOptions.Builder m_options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.icon_image_default)
-				.showImageForEmptyUri(R.drawable.icon_image_default)
-				.showImageOnFail(R.drawable.icon_image_default).cacheInMemory(true)
+				.showImageOnLoading(R.drawable.buerhaitao)
+				.showImageForEmptyUri(R.drawable.buerhaitao)
+				.showImageOnFail(R.drawable.buerhaitao).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true);
 		if (round) {// 如果是圆角
 			m_options.displayer(new RoundedBitmapDisplayer(5));

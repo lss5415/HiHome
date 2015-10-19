@@ -16,6 +16,12 @@ public class Friend implements Serializable{
 	private String sex;//好友性别
 	private String age;//好友年龄
 	private String sign;//好友签名
+	
+	public Friend(){
+	}
+	public Friend(String nick) {
+		this.nick = nick;
+	}
 	public String getId() {
 		return id;
 	}
