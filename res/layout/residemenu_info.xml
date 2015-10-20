@@ -10,7 +10,7 @@
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical" >
 
-        <com.zykj.hihome.util.CircularImage
+        <com.zykj.hihome.utils.CircularImage
             android:id="@+id/image_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
