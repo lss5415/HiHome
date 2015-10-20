@@ -61,13 +61,13 @@ public class B3_RenWuActivity extends BaseActivity {
 			startActivity(new Intent(B3_RenWuActivity.this,
 					B3_RenWuPublishTaskActivity.class));
 			break;
-		case R.id.radio_selfTask:// 发布任务
+		case R.id.radio_selfTask:// 自己发布的任务
 			
 			break;
-		case R.id.radio_receiveTask:// 发布任务
+		case R.id.radio_receiveTask:// 接受的任务
 	
 			break;
-		case R.id.radio_publishTask:// 发布任务
+		case R.id.radio_publishTask:// 发布的任务
 		
 			break;
 		default:
