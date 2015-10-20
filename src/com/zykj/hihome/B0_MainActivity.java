@@ -12,7 +12,7 @@ import com.zykj.hihome.ResideMenu.ResideMenu;
 import com.zykj.hihome.ResideMenu.ResideMenuInfo;
 import com.zykj.hihome.ResideMenu.ResideMenuItem;
 import com.zykj.hihome.base.BaseTabActivity;
-import com.zykj.hihome.util.Tools;
+import com.zykj.hihome.utils.Tools;
 
 /**
  * @author lss 2015年8月8日 控制底部栏 Activity

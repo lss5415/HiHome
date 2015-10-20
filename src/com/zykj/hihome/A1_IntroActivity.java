@@ -12,7 +12,7 @@ import android.widget.ImageView.ScaleType;
 
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.data.AppValue;
-import com.zykj.hihome.util.Tools;
+import com.zykj.hihome.utils.Tools;
 
 /**
  * @author lss 2015年8月8日 	引导图

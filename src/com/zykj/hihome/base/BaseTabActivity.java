@@ -11,7 +11,7 @@ import android.os.Environment;
 import android.view.KeyEvent;
 
 import com.zykj.hihome.data.AppValue;
-import com.zykj.hihome.util.Tools;
+import com.zykj.hihome.utils.Tools;
 
 public class BaseTabActivity extends TabActivity {
 	protected void onCreate(Bundle savedInstanceState) {

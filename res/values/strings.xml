@@ -5,4 +5,64 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- 登录 -->
+    <string name="title">标题</string>
+    <string name="edit">编辑</string>
+    <string name="login">登录</string>
+    <string name="new_user">新用户注册</string>
+    <string name="forget_pass">忘记密码</string>
+    <string name="no_three_login">你可以使用第三方登录</string>
+    <string name="qq">QQ</string>
+    <string name="weixin">微信</string>
+    <string name="user_name">名称</string>
+    <string name="user_code">序列号</string>
+    <string name="user_sex">性别</string>
+    <string name="man">男</string>
+    <string name="woman">女</string>
+    <string name="user_age">年龄</string>
+    <string name="user_sign">签名</string>
+    <string name="user_hint_name">请输入您的名称</string>
+    <string name="user_hint_age">请输入您的年龄</string>
+    <string name="user_hint_sign">请输入您的签名</string>
+    <string name="user_mobile">请输入您的手机号</string>
+    <string name="mobile_code">请输入您的验证码</string>
+    <string name="get_code">获取验证码</string>
+    <string name="new_pass">请输入您的新密码</string>
+    <string name="comfirm_pass">请再次输入您的新密码</string>
+    <string name="service_protocol">服务协议</string>
+    <string name="secret_policy">隐私政策</string>
+    <string name="comfirm">确定</string>
+
+    <!-- 任务 -->
+    <string name="task_name">任务名字：</string>
+    <string name="task_state">任务状态：</string>
+    <string name="task_input_name">请输入任务名</string>
+    <string name="task_excutor">执行人：</string>
+    <string name="task_publisher">发布人：</string>
+    <string name="task_input_excutor">请输入执行人</string>
+    <string name="task_input_content">请输入任务内容！</string>
+    <string name="task_check_all_day">是否创建全体日程</string>
+    <string name="task_start_time">开始时间</string>
+    <string name="task_input_start_time">请输入开始时间</string>
+    <string name="task_finish_time">结束时间</string>
+    <string name="task_input_finish_time">请输入结束时间</string>
+    <string name="task_tixing">提醒</string>
+    <string name="task_repeat">重复</string>
+    <string name="task_dingwei">位置</string>
+    <string name="anniversary_input_head">请上传头像</string>
+    <string name="anniversary_title">纪念日标题：</string>
+    <string name="anniversary_input_tilte">请输入纪念日标题</string>
+    <string name="anniversary_date">日期选择：</string>
+    <string name="anniversary_input_date">请选择日期</string>
+    <string name="anniversary_content">请输入纪念日内容</string>
+    <string name="yuandan">元旦，即世界多数国家通称的“新年”，是公历新一年的第一天。元，谓“首”；旦，谓“日”；“元旦”意即“首日”。“元旦”一词最早出现于《晋书》，但其含义已经沿用4000多年。[1]  中国古代曾以腊月、十月等的月首为元旦，汉武帝起为农历1月1日，中华民国起为公历1月1日，1949年中华人民共和国亦以公历1月1日为元旦，因此元旦在中国也被称为“阳历年”。</string>
+
+    <!-- 好友 -->
+    <string name="friend_title">好友</string>
+    <string name="friend_search">搜索</string>
+    <string name="friend_find">查找</string>
+    <string name="friend_name">请输入家和的账号</string>
+    <string name="friend_link"><u>点击此处邀请好友加入</u></string>
+    <string name="friend_search_info">没有找到符合搜索条件的用户</string>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.zykj.hihome.util;
+package com.zykj.hihome.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

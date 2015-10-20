@@ -14,7 +14,7 @@
 
         <include layout="@layout/layout_head" />
 
-        <com.zykj.hihome.util.CircularImage
+        <com.zykj.hihome.utils.CircularImage
             android:id="@+id/img_head"
             android:layout_width="35dp"
             android:layout_height="35dp"
