@@ -127,8 +127,7 @@ public class B4_2_TongXunLuActivity extends BaseActivity {
 			if(result==1){
 				mLoadingView.setVisibility(View.GONE);
 				List<String> constact = new ArrayList<String>();
-				for (Iterator<String> keys = callRecords.keySet().iterator(); keys
-						.hasNext();) {
+				for (Iterator<String> keys = callRecords.keySet().iterator(); keys.hasNext();) {
 					String key = keys.next();
 					constact.add(key);
 				}
