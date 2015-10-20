@@ -22,7 +22,7 @@ import com.zykj.hihome.view.MyCommonTitle;
 
 public class B3_RenWuCreateAnniversaryActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
-	private ImageView img_photo, img_camere, img_input_contentimg;
+	private ImageView img_photo, img_camere, img_input_contentimg,img_avator;
 	private LinearLayout ly_add_img;
 	private TextView tv_anniversaryTitle, tv_selecttime;
 
@@ -43,11 +43,12 @@ public class B3_RenWuCreateAnniversaryActivity extends BaseActivity {
 		myCommonTitle.setEditTitle("完成");
 		tv_anniversaryTitle = (TextView) findViewById(R.id.input_anniversaryl_title);
 		tv_selecttime = (TextView) findViewById(R.id.input_selectdate);
-
-		img_input_contentimg = (ImageView) findViewById(R.id.img_input_contentimg);
-		img_photo = (ImageView) findViewById(R.id.img_photo);
-		img_camere = (ImageView) findViewById(R.id.img_camere);
-		ly_add_img = (LinearLayout) findViewById(R.id.ly_add_img);
+		
+		img_avator=(ImageView) findViewById(R.id.img_avator);//上传头像
+		img_input_contentimg = (ImageView) findViewById(R.id.img_input_contentimg);//添加图片
+		img_photo = (ImageView) findViewById(R.id.img_photo);//上传相册图片
+		img_camere = (ImageView) findViewById(R.id.img_camere);//启动相机上传图片
+		ly_add_img = (LinearLayout) findViewById(R.id.ly_add_img);//上传图片的LinearLayout
 
 		setListener(tv_selecttime, img_input_contentimg, img_photo, img_camere);
 	}
@@ -59,7 +60,8 @@ public class B3_RenWuCreateAnniversaryActivity extends BaseActivity {
 
 			break;
 		case R.id.img_input_contentimg:// 为内容添加图片,因为添加图片的控件隐藏了，先设置ly_add_img可见
-
+			ly_add_img.setVisibility(View.VISIBLE);
+			img_input_contentimg.setVisibility(View.GONE);
 			break;
 		case R.id.img_photo:// 调用手机相册
 			Intent photoIntent = new Intent(Intent.ACTION_PICK, null);
