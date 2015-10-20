@@ -94,6 +94,10 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
+            android:name="com.zykj.hihome.B4_2_TongXunLuActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
             android:name="com.zykj.hihome.B4_1_LoginActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />

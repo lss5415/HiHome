@@ -75,7 +75,7 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 					if(code == 200){
 						JSONArray JSONArray = response.getJSONObject("datas").getJSONArray("list");
 						friends = JSON.parseArray(JSONArray.toString(), Friend.class);
-						friends.add(new Friend("通讯录"));
+						friends.add(0, new Friend("通讯录"));
 						friend_list.setAdapter(new CommonAdapter<Friend>(B4_HaoYouActivity.this, R.layout.ui_b4_haoyou_item, friends) {
 							@Override
 							public void convert(ViewHolder holder, Friend friend) {

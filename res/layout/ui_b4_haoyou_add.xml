@@ -13,7 +13,7 @@
     
     <RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/fifty"
+		android:layout_height="@dimen/forty_five"
         android:layout_margin="@dimen/fifteen">
 		<Button 
 		    android:id="@+id/aci_button"
@@ -21,7 +21,7 @@
 	        android:layout_height="match_parent"
 	        android:layout_alignParentRight="true"
 	        android:text="@string/friend_find"
-	        android:textSize="@dimen/twenty"
+	        android:textSize="@dimen/eighteen"
 	        android:textColor="@color/white"
 	        android:background="@drawable/bg_round_theme"/>
 		<EditText 
@@ -34,8 +34,8 @@
 	        android:hint="@string/friend_name"
 	        android:layout_toLeftOf="@id/aci_button"/>
 		<ImageView 
-			android:layout_width="@dimen/twenty_five"
-	        android:layout_height="@dimen/twenty_five"
+			android:layout_width="@dimen/twenty"
+	        android:layout_height="@dimen/twenty"
 	        android:layout_centerVertical="true"
 	        android:layout_marginLeft="@dimen/five"
 	        android:contentDescription="@string/app_name"
@@ -56,7 +56,8 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="@dimen/one_hundred"
 	        android:gravity="bottom|center_horizontal"
-	        android:text="@string/friend_search_info"/>
+	        android:text="@string/friend_search_info"
+	        android:textColor="@color/gray_font"/>
 	    <TextView 
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
