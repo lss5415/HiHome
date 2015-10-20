@@ -34,10 +34,11 @@
     <string name="comfirm">确定</string>
 
     <!-- 任务 -->
-    <string name="task_name">任务名：</string>
+    <string name="task_name">任务名字：</string>
     <string name="task_state">任务状态：</string>
     <string name="task_input_name">请输入任务名</string>
     <string name="task_excutor">执行人：</string>
+    <string name="task_publisher">发布人：</string>
     <string name="task_input_excutor">请输入执行人</string>
     <string name="task_input_content">请输入任务内容！</string>
     <string name="task_check_all_day">是否创建全体日程</string>
