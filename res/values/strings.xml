@@ -34,6 +34,10 @@
     <string name="comfirm">确定</string>
 
     <!-- 任务 -->
+    <string name="task">任务</string>
+    <string name="task_self">自己的任务</string>
+    <string name="task_reserve">接受的任务</string>
+    <string name="task_send">发布的任务</string>
     <string name="task_name">任务名字：</string>
     <string name="task_state">任务状态：</string>
     <string name="task_input_name">请输入任务名</string>

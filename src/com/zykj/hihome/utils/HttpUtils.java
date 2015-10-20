@@ -75,4 +75,11 @@ public class HttpUtils {
 	public static void getAnnversaryInfo(AsyncHttpResponseHandler res, RequestParams params) {
 		client.post(base_url + "c=memorial&a=getInfo", params, res);
 	}
+	/**
+	 * 6 获取任务列表
+	 * @param params参数uid----用户id
+	 */
+	public static void getTasks(AsyncHttpResponseHandler res, RequestParams params) {
+		client.post(base_url + "c=task&a=getList", params, res);
+	}
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp" >
+
+    <com.zykj.hihome.utils.CircularImage
+        android:id="@+id/rv_me_avatar"
+        android:layout_width="@dimen/fifty"
+        android:layout_height="@dimen/fifty"
+        android:background="@drawable/gerentouxiang"/>
+    
+    <View
+        android:id="@+id/divide"
+        android:layout_width="0.5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="match_parent"
+        android:background="@color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="元旦"
+            android:textSize="@dimen/t_eighteen"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_marginTop="@dimen/five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="2005年1月1日" />
+    </LinearLayout>
+</LinearLayout>
