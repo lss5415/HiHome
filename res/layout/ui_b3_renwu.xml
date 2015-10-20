@@ -3,24 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/theme_color"
+        android:background="@color/theme_colorhuang"
         android:paddingBottom="5dp"
         android:paddingTop="5dp" >
+
         <com.zykj.hihome.utils.CircularImage
-            android:id="@+id/rv_me_avatar"
-            android:layout_width="@dimen/thirty_five"
+          android:layout_width="@dimen/thirty_five"
             android:layout_height="@dimen/thirty_five"
-            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/left_ico"
+            android:layout_marginLeft="15dp"
 		    android:layout_centerVertical="true"
             android:background="@drawable/gerentouxiang"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/task"
+            android:text="任务"
             android:textSize="16sp"
             android:textColor="@color/white" />
 
@@ -31,7 +34,7 @@
             android:layout_height="@dimen/thirty"
             android:src="@drawable/ic_create_anniversary"
             android:layout_toLeftOf="@+id/img_publish_task"
-            android:layout_marginRight="@dimen/ten"/>
+            android:layout_marginRight="25dp"/>
 
         <ImageView
             android:contentDescription="@string/app_name"
@@ -39,20 +42,20 @@
             android:layout_width="@dimen/thirty"
             android:layout_height="@dimen/thirty"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/ten"
+            android:layout_marginRight="15dp"
             android:src="@drawable/ic_publish_task" />
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white" >
-
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
         <RadioGroup
             android:id="@+id/tab_rwGroup"
             android:layout_width="match_parent"
             android:layout_height="@dimen/eighty"
             android:orientation="horizontal"
+            android:gravity="center_horizontal"
             android:paddingBottom="5dp"
             android:paddingTop="5dp" >
 
@@ -61,7 +64,7 @@
                 style="@style/tab_rw_button"
                 android:checked="true"
                 android:drawableTop="@drawable/tab_rw_self"
-                android:text="@string/task_self" />
+                android:text="自己的任务" />
 
             <View
                 android:layout_width="1dp"
@@ -72,7 +75,7 @@
                 android:id="@+id/radio_receiveTask"
                 style="@style/tab_rw_button"
                 android:drawableTop="@drawable/tab_rw_receive"
-                android:text="@string/task_reserve" />
+                android:text="接受的任务" />
 
             <View
                 android:layout_width="1dp"
@@ -83,12 +86,15 @@
                 android:id="@+id/radio_publishTask"
                 style="@style/tab_rw_button"
                 android:drawableTop="@drawable/tab_rw_publish"
-                android:text="@string/task_send" />
+                android:text="发布的任务" />
         </RadioGroup>
-    </LinearLayout>
-    <FrameLayout
-        android:id="@+id/renwu_framelayout"
+    <View 
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
+        android:layout_height="1dp"
+        android:background="@color/divide_color_grey"/>
+    <ListView 
+        android:id="@+id/list_renwu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
 </LinearLayout>
