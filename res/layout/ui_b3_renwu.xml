@@ -3,27 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    
-    
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/theme_color"
         android:paddingBottom="5dp"
         android:paddingTop="5dp" >
-
-        <ImageView
-            android:layout_width="@dimen/thirty"
-            android:layout_height="@dimen/thirty"
+        <com.zykj.hihome.utils.CircularImage
+            android:id="@+id/rv_me_avatar"
+            android:layout_width="@dimen/thirty_five"
+            android:layout_height="@dimen/thirty_five"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_user_avtor" />
-
+		    android:layout_centerVertical="true"
+            android:background="@drawable/gerentouxiang"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="任务"
+            android:text="@string/task"
             android:textSize="16sp"
             android:textColor="@color/white" />
 
@@ -34,7 +31,7 @@
             android:layout_height="@dimen/thirty"
             android:src="@drawable/ic_create_anniversary"
             android:layout_toLeftOf="@+id/img_publish_task"
-            android:layout_marginRight="25dp"/>
+            android:layout_marginRight="@dimen/ten"/>
 
         <ImageView
             android:contentDescription="@string/app_name"
@@ -42,7 +39,7 @@
             android:layout_width="@dimen/thirty"
             android:layout_height="@dimen/thirty"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="@dimen/ten"
             android:src="@drawable/ic_publish_task" />
     </RelativeLayout>
 
@@ -64,7 +61,7 @@
                 style="@style/tab_rw_button"
                 android:checked="true"
                 android:drawableTop="@drawable/tab_rw_self"
-                android:text="自己的任务" />
+                android:text="@string/task_self" />
 
             <View
                 android:layout_width="1dp"
@@ -75,7 +72,7 @@
                 android:id="@+id/radio_receiveTask"
                 style="@style/tab_rw_button"
                 android:drawableTop="@drawable/tab_rw_receive"
-                android:text="接受的任务" />
+                android:text="@string/task_reserve" />
 
             <View
                 android:layout_width="1dp"
@@ -86,12 +83,12 @@
                 android:id="@+id/radio_publishTask"
                 style="@style/tab_rw_button"
                 android:drawableTop="@drawable/tab_rw_publish"
-                android:text="发布的任务" />
+                android:text="@string/task_send" />
         </RadioGroup>
     </LinearLayout>
-    
-    <ListView 
-        android:id="@+id/list_renwu"
+    <FrameLayout
+        android:id="@+id/renwu_framelayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+    </FrameLayout>
 </LinearLayout>
