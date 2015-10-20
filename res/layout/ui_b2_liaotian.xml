@@ -16,8 +16,8 @@
 
         <com.zykj.hihome.utils.CircularImage
             android:id="@+id/img_head"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:background="@drawable/gerentouxiang" />

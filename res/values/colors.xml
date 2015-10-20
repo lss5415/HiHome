@@ -11,9 +11,10 @@
     <color name="tab_font_select">#ED6D00</color>
     <color name="index_type_font_color">#ED6D00</color>
     <color name="background_color">#f5f0ea</color>
-    <color name="theme_color">#EA5414</color>
+    <color name="theme_color">#B5884d</color> 
+    <color name="theme_colorhuang">#EA5414</color> 
+    <color name="edit_hint_color">#B3B3B3</color>
     <color name="divide_color_grey">#EEEEEE</color>
-    <color name="edit_hint_color">#B4B4B4</color>
     <color name="all_huang_color">#ED6D00</color>
     <color name="yellow">#ffED6D00</color>
     <color name="result_view">#b0000000</color>

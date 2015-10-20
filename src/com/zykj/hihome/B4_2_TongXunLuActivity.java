@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import com.zykj.hihome.utils.ConstactUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.CharacterParser;
 import com.zykj.hihome.view.LoadingView;
+import com.zykj.hihome.view.MyCommonTitle;
 import com.zykj.hihome.view.PinyinComparator;
 import com.zykj.hihome.view.SideBar;
 import com.zykj.hihome.view.SideBar.OnTouchingLetterChangedListener;
@@ -34,6 +36,8 @@ import com.zykj.hihome.view.SideBar.OnTouchingLetterChangedListener;
  */
 public class B4_2_TongXunLuActivity extends BaseActivity {
 
+	private MyCommonTitle myCommonTitle;
+	private LinearLayout resultdata;
 	private LoadingView mLoadingView;
 	private ListView sortListView;
 	private SideBar sideBar;
@@ -63,7 +67,11 @@ public class B4_2_TongXunLuActivity extends BaseActivity {
 	 * 初始化页面
 	 */
 	public void initView() {
-		mLoadingView=(LoadingView) findViewById(R.id.loading);
+		myCommonTitle = (MyCommonTitle) findViewById(R.id.aci_mytitle);//查询字段
+		myCommonTitle.setTitle("通讯录");
+		
+		resultdata = (LinearLayout) findViewById(R.id.resultdata);
+		mLoadingView = (LoadingView) findViewById(R.id.loading);
 		sideBar = (SideBar) findViewById(R.id.sidrbar);
 		dialog = (TextView) findViewById(R.id.dialog);
 		sortListView = (ListView)findViewById(R.id.country_lvcountry);
