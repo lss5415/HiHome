@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <!-- 导入title -->
+
+        <include layout="@layout/layout_head" />
+
+        <ImageView 
+            android:id="@+id/im_b106_back"
+            android:layout_width="33dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/fanhui"/>
+
+        <TextView
+            style="@style/title_head"
+            android:text="绑定配偶" />
+    </RelativeLayout>
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
+        android:textSize="18sp"
+        android:text="请您填写另一半的手机号和家和的账号进行绑定"/>
+    <EditText 
+        android:id="@+id/et_bangding"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="#EEE"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="10dp"
+        android:hint="请填写对方的账号或手机号"/>
+    <TextView 
+        android:id="@+id/tv_queding"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/theme_colorhuang"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="#FFF"
+        android:text="确定"/>
+
+</LinearLayout>

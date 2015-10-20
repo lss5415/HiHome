@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#EEE" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <!-- 导入title -->
+
+                <include layout="@layout/layout_head" />
+
+                <ImageView
+                    android:id="@+id/im_b105_back"
+                    android:layout_width="33dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/fanhui" />
+
+                <TextView
+                    style="@style/title_head"
+                    android:text="设置" />
+            </RelativeLayout>
+
+            <LinearLayout 
+                android:layout_width="fill_parent" 
+                android:layout_height="45dp"
+                android:background="#FFF">
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#666"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="16sp"
+                    android:text="任务权限"/>
+                <RelativeLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    
+                <ImageView 
+                    android:layout_width="17dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/youjiantou"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <View 
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#C1C1C1"/>
+            
+            <LinearLayout 
+                android:layout_width="fill_parent" 
+                android:layout_height="45dp"
+                android:background="#FFF">
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#666"
+                    android:textSize="16sp"
+                    android:text="消息通知"/>
+                <RelativeLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    
+                <ImageView 
+                    android:layout_width="17dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/youjiantou"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <View 
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#C1C1C1"/>
+            
+            <LinearLayout 
+                android:layout_width="fill_parent" 
+                android:layout_height="45dp"
+                android:background="#FFF">
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#666"
+                    android:textSize="16sp"
+                    android:text="声音通知"/>
+                <RelativeLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    
+                <ImageView 
+                    android:layout_width="17dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/youjiantou"/>
+                </RelativeLayout>
+            </LinearLayout>
+            
+            
+            <LinearLayout 
+                android:layout_width="fill_parent" 
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="#FFF">
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="16sp"
+                    android:textColor="#666"
+                    android:text="聊天记录"/>
+                <RelativeLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    
+                <ImageView 
+                    android:layout_width="17dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/youjiantou"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <View 
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#C1C1C1"/>
+            <LinearLayout 
+                android:layout_width="fill_parent" 
+                android:layout_height="45dp"
+                android:background="#FFF">
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#666"
+                    android:textSize="16sp"
+                    android:text="版本更新"/>
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="#666"
+                    android:textSize="16sp"
+                    android:text="v2.0"/>
+            </LinearLayout>
+            
+            <LinearLayout 
+                android:layout_width="fill_parent" 
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="#FFF">
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="16sp"
+                    android:textColor="#666"
+                    android:text="功能介绍"/>
+                <RelativeLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    
+                <ImageView 
+                    android:layout_width="17dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/youjiantou"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <View 
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#C1C1C1"/>
+            
+            <LinearLayout 
+                android:layout_width="fill_parent" 
+                android:layout_height="45dp"
+                android:background="#FFF">
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#666"
+                    android:textSize="16sp"
+                    android:text="帮助与反馈"/>
+                <RelativeLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    
+                <ImageView 
+                    android:layout_width="17dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/youjiantou"/>
+                </RelativeLayout>
+            </LinearLayout>
+            
+            <LinearLayout 
+                android:layout_width="fill_parent" 
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="#FFF">
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="16sp"
+                    android:textColor="#666"
+                    android:text="注销登录"/>
+                <RelativeLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    
+                <ImageView 
+                    android:layout_width="17dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/youjiantou"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <View 
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#C1C1C1"/>
+            
+            <LinearLayout 
+                android:layout_width="fill_parent" 
+                android:layout_height="45dp"
+                android:background="#FFF">
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#666"
+                    android:textSize="16sp"
+                    android:text="退出账号"/>
+                <RelativeLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    
+                <ImageView 
+                    android:layout_width="17dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/youjiantou"/>
+                </RelativeLayout>
+            </LinearLayout>
+            
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

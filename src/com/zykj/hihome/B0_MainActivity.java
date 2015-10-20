@@ -2,19 +2,24 @@ package com.zykj.hihome;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
 
+import com.zykj.hihome.ResideMenu.ResideMenu;
+import com.zykj.hihome.ResideMenu.ResideMenuInfo;
+import com.zykj.hihome.ResideMenu.ResideMenuItem;
 import com.zykj.hihome.base.BaseTabActivity;
 import com.zykj.hihome.util.Tools;
 
 /**
- * @author lss 2015年8月8日	控制底部栏 Activity
- *
+ * @author lss 2015年8月8日 控制底部栏 Activity
+ * 
  */
-public class B0_MainActivity extends BaseTabActivity {
+public class B0_MainActivity extends BaseTabActivity implements
+		View.OnClickListener {
 	public TabHost m_tab;
 	private Intent intent_1;
 	private Intent intent_2;
@@ -29,14 +34,84 @@ public class B0_MainActivity extends BaseTabActivity {
 	private RadioButton m_radio_faxian;
 	private RadioButton m_radio_wode;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.tabs_b0_layout);
+	private ResideMenu resideMenu;
+	private ResideMenuItem itemJiNianRi;
+	private ResideMenuItem itemZhouRenWu;
+	private ResideMenuItem itemYueRenWu;
+	private ResideMenuItem itemXiangCe;
+	private ResideMenuItem itemSheZhi;
+	private ResideMenuItem itemPeiOu;
+
+	private ResideMenuInfo info;
+	private boolean is_closed = false;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.tabs_b0_layout);
 		m_tab = getTabHost();
 		initView();
+		setUpMenu();
+		setListener();
 
-    }
+	}
+
+	@SuppressWarnings("deprecation")
+	private void setUpMenu() {
+		// attach to current activity;
+		resideMenu = new ResideMenu(this);
+		resideMenu.setBackground(R.drawable.menu_background);
+		resideMenu.attachToActivity(this);
+		resideMenu.setMenuListener(menuListener);
+		// valid scale factor is between 0.0f and 1.0f. leftmenu'width is
+		// 150dip.
+		resideMenu.setScaleValue(0.6f);
+		// 禁止使用右侧菜单
+		resideMenu.setDirectionDisable(ResideMenu.DIRECTION_RIGHT);
+
+		// create menu items;
+		itemJiNianRi = new ResideMenuItem(this, R.drawable.ic_launcher, "纪念日总览");
+		itemZhouRenWu = new ResideMenuItem(this, R.drawable.ic_launcher, "周任务总览");
+		itemYueRenWu = new ResideMenuItem(this, R.drawable.ic_launcher, "月任务总览");
+		itemXiangCe = new ResideMenuItem(this, R.drawable.ic_launcher, "相册");
+		itemSheZhi = new ResideMenuItem(this, R.drawable.ic_launcher, "设置");
+		itemPeiOu = new ResideMenuItem(this, R.drawable.ic_launcher, "绑定配偶");
+
+		resideMenu.addMenuItem(itemJiNianRi, ResideMenu.DIRECTION_LEFT);
+		resideMenu.addMenuItem(itemZhouRenWu, ResideMenu.DIRECTION_LEFT);
+		resideMenu.addMenuItem(itemYueRenWu, ResideMenu.DIRECTION_LEFT);
+		resideMenu.addMenuItem(itemXiangCe, ResideMenu.DIRECTION_LEFT);
+		resideMenu.addMenuItem(itemSheZhi, ResideMenu.DIRECTION_LEFT);
+		resideMenu.addMenuItem(itemPeiOu, ResideMenu.DIRECTION_LEFT);
+
+		info = new ResideMenuInfo(this, R.drawable.gerentouxiang, "唐嫣爱糖糖","努力做好自己，为自己而努力");
+
+	}
+
+	private ResideMenu.OnMenuListener menuListener = new ResideMenu.OnMenuListener() {
+		@Override
+		public void openMenu() {
+			is_closed = false;
+		}
+
+		@Override
+		public void closeMenu() {
+			is_closed = true;
+		}
+	};
+
+	private void setListener() {
+		resideMenu.addMenuInfo(info);
+
+		itemJiNianRi.setOnClickListener(this);
+		itemZhouRenWu.setOnClickListener(this);
+		itemYueRenWu.setOnClickListener(this);
+		itemXiangCe.setOnClickListener(this);
+		itemSheZhi.setOnClickListener(this);
+		itemPeiOu.setOnClickListener(this);
+
+		info.setOnClickListener(this);
+	}
 
 	private void initView() {
 		// 设置圆角边线不启用
@@ -87,4 +162,44 @@ public class B0_MainActivity extends BaseTabActivity {
 		super.onDestroy();
 	}
 
+	@Override
+	public void onClick(View view) {
+		// TODO Auto-generated method stub
+		if (view == itemJiNianRi) {
+			Intent intent = new Intent();
+			intent.putExtra("flog", "纪念日总览");
+			intent.setClass(getApplicationContext(), B1_01_JiNianRiZongLan.class);
+			startActivity(intent);
+		}else if (view == itemZhouRenWu) {
+			Intent intent = new Intent();
+			intent.putExtra("flog", "周任务总览");
+			intent.setClass(getApplicationContext(), B1_02_ZhouRenWuZongLan.class);
+			startActivity(intent);
+		} else if (view == itemYueRenWu) {
+			Intent intent = new Intent();
+			intent.putExtra("flog", "月任务总览");
+			intent.setClass(getApplicationContext(), B1_03_YueRenWuZongLan.class);
+			startActivity(intent);
+		} else if (view == itemXiangCe) {
+			Intent intent = new Intent();
+			intent.putExtra("flog", "相册");
+			intent.setClass(getApplicationContext(), B1_04_XiangCe.class);
+			startActivity(intent);
+		} else if (view == itemSheZhi) {
+			Intent intent = new Intent();
+			intent.putExtra("flog", "设置");
+			intent.setClass(getApplicationContext(), B1_05_Setting.class);
+			startActivity(intent);
+		} else if (view == itemPeiOu) {
+			Intent intent = new Intent();
+			intent.putExtra("flog", "绑定配偶");
+			intent.setClass(getApplicationContext(), B1_06_BangDingPeiOu.class);
+			startActivity(intent);
+		} else if (view == info) {
+			Intent intent = new Intent();
+			intent.putExtra("flog", "个人信息");
+			intent.setClass(getApplicationContext(), B1_07_GeRenXinXi.class);
+			startActivity(intent);
+		}
+	}
 }
