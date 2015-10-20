@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/forty"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/twenty"
         android:layout_marginRight="@dimen/twenty"
         android:layout_marginTop="@dimen/ten"
@@ -20,40 +20,39 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/forty_five"
             android:orientation="horizontal" >
 
             <EditText
                 android:id="@+id/user_mobile"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/thirty_five"
+                android:layout_height="@dimen/forty"
                 android:layout_weight="1"
                 android:background="@drawable/bg_null_white"
                 android:hint="@string/user_mobile"
-                android:inputType="textPassword"
+                android:inputType="phone"
                 android:textColor="@color/edit_hint_color" />
 
             <Button
                 android:id="@+id/idenfy_code"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/twenty_five"
+                android:layout_height="@dimen/thirty_five"
                 android:background="@drawable/bg_null_grey"
-                android:layout_marginBottom="@dimen/five"
-                android:padding="@dimen/five"
+                android:layout_marginBottom="@dimen/two"
                 android:text="@string/get_code"
                 android:textColor="@color/text_Btn_color"
-                android:textSize="@dimen/fourteen" />
+                android:textSize="@dimen/fifteen" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/text_color" />
+            android:background="@color/text_Btn_color" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/forty"
+        android:layout_height="@dimen/forty_five"
         android:layout_marginLeft="@dimen/twenty"
         android:layout_marginRight="@dimen/twenty"
         android:orientation="vertical" >
@@ -61,21 +60,21 @@
         <EditText
             android:id="@+id/user_mobile_code"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/thirty_five"
+            android:layout_height="@dimen/forty"
             android:background="@drawable/bg_null_white"
             android:hint="@string/mobile_code"
-            android:inputType="textPassword"
+            android:inputType="number"
             android:textColor="@color/edit_hint_color" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/text_color" />
+            android:background="@color/text_Btn_color" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/forty"
+        android:layout_height="@dimen/forty_five"
         android:layout_marginLeft="@dimen/twenty"
         android:layout_marginRight="@dimen/twenty"
         android:orientation="vertical" >
@@ -83,7 +82,7 @@
         <EditText
             android:id="@+id/user_new_password"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/thirty_five"
+            android:layout_height="@dimen/forty"
             android:background="@drawable/bg_null_white"
             android:hint="@string/new_pass"
             android:inputType="textPassword"
@@ -97,7 +96,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/forty"
+        android:layout_height="@dimen/forty_five"
         android:layout_marginLeft="@dimen/twenty"
         android:layout_marginRight="@dimen/twenty"
         android:orientation="vertical" >
@@ -105,7 +104,7 @@
         <EditText
             android:id="@+id/user_comfirm_password"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/thirty_five"
+            android:layout_height="@dimen/forty"
             android:background="@drawable/bg_null_white"
             android:hint="@string/comfirm_pass"
             android:inputType="textPassword"

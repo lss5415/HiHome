@@ -13,6 +13,7 @@ import com.loopj.android.http.RequestParams;
  */
 public class HttpUtils {
 	public static final String base_url = "http://hihome.zhongyangjituan.com/api.php?";
+	public static final String IMAGE_URL = "http://121.42.194.222/Uploads/";
 	private static AsyncHttpClient client = new AsyncHttpClient(); // 实例话对象
 	static {
 		client.setTimeout(5000); // 设置链接超时，如果不设置，默认为15s
@@ -52,5 +53,26 @@ public class HttpUtils {
 	 */
 	public static void getSearchUser(AsyncHttpResponseHandler res, RequestParams params) {
 		client.post(base_url + "c=user&a=getSearchUser", params, res);
+	}
+	/**
+	 * 4登陆
+	 * @param params参数
+	 */
+	public static void login(AsyncHttpResponseHandler res, RequestParams params) {
+		client.post(base_url + "c=user&a=login", params, res);
+	}
+	/**
+	 * 5 注册
+	 * @param params参数
+	 */
+	public static void register(AsyncHttpResponseHandler res, RequestParams params) {
+		client.post(base_url + "c=user&a=reg", params, res);
+	}
+	/**
+	 * 5 获取纪念日详情
+	 * @param params参数
+	 */
+	public static void getAnnversaryInfo(AsyncHttpResponseHandler res, RequestParams params) {
+		client.post(base_url + "c=memorial&a=getInfo", params, res);
 	}
 }

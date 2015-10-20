@@ -1,6 +1,7 @@
 package com.zykj.hihome;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
@@ -68,17 +70,30 @@ public class B4_1_LoginActivity extends BaseActivity {
 					B4_1_ForgetPassWordActivity.class));
 			break;
 		case R.id.btn_login:
-			username = et_username.getText().toString().trim();
-			passWord = et_passWord.getText().toString().trim();
-			// if (StringUtil.isEmpty(username)) {
-			// Tools.toast(B4_1_LoginActivity.this, "用户名不能为空");
-			// return;
-			// }
-			// if (StringUtil.isEmpty(passWord)) {
-			// Tools.toast(B4_1_LoginActivity.this, "密码不能为空");
-			// return;
-			// }
-			// HttpUtils.login(res_login, login_name, passWord);
+//			username = et_username.getText().toString().trim();
+//			passWord = et_passWord.getText().toString().trim();
+//			if (StringUtil.isEmpty(username)) {
+//				Tools.toast(B4_1_LoginActivity.this, "用户名不能为空");
+//				return;
+//			}
+//			if (StringUtil.isEmpty(passWord)) {
+//				Tools.toast(B4_1_LoginActivity.this, "密码不能为空");
+//				return;
+//			}
+//			RequestParams params = new RequestParams();
+//			params.put("mob", username);
+//			params.put("pass", passWord);
+//			HttpUtils.login(new JsonHttpResponseHandler() {
+//				@Override
+//				public void onSuccess(int statusCode, Header[] headers,
+//						JSONArray response) {
+//					super.onSuccess(statusCode, headers, response);
+//					Tools.toast(B4_1_LoginActivity.this, "登录成功");
+//					finish();
+//					startActivity(new Intent(B4_1_LoginActivity.this,
+//							B0_MainActivity.class));
+//				}
+//			}, params);
 			startActivity(new Intent(B4_1_LoginActivity.this,
 					B0_MainActivity.class));
 			break;
