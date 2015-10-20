@@ -5,10 +5,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.data.RenWu;
 import com.zykj.hihome.view.MyCommonTitle;
 
 public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
+	private RenWu task;
 	private TextView task_state, task_name, task_publish_name,
 			task_publish_avator, task_excutor_name, task_excutor_avator,
 			task_content, task_starttime, task_finishtime;
@@ -19,7 +21,7 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.ui_b3_1_details_publishtask);
-
+		task = (RenWu) getIntent().getSerializableExtra("task");
 		initView();
 	}
 
@@ -39,6 +41,16 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 		task_starttime = (TextView) findViewById(R.id.details_receivetask_starttime);// 开始时间
 		task_finishtime = (TextView) findViewById(R.id.details_receivetask_finishtime);// 结束时间
 
+		initializationDate();
+
+	}
+
+	private void initializationDate() {
+		task_state.setText(task.getState());
+		task_name.setText(task.getTitle());
+		task_content.setText(task.getContent());
+		task_starttime.setText(task.getStart());
+		task_finishtime.setText(task.getEnd());		
 	}
 
 }

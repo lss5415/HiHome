@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/divide_color_grey"
+    android:focusableInTouchMode="true"
     android:orientation="vertical" >
 
     <com.zykj.hihome.view.MyCommonTitle
         android:id="@+id/aci_mytitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
+<ScrollView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/divide_color_grey">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,6 +29,7 @@
             android:paddingTop="15dp" >
 
             <ImageView
+                android:id="@+id/img_avator"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -150,7 +154,7 @@
             android:orientation="horizontal"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:visibility="visible" >
+            android:visibility="gone" >
 
             <ImageView
                 android:id="@+id/img_photo"
@@ -188,5 +192,5 @@
                 android:src="@drawable/ic_task_below" />
         </LinearLayout>
     </LinearLayout>
-
+</ScrollView>
 </LinearLayout>

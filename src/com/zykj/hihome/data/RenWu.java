@@ -15,8 +15,10 @@ public class RenWu implements Serializable {
 	private String isday;// 是否是全天任务
 	private String start;// 任务开始时间
 	private String end;// 任务结束时间
-	private String tip;// 任务提醒：数值意义见左侧
-	private String repeat;// 任务重复：数值意义见左侧
+	private String tip;// 任务提醒：数值意义  0不提醒 1正点	2五分钟	3十分钟	4一小时	5一天	6三天
+	private String repeat;// 任务重复：数值意义  0不重复	1每天	2每周	3每月	4每年
+	private String state;//任务状态：数值意义   0未接受	   1已接受	2待执行	3执行中	4已完成	5已取消
+
 	private String tasker;// 任务执行人数量
 	public String getUid() {
 		return uid;
@@ -71,6 +73,12 @@ public class RenWu implements Serializable {
 	}
 	public void setRepeat(String repeat) {
 		this.repeat = repeat;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 	public String getTasker() {
 		return tasker;
