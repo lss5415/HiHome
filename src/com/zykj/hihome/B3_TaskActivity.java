@@ -1,5 +1,7 @@
 package com.zykj.hihome;
 
+import org.joda.time.LocalDate;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+import com.zykj.hihome.calendar.CalendarManager;
+import com.zykj.hihome.calendar.CollapseCalendarView;
 import com.zykj.hihome.fragment.TaskFragment;
 
 /**
@@ -18,9 +22,9 @@ import com.zykj.hihome.fragment.TaskFragment;
 public class B3_TaskActivity extends FragmentActivity implements OnClickListener{
 
 	private ImageView img_create_anniversary, img_publish_task;
+    private CollapseCalendarView mCalendarView;
 	private RadioGroup tab_rwGroup;
     private TaskFragment taskFragment1,taskFragment2,taskFragment3;
-	
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,9 +37,12 @@ public class B3_TaskActivity extends FragmentActivity implements OnClickListener
 	public void initView() {
 		img_publish_task = (ImageView) findViewById(R.id.img_publish_task);
 		img_create_anniversary = (ImageView) findViewById(R.id.img_create_anniversary);
-
+		//加载日历控件
+        CalendarManager manager = new CalendarManager(LocalDate.now(), CalendarManager.State.MONTH, LocalDate.now(), LocalDate.now().plusYears(1));
+        mCalendarView = (CollapseCalendarView) findViewById(R.id.calendar);
+        mCalendarView.init(manager);
+        //加载三个任务模块
 		tab_rwGroup = (RadioGroup) findViewById(R.id.tab_rwGroup);
-
 		taskFragment1 = TaskFragment.getInstance(1);//自己的任务
 		taskFragment2 = TaskFragment.getInstance(2);//接受的任务
 		taskFragment3 = TaskFragment.getInstance(3);//发布的任务

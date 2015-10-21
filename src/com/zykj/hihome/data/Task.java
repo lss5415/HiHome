@@ -18,6 +18,13 @@ public class Task implements Serializable{
 	private String state;//任务状态
 	private String addtime;//任务添加时间
 	private String tasker;//任务执行人数
+	public Task(){
+		
+	}
+	public Task(String title,String time){
+		this.title = title;
+		this.addtime = time;
+	}
 	public String getId() {
 		return id;
 	}

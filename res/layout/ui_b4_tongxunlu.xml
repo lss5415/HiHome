@@ -15,6 +15,7 @@
 		android:layout_width="fill_parent"
         android:layout_height="fill_parent"
 		android:focusable="true"
+		android:visibility="gone"
 		android:focusableInTouchMode="true"
         android:orientation="vertical"
 		android:background="@color/grey">
@@ -46,6 +47,5 @@
     <com.zykj.hihome.view.LoadingView
         android:id="@+id/loading"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:layout_height="match_parent" />
 </LinearLayout>
