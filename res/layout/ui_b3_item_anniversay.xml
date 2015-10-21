@@ -43,7 +43,6 @@
             android:layout_marginTop="@dimen/five"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:text="2005年1月1日" />
     </LinearLayout>
 </LinearLayout>

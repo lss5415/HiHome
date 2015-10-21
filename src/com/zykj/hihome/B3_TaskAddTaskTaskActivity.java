@@ -43,7 +43,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ui_b3_punlishtask);
+		setContentView(R.layout.ui_b3_taskaddtask);
 
 		initView();
 	}

@@ -27,7 +27,7 @@ public class B3_TaskActivity extends FragmentActivity implements OnClickListener
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ui_b3_renwu);
+		setContentView(R.layout.ui_b3_task);
 		
 		initView();
 		requestData();
