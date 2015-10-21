@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,19 +24,16 @@ import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.B3_1_DetailsPublishTaskActivity;
 import com.zykj.hihome.B3_1_DetailsReceiveTaskActivity;
 import com.zykj.hihome.B3_1_DetailsSelfTaskActivity;
-import com.zykj.hihome.CommonAdapter;
-import com.zykj.hihome.R;
-import com.zykj.hihome.ViewHolder;
+import com.zykj.hihome.adapter.TaskAdapter;
 import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.HttpUtils;
-import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 
 public class TaskFragment extends Fragment implements OnItemClickListener{
 
     private ListView mListView;
 	private int mType=1;//1 自己的任务 2 接受的任务 3 发布的任务
-	private CommonAdapter<Task> adapter;
+	private TaskAdapter adapter;
 	private List<Task> tasks = new ArrayList<Task>();
     
 	public static TaskFragment getInstance(int type){
@@ -62,27 +58,31 @@ public class TaskFragment extends Fragment implements OnItemClickListener{
 		super.onViewCreated(view, savedInstanceState);
 		Bundle arguments = getArguments();
 		mType=arguments.getInt("type");
-		
-        adapter = new CommonAdapter<Task>(getActivity(), R.layout.ui_b3_item_task, tasks){
-			@Override
-			public void convert(ViewHolder holder, Task task) {
-				String datastart = StringUtil.isEmpty(task.getStart())?"00-00":task.getStart().substring(5, 10);
-				String dataend = StringUtil.isEmpty(task.getEnd())?"00-00":task.getEnd().substring(5, 10);
-				int tip = Integer.valueOf(task.getTip());
-				int repeat = Integer.valueOf(task.getRepeat());
-				int state = Integer.valueOf(task.getState());
-				holder.setText(R.id.date, Html.fromHtml("<big><font color=#EA5414>"+datastart+"</font></big><br>-"+dataend))
-						.setText(R.id.task_title, task.getTitle())
-						.setText(R.id.task_time, tip==0?"不提醒":tip==1?"正点":tip==2?"五分钟":
-													tip==3?"十分钟":tip==4?"一小时":tip==5?"一天":"三天")
-						.setText(R.id.task_repeat, repeat==0?"不重复":repeat==1?"每天":repeat==2?"每周":repeat==3?"每月":"每年")
-						.setText(R.id.task_tasker, "发布人："+task.getTasker())
-						.setVisibility(R.id.task_tasker, mType==2)
-						.setText(R.id.task_num, mType==2?task.getTasker()+"人":"张三")
-						.setVisibility(R.id.task_num, mType!=1)
-						.setText(R.id.task_state, state==0?"未接受":state==1?"已接受":state==2?"待执行":state==3?"执行中":state==4?"已完成":"已取消");
-			}
-        };
+		if(mType == 1){
+			tasks.add(0, new Task("圣诞节", "2015年12月25日"));
+			tasks.add(0, new Task("元旦", "2016年1月1日"));
+		}
+		adapter = new TaskAdapter(getActivity(), tasks, mType);
+//        adapter = new CommonAdapter<Task>(getActivity(), R.layout.ui_b3_item_task, tasks){
+//			@Override
+//			public void convert(ViewHolder holder, Task task) {
+//				String datastart = StringUtil.isEmpty(task.getStart())?"00-00":task.getStart().substring(5, 10);
+//				String dataend = StringUtil.isEmpty(task.getEnd())?"00-00":task.getEnd().substring(5, 10);
+//				int tip = Integer.valueOf(task.getTip());
+//				int repeat = Integer.valueOf(task.getRepeat());
+//				int state = Integer.valueOf(task.getState());
+//				holder.setText(R.id.date, Html.fromHtml("<big><font color=#EA5414>"+datastart+"</font></big><br>-"+dataend))
+//						.setText(R.id.task_title, task.getTitle())
+//						.setText(R.id.task_time, tip==0?"不提醒":tip==1?"正点":tip==2?"五分钟":
+//													tip==3?"十分钟":tip==4?"一小时":tip==5?"一天":"三天")
+//						.setText(R.id.task_repeat, repeat==0?"不重复":repeat==1?"每天":repeat==2?"每周":repeat==3?"每月":"每年")
+//						.setText(R.id.task_tasker, "发布人："+task.getTasker())
+//						.setVisibility(R.id.task_tasker, mType==2)
+//						.setText(R.id.task_num, mType==2?task.getTasker()+"人":"张三")
+//						.setVisibility(R.id.task_num, mType!=1)
+//						.setText(R.id.task_state, state==0?"未接受":state==1?"已接受":state==2?"待执行":state==3?"执行中":state==4?"已完成":"已取消");
+//			}
+//        };
         mListView.setAdapter(adapter);
 		mListView.setOnItemClickListener(this);
         requestData();

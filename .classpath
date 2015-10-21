@@ -16,6 +16,8 @@
 	<classpathentry kind="lib" path="libs/universal-image-loader-1.9.3.jar"/>
 	<classpathentry kind="lib" path="libs/android-async-http-1.4.6.jar"/>
 	<classpathentry kind="lib" path="libs/android-auto-scroll-view-pager.jar"/>
+	<classpathentry kind="lib" path="libs/support-annotations-21.0.0-rc1.jar"/>
+	<classpathentry kind="lib" path="libs/joda-time-2.1.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>

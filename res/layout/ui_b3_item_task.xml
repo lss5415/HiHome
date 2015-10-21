@@ -3,28 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="5dp" >
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp" >
 
     <TextView
         android:id="@+id/date"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="55dp"
+        android:layout_height="match_parent"
+        android:gravity="right|center_vertical"
         android:textSize="@dimen/t_sixteen"
         android:text="10/19-10-20" />
 
     <View
         android:id="@+id/divide"
-        android:layout_width="1dp"
+        android:layout_width="0.5dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:background="@color/theme_color" />
+        android:layout_marginLeft="15dp"
+        android:background="@color/theme_colorhuang" />
 
     <LinearLayout
         android:layout_width="0.0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingLeft="10dp"
+        android:paddingLeft="15dp"
         android:orientation="vertical" >
 
         <TextView
@@ -33,7 +36,7 @@
             android:layout_height="wrap_content"
             android:text="去超市买奶粉"
             android:textSize="@dimen/eighteen"
-            android:textColor="@color/theme_color" />
+            android:textColor="@color/theme_colorhuang" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,6 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
+        android:layout_marginRight="@dimen/five"
         android:orientation="vertical">
 	    <TextView
         	android:id="@+id/task_num"
@@ -94,6 +98,7 @@
 	        android:layout_height="wrap_content"
          	android:textColor="@color/gray_font"
        		android:textSize="@dimen/t_eighteen"
+       		android:layout_gravity="right"
 	        android:text="100人" />
 	    <TextView
         	android:id="@+id/task_state"
@@ -105,7 +110,6 @@
 	</LinearLayout>
 	<!-- 详情 -->
     <ImageView
-        android:id="@+id/task_into"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

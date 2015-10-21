@@ -33,5 +33,12 @@
     <!-- 好友 -->
     <color name="gray_font">#818181</color>
     <color name="gray">#AFAFAF</color>
+    <!-- 日历 -->
+    <color name="text_normal">#ffffff</color>
+    <color name="text_light">#ababab</color>
+    <color name="text_super_light">#c0c0c0</color>
+    <color name="blue_light">#48a5cc</color>
+    <color name="blue_dark">#00aeef</color>
+    <color name="stroke">#77d4f6</color>
 
 </resources>
