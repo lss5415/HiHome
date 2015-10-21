@@ -119,7 +119,7 @@ public class B0_MainActivity extends BaseTabActivity implements
 		// _widget.setStripEnabled(false);
 		intent_1 = new Intent(this, B1_TiXingActivity.class);
 		intent_2 = new Intent(this, B2_LiaoTianActivity.class);
-		intent_3 = new Intent(this, B3_RenWuActivity.class);
+		intent_3 = new Intent(this, B3_TaskActivity.class);
 		intent_4 = new Intent(this, B4_HaoYouActivity.class);
 
 		m_tab.addTab(buildTagSpec("test1", 0, intent_1));

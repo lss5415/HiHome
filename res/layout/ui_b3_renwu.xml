@@ -5,7 +5,7 @@
     android:orientation="vertical" >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/fifty"
         android:background="@color/theme_colorhuang"
         android:paddingBottom="5dp"
         android:paddingTop="5dp" >
@@ -29,6 +29,7 @@
             android:id="@+id/img_create_anniversary"
             android:layout_width="@dimen/thirty"
             android:layout_height="@dimen/thirty"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_create_anniversary"
             android:layout_toLeftOf="@+id/img_publish_task"
             android:layout_marginRight="@dimen/ten"/>
@@ -38,6 +39,7 @@
             android:id="@+id/img_publish_task"
             android:layout_width="@dimen/thirty"
             android:layout_height="@dimen/thirty"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/ten"
             android:src="@drawable/ic_publish_task" />
@@ -61,7 +63,7 @@
                 style="@style/tab_rw_button"
                 android:checked="true"
                 android:drawableTop="@drawable/tab_rw_self"
-                android:text="task_self" />
+                android:text="@string/task_self" />
 
             <View
                 android:layout_width="1dp"
@@ -72,7 +74,8 @@
                 android:id="@+id/radio_receiveTask"
                 style="@style/tab_rw_button"
                 android:drawableTop="@drawable/tab_rw_receive"
-                android:text="接受的任务" />
+                android:text="@string/task_reserve" 
+                android:textColor="@color/radio_color"/>
 
             <View
                 android:layout_width="1dp"
@@ -83,7 +86,8 @@
                 android:id="@+id/radio_publishTask"
                 style="@style/tab_rw_button"
                 android:drawableTop="@drawable/tab_rw_publish"
-                android:text="发布的任务" />
+                android:text="@string/task_send" 
+                android:textColor="@color/radio_color"/>
         </RadioGroup>
     </LinearLayout>
     <View 

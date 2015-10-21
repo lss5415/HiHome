@@ -71,7 +71,7 @@ public class TaskFragment extends Fragment implements OnItemClickListener{
 				int tip = Integer.valueOf(task.getTip());
 				int repeat = Integer.valueOf(task.getRepeat());
 				int state = Integer.valueOf(task.getState());
-				holder.setText(R.id.date, Html.fromHtml("<big><font color=#EA5414>"+datastart+"</font></big><br>-"+dataend))
+				holder.setText(R.id.date, Html.fromHtml("<big><font color=#9D9FA1>"+datastart+"</font></big><br>-"+dataend))
 						.setText(R.id.task_title, task.getTitle())
 						.setText(R.id.task_time, tip==0?"不提醒":tip==1?"正点":tip==2?"五分钟":
 													tip==3?"十分钟":tip==4?"一小时":tip==5?"一天":"三天")

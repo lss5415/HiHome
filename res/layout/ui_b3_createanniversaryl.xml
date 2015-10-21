@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@color/divide_color_grey">
 
     <com.zykj.hihome.view.MyCommonTitle
         android:id="@+id/aci_mytitle"
@@ -11,8 +12,7 @@
         android:layout_height="wrap_content" />
 <ScrollView 
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/divide_color_grey">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -107,7 +107,8 @@
                     android:layout_weight="2"
                     android:gravity="center_vertical"
                     android:hint="@string/anniversary_input_date"
-                    android:textSize="16sp" />
+                    android:textSize="16sp" 
+                    android:textColor="@color/date_color"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -139,7 +140,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_null_white"
                 android:gravity="top"
-                android:hint="@string/anniversary_content" />
+                android:hint="@string/anniversary_content" 
+                android:textColor="@color/text_grey"/>
         </LinearLayout>
 
         <View

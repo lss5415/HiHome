@@ -38,6 +38,11 @@
     <string name="task_self">自己的任务</string>
     <string name="task_reserve">接受的任务</string>
     <string name="task_send">发布的任务</string>
+    <string name="task_cancle">取消任务</string>
+    <string name="task_delete">删除任务</string>
+    <string name="task_unexcute">未执行</string>
+    <string name="task_title">下载hihomeapp</string>
+    <string name="task_excutorname">张含韵</string>
     <string name="task_name">任务名字：</string>
     <string name="task_state">任务状态：</string>
     <string name="task_input_name">请输入任务名</string>

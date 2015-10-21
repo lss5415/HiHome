@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.utils.DateTimePickDialogUtil;
+import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.view.MyCommonTitle;
 
 import android.content.Intent;
@@ -23,7 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public class B3_RenWuPublishTaskActivity extends BaseActivity implements OnCheckedChangeListener {
+public class B3_TaskAddTaskTaskActivity extends BaseActivity implements OnCheckedChangeListener {
 	private MyCommonTitle myCommonTitle;
 	private ImageView img_read_contacts, img_input_contentimg, img_camere,
 			img_photo;
@@ -31,7 +32,7 @@ public class B3_RenWuPublishTaskActivity extends BaseActivity implements OnCheck
 	private LinearLayout ly_clock, ly_repeat, ly_location, ly_add_img;
 	private TextView ed_taskexcutor;
 	private EditText ed_taskname, ed_taskcontent;
-	private EditText tv_starttime, tv_finishtime;
+	private TextView tv_starttime ,tv_finishtime;
 	private String initStartDateTime = "2013年9月3日 14:44"; // 初始化开始时间
 	private String initEndDateTime = "2014年8月23日 17:44"; // 初始化结束时间
 
@@ -57,8 +58,8 @@ public class B3_RenWuPublishTaskActivity extends BaseActivity implements OnCheck
 		img_photo = (ImageView) findViewById(R.id.img_photo);//读取相册
 		img_input_contentimg = (ImageView) findViewById(R.id.img_input_contentimg);//添加图片，显示添加图片栏
 		toggleButton = (ToggleButton) findViewById(R.id.toggle_on_off);//设置全天开关
-		tv_starttime = (EditText) findViewById(R.id.input_task_starttime);//设置开始时间
-		tv_finishtime = (EditText) findViewById(R.id.input_task_finishtime);//设置结束时间
+		tv_starttime = (TextView) findViewById(R.id.input_task_starttime);//设置开始时间
+		tv_finishtime = (TextView) findViewById(R.id.input_task_finishtime);//设置结束时间
 		ly_add_img = (LinearLayout) findViewById(R.id.ly_task_input_content);//添加图片栏
 		ly_clock = (LinearLayout) findViewById(R.id.ly_clock);//设置提醒
 		ly_repeat = (LinearLayout) findViewById(R.id.ly_repeat);//设置重复
@@ -80,7 +81,7 @@ public class B3_RenWuPublishTaskActivity extends BaseActivity implements OnCheck
 		super.onClick(view);
 		switch (view.getId()) {
 		case R.id.img_read_contacts:// 执行人，读取通讯录
-			startActivity(new Intent(B3_RenWuPublishTaskActivity.this,
+			startActivity(new Intent(B3_TaskAddTaskTaskActivity.this,
 					B4_HaoYouActivity.class));
 			break;
 		case R.id.img_input_contentimg:// 为任务内容添加图片，因在布局文件中添加图片的控件隐藏了，如需要先设置ly_add_img可见
@@ -118,21 +119,22 @@ public class B3_RenWuPublishTaskActivity extends BaseActivity implements OnCheck
 			break;
 		case R.id.input_task_starttime:// 开始时间
 			DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
-					B3_RenWuPublishTaskActivity.this, initEndDateTime);
+					B3_TaskAddTaskTaskActivity.this, initEndDateTime);
 			dateTimePicKDialog.dateTimePicKDialog(tv_starttime);
 			break;
 		case R.id.input_task_finishtime:// 结束时间
+		
 			DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(
-					B3_RenWuPublishTaskActivity.this, initEndDateTime);
+					B3_TaskAddTaskTaskActivity.this, initEndDateTime);
 			dateTimePicKDialog2.dateTimePicKDialog(tv_finishtime);
 
 			break;
 		case R.id.ly_clock:// 设置提醒
-			startActivity(new Intent(B3_RenWuPublishTaskActivity.this,
+			startActivity(new Intent(B3_TaskAddTaskTaskActivity.this,
 					B3_1_TiXingActivity.class));
 			break;
 		case R.id.ly_repeat:// 设置重复
-			startActivity(new Intent(B3_RenWuPublishTaskActivity.this,
+			startActivity(new Intent(B3_TaskAddTaskTaskActivity.this,
 					B3_1_RepeatActivity.class));
 			break;
 		case R.id.ly_dingwei:// 设置定位
@@ -165,7 +167,9 @@ public class B3_RenWuPublishTaskActivity extends BaseActivity implements OnCheck
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		// TODO Auto-generated method stub
+
 		
 	}
+
+
 }

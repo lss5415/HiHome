@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import com.zykj.hihome.base.BaseActivity;
-import com.zykj.hihome.data.RenWu;
+import com.zykj.hihome.data.Task;
 import com.zykj.hihome.view.MyCommonTitle;
 
 public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
-	private RenWu task;
+	private Task task;
 	private TextView task_state, task_name, task_excutor, task_content,
 			task_starttime, task_finishtime;
 	private Button btn_delete;
@@ -19,7 +19,7 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.ui_b3_1_details_selftask);
-		task = (RenWu) getIntent().getSerializableExtra("task");
+		task = (Task) getIntent().getSerializableExtra("task");
 		initView();
 	}
 
@@ -41,7 +41,8 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 	}
 
 	private void initializationDate() {
-		task_state.setText(task.getState());
+		int state = Integer.valueOf(task.getState());
+		task_state.setText(state==0?"未接受":state==1?"已接受":state==2?"待执行":state==3?"已执行":state==4?"已完成":"已取消");
 		task_name.setText(task.getTitle());
 		task_excutor.setText("自己");
 		task_content.setText(task.getContent());

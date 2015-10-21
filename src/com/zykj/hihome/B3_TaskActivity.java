@@ -15,7 +15,7 @@ import com.zykj.hihome.fragment.TaskFragment;
  * @author LSS 2015年9月29日 上午8:55:45
  * 
  */
-public class B3_RenWuActivity extends FragmentActivity implements OnClickListener{
+public class B3_TaskActivity extends FragmentActivity implements OnClickListener{
 
 	private ImageView img_create_anniversary, img_publish_task;
 	private RadioGroup tab_rwGroup;
@@ -70,12 +70,12 @@ public class B3_RenWuActivity extends FragmentActivity implements OnClickListene
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.img_create_anniversary:// 创建纪念日
-			startActivity(new Intent(B3_RenWuActivity.this,
-					B3_RenWuCreateAnniversaryActivity.class));
+			startActivity(new Intent(B3_TaskActivity.this,
+					B3_TaskAddAnniversaryActivity.class));
 			break;
 		case R.id.img_publish_task:// 发布任务
-			startActivity(new Intent(B3_RenWuActivity.this,
-					B3_RenWuPublishTaskActivity.class));
+			startActivity(new Intent(B3_TaskActivity.this,
+					B3_TaskAddTaskTaskActivity.class));
 			break;
 		default:
 			break;

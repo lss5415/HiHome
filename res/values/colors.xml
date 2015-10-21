@@ -33,5 +33,10 @@
     <!-- 好友 -->
     <color name="gray_font">#818181</color>
     <color name="gray">#AFAFAF</color>
+    <color name="state_gray">#999999</color>
+    <color name="divide_gray">#A56E25</color>
+    <color name="radio_color">#8D8D8D</color>
+    <color name="date_color">#666666</color>
+    <color name="tx_color">#363636</color>
 
 </resources>

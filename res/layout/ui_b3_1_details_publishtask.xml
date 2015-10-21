@@ -36,6 +36,7 @@
                         android:layout_weight="1"
                         android:text="@string/task_state"
                         android:textSize="16sp" />
+
                      <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -50,7 +51,7 @@
                         android:gravity="center"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="取消任务"
+                        android:text="@string/task_cancle"
                         android:textColor="@color/white" />
 
                     <Button
@@ -62,7 +63,7 @@
                         android:gravity="center"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="删除任务"
+                        android:text="@string/task_delete"
                         android:textColor="@color/white" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -109,7 +110,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="15dp"
                         android:background="@drawable/bg_null_white"
-                        android:text="zhanghanyun"
+                        android:text="@string/task_excutor"
                         android:textColor="@color/edit_hint_color"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -142,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@drawable/bg_null_white"
-                    android:text="下载hihomeapp"
+                    android:text="@string/task_title"
                     android:textColor="@color/edit_hint_color"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -193,7 +194,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:background="@drawable/bg_null_white"
-                        android:text="张飞"
+                        android:text="@string/task_excutorname"
                         android:textColor="@color/edit_hint_color"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -202,7 +203,7 @@
                     android:id="@+id/details_publishtask_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="未执行" />
+                    android:text="@string/task_unexcute" />
 
                 <ImageView
                     android:id="@+id/task_into"

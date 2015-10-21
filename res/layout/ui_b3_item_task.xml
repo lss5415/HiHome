@@ -2,114 +2,133 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="5dp" >
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="@dimen/t_sixteen"
-        android:text="10/19-10-20" />
-
-    <View
-        android:id="@+id/divide"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:background="@color/theme_color" />
-
-    <LinearLayout
-        android:layout_width="0.0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingLeft="10dp"
-        android:orientation="vertical" >
-
         <TextView
-        	android:id="@+id/task_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/date"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:text="去超市买奶粉"
-            android:textSize="@dimen/eighteen"
-            android:textColor="@color/theme_color" />
+            android:layout_gravity="center"
+            android:text="10/19-10-20"
+            android:textSize="@dimen/t_sixteen" />
+
+        <View
+            android:id="@+id/divide"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:background="@color/theme_colorhuang" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0.0dip"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/three"
-            android:orientation="horizontal" >
-            <ImageView
-                android:layout_width="@dimen/eighteen"
-                android:layout_height="@dimen/eighteen"
-                android:layout_gravity="center"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_task_clock" />
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="10dp" >
+
             <TextView
-        		android:id="@+id/task_time"
+                android:id="@+id/task_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/gray_font"
-                android:text="五分钟前"
-            	android:textSize="@dimen/t_fourteen"/>
-            <ImageView
-                android:layout_width="@dimen/eighteen"
-                android:layout_height="@dimen/eighteen"
-                android:layout_marginLeft="@dimen/twenty"
-                android:layout_gravity="center"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_task_fresh" />
+                android:text="去超市买奶粉"
+                android:textColor="@color/theme_colorhuang"
+                android:textSize="@dimen/eighteen" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/three"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="@dimen/eighteen"
+                    android:layout_height="@dimen/eighteen"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_task_clock" />
+
+                <TextView
+                    android:id="@+id/task_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:text="五分钟前"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/t_fourteen" />
+
+                <ImageView
+                    android:layout_width="@dimen/eighteen"
+                    android:layout_height="@dimen/eighteen"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/twenty"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_task_fresh" />
+
+                <TextView
+                    android:id="@+id/task_repeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:text="每天"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/t_fourteen" />
+            </LinearLayout>
+
             <TextView
-        		android:id="@+id/task_repeat"
+                android:id="@+id/task_tasker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:text="每天"
-                android:textColor="@color/gray_font"
+                android:layout_marginTop="@dimen/three"
+                android:text="发布人：每天"
+                android:textColor="@color/text_grey"
                 android:textSize="@dimen/t_fourteen" />
         </LinearLayout>
-        <TextView
-        	android:id="@+id/task_tasker"
+
+        <!-- 状态 -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/task_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100人"
+                android:textColor="@color/state_gray"
+                android:textSize="@dimen/t_eighteen" />
+
+            <TextView
+                android:id="@+id/task_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="待接收"
+                android:textColor="@color/state_gray"
+                android:textSize="@dimen/t_eighteen" />
+        </LinearLayout>
+        <!-- 详情 -->
+
+        <ImageView
+            android:id="@+id/task_into"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/three"
-            android:text="发布人：每天"
-         	android:textColor="@color/gray_font"
-       		android:textSize="@dimen/t_fourteen" />
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_task_into" />
     </LinearLayout>
-    
-	<!-- 状态 -->
-	<LinearLayout 
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-	    <TextView
-        	android:id="@+id/task_num"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-         	android:textColor="@color/gray_font"
-       		android:textSize="@dimen/t_eighteen"
-	        android:text="100人" />
-	    <TextView
-        	android:id="@+id/task_state"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-           	android:textColor="@color/gray_font"
-       		android:textSize="@dimen/t_eighteen"
-	        android:text="待接收" />
-	</LinearLayout>
-	<!-- 详情 -->
-    <ImageView
-        android:id="@+id/task_into"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_task_into" />
-
+        <View
+            android:id="@+id/hdivide"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divide_gray" />
 </LinearLayout>

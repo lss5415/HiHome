@@ -20,7 +20,7 @@ import android.widget.ToggleButton;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.view.MyCommonTitle;
 
-public class B3_RenWuCreateAnniversaryActivity extends BaseActivity {
+public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private ImageView img_photo, img_camere, img_input_contentimg,img_avator;
 	private LinearLayout ly_add_img;
