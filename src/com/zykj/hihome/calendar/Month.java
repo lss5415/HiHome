@@ -13,7 +13,7 @@ import android.support.annotation.Nullable;
  */
 public class Month extends RangeUnit {
 
-    @NonNull private final List<Week> mWeeks = new ArrayList<>();
+    @NonNull private final List<Week> mWeeks = new ArrayList<Week>();
     private int mSelectedIndex = -1;
 
     protected Month(@NonNull LocalDate date, @NonNull LocalDate today, @Nullable LocalDate minDate,

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +25,12 @@ import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.B3_1_DetailsPublishTaskActivity;
 import com.zykj.hihome.B3_1_DetailsReceiveTaskActivity;
 import com.zykj.hihome.B3_1_DetailsSelfTaskActivity;
+import com.zykj.hihome.R;
+import com.zykj.hihome.ViewHolder;
 import com.zykj.hihome.adapter.TaskAdapter;
 import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.HttpUtils;
+import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 
 public class TaskFragment extends Fragment implements OnItemClickListener{

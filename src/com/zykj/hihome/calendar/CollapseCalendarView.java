@@ -332,7 +332,7 @@ public class CollapseCalendarView extends LinearLayout implements View.OnClickLi
 
     private class RecycleBin {
 
-        private final Queue<View> mViews = new LinkedList<>();
+        private final Queue<View> mViews = new LinkedList<View>();
 
         @Nullable
         public View recycleView() {

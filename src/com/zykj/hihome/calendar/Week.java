@@ -13,7 +13,7 @@ import android.support.annotation.Nullable;
  */
 public class Week extends RangeUnit {
 
-    @NonNull private final List<Day> mDays = new ArrayList<>(7);
+    @NonNull private final List<Day> mDays = new ArrayList<Day>(7);
 
     public Week(@NonNull LocalDate date, @NonNull LocalDate today, @Nullable LocalDate minDate,
                 @Nullable LocalDate maxDate) {

@@ -80,8 +80,7 @@
                 android:id="@+id/radio_receiveTask"
                 style="@style/tab_rw_button"
                 android:drawableTop="@drawable/tab_rw_receive"
-                android:text="@string/task_reserve" 
-                android:textColor="@color/radio_color"/>
+                android:text="@string/task_reserve" />
 
             <View
                 android:layout_width="1dp"
@@ -92,8 +91,7 @@
                 android:id="@+id/radio_publishTask"
                 style="@style/tab_rw_button"
                 android:drawableTop="@drawable/tab_rw_publish"
-                android:text="@string/task_send" 
-                android:textColor="@color/radio_color"/>
+                android:text="@string/task_send"/>
         </RadioGroup>
     </LinearLayout>
     <View 

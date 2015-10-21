@@ -73,11 +73,11 @@ public class TaskAdapter extends BaseAdapter{
 	        	convertView = inflater.inflate(R.layout.ui_b3_item_task, parent, false);
 	        	holder2.date = (TextView)convertView.findViewById(R.id.date);//图片
 	        	holder2.task_title = (TextView)convertView.findViewById(R.id.task_title);//标题
-	        	holder2.task_time = (TextView)convertView.findViewById(R.id.task_time);//时间
-	        	holder2.task_repeat = (TextView)convertView.findViewById(R.id.task_repeat);//时间
-	        	holder2.task_tasker = (TextView)convertView.findViewById(R.id.task_tasker);//时间
-	        	holder2.task_num = (TextView)convertView.findViewById(R.id.task_num);//时间
-	        	holder2.task_state = (TextView)convertView.findViewById(R.id.task_state);//时间
+	        	holder2.task_time = (TextView)convertView.findViewById(R.id.task_time);//提醒时间
+	        	holder2.task_repeat = (TextView)convertView.findViewById(R.id.task_repeat);//是否重复
+	        	holder2.task_tasker = (TextView)convertView.findViewById(R.id.task_tasker);//发布人
+	        	holder2.task_num = (TextView)convertView.findViewById(R.id.task_num);//执行人数
+	        	holder2.task_state = (TextView)convertView.findViewById(R.id.task_state);//执行状态
 	            convertView.setTag(holder2);
 	    	}else{
 	    		holder2= (ViewHolder2)convertView.getTag();
@@ -92,7 +92,7 @@ public class TaskAdapter extends BaseAdapter{
 			holder2.task_title.setText(task.getTitle());
 			holder2.task_time.setText(tip==0?"不提醒":tip==1?"正点":tip==2?"五分钟":tip==3?"十分钟":tip==4?"一小时":tip==5?"一天":"三天");
 			holder2.task_repeat.setText(repeat==0?"不重复":repeat==1?"每天":repeat==2?"每周":repeat==3?"每月":"每年");
-			holder2.task_tasker.setText("发布人："+task.getTasker());
+			holder2.task_tasker.setText("发布人："+task.getNick());
 			holder2.task_tasker.setVisibility(mType==2?View.VISIBLE:View.GONE);
 			holder2.task_num.setText(mType==2?task.getTasker()+"人":"张三");
 			holder2.task_num.setVisibility(mType==1?View.GONE:View.VISIBLE);

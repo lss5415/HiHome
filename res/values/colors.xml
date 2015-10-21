@@ -6,7 +6,11 @@
     <color name="black">#000000</color>
     <color name="grey">#EEEEEE</color>
     <color name="green">#01CF97</color>
+    <color name="radio_color">#8D8D8D</color>
+    <color name="tx_color">#363636</color>
+    <color name="date_color">#666666</color>
     <color name="text_grey">#B4B4B4</color>
+    <color name="state_color">#999999</color>
     <color name="tab_font_normal">#A0A0A0</color>
     <color name="tab_font_select">#ED6D00</color>
     <color name="index_type_font_color">#ED6D00</color>

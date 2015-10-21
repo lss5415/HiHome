@@ -5,8 +5,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.data.Task;
+import com.zykj.hihome.utils.ImageUtil;
+import com.zykj.hihome.utils.SharedPreferenceUtils;
+import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.view.MyCommonTitle;
 
 public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
@@ -31,7 +35,7 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 		myCommonTitle = (MyCommonTitle) findViewById(R.id.aci_mytitle);
 
 		myCommonTitle.setTitle("任务名字");
-		task_state=(TextView) findViewById(R.id.details_receivetask_state);
+		task_state = (TextView) findViewById(R.id.details_receivetask_state);
 		task_name = (TextView) findViewById(R.id.details_receivetask_name);// 任务名称
 		task_publish_name = (TextView) findViewById(R.id.details_receivetask_publisher_name);// 任务发布人头像
 		task_publish_avator = (ImageView) findViewById(R.id.details_receivetask_publisher_avator);// 任务发布人姓名
@@ -47,11 +51,15 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 
 	private void initializationDate() {
 		int state = Integer.valueOf(task.getState());
-		task_state.setText(state==0?"未接受":state==1?"已接受":state==2?"待执行":state==3?"已执行":state==4?"已完成":"已取消");
+		task_state.setText(state == 0 ? "未接受" : state == 1 ? "已接受"
+				: state == 2 ? "待执行" : state == 3 ? "已执行" : state == 4 ? "已完成"
+						: "已取消");
 		task_name.setText(task.getTitle());
 		task_content.setText(task.getContent());
 		task_starttime.setText(task.getStart());
 		task_finishtime.setText(task.getEnd());
+		task_publish_name.setText(task.getNick());
+//		String pub_avator = task.getAvatar();
+//		ImageLoader.getInstance().displayImage(StringUtil.isEmpty(SharedPreferenceUtils.getAvatar())?"":pub_avator, task_publish_avator);
 	}
-
 }

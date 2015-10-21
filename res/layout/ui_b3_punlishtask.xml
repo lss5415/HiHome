@@ -201,6 +201,8 @@
                     android:id="@+id/toggle_on_off"
                     android:layout_width="60dp"
                     android:layout_height="30dp"
+                    android:textOn=""
+                    android:textOff=""
                     android:layout_gravity="center"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/toggle_btn" />
@@ -236,7 +238,7 @@
                         android:focusable="true"
                         android:background="@drawable/bg_null_white"
                         android:gravity="center"
-                        android:hint="@string/task_input_start_time"
+                        android:text="@string/task_input_start_time"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -264,7 +266,7 @@
                         android:focusable="true"
                         android:background="@drawable/bg_null_white"
                         android:gravity="center"
-                        android:hint="@string/task_input_finish_time"
+                        android:text="@string/task_input_finish_time"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>

@@ -8,6 +8,7 @@ import java.util.Locale;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.utils.DateTimePickDialogUtil;
 import com.zykj.hihome.utils.StringUtil;
+import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.MyCommonTitle;
 
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -24,15 +26,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public class B3_TaskAddTaskTaskActivity extends BaseActivity implements OnCheckedChangeListener {
+public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
+		OnCheckedChangeListener {
 	private MyCommonTitle myCommonTitle;
 	private ImageView img_read_contacts, img_input_contentimg, img_camere,
 			img_photo;
+	private Date date;
 	private ToggleButton toggleButton;
 	private LinearLayout ly_clock, ly_repeat, ly_location, ly_add_img;
 	private TextView ed_taskexcutor;
 	private EditText ed_taskname, ed_taskcontent;
-	private TextView tv_starttime ,tv_finishtime;
+	private TextView tv_starttime, tv_finishtime;
 	private String initStartDateTime = "2013年9月3日 14:44"; // 初始化开始时间
 	private String initEndDateTime = "2014年8月23日 17:44"; // 初始化结束时间
 
@@ -50,22 +54,27 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements OnChecke
 		myCommonTitle.setTitle("创建任务");
 		myCommonTitle.setEditTitle("完成");
 
-		ed_taskname = (EditText) findViewById(R.id.input_taskname);//任务名称
-		ed_taskexcutor = (TextView) findViewById(R.id.input_taskexcutor);//任务执行人
-		img_read_contacts = (ImageView) findViewById(R.id.img_read_contacts);//读取联系人
-		ed_taskcontent = (EditText) findViewById(R.id.input_taskcontent);//任务内容
-		img_camere = (ImageView) findViewById(R.id.img_camere);//启动摄像头拍照
-		img_photo = (ImageView) findViewById(R.id.img_photo);//读取相册
-		img_input_contentimg = (ImageView) findViewById(R.id.img_input_contentimg);//添加图片，显示添加图片栏
-		toggleButton = (ToggleButton) findViewById(R.id.toggle_on_off);//设置全天开关
-		tv_starttime = (TextView) findViewById(R.id.input_task_starttime);//设置开始时间
-		tv_finishtime = (TextView) findViewById(R.id.input_task_finishtime);//设置结束时间
-		ly_add_img = (LinearLayout) findViewById(R.id.ly_task_input_content);//添加图片栏
-		ly_clock = (LinearLayout) findViewById(R.id.ly_clock);//设置提醒
-		ly_repeat = (LinearLayout) findViewById(R.id.ly_repeat);//设置重复
-		ly_location = (LinearLayout) findViewById(R.id.ly_dingwei);//设置定位
-
-		toggleButton.setOnCheckedChangeListener(this);//设置ToggleBtoon的监听事件
+		ed_taskname = (EditText) findViewById(R.id.input_taskname);// 任务名称
+		ed_taskexcutor = (TextView) findViewById(R.id.input_taskexcutor);// 任务执行人
+		img_read_contacts = (ImageView) findViewById(R.id.img_read_contacts);// 读取联系人
+		ed_taskcontent = (EditText) findViewById(R.id.input_taskcontent);// 任务内容
+		img_camere = (ImageView) findViewById(R.id.img_camere);// 启动摄像头拍照
+		img_photo = (ImageView) findViewById(R.id.img_photo);// 读取相册
+		img_input_contentimg = (ImageView) findViewById(R.id.img_input_contentimg);// 添加图片，显示添加图片栏
+		toggleButton = (ToggleButton) findViewById(R.id.toggle_on_off);// 设置全天开关
+		tv_starttime = (TextView) findViewById(R.id.input_task_starttime);// 设置开始时间
+		tv_finishtime = (TextView) findViewById(R.id.input_task_finishtime);// 设置结束时间
+		ly_add_img = (LinearLayout) findViewById(R.id.ly_task_input_content);// 添加图片栏
+		ly_clock = (LinearLayout) findViewById(R.id.ly_clock);// 设置提醒
+		ly_repeat = (LinearLayout) findViewById(R.id.ly_repeat);// 设置重复
+		ly_location = (LinearLayout) findViewById(R.id.ly_dingwei);// 设置定位
+		toggleButton.setOnCheckedChangeListener(this);// 设置ToggleBtoon的监听事件
+		
+		date=new Date();
+		SimpleDateFormat format=new SimpleDateFormat("yyyy年MM月dd日  hh:mm:ss");
+		String time=format.format(date);
+		tv_starttime.setText(time);
+		tv_finishtime.setText(time);
 		setListener(img_read_contacts, img_input_contentimg, img_photo,
 				img_camere, tv_starttime, tv_finishtime, ly_clock, ly_repeat,
 				ly_location);
@@ -123,7 +132,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements OnChecke
 			dateTimePicKDialog.dateTimePicKDialog(tv_starttime);
 			break;
 		case R.id.input_task_finishtime:// 结束时间
-		
+
 			DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(
 					B3_TaskAddTaskTaskActivity.this, initEndDateTime);
 			dateTimePicKDialog2.dateTimePicKDialog(tv_finishtime);
@@ -167,9 +176,17 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements OnChecke
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		Tools.toast(B3_TaskAddTaskTaskActivity.this, "请先设置起始时间");
+		String time1=StringUtil.toString(tv_starttime.getText());
+		String time2=StringUtil.toString(tv_finishtime.getText());
+		if (isChecked) {
+			tv_starttime.setText(time1.substring(0, 12));
+			tv_finishtime.setText(time2.substring(0, 12));
+		}else{
+			tv_starttime.setText(time1);
+			tv_finishtime.setText(time2);
+		}
 
-		
 	}
-
 
 }

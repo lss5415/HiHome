@@ -1,6 +1,8 @@
 package com.zykj.hihome.data;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 public class Task implements Serializable{
 	/**
@@ -18,6 +20,9 @@ public class Task implements Serializable{
 	private String state;//任务状态
 	private String addtime;//任务添加时间
 	private String tasker;//任务执行人数
+	private String nick;  //任务发布者姓名
+	private String avatar;//任务发布者头像
+
 	public Task(){
 		
 	}
@@ -84,6 +89,19 @@ public class Task implements Serializable{
 	}
 	public void setAddtime(String addtime) {
 		this.addtime = addtime;
+	}
+	
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 	public String getTasker() {
 		return tasker;

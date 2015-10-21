@@ -54,15 +54,15 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_RenWuActivity"
+            android:name="com.zykj.hihome.B3_TaskActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_RenWuCreateAnniversaryActivity"
+            android:name="com.zykj.hihome.B3_TaskAddAnniversaryActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_RenWuPublishTaskActivity"
+            android:name="com.zykj.hihome.B3_TaskAddTaskTaskActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
