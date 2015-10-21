@@ -1,5 +1,6 @@
 package com.zykj.hihome.utils;
  
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -1160,4 +1161,35 @@ public class StringUtil {
             return obj.toString();
         }
     }
+	
+	/**
+	 * @param dateStr
+	 * @return
+	 */
+	public static String getTimeStr(String longStr) {
+		try {
+			long currentTime = System.currentTimeMillis()/1000L;
+			long commentTime = DateUtil.stringToLong(longStr, "yyyy-MM-dd HH:mm:ss");
+			long distanceTime = currentTime - commentTime;
+			String udpatetime = longStr.substring(5, 10);
+			if (distanceTime/60 <= 0){
+				return "刚刚";
+			} else if (distanceTime/600 <= 0){
+				return distanceTime/60 + "分钟前";
+			} else if (distanceTime/3600 <= 0){
+				return (distanceTime/600)*10 + "分钟前";
+			} else if (distanceTime/43200 <= 0){
+				return distanceTime/3600 + "小时前";
+			} else if (distanceTime/86400 <= 0){
+				return (distanceTime/43200)*12 + "小时前";
+			} else if (distanceTime/259200 <= 0){
+				return distanceTime/86400 + "天前";
+			} else {
+				return udpatetime;
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
 }

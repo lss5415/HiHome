@@ -34,6 +34,15 @@
     <string name="comfirm">确定</string>
 
     <!-- 任务 -->
+    <string name="task">任务</string>
+    <string name="task_self">自己的任务</string>
+    <string name="task_reserve">接受的任务</string>
+    <string name="task_send">发布的任务</string>
+    <string name="task_cancle">取消任务</string>
+    <string name="task_delete">删除任务</string>
+    <string name="task_unexcute">未执行</string>
+    <string name="task_title">下载hihomeapp</string>
+    <string name="task_excutorname">张含韵</string>
     <string name="task_name">任务名字：</string>
     <string name="task_state">任务状态：</string>
     <string name="task_input_name">请输入任务名</string>
@@ -64,5 +73,8 @@
     <string name="friend_name">请输入家和的账号</string>
     <string name="friend_link"><u>点击此处邀请好友加入</u></string>
     <string name="friend_search_info">没有找到符合搜索条件的用户</string>
+    <!-- 日历 -->
+    <string name="time_next">Next</string>
+    <string name="time_prev">Previous</string>
 
 </resources>

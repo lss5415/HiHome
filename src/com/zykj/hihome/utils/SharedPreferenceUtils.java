@@ -49,7 +49,7 @@ public class SharedPreferenceUtils {
 		return mSharedPreference.getString(PASSWORD, null);
 	}
 
-	public String getAvatar() {
+	public static String getAvatar() {
 		return mSharedPreference.getString(AVATAR, null);
 	}
 

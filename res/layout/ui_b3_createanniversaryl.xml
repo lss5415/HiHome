@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/divide_color_grey"
-    android:orientation="vertical" >
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" 
+    android:background="@color/divide_color_grey">
 
     <com.zykj.hihome.view.MyCommonTitle
         android:id="@+id/aci_mytitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
+<ScrollView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,6 +29,7 @@
             android:paddingTop="15dp" >
 
             <ImageView
+                android:id="@+id/img_avator"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -103,7 +107,8 @@
                     android:layout_weight="2"
                     android:gravity="center_vertical"
                     android:hint="@string/anniversary_input_date"
-                    android:textSize="16sp" />
+                    android:textSize="16sp" 
+                    android:textColor="@color/date_color"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -135,7 +140,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_null_white"
                 android:gravity="top"
-                android:hint="@string/anniversary_content" />
+                android:hint="@string/anniversary_content" 
+                android:textColor="@color/text_grey"/>
         </LinearLayout>
 
         <View
@@ -150,7 +156,7 @@
             android:orientation="horizontal"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:visibility="visible" >
+            android:visibility="gone" >
 
             <ImageView
                 android:id="@+id/img_photo"
@@ -188,5 +194,5 @@
                 android:src="@drawable/ic_task_below" />
         </LinearLayout>
     </LinearLayout>
-
+</ScrollView>
 </LinearLayout>

@@ -6,7 +6,11 @@
     <color name="black">#000000</color>
     <color name="grey">#EEEEEE</color>
     <color name="green">#01CF97</color>
+    <color name="radio_color">#8D8D8D</color>
+    <color name="tx_color">#363636</color>
+    <color name="date_color">#666666</color>
     <color name="text_grey">#B4B4B4</color>
+    <color name="state_color">#999999</color>
     <color name="tab_font_normal">#A0A0A0</color>
     <color name="tab_font_select">#ED6D00</color>
     <color name="index_type_font_color">#ED6D00</color>
@@ -33,5 +37,12 @@
     <!-- 好友 -->
     <color name="gray_font">#818181</color>
     <color name="gray">#AFAFAF</color>
+    <!-- 日历 -->
+    <color name="text_normal">#ffffff</color>
+    <color name="text_light">#ababab</color>
+    <color name="text_super_light">#c0c0c0</color>
+    <color name="blue_light">#48a5cc</color>
+    <color name="blue_dark">#00aeef</color>
+    <color name="stroke">#77d4f6</color>
 
 </resources>
