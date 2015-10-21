@@ -13,13 +13,13 @@
         android:id="@+id/rv_me_avatar"
         android:layout_width="@dimen/fifty"
         android:layout_height="@dimen/fifty"
-        android:layout_marginLeft="@dimen/three"
+        android:layout_marginLeft="@dimen/four"
         android:background="@drawable/gerentouxiang"/>
     
     <View
         android:id="@+id/divide"
         android:layout_width="0.5dp"
-        android:layout_marginLeft="18dp"
+        android:layout_marginLeft="19dp"
         android:layout_height="match_parent"
         android:background="@color/black" />
 

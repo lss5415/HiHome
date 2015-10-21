@@ -20,10 +20,12 @@ import com.zykj.hihome.utils.StringUtil;
  */
 public class TaskAdapter extends BaseAdapter{
 
+	private static final int TYPE_COUNT = 2;// item类型的总数
+	private static final int TYPE_TASK = 0;// 任务类型
+	private static final int TYPE_ANNIVER = 1;// 纪念日类型
     private LayoutInflater inflater;
     private List<Task> tasks;
     private int mType;
-    private boolean flag = false;
 
     public TaskAdapter(Context ctx, List<Task> tasks, int type) {
         inflater=LayoutInflater.from(ctx);
@@ -43,19 +45,37 @@ public class TaskAdapter extends BaseAdapter{
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
+    }
+    
+    @Override
+    public int getItemViewType(int position) {
+		if (StringUtil.isEmpty(tasks.get(position).getState())) {
+			return TYPE_ANNIVER;// 纪念日类型
+		} else {
+			return TYPE_TASK;// 任务类型
+		}
+    }
+    
+    @Override
+    public int getViewTypeCount() {
+    	return TYPE_COUNT;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(StringUtil.isEmpty(tasks.get(position).getState())){
-            ViewHolder1 holder;
+        View anniverView = null;// 纪念日类型
+        View taskView = null;// 任务类型
+        int currentType = getItemViewType(position);
+        if (currentType == TYPE_ANNIVER) {
+            ViewHolder1 holder = null;
             if(convertView == null){
                 holder=new ViewHolder1();
-            	convertView = inflater.inflate(R.layout.ui_b3_item_anniversay, parent, false);
-                holder.rv_me_avatar = (CircularImage)convertView.findViewById(R.id.rv_me_avatar);//图片
-                holder.aci_title = (TextView)convertView.findViewById(R.id.aci_title);//标题
-                holder.aci_time = (TextView)convertView.findViewById(R.id.aci_time);//时间
+                anniverView = inflater.inflate(R.layout.ui_b3_item_anniversay, parent, false);
+                holder.rv_me_avatar = (CircularImage)anniverView.findViewById(R.id.rv_me_avatar);//图片
+                holder.aci_title = (TextView)anniverView.findViewById(R.id.aci_title);//标题
+                holder.aci_time = (TextView)anniverView.findViewById(R.id.aci_time);//时间
+                convertView = anniverView;
                 convertView.setTag(holder);
             }else{
                 holder= (ViewHolder1)convertView.getTag();
@@ -65,19 +85,19 @@ public class TaskAdapter extends BaseAdapter{
 			//holder.rv_me_avatar.setText(task.getTitle());
 			holder.aci_title.setText(task.getTitle());
 			holder.aci_time.setText(task.getAddtime());
-            return convertView;
-        }else{
-	        ViewHolder2 holder2;
-	        if(!flag){
+        }else if(currentType == TYPE_TASK){
+	        ViewHolder2 holder2 = null;
+            if(convertView == null){
 	            holder2=new ViewHolder2();
-	        	convertView = inflater.inflate(R.layout.ui_b3_item_task, parent, false);
-	        	holder2.date = (TextView)convertView.findViewById(R.id.date);//图片
-	        	holder2.task_title = (TextView)convertView.findViewById(R.id.task_title);//标题
-	        	holder2.task_time = (TextView)convertView.findViewById(R.id.task_time);//提醒时间
-	        	holder2.task_repeat = (TextView)convertView.findViewById(R.id.task_repeat);//是否重复
-	        	holder2.task_tasker = (TextView)convertView.findViewById(R.id.task_tasker);//发布人
-	        	holder2.task_num = (TextView)convertView.findViewById(R.id.task_num);//执行人数
-	        	holder2.task_state = (TextView)convertView.findViewById(R.id.task_state);//执行状态
+	            taskView = inflater.inflate(R.layout.ui_b3_item_task, parent, false);
+	        	holder2.date = (TextView)taskView.findViewById(R.id.date);//图片
+	        	holder2.task_title = (TextView)taskView.findViewById(R.id.task_title);//标题
+	        	holder2.task_time = (TextView)taskView.findViewById(R.id.task_time);//提醒时间
+	        	holder2.task_repeat = (TextView)taskView.findViewById(R.id.task_repeat);//是否重复
+	        	holder2.task_tasker = (TextView)taskView.findViewById(R.id.task_tasker);//发布人
+	        	holder2.task_num = (TextView)taskView.findViewById(R.id.task_num);//执行人数
+	        	holder2.task_state = (TextView)taskView.findViewById(R.id.task_state);//执行状态
+                convertView = taskView;
 	            convertView.setTag(holder2);
 	    	}else{
 	    		holder2= (ViewHolder2)convertView.getTag();
@@ -97,8 +117,8 @@ public class TaskAdapter extends BaseAdapter{
 			holder2.task_num.setText(mType==2?task.getTasker()+"人":"张三");
 			holder2.task_num.setVisibility(mType==1?View.GONE:View.VISIBLE);
 			holder2.task_state.setText(state==0?"未接受":state==1?"已接受":state==2?"待执行":state==3?"执行中":state==4?"已完成":"已取消");
-	        return convertView;
         }
+        return convertView;
     }
 
     class ViewHolder1 {
