@@ -9,6 +9,7 @@ import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -75,6 +76,8 @@ public class B4_2_TongXunLuActivity extends BaseActivity {
 		sideBar = (SideBar) findViewById(R.id.sidrbar);
 		dialog = (TextView) findViewById(R.id.dialog);
 		sortListView = (ListView)findViewById(R.id.country_lvcountry);
+		sortListView.setDivider(new ColorDrawable(0xffeeeeee));
+		sortListView.setDividerHeight(1);
 	}
 
 	private void initData() {

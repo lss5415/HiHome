@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/date"
-        android:layout_width="55dp"
+        android:layout_width="58dp"
         android:layout_height="match_parent"
         android:gravity="right|center_vertical"
         android:textSize="@dimen/t_sixteen"
@@ -58,6 +58,7 @@
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/text_grey"
                 android:text="五分钟前"
+                android:singleLine="true"
             	android:textSize="@dimen/t_fourteen"/>
             <ImageView
                 android:layout_width="@dimen/eighteen"
@@ -73,6 +74,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:text="每天"
+                android:singleLine="true"
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/t_fourteen" />
         </LinearLayout>
