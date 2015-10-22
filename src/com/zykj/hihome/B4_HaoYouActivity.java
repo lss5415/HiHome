@@ -11,10 +11,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -33,7 +32,7 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 	
 	private CircularImage rv_me_avatar;
 	private ImageView add_friend;
-	private EditText firend_search;
+//	private EditText firend_search;
 	private ListView friend_list;
 	private List<Friend> friends;
 	
@@ -42,7 +41,6 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 		initView(R.layout.ui_b4_haoyou);
 		
 		initView();
-		requestData();
 	}
 
 	@Override
@@ -57,7 +55,7 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 	public void initView() {
 		rv_me_avatar = (CircularImage)findViewById(R.id.rv_me_avatar);//头像
 		add_friend = (ImageView)findViewById(R.id.add_friend);//添加好友
-		firend_search = (EditText)findViewById(R.id.firend_search);//搜索
+//		firend_search = (EditText)findViewById(R.id.firend_search);//搜索
 		
 		friend_list = (ListView)findViewById(R.id.friend_list);//搜索
 		friend_list.setDividerHeight(0);
