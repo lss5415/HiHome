@@ -62,6 +62,10 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
+            android:name="com.zykj.hihome.B3_1_SelectExcutorActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
             android:name="com.zykj.hihome.B3_TaskAddTaskTaskActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />

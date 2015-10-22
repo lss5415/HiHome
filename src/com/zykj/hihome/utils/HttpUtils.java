@@ -82,4 +82,11 @@ public class HttpUtils {
 	public static void getTasks(AsyncHttpResponseHandler res, RequestParams params) {
 		client.post(base_url + "c=task&a=getList", params, res);
 	}
+	/**
+	 * 6 获取任务详情
+	 * @param params参数id----任务id
+	 */
+	public static void getTasksInfo(AsyncHttpResponseHandler res) {
+		client.post(base_url + "c=task&a=getInfo", res);
+	}
 }

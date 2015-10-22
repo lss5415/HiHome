@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/tasker_excutor_avator"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_user_avtor" />
+
+    <TextView
+        android:id="@+id/tasker_excutor_name"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:gravity="center"
+        android:text="张飞"
+        android:textColor="@color/edit_hint_color"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/tasker_excutor_state"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:gravity="center"
+        android:text="待执行"
+        android:textColor="@color/theme_colorhuang"
+        android:textSize="16sp" />
+</LinearLayout>
