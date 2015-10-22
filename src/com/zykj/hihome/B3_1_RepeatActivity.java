@@ -55,6 +55,8 @@ public class B3_1_RepeatActivity extends BaseActivity {
 		repeatList.add("每周");
 		repeatList.add("每月");
 		repeatList.add("每年");
+		flags[0] = true;
+		notifyDataForListView();
 		
 		repeatAdapter=new CommonAdapter<String>(B3_1_RepeatActivity.this,R.layout.ui_b3_check_item ,repeatList) {
 			@Override
