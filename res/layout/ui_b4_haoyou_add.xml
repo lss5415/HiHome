@@ -13,11 +13,11 @@
     
     <RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/forty_five"
-        android:layout_margin="@dimen/fifteen">
+		android:layout_height="@dimen/forty"
+        android:layout_margin="@dimen/ten">
 		<Button 
 		    android:id="@+id/aci_button"
-			android:layout_width="@dimen/one_hundred"
+			android:layout_width="@dimen/eighty"
 	        android:layout_height="match_parent"
 	        android:layout_alignParentRight="true"
 	        android:text="@string/friend_find"
@@ -28,7 +28,7 @@
 		    android:id="@+id/aci_edittext"
 			android:layout_width="match_parent"
 	        android:layout_height="match_parent"
-	        android:layout_marginRight="@dimen/fifteen"
+	        android:layout_marginRight="@dimen/ten"
 	        android:background="@drawable/bg_round_white"
 	        android:paddingLeft="@dimen/thirty"
 	        android:hint="@string/friend_name"

@@ -73,6 +73,10 @@
     <string name="friend_name">请输入家和的账号</string>
     <string name="friend_link"><u>点击此处邀请好友加入</u></string>
     <string name="friend_search_info">没有找到符合搜索条件的用户</string>
+    
+    <!-- 聊天 -->
+    <string name="chat_title">聊天</string>
+    
     <!-- 日历 -->
     <string name="time_next">Next</string>
     <string name="time_prev">Previous</string>

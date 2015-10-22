@@ -2,53 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEE"
-    android:orientation="vertical" >
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <!-- 导入title -->
-
-        <include layout="@layout/layout_head" />
-
-        <com.zykj.hihome.utils.CircularImage
-            android:id="@+id/img_head"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/gerentouxiang" />
-
-        <TextView
-            android:id="@+id/textView3"
-            style="@style/title_head"
-            android:text="聊天" />
-    </RelativeLayout>
-
+    android:orientation="vertical"
+	android:background="@color/grey" >
     <RelativeLayout 
-        android:layout_width="fill_parent"
-        android:layout_height="50dp">
-        <LinearLayout 
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:background="#FFF">
-        <ImageView 
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/img_search"/>
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/fifty"
+	    android:orientation="horizontal"
+	    android:background="@color/theme_colorhuang" >
+	    <ImageView 
+	        android:id="@+id/left_ico"
+		    android:layout_width="wrap_content"
+		    android:layout_height="@dimen/twenty_eight"
+		    android:layout_centerVertical="true"
+		    android:layout_marginLeft="@dimen/ten"
+		    android:layout_marginRight="@dimen/three"
+		    android:contentDescription="@string/app_name"
+		    android:src="@drawable/avatar_ico"/>
+        <com.zykj.hihome.utils.CircularImage
+            android:id="@+id/rv_me_avatar"
+            android:layout_width="@dimen/thirty_five"
+            android:layout_height="@dimen/thirty_five"
+            android:layout_toRightOf="@id/left_ico"
+		    android:layout_centerVertical="true"
+            android:background="@drawable/gerentouxiang"/>
+        <TextView 
+            style="@style/title_head"
+            android:text="@string/chat_title"/>
+	</RelativeLayout>
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/forty"
+	    android:layout_marginLeft="@dimen/ten"
+	    android:layout_marginRight="@dimen/ten"
+	    android:layout_marginTop="@dimen/five"
+	    android:layout_marginBottom="@dimen/five">
+	    <EditText 
+	        android:id="@+id/firend_search"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:padding="@dimen/five"
+		    android:background="@drawable/bg_round_white"
+	    	android:inputType="text"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="搜索"
+            android:layout_centerInParent="true"
+            android:drawableLeft="@drawable/img_search"
+            android:textSize="@dimen/t_sixteen"
+            android:hint="@string/friend_search"
             android:background="@null"/>
-        </LinearLayout>
-    </RelativeLayout>
-    
+	</RelativeLayout>
+	<ListView 
+	    android:id="@+id/chat_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
