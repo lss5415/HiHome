@@ -12,7 +12,7 @@
 	    android:layout_height="@dimen/seventy"
 	    android:layout_marginLeft="@dimen/twelve"
 	    android:contentDescription="@string/app_name"
-	    android:src="@drawable/buerhaitao"/>
+	    android:src="@drawable/xinagcetouxiang"/>
     <TextView 
         android:id="@+id/aci_name"
 	    android:layout_width="wrap_content"
