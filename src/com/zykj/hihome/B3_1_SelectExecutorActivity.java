@@ -29,7 +29,7 @@ import com.zykj.hihome.view.PinyinComparator;
 import com.zykj.hihome.view.SideBar;
 import com.zykj.hihome.view.SideBar.OnTouchingLetterChangedListener;
 
-public class B3_1_SelectExcutorActivity extends BaseActivity {
+public class B3_1_SelectExecutorActivity extends BaseActivity {
 
 	private MyCommonTitle myCommonTitle;
 	private LinearLayout resultdata;
@@ -52,7 +52,7 @@ public class B3_1_SelectExcutorActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ui_b3_1_select_excutor);
+		setContentView(R.layout.ui_b3_1_select_executor);
 
 		initView();
 		initData();
@@ -100,7 +100,7 @@ public class B3_1_SelectExcutorActivity extends BaseActivity {
 				// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
 				String number = callRecords.get(((SortModel) adapter
 						.getItem(position)).getName());
-				Tools.toast(B3_1_SelectExcutorActivity.this, number);
+				Tools.toast(B3_1_SelectExecutorActivity.this, number);
 			}
 		});
 //		new AsyncTaskConstact().execute(0);
@@ -112,7 +112,7 @@ public class B3_1_SelectExcutorActivity extends BaseActivity {
 		protected Integer doInBackground(Integer... arg0) {
 			int result = -1;
 			callRecords = ConstactUtil
-					.getAllCallRecords(B3_1_SelectExcutorActivity.this);
+					.getAllCallRecords(B3_1_SelectExecutorActivity.this);
 			result = 1;
 			return result;
 		}
@@ -134,7 +134,7 @@ public class B3_1_SelectExcutorActivity extends BaseActivity {
 
 				// 根据a-z进行排序源数据
 				Collections.sort(SourceDateList, pinyinComparator);
-				adapter = new SortAdapter(B3_1_SelectExcutorActivity.this,
+				adapter = new SortAdapter(B3_1_SelectExecutorActivity.this,
 						SourceDateList);
 				sortListView.setAdapter(adapter);
 			}

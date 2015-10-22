@@ -21,10 +21,12 @@ import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.zykj.hihome.B3_1_AnniversaryDetailsActivity;
 import com.zykj.hihome.B3_1_DetailsPublishTaskActivity;
 import com.zykj.hihome.B3_1_DetailsReceiveTaskActivity;
 import com.zykj.hihome.B3_1_DetailsSelfTaskActivity;
 import com.zykj.hihome.adapter.TaskAdapter;
+import com.zykj.hihome.data.Anniversary;
 import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
@@ -130,7 +132,7 @@ public class TaskFragment extends Fragment implements OnItemClickListener{
 			if(!StringUtil.isEmpty(task.getState())){
 				startActivity(new Intent(getActivity(), B3_1_DetailsSelfTaskActivity.class).putExtra("task", task));//1 自己的任务
 			}else{
-				Tools.toast(getActivity(), task.getTitle());
+				startActivity(new Intent(getActivity(), B3_1_AnniversaryDetailsActivity.class).putExtra("task", task));
 			}
 		}else if(mType == 2){
 			startActivity(new Intent(getActivity(), B3_1_DetailsReceiveTaskActivity.class).putExtra("task", task));//2 接受的任务

@@ -91,7 +91,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		switch (view.getId()) {
 		case R.id.img_read_contacts:// 执行人，读取通讯录
 			startActivity(new Intent(B3_TaskAddTaskTaskActivity.this,
-					B3_1_SelectExcutorActivity.class));
+					B3_1_SelectExecutorActivity.class));
 			break;
 		case R.id.img_input_contentimg:// 为任务内容添加图片，因在布局文件中添加图片的控件隐藏了，如需要先设置ly_add_img可见
 			img_input_contentimg.setVisibility(View.GONE);
