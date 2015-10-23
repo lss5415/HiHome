@@ -1,8 +1,10 @@
 package com.zykj.hihome.adapter;
 
 import java.util.List;
+import java.util.Random;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +53,11 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer{
 			view = LayoutInflater.from(mContext).inflate(R.layout.ui_b4_tongxunlu_item, null);
 			viewHolder.tvTitle = (TextView) view.findViewById(R.id.title);
 			viewHolder.tvLetter = (TextView) view.findViewById(R.id.catalog);
+			viewHolder.tvEdit = (TextView) view.findViewById(R.id.edit);
+			int random = new Random().nextInt(3);
+			viewHolder.tvEdit.setText(random == 0?"添加":random == 1?"邀请":"已同意");
+			viewHolder.tvEdit.setTextColor(Color.parseColor(random == 2?"#AAAAAA":"#FFFFFF"));
+			viewHolder.tvEdit.setBackgroundColor(Color.parseColor(random == 0?"#01CF97":random == 1?"#EA5414":"#FFFFFF"));
 			view.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) view.getTag();
@@ -78,6 +85,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer{
 	final static class ViewHolder {
 		TextView tvLetter;
 		TextView tvTitle;
+		TextView tvEdit;
 	}
 
 
