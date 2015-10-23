@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/grey"
+    android:gravity="center">
+    <TextView 
+        android:id="@+id/check_item"
+        android:layout_width="@dimen/one_hundred"
+        android:layout_height="@dimen/one_hundred"
+        android:text="@string/app_name"
+        android:textSize="@dimen/t_twenty"
+        android:textColor="@drawable/item_check_text"
+        android:layout_marginTop="@dimen/five"
+        android:layout_marginBottom="@dimen/five"
+        android:gravity="center"
+        android:background="@drawable/item_check_bg"/>
+</LinearLayout>

@@ -119,7 +119,6 @@ public class B1_TiXingActivity extends BaseActivity {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		super.onClick(v);
 		switch (v.getId()) {
 		// case R.id.iv_erwei:

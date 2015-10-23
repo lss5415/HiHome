@@ -70,8 +70,8 @@ public class B4_1_LoginActivity extends BaseActivity {
 					B4_1_ForgetPassWordActivity.class));
 			break;
 		case R.id.btn_login:
-//			username = et_username.getText().toString().trim();
-//			passWord = et_passWord.getText().toString().trim();
+			username = et_username.getText().toString().trim();
+			passWord = et_passWord.getText().toString().trim();
 //			if (StringUtil.isEmpty(username)) {
 //				Tools.toast(B4_1_LoginActivity.this, "用户名不能为空");
 //				return;
@@ -80,20 +80,18 @@ public class B4_1_LoginActivity extends BaseActivity {
 //				Tools.toast(B4_1_LoginActivity.this, "密码不能为空");
 //				return;
 //			}
-//			RequestParams params = new RequestParams();
-//			params.put("mob", username);
-//			params.put("pass", passWord);
-//			HttpUtils.login(new JsonHttpResponseHandler() {
-//				@Override
-//				public void onSuccess(int statusCode, Header[] headers,
-//						JSONArray response) {
-//					super.onSuccess(statusCode, headers, response);
-//					Tools.toast(B4_1_LoginActivity.this, "登录成功");
-//					finish();
-//					startActivity(new Intent(B4_1_LoginActivity.this,
-//							B0_MainActivity.class));
-//				}
-//			}, params);
+			RequestParams params = new RequestParams();
+			params.put("mob", username);
+			params.put("pass", passWord);
+			HttpUtils.login(new JsonHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, Header[] headers,
+						JSONArray response) {
+					super.onSuccess(statusCode, headers, response);
+					Tools.toast(B4_1_LoginActivity.this, "登录成功");
+					finish();
+				}
+			}, params);
 			startActivity(new Intent(B4_1_LoginActivity.this,
 					B0_MainActivity.class));
 			break;

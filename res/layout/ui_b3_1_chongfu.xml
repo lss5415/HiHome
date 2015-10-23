@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:orientation="vertical" >
+
+    <com.zykj.hihome.view.MyCommonTitle
+        android:id="@+id/aci_mytitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <GridView
+        android:id="@+id/clock_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="4" />
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@color/white"
+	    android:paddingLeft="@dimen/ten"
+	    android:paddingRight="@dimen/ten"
+	    android:paddingTop="@dimen/fifteen"
+	    android:paddingBottom="@dimen/fifteen"
+	    android:gravity="center_vertical"
+	    android:orientation="horizontal" >
+	    <ImageView
+	        android:layout_width="@dimen/twenty_five"
+	        android:layout_height="@dimen/twenty_five"
+	        android:contentDescription="@string/app_name"
+	        android:src="@drawable/ic_task_fresh" />
+	    <TextView
+	        android:id="@+id/tv_tixing_time"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="10dp"
+	        android:text="不重复"
+	        android:textColor="@color/black"
+	        android:textSize="@dimen/t_sixteen" />
+	    <View
+	        android:layout_width="0.0dp"
+	        android:layout_height="2dp"
+	        android:layout_weight="1" />
+	    <TextView
+	        android:id="@+id/tv_tixing_datetime"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="15dp"
+	        android:text="21日重复"
+	        android:textColor="@color/black"
+	        android:textSize="@dimen/t_sixteen" />
+	</LinearLayout>
+</LinearLayout>

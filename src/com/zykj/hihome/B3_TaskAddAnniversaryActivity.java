@@ -30,7 +30,7 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.ui_b3_createanniversaryl);
+		setContentView(R.layout.ui_b3_taskaddanniversary);
 
 		initView();
 	}

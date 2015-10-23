@@ -5,8 +5,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.data.Task;
+import com.zykj.hihome.utils.HttpUtils;
+import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.view.MyCommonTitle;
 
 public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
@@ -49,11 +52,14 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 
 	private void initializationDate() {
 		int state = Integer.valueOf(task.getState());
-		task_state.setText(state==0?"未接受":state==1?"已接受":state==2?"待执行":state==3?"已执行":state==4?"已完成":"已取消");
+		final String statu=state==0?"未接受":state==1?"已接受":state==2?"待执行":state==3?"已执行":state==4?"已完成":"已取消";
+		//task_state.setText(statu);
 		task_name.setText(task.getTitle());
 		task_content.setText(task.getContent());
 		task_starttime.setText(task.getStart());
-		task_finishtime.setText(task.getEnd());		
+		task_finishtime.setText(task.getEnd());	
+		task_publish_name.setText(task.getNick());
+		ImageLoader.getInstance().displayImage(StringUtil.toString(HttpUtils.IMAGE_URL+task.getAvatar(), "http://"), task_publish_avator);
 	}
 
 }

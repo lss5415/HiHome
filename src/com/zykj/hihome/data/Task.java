@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Task implements Serializable{
 	/**
-	 * 任务
+	 * 任务和纪念日
 	 */
 	private static final long serialVersionUID = 1L;
 	private String id;//编号ID
@@ -22,9 +22,31 @@ public class Task implements Serializable{
 	private String tasker;//任务执行人数
 	private String nick;  //任务发布者姓名
 	private String avatar;//任务发布者头像
+	private String imgsrc;//纪念日图片
+	private String mdate;//纪念日日期
+	private List<Map<String, String>> taskerList;
 
+	public List<Map<String, String>> getTaskerList() {
+		return taskerList;
+	}
+	public void setTaskerList(List<Map<String, String>> taskerList) {
+		this.taskerList = taskerList;
+	}
 	public Task(){
 		
+		
+	}
+	public String getImgsrc() {
+		return imgsrc;
+	}
+	public void setImgsrc(String imgsrc) {
+		this.imgsrc = imgsrc;
+	}
+	public String getMdate() {
+		return mdate;
+	}
+	public void setMdate(String mdate) {
+		this.mdate = mdate;
 	}
 	public Task(String title,String time){
 		this.title = title;
