@@ -5,6 +5,7 @@
     <color name="bg_tixing">#F7F7F7</color>
     <color name="black">#000000</color>
     <color name="grey">#EEEEEE</color>
+    <color name="lgrey">#d6d6d6</color>
     <color name="green">#01CF97</color>
     <color name="radio_color">#8D8D8D</color>
     <color name="tx_color">#363636</color>
@@ -26,6 +27,8 @@
     <color name="possible_result_points">#c0ffff00</color>
     <color name="classify_checked">#FFFFFF</color>
     <color name="classify_back">#E8E8E8</color>
+     <!-- 深一点的金色 -->
+    <color name="btn_blue">#0EA9E3</color>
     
     <!-- 登录 -->
     <color name="text_devide">#D5C1AA</color>

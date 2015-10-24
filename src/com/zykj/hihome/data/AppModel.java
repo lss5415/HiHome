@@ -18,8 +18,6 @@ public class AppModel {
     public static String NAME = "name";
     public static String PHONE = "phone";
 	
-	
-	
     private String username;//登录账号
     private String password;//登录密码
     private String userid;//用户Id

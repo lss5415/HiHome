@@ -1,9 +1,7 @@
 package com.zykj.hihome;
 
 import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -13,21 +11,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
-import com.loopj.android.http.JsonHttpResponseHandler;
+
+import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.TextUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.MyCommonTitle;
 import com.zykj.hihome.view.MyRequestDailog;
-import com.zykj.hihome.view.RequestDailog;
 
 /**
  * @author LSS 2015年9月29日 上午9:19:36
@@ -100,8 +96,8 @@ public class B4_1_RegisterActivity extends BaseActivity {
 			break;
 
 		case R.id.positive:// 确定
-			if (StringUtil.isEmpty(mobilecode)) {
-				Tools.toast(B4_1_RegisterActivity.this, "验证码不能为空");
+			if (TextUtil.isCode(mobilecode, 4)) {
+				Tools.toast(B4_1_RegisterActivity.this, "验证码不正确");
 				return;
 			}
 			if (StringUtil.isEmpty(newpass)) {
@@ -131,7 +127,13 @@ public class B4_1_RegisterActivity extends BaseActivity {
 			break;
 		}
 	}
-
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		SMSSDK.unregisterAllEventHandler();
+	}
+	
+	@SuppressLint("HandlerLeak")
 	Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -163,22 +165,24 @@ public class B4_1_RegisterActivity extends BaseActivity {
 			RequestParams params=new RequestParams();
 			params.put("mob", mobile);
 			params.put("pass", newpass);
-			HttpUtils.register(new JsonHttpResponseHandler(){
-				public void onSuccess(int statusCode, Header[] headers, org.json.JSONArray response) {
+			
+			HttpUtils.register(new HttpErrorHandler() {
+				
+				@Override
+				public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
 					MyRequestDailog.closeDialog();
 					Tools.toast(B4_1_RegisterActivity.this, "注册成功");
-					finish();
-				};
+					finish();					
+				}
+
+				@Override
+				public void onRecevieFailed(String status,JSONObject json) {
+					super.onRecevieFailed(status, json);
+					Tools.toast(B4_1_RegisterActivity.this, json.getString("message"));
+				}
 			}, params);
 		}
-
 	};
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		SMSSDK.unregisterAllEventHandler();
-	}
 
 	/* 定义一个倒计时的内部类 */
 	class MyCount extends CountDownTimer {

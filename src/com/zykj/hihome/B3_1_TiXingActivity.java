@@ -27,7 +27,7 @@ public class B3_1_TiXingActivity extends BaseActivity {
 	private ListView mListView;
 	private List<HashMap<String,String>> clocksList=new ArrayList<HashMap<String,String>>();
 	private List<String> remindList = new ArrayList<String>();
-	private String[] strs = new String[]{"正点","五分钟前","十分钟前","一小时之前","一天前","三天前","不提醒"};
+	private String[] strs = new String[]{"不提醒","正点","五分钟前","十分钟前","一小时之前","一天前","三天前"};
 	private CommonAdapter<HashMap<String,String>> clockAdapter;
 	private CommonAdapter<String> addClockAdapter;
 	private long startTime;

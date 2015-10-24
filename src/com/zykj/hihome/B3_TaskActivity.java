@@ -13,6 +13,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.zykj.hihome.calendar.CalendarManager;
 import com.zykj.hihome.calendar.CollapseCalendarView;
 import com.zykj.hihome.fragment.TaskFragment;
+import com.zykj.hihome.utils.CommonUtils;
 
 /**
  * @author LSS 2015年9月29日 上午8:55:45
@@ -76,16 +77,25 @@ public class B3_TaskActivity extends FragmentActivity implements OnClickListener
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.img_create_anniversary:// 创建纪念日
-			startActivity(new Intent(B3_TaskActivity.this,
-					B3_TaskAddAnniversaryActivity.class));
+			startActivityForResult(new Intent(B3_TaskActivity.this,
+					B3_TaskAddAnniversaryActivity.class),1);
 			break;
 		case R.id.img_publish_task:// 发布任务
-			startActivity(new Intent(B3_TaskActivity.this,
-					B3_TaskAddTaskTaskActivity.class));
+			startActivityForResult(new Intent(B3_TaskActivity.this,
+					B3_TaskAddTaskTaskActivity.class),2);
 			break;
 		default:
 			break;
 		}
 	}
-
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	super.onActivityResult(requestCode, resultCode, intent);
+	if(requestCode==1){
+		taskFragment1.reflush();
+	}else if (requestCode==2) {
+		taskFragment3.reflush();
+	}
+	
+}
 }

@@ -13,60 +13,60 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.zykj.hihome.data.AppModel;
 import com.zykj.hihome.utils.StringUtil;
-import com.zykj.hihome.utils.Tools;
 
 public class BaseApp extends Application {
-	/**
-	 * 存储的sharePerfence
-	 */
+	
+	
 	public static final String config = "config";//存储的sharePerfence
 	public static final String IS_INTRO = "is_intro";//当前的是否已经进行过指引
 	public static final String VERSION = "version";//当前应用中存储的版本号
 	
+	// ===========常量==========
+	private static final String TAG = "BaseApp";
+	public static final String FILE_DIR = "heer_dir";
+
 	private static Context context;
 	private static Stack<Activity> activityStack;
-	public static BaseApp singleton;
-	private static AppModel model;
-
-	public void onCreate() {
-		super.onCreate();
-
-		singleton = this;
-
-		initImageLoader();
+	private static BaseApp instance;
+    private static AppModel model;
+	public BaseApp() {
 	}
 
-	public static BaseApp getInstance() {
-		return singleton;
+	public synchronized static BaseApp getInstance() {
+		if (null == instance) {
+			instance = new BaseApp();
+		}
+		return instance;
 	}
-	  private void initModel() {
-	    	/*初始化用户Model*/
-	        model=AppModel.init(this);
-	    }
 
-		/**
-		 * 获取用户信息
-		 */
-	    public static AppModel getModel(){
-	        if(model == null){
-	            Log.e("application","appmodel is null");
-	        }
-	        return model;
-	    }
+    private void initModel() {
+    	/*初始化用户Model*/
+        model=AppModel.init(this);
+    }
 
-		/**
-		 * 验证用户是否登录
-		 */
-	    public static boolean validateUserLogin(){
-	        if(StringUtil.isEmpty(model.getUserid())){
-	            return false;
-	        }else{
-	            return true;
-	        }
-	    }
-	
 	/**
-	 * 
+	 * 获取用户信息
+	 */
+    public static AppModel getModel(){
+        if(model == null){
+            Log.e("application","appmodel is null");
+        }
+        return model;
+    }
+
+	/**
+	 * 验证用户是否登录
+	 */
+    public static boolean validateUserLogin(){
+        if(StringUtil.isEmpty(model.getUserid())){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+	/**
+	 * 打开Activity
 	 */
 	public void addActivity(Activity activity) {
 		if (activityStack == null) {
@@ -74,15 +74,15 @@ public class BaseApp extends Application {
 		}
 		activityStack.add(activity);
 
-		Tools.Log("-----------------------------------");
+		Log.d(TAG, "-----------------------------------");
 		for (Activity temp : activityStack) {
-			Tools.Log("类名:" + temp.toString() + "地址：" + temp);
+			Log.d(TAG, "类名:" + temp.toString() + "地址：" + temp);
 		}
-		Tools.Log("===================================");
+		Log.d(TAG, "===================================");
 	}
 
 	/**
-	 * 
+	 * 获取当前Activity
 	 */
 	public Activity currentActivity() {
 		Activity activity = activityStack.lastElement();
@@ -90,7 +90,7 @@ public class BaseApp extends Application {
 	}
 
 	/**
-	 *
+	 * 关闭Activity
 	 */
 	public void finishActivity() {
 		Activity activity = activityStack.lastElement();
@@ -98,7 +98,7 @@ public class BaseApp extends Application {
 	}
 
 	/**
-	 * 
+	 * 关闭指定Activity
 	 */
 	public void finishActivity(Activity activity) {
 		if (activity != null) {
@@ -109,7 +109,7 @@ public class BaseApp extends Application {
 	}
 
 	/**
-	 * 
+	 * 关闭所有的Activity
 	 */
 	public void finishAllActivity() {
 		for (int i = 0, size = activityStack.size(); i < size; i++) {
@@ -130,22 +130,49 @@ public class BaseApp extends Application {
 		activityStack.remove(activity);
 		activityStack.push(activity);
 
-		Tools.Log("最后一个参数:" + activityStack.lastElement());
+		Log.d(TAG, "最后一个参数:" + activityStack.lastElement());
 	}
 
-	/** 初始化ImageLoader的数据 */
-	public void initImageLoader() {
-		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-				getApplicationContext())
-				.threadPriority(Thread.NORM_PRIORITY - 2)
-				.denyCacheImageMultipleSizesInMemory()
-				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
-				.diskCacheSize(50 * 1024 * 1024)
-				// 50 Mb
-				.tasksProcessingOrder(QueueProcessingType.LIFO)
-				.writeDebugLogs() // Remove for release app
-				.build();
+	public void exit() {
+		finishAllActivity();
+		System.exit(0);
+	}
 
-		ImageLoader.getInstance().init(config);
+	public void onLowMemory() {
+		super.onLowMemory();
+		System.gc();
+	}
+
+	@Override
+	public void onCreate() {
+		initImageLoader();
+		context = getApplicationContext();
+		Log.d(TAG, "[ExampleApplication] onCreate");
+		super.onCreate();
+		
+        initModel();//初始化 数据
+	}
+	
+	/**
+	 * 获取全局Context
+	 */
+	public static Context getContext() {
+		return context;
+	}
+
+	/**
+	 * 初始化ImageLoader
+	 */
+	protected void initImageLoader() {
+		//初始化ImageLoader
+        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(this);
+        config.threadPriority(Thread.NORM_PRIORITY - 2);
+        config.denyCacheImageMultipleSizesInMemory();
+        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
+        config.diskCacheSize(50 * 1024 * 1024);
+        config.tasksProcessingOrder(QueueProcessingType.LIFO);
+        config.writeDebugLogs();
+
+        ImageLoader.getInstance().init(config.build());
 	}
 }

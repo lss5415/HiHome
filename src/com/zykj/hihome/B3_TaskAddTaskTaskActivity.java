@@ -1,17 +1,28 @@
 package com.zykj.hihome;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.apache.http.protocol.HTTP;
+
+import com.alibaba.fastjson.JSONObject;
+import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.utils.DateTimePickDialogUtil;
+import com.zykj.hihome.utils.HttpErrorHandler;
+import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.MyCommonTitle;
+import com.zykj.hihome.view.UIDialog;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,6 +35,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
@@ -39,6 +51,13 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	private TextView tv_starttime, tv_finishtime;
 	private String initStartDateTime = "2013年9月3日 14:44"; // 初始化开始时间
 	private String initEndDateTime = "2014年8月23日 17:44"; // 初始化结束时间
+	private File file;
+	private String timeString;// 上传头像的字段
+	private String title, content, isday, starttime, endtime, tip, repeat,
+			tasker;
+
+	// uid必须，用户ID编号title必须，任务名称content必须，任务内容isday必须，是否是全天任务start必须，任务开始时间
+	// end必须，任务结束时间tip必须，任务提醒：数值意义见左侧repeat必须，任务重复：数值意义见左侧tasker必须，任务执行人ID编号，如1,2,3,4多个之间用英文,分隔
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,33 +77,24 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		ed_taskexcutor = (TextView) findViewById(R.id.input_taskexcutor);// 任务执行人
 		img_read_contacts = (ImageView) findViewById(R.id.img_read_contacts);// 读取联系人
 		ed_taskcontent = (EditText) findViewById(R.id.input_taskcontent);// 任务内容
-		img_camere = (ImageView) findViewById(R.id.img_camere);// 启动摄像头拍照
 		img_photo = (ImageView) findViewById(R.id.img_photo);// 读取相册
-		img_input_contentimg = (ImageView) findViewById(R.id.img_input_contentimg);// 添加图片，显示添加图片栏
 		toggleButton = (ToggleButton) findViewById(R.id.toggle_on_off);// 设置全天开关
 		tv_starttime = (TextView) findViewById(R.id.input_task_starttime);// 设置开始时间
 		tv_finishtime = (TextView) findViewById(R.id.input_task_finishtime);// 设置结束时间
-		ly_add_img = (LinearLayout) findViewById(R.id.ly_task_input_content);// 添加图片栏
 		ly_clock = (LinearLayout) findViewById(R.id.ly_clock);// 设置提醒
 		ly_repeat = (LinearLayout) findViewById(R.id.ly_repeat);// 设置重复
 		ly_location = (LinearLayout) findViewById(R.id.ly_dingwei);// 设置定位
 		toggleButton.setOnCheckedChangeListener(this);// 设置ToggleBtoon的监听事件
-		
-		date=new Date();
-		SimpleDateFormat format=new SimpleDateFormat("yyyy年MM月dd日  hh:mm:ss");
-		String time=format.format(date);
+
+		date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日  hh:mm:ss");
+		String time = format.format(date);
 		tv_starttime.setText(time);
 		tv_finishtime.setText(time);
-		setListener(img_read_contacts, img_input_contentimg, img_photo,
-				img_camere, tv_starttime, tv_finishtime, ly_clock, ly_repeat,
-				ly_location);
+		setListener(img_read_contacts, img_photo, tv_starttime, tv_finishtime,
+				ly_clock, ly_repeat, ly_location);
 	}
 
-	/**
-	 * 当设置全天，开始时间只显示是日期，否则显示日期和时间
-	 * 
-	 * 
-	 */
 	@Override
 	public void onClick(View view) {
 		super.onClick(view);
@@ -93,16 +103,65 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			startActivity(new Intent(B3_TaskAddTaskTaskActivity.this,
 					B3_1_SelectExecutorActivity.class));
 			break;
-		case R.id.img_input_contentimg:// 为任务内容添加图片，因在布局文件中添加图片的控件隐藏了，如需要先设置ly_add_img可见
-			img_input_contentimg.setVisibility(View.GONE);
-			ly_add_img.setVisibility(View.VISIBLE);
+		case R.id.img_photo:// 添加手机本地相册图片
+			UIDialog.ForThreeBtn(this, new String[] { "拍照", "从相册中选取", "取消" },
+					this);
+			break;
+		case R.id.input_task_starttime:// 开始时间
+			DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
+					B3_TaskAddTaskTaskActivity.this, initEndDateTime);
+			dateTimePicKDialog.dateTimePicKDialog(tv_starttime);
+			break;
+		case R.id.input_task_finishtime:// 结束时间
+			DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(
+					B3_TaskAddTaskTaskActivity.this, initEndDateTime);
+			dateTimePicKDialog2.dateTimePicKDialog(tv_finishtime);
+			break;
+		case R.id.ly_clock:// 设置提醒
+			startActivityForResult(new Intent(B3_TaskAddTaskTaskActivity.this,
+					B3_1_TiXingActivity.class),11);
+			break;
+		case R.id.ly_repeat:// 设置重复
+			startActivityForResult(new Intent(B3_TaskAddTaskTaskActivity.this,
+					B3_1_RepeatActivity.class),11);
+			break;
+		case R.id.ly_dingwei:// 设置定位
+
 			break;
 
-		case R.id.img_camere:// 启动手机拍照
+		case R.id.aci_edit_btn:// 创建任务
+			title = ed_taskname.getText().toString().trim();
+			content = ed_taskcontent.getText().toString().trim();
+			// isday
+			starttime = tv_starttime.getText().toString().trim();
+			endtime = tv_finishtime.getText().toString().trim();
+			// tip
+			// repeat
+			// tasker
+			RequestParams params = new RequestParams();
+
+			params.put("title", title);
+			params.put("content", content);
+			params.put("start", starttime);
+			params.put("end", endtime);
+			
+			HttpUtils.addTask(new HttpErrorHandler() {
+				
+				@Override
+				public void onRecevieSuccess(JSONObject json) {
+					
+					
+					setResult(RESULT_OK);
+				}
+			}, params);
+			break;
+		case R.id.dialog_modif_1:
+			/* 拍照 */
+			UIDialog.closeDialog();
 			Date date = new Date(System.currentTimeMillis());
 			SimpleDateFormat dateFormat = new SimpleDateFormat(
 					"'IMG'_yyyyMMddHHmmss", new Locale("zh", "CN"));
-			String timeString = dateFormat.format(date);
+			timeString = dateFormat.format(date);
 			createSDCardDir();
 			Intent shootIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			shootIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri
@@ -111,51 +170,49 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 							timeString + ".jpg")));
 			startActivityForResult(shootIntent, 2);
 			break;
-		case R.id.img_photo:// 添加手机本地相册图片
+		case R.id.dialog_modif_2:
+			/* 从相册中选取 */
+			UIDialog.closeDialog();
 			Intent photoIntent = new Intent(Intent.ACTION_PICK, null);
-			/**
-			 * 下面这句话，与其它方式写是一样的效果，如果： intent.setData(MediaStore.Images
-			 * .Media.EXTERNAL_CONTENT_URI); intent.setType(""image/*");设置数据类型
-			 * 如果朋友们要限制上传到服务器的图片类型时可以直接写如 ："image/jpeg 、 image/png等的类型"
-			 * 这个地方小马有个疑问，希望高手解答下：就是这个数据URI与类型为什么要分两种形式来写呀？有什么区别？
-			 */
 			photoIntent.setDataAndType(
 					MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 			startActivityForResult(photoIntent, 1);
 			break;
-		case R.id.toggle_on_off:// 是否创建全天日程
-
-			break;
-		case R.id.input_task_starttime:// 开始时间
-			DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
-					B3_TaskAddTaskTaskActivity.this, initEndDateTime);
-			dateTimePicKDialog.dateTimePicKDialog(tv_starttime);
-			break;
-		case R.id.input_task_finishtime:// 结束时间
-
-			DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(
-					B3_TaskAddTaskTaskActivity.this, initEndDateTime);
-			dateTimePicKDialog2.dateTimePicKDialog(tv_finishtime);
-
-			break;
-		case R.id.ly_clock:// 设置提醒
-			startActivity(new Intent(B3_TaskAddTaskTaskActivity.this,
-					B3_1_TiXingActivity.class));
-			break;
-		case R.id.ly_repeat:// 设置重复
-			startActivity(new Intent(B3_TaskAddTaskTaskActivity.this,
-					B3_1_RepeatActivity.class));
-			break;
-		case R.id.ly_dingwei:// 设置定位
-
-			break;
-
-		case R.id.aci_edit_btn:// 创建任务
-
+		case R.id.dialog_modif_3:
+			UIDialog.closeDialog();
 			break;
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case 1:
+			/* 如果是直接从相册获取 */
+			try {
+				startPhotoZoom(data.getData());
+			} catch (Exception e) {
+				Toast.makeText(this, "您没有选择任何照片", Toast.LENGTH_LONG).show();
+			}
+			break;
+		case 2:
+			/* 如果是调用相机拍照，图片设置名字和路径 */
+			File temp = new File(Environment.getExternalStorageDirectory()
+					.getPath() + "/DCIM/Camera/" + timeString + ".jpg");
+			startPhotoZoom(Uri.fromFile(temp));
+			break;
+		case 3:
+			/* 取得裁剪后的图片 */
+			if (data != null) {
+				setPicToView(data);
+			}
+			break;
+		default:
+			break;
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	public void createSDCardDir() {
@@ -174,19 +231,81 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 裁剪图片方法实现
+	 * 
+	 * @param uri
+	 */
+	public void startPhotoZoom(Uri uri) {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri, "image/*");
+		// 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+		intent.putExtra("crop", "true");
+		// aspectX aspectY 是宽高的比例
+		intent.putExtra("aspectX", 0.6);
+		intent.putExtra("aspectY", 1);
+		// outputX outputY 是裁剪图片宽高
+		intent.putExtra("outputX", 250);
+		intent.putExtra("outputY", 150);
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, 3);
+	}
+
+	/**
+	 * 保存裁剪之后的图片数据
+	 * 
+	 * @param picdata
+	 */
+	private void setPicToView(Intent picdata) {
+		Bundle extras = picdata.getExtras();
+		if (extras != null) {
+			Bitmap photo = extras.getParcelable("data");
+			// Drawable drawable = new BitmapDrawable(photo);
+			/* 下面注释的方法是将裁剪之后的图片以Base64Coder的字符方式上 传到服务器，QQ头像上传采用的方法跟这个类似 */
+			savaBitmap(photo);
+			// avatar_head_image.setBackgroundDrawable(drawable);
+		}
+	}
+
+	/**
+	 * 将剪切后的图片保存到本地图片上！
+	 */
+	public void savaBitmap(Bitmap bitmap) {
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"'IMG'_yyyyMMddHHmmss", new Locale("zh", "CN"));
+		String cutnameString = dateFormat.format(date);
+		String filename = Environment.getExternalStorageDirectory().getPath()
+				+ "/" + cutnameString + ".jpg";
+		file = new File(filename);
+		FileOutputStream fOut = null;
+		try {
+			file.createNewFile();
+			fOut = new FileOutputStream(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);// 把Bitmap对象解析成流
+		try {
+			fOut.flush();
+			fOut.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		img_photo.setImageBitmap(bitmap);
+	}
+
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		Tools.toast(B3_TaskAddTaskTaskActivity.this, "请先设置起始时间");
-		String time1=StringUtil.toString(tv_starttime.getText());
-		String time2=StringUtil.toString(tv_finishtime.getText());
+		String time1 = StringUtil.toString(tv_starttime.getText());
+		String time2 = StringUtil.toString(tv_finishtime.getText());
 		if (isChecked) {
 			tv_starttime.setText(time1.substring(0, 12));
 			tv_finishtime.setText(time2.substring(0, 12));
-		}else{
+		} else {
 			tv_starttime.setText(time1);
 			tv_finishtime.setText(time2);
 		}
-
 	}
-
 }

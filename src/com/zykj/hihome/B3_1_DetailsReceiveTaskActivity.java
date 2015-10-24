@@ -7,10 +7,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,8 +25,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.HttpUtils;
-import com.zykj.hihome.utils.ImageUtil;
-import com.zykj.hihome.utils.SharedPreferenceUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.MyCommonTitle;
@@ -35,11 +35,13 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 	private List<Task> tasks;
 	private CommonAdapter<Task> taskAdapter;
 	private GridView gv_tasker;
+	private LinearLayout mLinearLayout;
 	private TextView task_state, task_name, task_publish_name,
 			task_excutor_name, task_content, task_starttime, task_finishtime,
 			task_excutor_num;
 	private ImageView task_excutor_avator, task_publish_avator;
 	private Button btn_delete;
+	private JSONArray jsonArray;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,15 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 		task_excutor_num = (TextView) findViewById(R.id.task_excutor_num);
 		gv_tasker = (GridView) findViewById(R.id.gv_tasker);
 
+		mLinearLayout = (LinearLayout) findViewById(R.id.ly_list_executor);
+		mLinearLayout.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(B3_1_DetailsReceiveTaskActivity.this,
+						B3_1_1_ExecutorsTaskStateActivity.class).putExtra("tasker", jsonArray.toString()));
+			}
+		});
 		initializationDate();
 
 	}
@@ -74,10 +85,10 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 	private void initializationDate() {
 
 		int state = Integer.valueOf(task.getState());
-		final String aa = state == 0 ? "未接受" : state == 1 ? "已接受"
+		final String statu = state == 0 ? "未接受" : state == 1 ? "已接受"
 				: state == 2 ? "待执行" : state == 3 ? "已执行" : state == 4 ? "已完成"
 						: "已取消";
-		task_state.setText(aa);
+		task_state.setText(statu);
 		task_name.setText(task.getTitle());
 		task_content.setText(task.getContent());
 		task_starttime.setText(task.getStart());
@@ -96,16 +107,14 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 					JSONObject response) {
 				super.onSuccess(statusCode, headers, response);
 				try {
-					JSONArray jsonArray = response.getJSONArray("datas")
+					jsonArray = response.getJSONArray("datas")
 							.getJSONObject(0).getJSONArray("tasker");
 					tasks = JSON.parseArray(jsonArray.toString(), Task.class);
 					taskAdapter = new CommonAdapter<Task>(
 							B3_1_DetailsReceiveTaskActivity.this,
 							R.layout.ui_b3_1_item_multi_excutor, tasks) {
-
 						@Override
 						public void convert(ViewHolder holder, Task task) {
-
 							final LinearLayout mLinearLayout = holder
 									.getView(R.id.ly_item_excutor);
 							if (Tools.M_SCREEN_WIDTH < 800) {
@@ -114,9 +123,8 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 								checkboxParms.width = Tools.M_SCREEN_WIDTH * 3 / 10;
 								checkboxParms.height = Tools.M_SCREEN_WIDTH * 3 / 10;
 							}
-							holder.setText(R.id.tasker_excutor_name,
-									task.getNick())
-									.setText(R.id.tasker_excutor_state, aa)
+							holder.setText(R.id.tasker_excutor_name,task.getNick())
+									.setText(R.id.tasker_excutor_state, statu)
 									.setImageUrl(
 											R.id.tasker_excutor_avator,
 											StringUtil.toString(

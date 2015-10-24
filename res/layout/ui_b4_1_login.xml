@@ -64,6 +64,7 @@
                     android:id="@+id/user_name"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/thirty"
+                    android:inputType="phone"
                     android:background="@drawable/bg_null_white" />
 
                 <View

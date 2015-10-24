@@ -1,10 +1,6 @@
 package com.zykj.hihome;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,9 +10,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.utils.CommonUtils;
+import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
@@ -72,28 +71,32 @@ public class B4_1_LoginActivity extends BaseActivity {
 		case R.id.btn_login:
 			username = et_username.getText().toString().trim();
 			passWord = et_passWord.getText().toString().trim();
-//			if (StringUtil.isEmpty(username)) {
-//				Tools.toast(B4_1_LoginActivity.this, "用户名不能为空");
-//				return;
-//			}
-//			if (StringUtil.isEmpty(passWord)) {
-//				Tools.toast(B4_1_LoginActivity.this, "密码不能为空");
-//				return;
-//			}
-			RequestParams params = new RequestParams();
-			params.put("mob", username);
-			params.put("pass", passWord);
-			HttpUtils.login(new JsonHttpResponseHandler() {
-				@Override
-				public void onSuccess(int statusCode, Header[] headers,
-						JSONArray response) {
-					super.onSuccess(statusCode, headers, response);
-					Tools.toast(B4_1_LoginActivity.this, "登录成功");
-					finish();
-				}
-			}, params);
-			startActivity(new Intent(B4_1_LoginActivity.this,
-					B0_MainActivity.class));
+			if (StringUtil.isEmpty(username)) {
+				Tools.toast(B4_1_LoginActivity.this, "用户名不能为空");
+			} else if (StringUtil.isEmpty(passWord)) {
+				Tools.toast(B4_1_LoginActivity.this, "密码不能为空");
+			} else {
+				RequestParams params = new RequestParams();
+				params.put("mob", username);
+				params.put("pass", passWord);
+				HttpUtils.login(new HttpErrorHandler() {
+
+					@Override
+					public void onRecevieSuccess(JSONObject json) {
+						Tools.toast(B4_1_LoginActivity.this, "登录成功");
+						startActivity(new Intent(B4_1_LoginActivity.this,
+								B0_MainActivity.class));
+						finish();
+					}
+
+					@Override
+					public void onRecevieFailed(String status, JSONObject json) {
+						super.onRecevieFailed(status, json);
+						Tools.toast(B4_1_LoginActivity.this, "用户名不存在或者密码不正确");
+
+					}
+				}, params);
+			}
 			break;
 		case R.id.img_qq:
 
@@ -106,57 +109,4 @@ public class B4_1_LoginActivity extends BaseActivity {
 
 		}
 	}
-
-	JsonHttpResponseHandler res_login = new JsonHttpResponseHandler() {
-
-		@Override
-		public void onSuccess(int statusCode, Header[] headers,
-				JSONObject response) {
-			super.onSuccess(statusCode, headers, response);
-			// RequestDailog.closeDialog();
-			// Tools.Log("登陆"+response);
-			// {"datas":{"error":"用户名密码错误"},"code":200}
-			String error = null;
-			JSONObject datas = null;
-			// Tools.Log("res_login="+response);
-			try {
-				datas = response.getJSONObject("datas");
-				error = response.getJSONObject("datas").getString("error");
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
-			if (error == null)// 登陆成功
-			{
-				try {
-					putSharedPreferenceValue("username",
-							datas.getString("username"));
-					putSharedPreferenceValue("mobile",
-							datas.getString("mobile"));
-					putSharedPreferenceValue("userid",
-							datas.getString("userid"));
-					putSharedPreferenceValue("key", datas.getString("key"));
-					putSharedPreferenceValue("avatar",
-							datas.getString("avatar"));
-					// Tools.Log("image="+datas.getString("avatar"));
-					putSharedPreferenceValue("member_points",
-							datas.getString("member_points"));
-					putSharedPreferenceValue("predeposit",
-							datas.getString("predeposit"));
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				Tools.toast(B4_1_LoginActivity.this, "登陆成功");
-				Intent intent_tomainavtivity = new Intent(
-						B4_1_LoginActivity.this, B0_MainActivity.class);
-				startActivity(intent_tomainavtivity);
-				B4_1_LoginActivity.this.finish();
-			} else// 登陆失败
-			{
-				Tools.toast(B4_1_LoginActivity.this, error + "");
-			}
-
-		}
-
-	};
 }

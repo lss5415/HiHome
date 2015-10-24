@@ -16,6 +16,7 @@ public class Friend implements Serializable{
 	private String sex;//好友性别
 	private String age;//好友年龄
 	private String sign;//好友签名
+	private String state;
 	
 	public Friend(){
 	}
@@ -64,4 +65,11 @@ public class Friend implements Serializable{
 	public void setSign(String sign) {
 		this.sign = sign;
 	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	
 }
