@@ -10,15 +10,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.utils.CommonUtils;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
+import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 import com.zykj.hihome.view.RequestDailog;
 
@@ -71,19 +74,22 @@ public class B4_1_LoginActivity extends BaseActivity {
 		case R.id.btn_login:
 			username = et_username.getText().toString().trim();
 			passWord = et_passWord.getText().toString().trim();
-			if (StringUtil.isEmpty(username)) {
+
+			if (StringUtil.isEmpty("15006598533")) {
 				Tools.toast(B4_1_LoginActivity.this, "用户名不能为空");
-			} else if (StringUtil.isEmpty(passWord)) {
+			} else if (StringUtil.isEmpty("111111")) {
 				Tools.toast(B4_1_LoginActivity.this, "密码不能为空");
 			} else {
 				RequestParams params = new RequestParams();
-				params.put("mob", username);
-				params.put("pass", passWord);
+				params.put("mob", "15006598533");
+				params.put("pass", "111111");
 				HttpUtils.login(new HttpErrorHandler() {
 
 					@Override
 					public void onRecevieSuccess(JSONObject json) {
+						JSONArray data=json.getJSONArray(UrlContants.jsonData);
 						Tools.toast(B4_1_LoginActivity.this, "登录成功");
+						BaseApp.getModel().setUserid(StringUtil.toStringOfObject(data.getJSONObject(0).getString("id")));
 						startActivity(new Intent(B4_1_LoginActivity.this,
 								B0_MainActivity.class));
 						finish();
@@ -97,6 +103,8 @@ public class B4_1_LoginActivity extends BaseActivity {
 					}
 				}, params);
 			}
+//			startActivity(new Intent(B4_1_LoginActivity.this,
+//					B0_MainActivity.class));
 			break;
 		case R.id.img_qq:
 
