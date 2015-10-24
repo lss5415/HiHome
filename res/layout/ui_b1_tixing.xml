@@ -71,6 +71,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_xiaotitixing"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
 
@@ -174,6 +175,7 @@
                 android:background="#D3CFCE"/>
             
             <RelativeLayout
+                android:id="@+id/rl_liaotiantixing"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" 
                 android:layout_marginTop="5dp">

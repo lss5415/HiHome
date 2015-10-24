@@ -24,7 +24,7 @@
                 <include layout="@layout/layout_head" />
 
                 <ImageView
-                    android:id="@+id/im_b107_back"
+                    android:id="@+id/im_b107_1_back"
                     android:layout_width="33dp"
                     android:layout_height="20dp"
                     android:layout_centerVertical="true"

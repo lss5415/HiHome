@@ -138,9 +138,19 @@
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.zykj.hihome.B1_07_GeRenXinXi"
+            android:name="com.zykj.hihome.B1_07_1_GeRenXinXi"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo.Light" >
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.zykj.hihome.B1_07_WoDeZiLiao"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.zykj.hihome.B1_08_XiaoXiTiXingActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="com.zykj.hihome.B4_2_HaoYouAddActivity"

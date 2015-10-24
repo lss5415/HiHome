@@ -198,7 +198,7 @@ public class B0_MainActivity extends BaseTabActivity implements
 		} else if (view == info) {
 			Intent intent = new Intent();
 			intent.putExtra("flog", "个人信息");
-			intent.setClass(getApplicationContext(), B1_07_GeRenXinXi.class);
+			intent.setClass(getApplicationContext(), B1_07_WoDeZiLiao.class);
 			startActivity(intent);
 		}
 	}
