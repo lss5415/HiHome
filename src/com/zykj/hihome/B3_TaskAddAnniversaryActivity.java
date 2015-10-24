@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
@@ -26,6 +27,7 @@ import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.utils.DateTimePickDialogUtil;
+import com.zykj.hihome.utils.DateUtil;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
@@ -36,13 +38,13 @@ import com.zykj.hihome.view.UIDialog;
 
 public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
-	private ImageView img_photo, img_camere, img_input_contentimg, img_avator;
-	private LinearLayout ly_add_img;
-	private EditText anniversaryt_title, anniversaryt_selecttime,
-			anniversaryt_content;
+	private ImageView img_photo, img_avator;
+	private EditText anniversaryt_title,anniversaryt_content;
+	private TextView anniversaryt_selecttime;
 	private File file;
 	private String timeString;// 上传头像的字段
 	private String title, time, content;
+	private String initDateTime="2014年8月23日 17:44";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +62,15 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 		myCommonTitle.setTitle("创建纪念日");
 		myCommonTitle.setEditTitle("完成");
 		anniversaryt_title = (EditText) findViewById(R.id.input_anniversaryl_title);
-		anniversaryt_selecttime = (EditText) findViewById(R.id.input_selectdate);
 		anniversaryt_content = (EditText) findViewById(R.id.input_taskcontent);
+		anniversaryt_selecttime = (TextView) findViewById(R.id.input_selectdate);
 
 		img_avator = (ImageView) findViewById(R.id.img_avator);// 上传头像
 		img_photo = (ImageView) findViewById(R.id.img_photo);// 上传相册图片
-		img_camere = (ImageView) findViewById(R.id.img_camere);// 启动相机上传图片
 
+		String time = DateUtil.dateToString(new Date(), "yyyy年MM月dd日  hh:mm");
+		anniversaryt_selecttime.setText(time);
+		
 		setListener(anniversaryt_selecttime, img_avator);
 	}
 
@@ -74,9 +78,9 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.input_selectdate:// 选择时间
-			DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(
-					B3_TaskAddAnniversaryActivity.this, "");
-			dateTimePicKDialog2.dateTimePicKDialog(anniversaryt_selecttime);
+			DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
+					B3_TaskAddAnniversaryActivity.this, initDateTime);
+			dateTimePicKDialog.dateTimePicKDialog(anniversaryt_selecttime);
 			break;
 		case R.id.img_avator:// 调用手机相册
 			UIDialog.ForThreeBtn(this, new String[] { "拍照", "从相册中选取", "取消" },
@@ -97,7 +101,7 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 			} else {
 				try {
 					RequestParams params = new RequestParams();
-					params.put("imgsrc", file);
+					params.put("imgsrc[]", file);
 					HttpUtils.upLoad(res_upLoad, params);// 上传图片
 
 				} catch (FileNotFoundException e) {
@@ -140,8 +144,8 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 
 		@Override
 		public void onRecevieSuccess(JSONObject json) {
-			String imgsrc = json.getJSONObject(UrlContants.jsonData)
-					.getJSONObject("imgsrc").getString("imgsrc");
+			String imgsrc = json.getJSONArray(UrlContants.jsonData).getJSONObject(0)
+					.getString("imgsrc");
 			
 			RequestParams params = new RequestParams();
 
