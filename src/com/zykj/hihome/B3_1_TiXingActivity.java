@@ -2,7 +2,6 @@ package com.zykj.hihome;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import android.graphics.Color;
@@ -25,10 +24,11 @@ public class B3_1_TiXingActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private GridView gridView;
 	private ListView mListView;
-	private List<HashMap<String,String>> clocksList=new ArrayList<HashMap<String,String>>();
+	private List<String> clocksList=new ArrayList<String>();
+	private boolean[] flags = new boolean[7];//{false,false,false,false,false,false,false}
 	private List<String> remindList = new ArrayList<String>();
 	private String[] strs = new String[]{"正点","五分钟前","十分钟前","一小时之前","一天前","三天前","不提醒"};
-	private CommonAdapter<HashMap<String,String>> clockAdapter;
+	private CommonAdapter<String> clockAdapter;
 	private CommonAdapter<String> addClockAdapter;
 	private long startTime;
 
@@ -54,15 +54,13 @@ public class B3_1_TiXingActivity extends BaseActivity {
 		mListView.setDividerHeight(0);
 		
 		for (int i = 0; i < 7; i++) {
-			HashMap<String,String> map =new HashMap<String,String>();
-			map.put("title", strs[i]);
-			map.put("show", i==0?"1":"0");
-			clocksList.add(map);
+			clocksList.add(strs[i]);
 		}
+		flags[0] = true;
 		
-		clockAdapter = new CommonAdapter<HashMap<String,String>>(B3_1_TiXingActivity.this, R.layout.ui_b3_check_item, clocksList) {
+		clockAdapter = new CommonAdapter<String>(B3_1_TiXingActivity.this, R.layout.ui_b3_check_item, clocksList) {
 			@Override
-			public void convert(final ViewHolder holder, final HashMap<String,String> ckockStr) {
+			public void convert(final ViewHolder holder, final String ckockStr) {
 				final TextView mTextView = holder.getView(R.id.check_item);
 				if(Tools.M_SCREEN_WIDTH < 800){
 					LayoutParams checkboxParms = mTextView.getLayoutParams();
@@ -70,25 +68,23 @@ public class B3_1_TiXingActivity extends BaseActivity {
 					checkboxParms.height = Tools.M_SCREEN_WIDTH * 2 / 9;
 				}
 				
-				mTextView.setSelected("1".equals(ckockStr.get("show")));
-				mTextView.setText(ckockStr.get("title"));
+				mTextView.setSelected(flags[holder.getPosition()]);
+				mTextView.setText(ckockStr);
 
 				mTextView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						if(holder.getPosition() == clocksList.size()-1){
-							for (int i = 0; i < clocksList.size()-1; i++) {
-								clocksList.get(i).put("show", "0");
+						flags[holder.getPosition()] = !flags[holder.getPosition()];
+						if(holder.getPosition() == flags.length-1){
+							for (int i = 0; i < flags.length-1; i++) {
+								flags[i] = false;
 							}
-							clocksList.get(clocksList.size()-1).put("show", "1");
+							flags[6] = true;
+						}
+						if(flags[0]|flags[1]|flags[2]|flags[3]|flags[4]|flags[5]){
+							flags[6] = false;
 						}else{
-							ckockStr.put("show", "1".equals(ckockStr.get("show"))?"0":"1");
-							clocksList.get(clocksList.size()-1).put("show", "1");
-							for (int i = 0; i < clocksList.size()-1; i++) {
-								if("1".equals(clocksList.get(i).get("show"))){
-									clocksList.get(clocksList.size()-1).put("show", "0");
-								}
-							}
+							flags[6] = true;
 						}
 						notifyDataSetChanged();
 						notifyDataForListView();
@@ -112,12 +108,12 @@ public class B3_1_TiXingActivity extends BaseActivity {
 	private void notifyDataForListView() {
 		remindList.clear();
 		for (int i = 0; i < clocksList.size()-1; i++) {
-			if("1".equals(clocksList.get(i).get("show"))){
+			if(flags[i]){
 				try {
 					long remindTime = i==0?startTime:i==1?startTime-300000:i==2?
 							startTime-600000:i==3?startTime-3600000:i==4?startTime-86400000:startTime-259200000;
 					String dateStr = DateUtil.longToString(remindTime, "yyyy-MM-dd HH:mm");
-					remindList.add(clocksList.get(i).get("title")+"提醒"+","+dateStr);
+					remindList.add(clocksList.get(i)+"提醒"+","+dateStr);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}

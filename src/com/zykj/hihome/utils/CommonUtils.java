@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;

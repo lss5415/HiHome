@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 
@@ -81,36 +82,72 @@ public class HttpUtils {
 	 * 
 	 * @param params参数
 	 */
-	public static void register(AsyncHttpResponseHandler res,RequestParams params) {
+	public static void register(AsyncHttpResponseHandler res,
+			RequestParams params) {
 		client.post(base_url + "c=user&a=reg", params, res);
 	}
 
 	/**
-	 * 5 获取纪念日详情
+	 * 6 创建纪念日
 	 * 
 	 * @param params参数
 	 */
-	public static void getAnnversaryInfo(AsyncHttpResponseHandler res,RequestParams params) {
+	public static void addAnniversary(AsyncHttpResponseHandler res,
+			RequestParams params) {
+		client.post(base_url + "c=memorial&a=addInfo", params, res);
+	}
+
+	/**
+	 * 7 获取纪念日详情
+	 * 
+	 * @param params参数
+	 */
+	public static void getAnnversaryInfo(AsyncHttpResponseHandler res,
+			RequestParams params) {
 		client.post(base_url + "c=memorial&a=getInfo", params, res);
 	}
 
 	/**
-	 * 6 获取任务列表
+	 * 8 获取任务列表
 	 * 
 	 * @param params参数uid
 	 *            ----用户id
 	 */
-	public static void getTasks(AsyncHttpResponseHandler res,RequestParams params) {
+	public static void getTasks(AsyncHttpResponseHandler res,
+			RequestParams params) {
 		client.post(base_url + "c=task&a=getList", params, res);
 	}
 
 	/**
-	 * 6 获取任务详情
+	 * 9获取任务详情
 	 * 
 	 * @param params参数id
 	 *            ----任务id
 	 */
-	public static void getTasksInfo(AsyncHttpResponseHandler res,RequestParams params) {
-		client.post(base_url + "c=task&a=getInfo", params, res);
+	public static void getTasksInfo(
+			JsonHttpResponseHandler jsonHttpResponseHandler,
+			RequestParams params) {
+		client.post(base_url + "c=task&a=getInfo", params,
+				jsonHttpResponseHandler);
+	}
+
+	/**
+	 * 9上传图片
+	 * 
+	 * @param params
+	 */
+	public static void upLoad(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
+		client.post(base_url + "c=public&a=upload", params, res_upLoad);
+	}
+
+	/**
+	 * 10 创建任务
+	 * 
+	 * @param params
+	 */
+	public static void addTask(AsyncHttpResponseHandler res,
+			RequestParams params) {
+		client.post(base_url + "c=task&a=addInfo", params, res);
 	}
 }

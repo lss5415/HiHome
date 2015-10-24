@@ -15,11 +15,25 @@
 	    android:src="@drawable/xinagcetouxiang"/>
     <TextView 
         android:id="@+id/aci_name"
-	    android:layout_width="wrap_content"
+	    android:layout_width="0.0dip"
 	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
 	    android:text="@string/app_name"
 	    android:layout_marginLeft="@dimen/twelve"
 	    android:layout_gravity="center_vertical"
 	    android:textSize="@dimen/eighteen"
 	    android:textColor="@color/text_grey"/>
+    <CheckBox
+        android:id="@+id/cb_choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+       	android:scaleX="0.5"
+       	android:scaleY="0.5"
+       	android:layout_margin="5dp"
+       	android:visibility="gone"
+        android:layout_gravity="center_vertical"
+        android:button="@drawable/checkbox_style"
+        android:focusableInTouchMode="false" />
 </LinearLayout>
