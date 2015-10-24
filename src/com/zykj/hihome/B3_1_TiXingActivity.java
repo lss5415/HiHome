@@ -74,18 +74,29 @@ public class B3_1_TiXingActivity extends BaseActivity {
 				mTextView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						flags[holder.getPosition()] = !flags[holder.getPosition()];
-						if(holder.getPosition() == flags.length-1){
-							for (int i = 0; i < flags.length-1; i++) {
+						/*单选方案*/
+						if(flags[holder.getPosition()]){
+							flags[holder.getPosition()] = false;
+							flags[6] = true;
+						}else{
+							for (int i = 0; i < flags.length; i++) {
 								flags[i] = false;
 							}
-							flags[6] = true;
+							flags[holder.getPosition()] = true;
 						}
-						if(flags[0]|flags[1]|flags[2]|flags[3]|flags[4]|flags[5]){
-							flags[6] = false;
-						}else{
-							flags[6] = true;
-						}
+						/*多选方案*/
+//						flags[holder.getPosition()] = !flags[holder.getPosition()];
+//						if(holder.getPosition() == flags.length-1){
+//							for (int i = 0; i < flags.length-1; i++) {
+//								flags[i] = false;
+//							}
+//							flags[6] = true;
+//						}
+//						if(flags[0]||flags[1]||flags[2]||flags[3]||flags[4]||flags[5]){
+//							flags[6] = false;
+//						}else{
+//							flags[6] = true;
+//						}
 						notifyDataSetChanged();
 						notifyDataForListView();
 					}
