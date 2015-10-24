@@ -101,7 +101,7 @@
                     android:text="@string/anniversary_date"
                     android:textSize="16sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/input_selectdate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
