@@ -16,6 +16,7 @@ public class Friend implements Serializable{
 	private String sex;//好友性别
 	private String age;//好友年龄
 	private String sign;//好友签名
+	private String state;
 
 	private boolean isChecked;//是否选中
 	
@@ -72,4 +73,12 @@ public class Friend implements Serializable{
 	public void setChecked(boolean isChecked) {
 		this.isChecked = isChecked;
 	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	
+	
 }
