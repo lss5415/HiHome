@@ -15,5 +15,6 @@
         android:layout_marginTop="@dimen/five"
         android:layout_marginBottom="@dimen/five"
         android:gravity="center"
+        android:padding="@dimen/five"
         android:background="@drawable/item_check_bg"/>
 </LinearLayout>

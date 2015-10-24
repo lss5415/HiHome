@@ -3,12 +3,13 @@ package com.zykj.hihome;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zykj.hihome.base.BaseActivity;
@@ -24,6 +25,7 @@ public class B1_TiXingActivity extends BaseActivity {
 	private static String mDay;
 	private static String mWay;
 	private static final int msgKey1 = 1;
+	private RelativeLayout rl_liaotiantixing,rl_xiaotitixing;//聊天提醒，消息提醒
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,6 +48,9 @@ public class B1_TiXingActivity extends BaseActivity {
 
 		tv_time = (TextView) findViewById(R.id.tv_time);
 		tv_date = (TextView) findViewById(R.id.tv_date);
+		rl_liaotiantixing = (RelativeLayout) findViewById(R.id.rl_liaotiantixing);
+		rl_xiaotitixing = (RelativeLayout) findViewById(R.id.rl_xiaotitixing);
+		
 		Time time = new Time();
 		time.setToNow();
 		int minute = time.minute; int hour = time.hour; tv_time.setText(hour+"时 " + minute + "分 ");
@@ -53,7 +58,7 @@ public class B1_TiXingActivity extends BaseActivity {
 
 		String datezhou = StringData();
 		tv_date.setText(datezhou);
-		// setListener(iv_erwei);
+		 setListener(rl_liaotiantixing,rl_xiaotitixing);
 	}
 
 	public class TimeThread extends Thread {
@@ -121,12 +126,16 @@ public class B1_TiXingActivity extends BaseActivity {
 	public void onClick(View v) {
 		super.onClick(v);
 		switch (v.getId()) {
-		// case R.id.iv_erwei:
-		// Intent intent = new Intent();
-		// intent.setClass(B1_ShouYeActivity.this, MipcaActivityCapture.class);
-		// intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		// startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
-		// break;
+		 case R.id.rl_liaotiantixing:
+			 Intent intent = new Intent();
+			 intent.setClass(B1_TiXingActivity.this, B2_LiaoTianActivity.class);
+			 startActivity(intent);
+		 break;
+		 case R.id.rl_xiaotitixing:
+			 Intent intent1 = new Intent();
+			 intent1.setClass(B1_TiXingActivity.this, B1_08_XiaoXiTiXingActivity.class);
+			 startActivity(intent1);
+			 break;
 		default:
 			break;
 		}
