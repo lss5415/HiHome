@@ -25,7 +25,7 @@ public class B1_07_WoDeZiLiao extends BaseActivity {
 	private void initView() {
 		im_b107_back = (ImageView)findViewById(R.id.im_b107_back);
 		tv_bianji = (TextView)findViewById(R.id.tv_bianji);
-		 setListener(im_b107_back);
+		 setListener(im_b107_back,tv_bianji);
 	}
 
 	@Override

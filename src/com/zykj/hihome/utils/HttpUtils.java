@@ -122,7 +122,7 @@ public class HttpUtils {
 		client.post(base_url + "c=task&a=addInfo", params, res);
 	}
 	/**
-	 * 9 获取任务列表
+	 * 9 获取我的任务列表
 	 * 
 	 * @param params参数uid
 	 *            ----用户id
@@ -131,9 +131,19 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=task&a=getMyTask", params, res);
 	}
-
 	/**
-	 * 10获取任务详情
+	 * 10 获取我发布的任务列表
+	 * 
+	 * @param params参数uid
+	 *            ----用户id
+	 */
+	public static void getPublishTaskList(AsyncHttpResponseHandler res,
+			RequestParams params) {
+		client.post(base_url + "c=task&a=getList", params, res);
+	}
+	
+	/**
+	 * 11获取发布的任务详情
 	 * 
 	 * @param params参数id
 	 *            ----任务id
@@ -146,7 +156,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 11上传图片
+	 * 12上传图片
 	 * 
 	 * @param params
 	 */

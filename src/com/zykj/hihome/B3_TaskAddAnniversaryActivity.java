@@ -5,17 +5,26 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,15 +46,20 @@ import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 import com.zykj.hihome.view.UIDialog;
 
-public class B3_TaskAddAnniversaryActivity extends BaseActivity {
+public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
+		OnItemClickListener {
 	private MyCommonTitle myCommonTitle;
-	private ImageView img_photo;
+	private GridView img_photo;
 	private CircularImage img_avator;
-	private EditText anniversaryt_title,anniversaryt_content;
+	private EditText anniversaryt_title, anniversaryt_content;
 	private TextView anniversaryt_selecttime;
 	private File file;
 	private String timeString;// 上传头像的字段
 	private String anni_title, anni_time, anni_content;
+	private int type;
+	private List<File> files = new ArrayList<File>();
+	private List<Bitmap> images = new ArrayList<Bitmap>();
+	private CommonAdapter<Bitmap> imgAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,27 +79,43 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 		anniversaryt_title = (EditText) findViewById(R.id.input_anniversaryl_title);
 		anniversaryt_content = (EditText) findViewById(R.id.input_taskcontent);
 		anniversaryt_selecttime = (TextView) findViewById(R.id.input_selectdate);
-		
+
 		img_avator = (CircularImage) findViewById(R.id.img_avator);// 上传头像
-		img_photo = (ImageView) findViewById(R.id.img_photo);// 上传相册图片
+		img_photo = (GridView) findViewById(R.id.img_photo_gridview);// 上传相册图片
+		img_photo.setSelector(new ColorDrawable(Color.TRANSPARENT));
+		images.add(BitmapFactory.decodeResource(getResources(),
+				R.drawable.ic_task_imgview));
+		imgAdapter = new CommonAdapter<Bitmap>(this, R.layout.ui_b3_item_image,
+				images) {
+			@Override
+			public void convert(ViewHolder holder, Bitmap bitmap) {
+				LayoutParams pageParms = holder.getView(R.id.assess_image)
+						.getLayoutParams();
+				pageParms.width = (Tools.M_SCREEN_WIDTH - 40) / 10;
+				pageParms.height = (Tools.M_SCREEN_WIDTH - 40) / 10;
+				holder.setImageView(R.id.assess_image, bitmap);
+			}
+		};
+		img_photo.setAdapter(imgAdapter);
+		img_photo.setOnItemClickListener(this);// 设置GridView的监听事件
 
 		String time = DateUtil.dateToString(new Date(), "yyyy-MM-dd hh:mm");
 		anniversaryt_selecttime.setText(time);
-		
+
 		setListener(anniversaryt_selecttime, img_avator);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.img_avator:
+			UIDialog.ForThreeBtn(this, new String[] { "拍照", "从相册中选取", "取消" },
+					this);
+			break;
 		case R.id.input_selectdate:// 选择时间
 			DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
 					B3_TaskAddAnniversaryActivity.this, null);
 			dateTimePicKDialog.dateTimePicKDialog(anniversaryt_selecttime);
-			break;
-		case R.id.img_avator:// 调用手机相册
-			UIDialog.ForThreeBtn(this, new String[] { "拍照", "从相册中选取", "取消" },
-					this);
 			break;
 		case R.id.aci_edit_btn:// 完成创建
 			anni_title = anniversaryt_title.getText().toString().trim();
@@ -102,7 +132,8 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 			} else {
 				try {
 					RequestParams params = new RequestParams();
-					params.put("imgsrc[]", file);
+					
+					params.put("imgsrc", file);
 					HttpUtils.upLoad(res_upLoad, params);// 上传图片
 
 				} catch (FileNotFoundException e) {
@@ -145,15 +176,23 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 
 		@Override
 		public void onRecevieSuccess(JSONObject json) {
-			String imgsrc = json.getJSONArray(UrlContants.jsonData).getJSONObject(0)
-					.getString("imgsrc");
-			
+			String imgsrc = json.getJSONArray(UrlContants.jsonData)
+					.getJSONObject(0).getString("imgsrc");
+			String imgsrc1 = json.getJSONArray(UrlContants.jsonData)
+					.getJSONObject(0).getString("imgsrc1");
+			String imgsrc2 = json.getJSONArray(UrlContants.jsonData)
+					.getJSONObject(0).getString("imgsrc2");
+			String imgsrc3 = json.getJSONArray(UrlContants.jsonData)
+					.getJSONObject(0).getString("imgsrc3");
 			RequestParams params = new RequestParams();
 
 			params.put("uid", BaseApp.getModel().getUserid());
 			params.put("imgsrc", imgsrc);
+			params.put("imgsrc1", imgsrc1);
+			params.put("imgsrc2", imgsrc2);
+			params.put("imgsrc3", imgsrc3);
 			params.put("title", anni_title);
-			params.put("mdate", anni_time);
+			params.put("mdate", anni_time.substring(0, 11));
 			params.put("content", anni_content);
 			HttpUtils.addAnniversary(new HttpErrorHandler() {
 
@@ -273,7 +312,30 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		img_avator.setImageBitmap(bitmap);
+		if (type == 1) {
+			img_avator.setImageBitmap(bitmap);
+		} else {
+			images.add(bitmap);
+			files.add(file);
+			imgAdapter.notifyDataSetChanged();
+		}
 	}
 
+	@Override
+	public void onItemClick(AdapterView<?> parent, View arg1, int position,
+			long id) {
+		switch (parent.getId()) {
+		case R.id.img_photo_gridview:
+			if (position == 0) {
+				if (files.size() < 3) {
+					UIDialog.ForThreeBtn(this, new String[] { "拍照", "从相册中选取",
+							"取消" }, this);
+				} else {
+					Tools.toast(this, "最多上传三张图片");
+				}
+			}
+		default:
+			break;
+		}
+	}
 }

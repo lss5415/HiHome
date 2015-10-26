@@ -84,9 +84,10 @@ public class TaskAdapter extends BaseAdapter{
             }
         	Task task = tasks.get(position);
 //			String time = StringUtil.isEmpty(task.getAddtime())?"00-00":task.getStart().substring(0, 10);
-//			holder.rv_me_avatar.setImageURI(HttpUtils.IMAGE_URL.tas)
+//			holder.rv_me_avatar.set
 			holder.aci_title.setText(task.getTitle());
 			holder.aci_time.setText(task.getMdate().substring(0, 11));
+			
 			
         }else if(currentType == TYPE_TASK){
 	        ViewHolder2 holder2 = null;

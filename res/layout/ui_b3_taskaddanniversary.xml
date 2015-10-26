@@ -24,8 +24,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
 
@@ -39,9 +39,9 @@
                 <TextView
                     android:id="@+id/input_taskname"
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="20dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="2"
                     android:background="@drawable/bg_null_white"
                     android:hint="@string/anniversary_input_head" />
             </LinearLayout>
@@ -122,8 +122,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:orientation="horizontal" 
-                android:padding="20dp">
+                android:orientation="horizontal"
+                android:padding="20dp" >
 
                 <EditText
                     android:id="@+id/input_taskcontent"
@@ -141,21 +141,28 @@
                 android:background="@color/divide_color_grey" />
 
             <LinearLayout
-                android:id="@+id/ly_add_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingLeft="15dp"
                 android:paddingBottom="15dp"
-                android:paddingTop="15dp"
-                android:visibility="visible" >
+                android:paddingTop="15dp">
 
-                <ImageView
+                <GridView
+                    android:id="@+id/img_photo_gridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="4"
+                    android:scrollbars="none" />
+                <!--
+                     <ImageView
                     android:id="@+id/img_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_task_imgview" />
+                -->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
