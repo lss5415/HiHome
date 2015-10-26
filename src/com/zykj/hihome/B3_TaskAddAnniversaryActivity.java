@@ -56,7 +56,7 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 	private File file;
 	private String timeString;// 上传头像的字段
 	private String anni_title, anni_time, anni_content;
-	private int type;
+	private int type=1;
 	private List<File> files = new ArrayList<File>();
 	private List<Bitmap> images = new ArrayList<Bitmap>();
 	private CommonAdapter<Bitmap> imgAdapter;
@@ -109,6 +109,7 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.img_avator:
+			type = 1;
 			UIDialog.ForThreeBtn(this, new String[] { "拍照", "从相册中选取", "取消" },
 					this);
 			break;
@@ -133,7 +134,7 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 				try {
 					RequestParams params = new RequestParams();
 					
-					params.put("imgsrc", file);
+					params.put("imgsrc[]", file);
 					HttpUtils.upLoad(res_upLoad, params);// 上传图片
 
 				} catch (FileNotFoundException e) {
@@ -178,19 +179,11 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 		public void onRecevieSuccess(JSONObject json) {
 			String imgsrc = json.getJSONArray(UrlContants.jsonData)
 					.getJSONObject(0).getString("imgsrc");
-			String imgsrc1 = json.getJSONArray(UrlContants.jsonData)
-					.getJSONObject(0).getString("imgsrc1");
-			String imgsrc2 = json.getJSONArray(UrlContants.jsonData)
-					.getJSONObject(0).getString("imgsrc2");
-			String imgsrc3 = json.getJSONArray(UrlContants.jsonData)
-					.getJSONObject(0).getString("imgsrc3");
+		
 			RequestParams params = new RequestParams();
 
 			params.put("uid", BaseApp.getModel().getUserid());
 			params.put("imgsrc", imgsrc);
-			params.put("imgsrc1", imgsrc1);
-			params.put("imgsrc2", imgsrc2);
-			params.put("imgsrc3", imgsrc3);
 			params.put("title", anni_title);
 			params.put("mdate", anni_time.substring(0, 11));
 			params.put("content", anni_content);
@@ -328,6 +321,7 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 		case R.id.img_photo_gridview:
 			if (position == 0) {
 				if (files.size() < 3) {
+					type = 2;
 					UIDialog.ForThreeBtn(this, new String[] { "拍照", "从相册中选取",
 							"取消" }, this);
 				} else {
