@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -55,7 +56,7 @@ public class B3_1_RepeatActivity extends BaseActivity {
 		repeatList.add("每周");
 		repeatList.add("每月");
 		repeatList.add("每年");
-		flags[0] = true;
+		flags[getIntent().getIntExtra("position", 0)] = true;
 		notifyDataForListView();
 		
 		repeatAdapter=new CommonAdapter<String>(B3_1_RepeatActivity.this,R.layout.ui_b3_check_item ,repeatList) {
@@ -125,4 +126,21 @@ public class B3_1_RepeatActivity extends BaseActivity {
             w = 0;
         return weekDays[w];
     }
+
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()) {
+		case R.id.aci_edit_btn:
+			for (int i = 0; i < flags.length; i++) {
+				if(flags[i]){
+					setResult(Activity.RESULT_OK, getIntent().putExtra("position", i));
+					finish();
+					break;
+				}
+			}
+			break;
+		default:
+			break;
+		}
+	}
 }

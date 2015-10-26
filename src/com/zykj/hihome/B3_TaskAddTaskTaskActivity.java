@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,7 +36,7 @@ import android.widget.ToggleButton;
 import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
-import com.zykj.hihome.utils.DateTimePickDialogUtil;
+import com.zykj.hihome.utils.CommonUtils;
 import com.zykj.hihome.utils.DateUtil;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
@@ -56,15 +57,16 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	private TextView tv_starttime, tv_finishtime;
 	private File file;
 	private String timeString;// 上传头像的字段
-	private String title, content, isday, starttime, endtime, tip, repeat,
-			tasker;
-	
+	private String title, content, starttime, endtime;
 
 	private List<File> files = new ArrayList<File>();
 	private List<Bitmap> images = new ArrayList<Bitmap>();
 	private CommonAdapter<Bitmap> imgAdapter;
 	private CommonAdapter<String> btnAdapter;
 	private List<String> taskType=new ArrayList<String>();
+	private int[] imgs = new int[]{R.drawable.ic_clock,R.drawable.ic_repeat,R.drawable.ic_dingwei};
+	private boolean[] flags = new boolean[3];
+	private int tixing,chongfu;
 
 	// uid必须，用户ID编号title必须，任务名称content必须，任务内容isday必须，是否是全天任务start必须，任务开始时间
 	// end必须，任务结束时间tip必须，任务提醒：数值意义见左侧repeat必须，任务重复：数值意义见左侧tasker必须，任务执行人ID编号，如1,2,3,4多个之间用英文,分隔
@@ -111,7 +113,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		taskType.add("提醒");
 		taskType.add("重复");
 		taskType.add("位置");
-		btnAdapter = new CommonAdapter<String>(this, R.layout.ui_b3_check_item, taskType) {
+		btnAdapter = new CommonAdapter<String>(this, R.layout.ui_b3_addtask_check, taskType) {
 			@Override
 			public void convert(ViewHolder holder, String type) {
 				final TextView mTextView = holder.getView(R.id.check_item);
@@ -121,6 +123,13 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 					checkboxParms.height = Tools.M_SCREEN_WIDTH * 2 / 9;
 				}
 				mTextView.setText(type);
+				Drawable topDrawable = getResources().getDrawable(imgs[holder.getPosition()]);
+				topDrawable.setBounds(0, 0, topDrawable.getMinimumWidth(), topDrawable.getMinimumHeight());
+				if(!flags[holder.getPosition()]){
+		            mTextView.setCompoundDrawables(null, topDrawable, null, null);
+				}else{
+		            mTextView.setCompoundDrawables(null, null, null, null);
+				}
 			}
 		};
 		button_fridview.setAdapter(btnAdapter);
@@ -130,7 +139,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		String time = DateUtil.dateToString(new Date(), "yyyy-MM-dd hh:mm");
 		tv_starttime.setText(time);
 		tv_finishtime.setText(time);
-		setListener(img_read_contacts, layout_starttime, layout_finishtime);
+		setListener(img_read_contacts, ed_taskexcutor, layout_starttime, layout_finishtime);
 	}
 
 	@Override
@@ -138,15 +147,20 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		super.onClick(view);
 		switch (view.getId()) {
 		case R.id.img_read_contacts:// 执行人，读取通讯录
-			startActivity(new Intent(this, B3_1_SelectExecutorActivity.class));
+			startActivityForResult(new Intent(this, B3_1_SelectExecutorActivity.class), 20);
+			break;
+		case R.id.input_taskexcutor:// 执行人，读取通讯录
+			startActivityForResult(new Intent(this, B3_1_SelectExecutorActivity.class), 20);
 			break;
 		case R.id.layout_starttime:// 开始时间
-			DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(this, null);
-			dateTimePicKDialog.dateTimePicKDialog(tv_starttime);
+			CommonUtils.showDateTimePicker(this, tv_starttime);
+//			DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(this, null);
+//			dateTimePicKDialog.dateTimePicKDialog(tv_starttime);
 			break;
 		case R.id.layout_finishtime:// 结束时间
-			DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(this, null);
-			dateTimePicKDialog2.dateTimePicKDialog(tv_finishtime);
+			CommonUtils.showDateTimePicker(this, tv_finishtime);
+//			DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(this, null);
+//			dateTimePicKDialog2.dateTimePicKDialog(tv_finishtime);
 			break;
 		case R.id.aci_edit_btn:// 创建任务
 			title = ed_taskname.getText().toString().trim();
@@ -218,6 +232,31 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			/* 取得裁剪后的图片 */
 			if (data != null) {
 				setPicToView(data);
+			}
+			break;
+		case 20:
+			/* 选择执行人 */
+			if (data != null) {
+				ed_taskexcutor.setText(data.getStringExtra("strName"));
+				ed_taskexcutor.setTag(data.getStringExtra("strId"));
+			}
+			break;
+		case 21:
+			/* 选择执行人 */
+			if (data != null) {
+				tixing = data.getIntExtra("position", 0);
+				taskType.set(0, tixing==0?"正点":tixing==1?"五分钟前":tixing==2?"十分钟前":tixing==3?"一小时之前":tixing==4?"一天前":tixing==5?"三天前":"不提醒");
+				flags[0] = true;
+				btnAdapter.notifyDataSetChanged();
+			}
+			break;
+		case 22:
+			/* 选择执行人 */
+			if (data != null) {
+				chongfu = data.getIntExtra("position", 0);
+				taskType.set(1, chongfu==0?"不重复":chongfu==1?"每天":chongfu==2?"每周":chongfu==3?"每月":"每年");
+				flags[1] = true;
+				btnAdapter.notifyDataSetChanged();
 			}
 			break;
 		default:
@@ -308,15 +347,17 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		Tools.toast(B3_TaskAddTaskTaskActivity.this, "请先设置起始时间");
+		//Tools.toast(B3_TaskAddTaskTaskActivity.this, "请先设置起始时间");
 		String time1 = StringUtil.toString(tv_starttime.getText());
 		String time2 = StringUtil.toString(tv_finishtime.getText());
 		if (isChecked) {
-			tv_starttime.setText(time1.substring(0, 12));
-			tv_finishtime.setText(time2.substring(0, 12));
+			tv_starttime.setText(time1.substring(0, 10));
+			tv_starttime.setTag(time1);
+			tv_finishtime.setText(time2.substring(0, 10));
+			tv_finishtime.setTag(time2);
 		} else {
-			tv_starttime.setText(time1);
-			tv_finishtime.setText(time2);
+			tv_starttime.setText((String)tv_starttime.getTag());
+			tv_finishtime.setText((String)tv_finishtime.getTag());
 		}
 	}
 
@@ -335,10 +376,10 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		case R.id.button_fridview:
 			if (position == 0) {
 				/*设置提醒*/
-				startActivityForResult(new Intent(this, B3_1_TiXingActivity.class),11);
+				startActivityForResult(new Intent(this, B3_1_TiXingActivity.class).putExtra("position", tixing),21);
 			}else if(position == 1){
 				/*设置重复*/
-				startActivityForResult(new Intent(this, B3_1_RepeatActivity.class),11);
+				startActivityForResult(new Intent(this, B3_1_RepeatActivity.class).putExtra("position", chongfu),22);
 			}else{
 				/*设置位置*/
 			}

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -56,7 +57,7 @@ public class B3_1_TiXingActivity extends BaseActivity {
 		for (int i = 0; i < 7; i++) {
 			clocksList.add(strs[i]);
 		}
-		flags[0] = true;
+		flags[getIntent().getIntExtra("position", 0)] = true;
 		
 		clockAdapter = new CommonAdapter<String>(B3_1_TiXingActivity.this, R.layout.ui_b3_check_item, clocksList) {
 			@Override
@@ -131,5 +132,22 @@ public class B3_1_TiXingActivity extends BaseActivity {
 			}
 		}
 		addClockAdapter.notifyDataSetChanged();
+	}
+
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()) {
+		case R.id.aci_edit_btn:
+			for (int i = 0; i < clocksList.size(); i++) {
+				if(flags[i]){
+					setResult(Activity.RESULT_OK, getIntent().putExtra("position", i));
+					finish();
+					break;
+				}
+			}
+			break;
+		default:
+			break;
+		}
 	}
 }
