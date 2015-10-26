@@ -142,6 +142,8 @@ public class TaskFragment extends Fragment implements OnItemClickListener{
 			startActivity(new Intent(getActivity(), B3_1_DetailsPublishTaskActivity.class).putExtra("task", task));//3 发布的任务
 		}
 	}
+	
+	
 	/**
 	 *创建完成后 自动刷新列表
 	 */
