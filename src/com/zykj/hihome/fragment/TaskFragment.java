@@ -98,10 +98,22 @@ public class TaskFragment extends Fragment implements OnItemClickListener{
 		params.put("uid", BaseApp.getModel().getUserid());
 //		params.put("nowpage", nowpage);
 //		params.put("perpage", PERPAGE);
-		HttpUtils.getAnnversaryList(res_getTasks, params);
+		if(mType==1){
+			HttpUtils.getAnnversaryList(res_getAnnversaryList, params);//获取纪念日列表
+			HttpUtils.getMyTasks(res_getMyTasks, params);
+		}else if (mType==2) {
+			
+		}
+		else if (mType==3) {
+			HttpUtils.getPublishTaskList(res_getPublishTaskList, params);//获取我发布的任务列表
+		}
+		
+		
 	}
-	
-	private JsonHttpResponseHandler res_getTasks = new JsonHttpResponseHandler() {
+	/**
+	 * 获取纪念日列表
+	 */
+	private JsonHttpResponseHandler res_getAnnversaryList = new JsonHttpResponseHandler() {
 		@Override
 		public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 			super.onSuccess(statusCode, headers, response);
@@ -116,12 +128,59 @@ public class TaskFragment extends Fragment implements OnItemClickListener{
 				e.printStackTrace();
 			}
 		}
-
 		@Override
 		public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
 			super.onFailure(statusCode, headers, throwable, errorResponse);
 			Tools.toast(getActivity(), "网络有问题!");
 		}
+	};
+	/**
+	 * 获取我自己的任务
+	 */
+	private JsonHttpResponseHandler res_getMyTasks=new JsonHttpResponseHandler(){
+		@Override
+		public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+			super.onSuccess(statusCode, headers, response);
+			try {
+				int code = response.getInt("code");
+				if(code == 200){
+					JSONArray JSONArray = response.getJSONObject("datas").getJSONArray("list");
+					tasks.addAll(JSON.parseArray(JSONArray.toString(), Task.class));
+					adapter.notifyDataSetChanged();
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+	@Override
+	public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+		super.onFailure(statusCode, headers, throwable, errorResponse);
+		Tools.toast(getActivity(), "网络有问题!");
+	}
+	};
+	/**
+	 * 获取我发布的任务
+	 */
+	private JsonHttpResponseHandler res_getPublishTaskList=new JsonHttpResponseHandler(){
+		@Override
+		public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+			super.onSuccess(statusCode, headers, response);
+			try {
+				int code = response.getInt("code");
+				if(code == 200){
+					JSONArray JSONArray = response.getJSONObject("datas").getJSONArray("list");
+					tasks.addAll(JSON.parseArray(JSONArray.toString(), Task.class));
+					adapter.notifyDataSetChanged();
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+	@Override
+	public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+		super.onFailure(statusCode, headers, throwable, errorResponse);
+		Tools.toast(getActivity(), "网络有问题!");
+	}
 	};
 	
 	/**

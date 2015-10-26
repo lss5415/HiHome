@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.data.Anniversary;
@@ -48,30 +49,26 @@ public class B3_1_AnniversaryDetailsActivity extends BaseActivity {
 		anniversary_content = (TextView) findViewById(R.id.anniversary_content);
 		anniversary_img = (ImageView) findViewById(R.id.anniversary_picture);
 
-	    initializationDate();
-//		requestData();// 给详情传值
+		// initializationDate();
+		requestData();// 给详情传值
 	}
 
 	private void requestData() {
-
+		RequestParams params=new RequestParams();
+		
+		params.put("id",task.getId());
 		HttpUtils.getAnnversaryInfo(new HttpErrorHandler() {
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
-				json.getJSONArray("datas");
-				adapter = new CommonAdapter<Task>(
-						B3_1_AnniversaryDetailsActivity.this,
-						R.layout.ui_b3_1_deails_anniversary, tasks) {
-					@Override
-					public void convert(ViewHolder holder, Task task) {
-						holder.setText(R.id.anniversary_title, task.getTitle())
-						.setText(R.id.anniversary_date, task.getMdate())
-						.setText(R.id.anniversary_content, task.getContent())
-						.setImageUrl(R.id.img_anni_avator, StringUtil.toString(HttpUtils.IMAGE_URL+task.getImgsrc(),"http://"), 10f);
-						
-					}
-				};
+				JSONObject jsonObject=json.getJSONArray("datas").getJSONObject(0);
+				anniversary_title.setText(jsonObject.getString("title"));
+				anniversary_date.setText(jsonObject.getString("mdate"));
+				anniversary_content.setText(jsonObject.getString("content"));
+				ImageLoader.getInstance().displayImage(
+						StringUtil.toString(HttpUtils.IMAGE_URL + task.getImgsrc(),
+								"http://"), img_anni_avator);
 			}
-		}, null);
+		}, params);
 	}
 
 	private void initializationDate() {
@@ -79,8 +76,7 @@ public class B3_1_AnniversaryDetailsActivity extends BaseActivity {
 		anniversary_date.setText(task.getMdate());
 		anniversary_content.setText(task.getContent());
 		ImageLoader.getInstance().displayImage(
-				StringUtil.toString(
-						HttpUtils.IMAGE_URL + task.getImgsrc(),
+				StringUtil.toString(HttpUtils.IMAGE_URL + task.getImgsrc(),
 						"http://"), img_anni_avator);
 
 	}
