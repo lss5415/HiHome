@@ -26,6 +26,7 @@ import com.zykj.hihome.B3_1_DetailsPublishTaskActivity;
 import com.zykj.hihome.B3_1_DetailsReceiveTaskActivity;
 import com.zykj.hihome.B3_1_DetailsSelfTaskActivity;
 import com.zykj.hihome.adapter.TaskAdapter;
+import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Anniversary;
 import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.HttpUtils;
@@ -34,6 +35,8 @@ import com.zykj.hihome.utils.Tools;
 
 public class TaskFragment extends Fragment implements OnItemClickListener{
 
+	private static int PERPAGE=10;// perpager默认每页显示的条数
+	private int nowpage=0;//当前显示的页面
     private ListView mListView;
 	private int mType=1;//1 自己的任务 2 接受的任务 3 发布的任务
 	private TaskAdapter adapter;
@@ -62,8 +65,7 @@ public class TaskFragment extends Fragment implements OnItemClickListener{
 		Bundle arguments = getArguments();
 		mType=arguments.getInt("type");
 		if(mType == 1){
-			tasks.add(0, new Task("圣诞节", "2015年12月25日"));
-			tasks.add(0, new Task("元旦", "2016年1月1日"));
+			
 		}
 		adapter = new TaskAdapter(getActivity(), tasks, mType);
 //        adapter = new CommonAdapter<Task>(getActivity(), R.layout.ui_b3_item_task, tasks){
@@ -93,10 +95,10 @@ public class TaskFragment extends Fragment implements OnItemClickListener{
 
 	private void requestData() {
 		RequestParams params = new RequestParams();
-		params.put("uid", "1");
+		params.put("uid", BaseApp.getModel().getUserid());
 //		params.put("nowpage", nowpage);
 //		params.put("perpage", PERPAGE);
-		HttpUtils.getTasks(res_getTasks, params);
+		HttpUtils.getAnnversaryList(res_getTasks, params);
 	}
 	
 	private JsonHttpResponseHandler res_getTasks = new JsonHttpResponseHandler() {

@@ -21,11 +21,12 @@
             android:orientation="horizontal"
             android:padding="10dp" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.zykj.hihome.utils.CircularImage
+                android:id="@+id/img_anni_avator"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_anniversary" />
+                android:background="@drawable/ic_anniversary"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

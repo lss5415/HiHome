@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.zykj.hihome.R;
 import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.CircularImage;
+import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
+import com.zykj.hihome.utils.UrlContants;
 
 /**
  * Created by ss on 15-4-23.
@@ -81,10 +83,11 @@ public class TaskAdapter extends BaseAdapter{
                 holder= (ViewHolder1)convertView.getTag();
             }
         	Task task = tasks.get(position);
-			//String time = StringUtil.isEmpty(task.getAddtime())?"00-00":task.getStart().substring(0, 10);
-			//holder.rv_me_avatar.setText(task.getTitle());
+//			String time = StringUtil.isEmpty(task.getAddtime())?"00-00":task.getStart().substring(0, 10);
+//			holder.rv_me_avatar.setImageURI(HttpUtils.IMAGE_URL.)
 			holder.aci_title.setText(task.getTitle());
 			holder.aci_time.setText(task.getAddtime());
+			
         }else if(currentType == TYPE_TASK){
 	        ViewHolder2 holder2 = null;
             if(convertView == null){
