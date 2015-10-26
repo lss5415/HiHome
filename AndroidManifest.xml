@@ -140,7 +140,7 @@
         <activity
             android:name="com.zykj.hihome.B1_07_1_GeRenXinXi"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:theme="@android:style/Theme.Holo.Light" >
         </activity>
         <activity
             android:name="com.zykj.hihome.B1_07_WoDeZiLiao"
