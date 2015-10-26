@@ -57,7 +57,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	private TextView tv_starttime, tv_finishtime;
 	private File file;
 	private String timeString;// 上传头像的字段
-	private String title, content, starttime, endtime;
+	private String title, taskers, content, starttime, endtime, strId;
 
 	private List<File> files = new ArrayList<File>();
 	private List<Bitmap> images = new ArrayList<Bitmap>();
@@ -163,8 +163,11 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 //			dateTimePicKDialog2.dateTimePicKDialog(tv_finishtime);
 			break;
 		case R.id.aci_edit_btn:// 创建任务
-			title = ed_taskname.getText().toString().trim();
-			content = ed_taskcontent.getText().toString().trim();
+			title = ed_taskname.getText().toString().trim();// 任务名称
+			taskers = ed_taskexcutor.getText().toString().trim();// 任务执行人
+			content = ed_taskcontent.getText().toString().trim();// 任务内容
+			// 读取相册
+			// 设置全天开关
 			starttime = tv_starttime.getText().toString().trim();
 			endtime = tv_finishtime.getText().toString().trim();
 			
@@ -238,7 +241,8 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			/* 选择执行人 */
 			if (data != null) {
 				ed_taskexcutor.setText(data.getStringExtra("strName"));
-				ed_taskexcutor.setTag(data.getStringExtra("strId"));
+				strId = data.getStringExtra("strId");
+				ed_taskexcutor.setTag(strId);
 			}
 			break;
 		case 21:

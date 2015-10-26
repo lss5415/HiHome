@@ -38,12 +38,8 @@ public class HttpUtils {
 	 * @param userId
 	 *            用户Id
 	 */
-	public static void getFriendsList(AsyncHttpResponseHandler res,
-			String userId) {
-		client.get(base_url + "c=friend&a=getList&uid=" + userId, res);/*
-																		 * &state
-																		 * =1
-																		 */
+	public static void getFriendsList(AsyncHttpResponseHandler res, String userId, String type) {
+		client.get(base_url + "c=friend&a=getList&uid="+userId+"&type="+type, res);
 	}
 
 	/**
