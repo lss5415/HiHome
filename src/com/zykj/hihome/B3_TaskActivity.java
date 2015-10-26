@@ -94,6 +94,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent intent) 
 	if(requestCode==1){
 		taskFragment1.reflush();
 	}else if (requestCode==2) {
+		taskFragment1.reflush();
 		taskFragment3.reflush();
 	}
 	

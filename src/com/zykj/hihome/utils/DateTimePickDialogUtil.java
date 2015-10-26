@@ -104,7 +104,7 @@ public class DateTimePickDialogUtil implements OnDateChangedListener,
 	        calendar.set(datePicker.getYear(), datePicker.getMonth(),  
 	                datePicker.getDayOfMonth(), timePicker.getCurrentHour(),  
 	                timePicker.getCurrentMinute());  
-	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");  
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");  
 	  
 	        dateTime = sdf.format(calendar.getTime());  
 	        ad.setTitle(dateTime);  
@@ -127,8 +127,8 @@ public class DateTimePickDialogUtil implements OnDateChangedListener,
 	        String yearStr = spliteString(date, "年", "index", "front"); // 年份  
 	        String monthAndDay = spliteString(date, "年", "index", "back"); // 月日  
 	  
-	        String monthStr = spliteString(monthAndDay, "月", "index", "front"); // 月  
-	        String dayStr = spliteString(monthAndDay, "月", "index", "back"); // 日  
+	        String monthStr = spliteString(date, "月", "index", "front"); // 月  
+	        String dayStr = spliteString(date, "月", "index", "back"); // 日  
 	  
 	        String hourStr = spliteString(time, ":", "index", "front"); // 时  
 	        String minuteStr = spliteString(time, ":", "index", "back"); // 分  

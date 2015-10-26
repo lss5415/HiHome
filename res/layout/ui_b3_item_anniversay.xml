@@ -1,48 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp" >
-
-    <com.zykj.hihome.utils.CircularImage
-        android:id="@+id/rv_me_avatar"
-        android:layout_width="@dimen/fifty"
-        android:layout_height="@dimen/fifty"
-        android:layout_marginLeft="@dimen/four"
-        android:background="@drawable/gerentouxiang"/>
-    
-    <View
-        android:id="@+id/divide"
-        android:layout_width="0.5dp"
-        android:layout_marginLeft="19dp"
-        android:layout_height="match_parent"
-        android:background="@color/black" />
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="18dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp" >
 
-        <TextView
-            android:id="@+id/aci_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="元旦"
-            android:textSize="@dimen/t_eighteen"
-            android:textColor="@color/black" />
+        <com.zykj.hihome.utils.CircularImage
+            android:id="@+id/rv_me_avatar"
+            android:layout_width="@dimen/fifty"
+            android:layout_height="@dimen/fifty"
+            android:layout_marginLeft="@dimen/four"
+            android:background="@drawable/gerentouxiang" />
 
-        <TextView
-            android:id="@+id/aci_time"
-            android:layout_marginTop="@dimen/five"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2005年1月1日" />
+        <View
+            android:id="@+id/divide"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="19dp"
+            android:background="@color/theme_colorhuang" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="18dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/aci_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元旦"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t_eighteen" />
+
+            <TextView
+                android:id="@+id/aci_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/five"
+                android:text="2005年1月1日" />
+        </LinearLayout>
     </LinearLayout>
+            <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/theme_colordivide" />
 </LinearLayout>

@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -86,13 +87,22 @@ public class B3_1_SelectExecutorActivity extends BaseActivity implements OnItemC
 		switch (view.getId()) {
 		case R.id.aci_edit_btn:
 			/*确定*/
-			StringBuffer str = new StringBuffer();
+			StringBuffer strName = new StringBuffer();
+			StringBuffer strId = new StringBuffer();
 			for (int i = 0; i < friends.size(); i++) {
 				if(friends.get(i).isChecked()){
-					str.append(friends.get(i).getId()+",");
+					strName.append(friends.get(i).getNick()+",");
+					strId.append(friends.get(i).getId()+",");
 				}
 			}
-			Tools.toast(this, str.substring(0, str.length()-1));
+			if(strId.length()<1){
+				Tools.toast(this, "未选择任何好友!");
+			}else{
+				setResult(Activity.RESULT_OK, getIntent()
+						.putExtra("strName", strName.substring(0, strName.length()-1))
+						.putExtra("strId", strId.substring(0, strId.length()-1)));
+				finish();
+			}
 			break;
 		default:
 			break;

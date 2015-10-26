@@ -22,7 +22,7 @@ public class Task implements Serializable{
 	private String tasker;//任务执行人数
 	private String nick;  //任务发布者姓名
 	private String avatar;//任务发布者头像
-	private String imgsrc;//纪念日图片
+	private String imgsrc;//纪念日头像
 	private String mdate;//纪念日日期
 	private List<Map<String, String>> taskerList;
 

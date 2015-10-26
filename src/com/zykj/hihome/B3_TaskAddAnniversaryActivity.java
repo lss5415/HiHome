@@ -26,6 +26,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
+import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.DateTimePickDialogUtil;
 import com.zykj.hihome.utils.DateUtil;
 import com.zykj.hihome.utils.HttpErrorHandler;
@@ -38,13 +39,13 @@ import com.zykj.hihome.view.UIDialog;
 
 public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
-	private ImageView img_photo, img_avator;
+	private ImageView img_photo;
+	private CircularImage img_avator;
 	private EditText anniversaryt_title,anniversaryt_content;
 	private TextView anniversaryt_selecttime;
 	private File file;
 	private String timeString;// 上传头像的字段
-	private String title, time, content;
-	private String initDateTime="2014年8月23日 17:44";
+	private String anni_title, anni_time, anni_content;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +65,11 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 		anniversaryt_title = (EditText) findViewById(R.id.input_anniversaryl_title);
 		anniversaryt_content = (EditText) findViewById(R.id.input_taskcontent);
 		anniversaryt_selecttime = (TextView) findViewById(R.id.input_selectdate);
-
-		img_avator = (ImageView) findViewById(R.id.img_avator);// 上传头像
+		
+		img_avator = (CircularImage) findViewById(R.id.img_avator);// 上传头像
 		img_photo = (ImageView) findViewById(R.id.img_photo);// 上传相册图片
 
-		String time = DateUtil.dateToString(new Date(), "yyyy年MM月dd日  hh:mm");
+		String time = DateUtil.dateToString(new Date(), "yyyy-MM-dd hh:mm");
 		anniversaryt_selecttime.setText(time);
 		
 		setListener(anniversaryt_selecttime, img_avator);
@@ -79,7 +80,7 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.input_selectdate:// 选择时间
 			DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
-					B3_TaskAddAnniversaryActivity.this, initDateTime);
+					B3_TaskAddAnniversaryActivity.this, null);
 			dateTimePicKDialog.dateTimePicKDialog(anniversaryt_selecttime);
 			break;
 		case R.id.img_avator:// 调用手机相册
@@ -87,16 +88,16 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 					this);
 			break;
 		case R.id.aci_edit_btn:// 完成创建
-			title = anniversaryt_title.getText().toString().trim();
-			time = anniversaryt_selecttime.getText().toString().trim();
-			content = anniversaryt_content.getText().toString().trim();
+			anni_title = anniversaryt_title.getText().toString().trim();
+			anni_time = anniversaryt_selecttime.getText().toString().trim();
+			anni_content = anniversaryt_content.getText().toString().trim();
 			if (file == null) {
 				Tools.toast(B3_TaskAddAnniversaryActivity.this, "头像不能为空");
-			} else if (StringUtil.isEmpty(title)) {
+			} else if (StringUtil.isEmpty(anni_title)) {
 				Tools.toast(B3_TaskAddAnniversaryActivity.this, "标题不能为空");
-			} else if (StringUtil.isEmpty(time)) {
+			} else if (StringUtil.isEmpty(anni_time)) {
 				Tools.toast(B3_TaskAddAnniversaryActivity.this, "日期不能为空");
-			} else if (StringUtil.isEmpty(content)) {
+			} else if (StringUtil.isEmpty(anni_content)) {
 				Tools.toast(B3_TaskAddAnniversaryActivity.this, "内容不能为空");
 			} else {
 				try {
@@ -151,9 +152,9 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 
 			params.put("uid", BaseApp.getModel().getUserid());
 			params.put("imgsrc", imgsrc);
-			params.put("title", title);
-			params.put("mdate", time);
-			params.put("content", content);
+			params.put("title", anni_title);
+			params.put("mdate", anni_time);
+			params.put("content", anni_content);
 			HttpUtils.addAnniversary(new HttpErrorHandler() {
 
 				@Override
@@ -222,10 +223,10 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity {
 		// 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
 		intent.putExtra("crop", "true");
 		// aspectX aspectY 是宽高的比例
-		intent.putExtra("aspectX", 0.6);
+		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 250);
+		intent.putExtra("outputX", 150);
 		intent.putExtra("outputY", 150);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, 3);
