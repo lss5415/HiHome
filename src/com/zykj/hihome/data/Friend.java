@@ -17,6 +17,7 @@ public class Friend implements Serializable{
 	private String age;//好友年龄
 	private String sign;//好友签名
 	private String state;
+	private String type;//配偶、星标、普通
 
 	private boolean isChecked;//是否选中
 	
@@ -79,6 +80,10 @@ public class Friend implements Serializable{
 	public void setState(String state) {
 		this.state = state;
 	}
-	
-	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 }

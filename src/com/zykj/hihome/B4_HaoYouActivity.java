@@ -1,5 +1,6 @@
 package com.zykj.hihome;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -34,7 +35,7 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 	private ImageView add_friend;
 //	private EditText firend_search;
 	private ListView friend_list;
-	private List<Friend> friends;
+	private List<Friend> friends = new ArrayList<Friend>();
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,12 +59,24 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 //		firend_search = (EditText)findViewById(R.id.firend_search);//搜索
 		
 		friend_list = (ListView)findViewById(R.id.friend_list);//搜索
+		friend_list.setAdapter(new CommonAdapter<Friend>(B4_HaoYouActivity.this, R.layout.ui_b4_haoyou_item, friends) {
+			@Override
+			public void convert(ViewHolder holder, Friend friend) {
+				if(holder.getPosition() == 0){
+					holder.setImageView(R.id.aci_image, R.drawable.tongxunlu);
+				}else{
+					holder.setImageUrl(R.id.aci_image, StringUtil.toString(friend.getAvatar(), "http://"), 10f);
+				}
+				holder.setText(R.id.aci_name, friend.getNick());
+			}
+		});
 		friend_list.setDividerHeight(0);
 		friend_list.setOnItemClickListener(this);
 		setListener(rv_me_avatar, add_friend);
 	}
 
 	private void requestData() {
+		friends.add(0, new Friend("通讯录"));
 		HttpUtils.getFriendsList(new JsonHttpResponseHandler(){
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -73,26 +86,12 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 					if(code == 200){
 						JSONArray JSONArray = response.getJSONObject("datas").getJSONArray("list");
 						friends = JSON.parseArray(JSONArray.toString(), Friend.class);
-						friends.add(0, new Friend("通讯录"));
-						friend_list.setAdapter(new CommonAdapter<Friend>(B4_HaoYouActivity.this, R.layout.ui_b4_haoyou_item, friends) {
-							@Override
-							public void convert(ViewHolder holder, Friend friend) {
-								if(holder.getPosition() == 0){
-									holder.setImageView(R.id.aci_image, R.drawable.tongxunlu);
-								}else{
-									holder.setImageUrl(R.id.aci_image, StringUtil.toString(friend.getAvatar(), "http://"), 10f);
-								}
-								holder.setText(R.id.aci_name, friend.getNick());
-							}
-						});
-					}else{
-						Tools.toast(B4_HaoYouActivity.this, "没有好友");
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
 			}
-		}, "5");
+		}, "5" ,"0");
 	}
 
 	@Override
