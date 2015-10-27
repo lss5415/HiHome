@@ -21,7 +21,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
@@ -32,6 +31,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -51,7 +51,6 @@ import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 import com.zykj.hihome.view.MyRequestDailog;
 import com.zykj.hihome.view.UIDialog;
-import com.zykj.hihome.view.WheelView;
 
 public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		OnCheckedChangeListener, OnItemClickListener {
@@ -65,7 +64,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	private TextView tv_starttime, tv_finishtime;
 	private File file;
 	private String timeString;// 上传头像的字段
-	private String title, taskers, content, starttime, endtime, strId;
+	private String title, content, starttime, endtime, strId;
 
 	private List<File> files = new ArrayList<File>();
 	private List<Bitmap> images = new ArrayList<Bitmap>();
@@ -75,7 +74,6 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	private int[] imgResource = new int[]{R.drawable.ic_clock,R.drawable.ic_repeat,R.drawable.ic_dingwei};
 	private boolean[] flags = new boolean[3];
 	private int tixing = -1,chongfu = -1,isday,index;;
-	private String imgs="";
 	private RequestParams params;
 
 	// uid必须，用户ID编号title必须，任务名称content必须，任务内容isday必须，是否是全天任务start必须，任务开始时间
@@ -126,9 +124,10 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		btnAdapter = new CommonAdapter<String>(this, R.layout.ui_b3_addtask_check, taskType) {
 			@Override
 			public void convert(ViewHolder holder, String type) {
-				final TextView mTextView = holder.getView(R.id.check_item);
+				RelativeLayout mLayout = holder.getView(R.id.check_relative);
+				TextView mTextView = holder.getView(R.id.check_item);
 				if(Tools.M_SCREEN_WIDTH < 800){
-					LayoutParams checkboxParms = mTextView.getLayoutParams();
+					LayoutParams checkboxParms = mLayout.getLayoutParams();
 					checkboxParms.width = Tools.M_SCREEN_WIDTH * 2 / 9;
 					checkboxParms.height = Tools.M_SCREEN_WIDTH * 2 / 9;
 				}
@@ -217,7 +216,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 				params.put("tip", tixing);//提醒
 				params.put("repeat", chongfu);//重复
 				params.put("tasker", strId);//任务执行人
-				index = 0;imgs = "";
+				index = 0;
 				if(files.size() < 1){
 					submitTask();
 				}else{

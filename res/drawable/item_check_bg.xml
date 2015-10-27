@@ -8,8 +8,8 @@
     </item>
     <item>
         <shape>
-            <stroke android:color="#D3D3D3" android:width="1dp"/>
-            <solid android:color="#E7E7E7"/>
+            <stroke android:color="#DADADA" android:width="1dp"/>
+            <solid android:color="#F7F7F7"/>
         </shape>
     </item>
 </selector>
