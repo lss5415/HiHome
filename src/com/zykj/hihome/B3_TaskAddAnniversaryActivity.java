@@ -54,12 +54,13 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 	private EditText anniversaryt_title, anniversaryt_content;
 	private TextView anniversaryt_selecttime;
 	private File file;
-	private String timeString;// 上传头像的字段
+	private String timeString, imgs;// 上传头像的字段
 	private String anni_title, anni_time, anni_content;
-	private int type=1;
+	private int type = 1, index;
 	private List<File> files = new ArrayList<File>();
 	private List<Bitmap> images = new ArrayList<Bitmap>();
 	private CommonAdapter<Bitmap> imgAdapter;
+	private RequestParams params;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -131,15 +132,25 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 			} else if (StringUtil.isEmpty(anni_content)) {
 				Tools.toast(B3_TaskAddAnniversaryActivity.this, "内容不能为空");
 			} else {
-				try {
-					RequestParams params = new RequestParams();
-					
-					params.put("imgsrc[]", file);
-					HttpUtils.upLoad(res_upLoad, params);// 上传图片
-
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
+				params = new RequestParams();
+				params.put("uid", BaseApp.getModel().getUserid());
+				params.put("title", anni_title);
+				params.put("mdate", anni_time.substring(0, 11));
+				params.put("content", anni_content);
+				index = 0;
+				imgs = "";
+				if (files.size() < 1) {
+					submitAnniData();
+				} else {
+					try {
+						RequestParams paramsImg = new RequestParams();
+						paramsImg.put("imagsrc[]", files.get(index));
+						HttpUtils.upLoad(res_upLoad, paramsImg);// 上传图片
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
 				}
+
 			}
 			break;
 		case R.id.dialog_modif_1:
@@ -173,29 +184,42 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 提交数据
+	 */
+	private void submitAnniData() {
+		HttpUtils.addAnniversary(new HttpErrorHandler() {
+
+			@Override
+			public void onRecevieSuccess(JSONObject json) {
+				Tools.toast(B3_TaskAddAnniversaryActivity.this, "信息发布成功");
+				setResult(RESULT_OK);
+				finish();
+			}
+		}, params);
+	}
+
+	/**
+	 * 上传图片
+	 */
 	private AsyncHttpResponseHandler res_upLoad = new HttpErrorHandler() {
 
 		@Override
 		public void onRecevieSuccess(JSONObject json) {
-			String imgsrc = json.getJSONArray(UrlContants.jsonData)
-					.getJSONObject(0).getString("imgsrc");
-		
-			RequestParams params = new RequestParams();
-
-			params.put("uid", BaseApp.getModel().getUserid());
-			params.put("imgsrc", imgsrc);
-			params.put("title", anni_title);
-			params.put("mdate", anni_time.substring(0, 11));
-			params.put("content", anni_content);
-			HttpUtils.addAnniversary(new HttpErrorHandler() {
-
-				@Override
-				public void onRecevieSuccess(JSONObject json) {
-					Tools.toast(B3_TaskAddAnniversaryActivity.this, "信息发布成功");
-					setResult(RESULT_OK);
-					finish();
+			try {
+				String imgsrc = json.getJSONArray(UrlContants.jsonData)
+						.getJSONObject(0).getString("imgsrc");
+				params.put("imgsrc" + (++index), imgsrc);
+				if (index < files.size()) {
+					RequestParams paramsImage = new RequestParams();
+					params.put("imgsrc[]", files.get(index));
+					HttpUtils.upLoad(res_upLoad, paramsImage);// 上传图片
+				} else {
+					submitAnniData();
 				}
-			}, params);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 	};
 
