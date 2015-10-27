@@ -39,6 +39,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_weight="1"
                         android:text="@string/task_state"
+                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <TextView
@@ -95,7 +96,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:background="@color/theme_color" />
 
             <LinearLayout
@@ -112,7 +113,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="@string/task_name"
-                    android:textColor="@color/edit_hint_color"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
@@ -140,7 +141,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="@string/task_excutor"
-                    android:textColor="@color/edit_hint_color"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
@@ -148,20 +149,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:background="@drawable/bg_null_white"
                     android:text="自己"
-                    android:textColor="@color/edit_hint_color"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
             </LinearLayout>
-            <View 
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/theme_color"/>
+                android:layout_height="0.5dp"
+                android:background="@color/theme_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="2dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:padding="15dp" >
@@ -176,15 +175,16 @@
                     android:textColor="@color/edit_hint_color"
                     android:textSize="16sp" />
             </LinearLayout>
-         <View 
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/theme_color"/>
+                android:layout_height="0.5dp"
+                android:background="@color/text_grey" />
+
             <LinearLayout
                 android:id="@+id/task_input_content"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="2dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:paddingBottom="5dp"
@@ -200,7 +200,7 @@
                     android:src="@drawable/ic_task_imgview" />
 
                 <View
-                    android:layout_width="1dp"
+                    android:layout_width="0.5dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:background="@color/divide_color_grey" />
@@ -231,7 +231,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="2dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal" >
 
@@ -248,7 +247,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/task_start_time"
-                        android:textColor="@color/edit_hint_color"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
 
                     <TextView
@@ -256,19 +255,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_null_white"
                         android:gravity="center"
                         android:text="@string/task_input_start_time"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
                 </LinearLayout>
-         <View 
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/divide_color_grey"/>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/divide_color_grey" />
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="60dp"
-                    android:layout_marginLeft="2dp"
                     android:layout_weight="1"
                     android:background="@color/white"
                     android:orientation="vertical" >
@@ -279,7 +279,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/task_finish_time"
-                        android:textColor="@color/edit_hint_color"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
 
                     <TextView
@@ -287,9 +287,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_null_white"
                         android:gravity="center"
                         android:text="@string/task_input_finish_time"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>

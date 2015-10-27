@@ -96,6 +96,7 @@ public class TaskFragment extends Fragment implements OnItemClickListener{
 	private void requestData() {
 		RequestParams params = new RequestParams();
 		params.put("uid", BaseApp.getModel().getUserid());
+		params.put("my", "1");
 //		params.put("nowpage", nowpage);
 //		params.put("perpage", PERPAGE);
 		if(mType==1){

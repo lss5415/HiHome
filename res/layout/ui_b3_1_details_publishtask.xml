@@ -16,62 +16,10 @@
         android:background="@color/divide_color_grey"
         android:orientation="vertical" >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-               
-                android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                     android:background="@color/white"
-                    android:gravity="center"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_weight="1"
-                        android:text="@string/task_state"
-                        android:textSize="16sp" />
-
-                     <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:gravity="center_vertical" >
-
-                    <Button
-                        android:id="@+id/details_publishtask_cancle"
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
-                        android:background="@drawable/bg_round_grey"
-                        android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:text="@string/task_cancle"
-                        android:textColor="@color/white" />
-
-                    <Button
-                        android:id="@+id/details_publishtask_delete"
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
-                        android:background="@drawable/bg_round_green"
-                        android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:text="@string/task_delete"
-                        android:textColor="@color/white" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/theme_color" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,8 +33,60 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:text="@string/task_state"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical" >
+
+                    <Button
+                        android:id="@+id/details_publishtask_cancle"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bg_round_grey"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/task_cancle"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/details_publishtask_delete"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bg_round_green"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/task_delete"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/theme_colorhuang" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
                     android:text="@string/task_publisher"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <LinearLayout
@@ -118,8 +118,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/theme_color" />
+                android:layout_height="0.5dp"
+                android:background="@color/text_grey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,8 +133,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text="@string/task_name"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
@@ -150,8 +151,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/theme_color" />
+                android:layout_height="0.5dp"
+                android:background="@color/text_grey" />
 
             <LinearLayout
                 android:id="@+id/ly_list_executor"
@@ -166,6 +167,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="20dp"
                     android:text="@string/task_excutor"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <LinearLayout
@@ -226,10 +228,10 @@
                         android:id="@+id/gv_tasker"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
                         android:layout_weight="1"
-                        android:numColumns="3" 
+                        android:numColumns="3"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
                         android:scrollbars="none" />
 
                     <TextView
@@ -249,15 +251,15 @@
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_task_into" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/theme_color" />
+                android:layout_height="0.5dp"
+                android:background="@color/text_grey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="2dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:padding="15dp" >
@@ -275,13 +277,12 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/theme_color" />
+                android:layout_height="0.5dp"
+                android:background="@color/text_grey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="2dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal" >
 
@@ -298,7 +299,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/task_start_time"
-                        android:textColor="@color/edit_hint_color"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
 
                     <TextView
@@ -306,21 +307,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_null_white"
                         android:gravity="center"
                         android:text="@string/task_input_start_time"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
                 </LinearLayout>
 
                 <View
-                    android:layout_width="1dp"
+                    android:layout_width="0.5dp"
                     android:layout_height="match_parent"
-                    android:background="@color/divide_color_grey" />
+                    android:background="@color/text_grey" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="60dp"
-                    android:layout_marginLeft="2dp"
                     android:layout_weight="1"
                     android:background="@color/white"
                     android:orientation="vertical" >
@@ -331,7 +331,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/task_finish_time"
-                        android:textColor="@color/edit_hint_color"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
 
                     <TextView
@@ -339,87 +339,30 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_null_white"
                         android:gravity="center"
                         android:text="@string/task_input_finish_time"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal" >
+                android:layout_marginTop="@dimen/one"
+                android:orientation="horizontal"
+                android:padding="@dimen/ten" >
 
-                <LinearLayout
-                    android:id="@+id/ly_clock"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentLeft="true"
-                    android:background="@color/white"
+                <!-- ic_task_imgview -->
+                <GridView
+                    android:id="@+id/button_gridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_clock" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/task_tixing" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ly_repeat"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_centerInParent="true"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_repeat" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/task_repeat" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ly_dingwei"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentRight="true"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_dingwei" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/task_dingwei" />
-                </LinearLayout>
-            </RelativeLayout>
+                    android:numColumns="3"
+                    android:scrollbars="none" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
