@@ -1,13 +1,16 @@
 package com.zykj.hihome;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +21,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
@@ -33,16 +37,21 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.alibaba.fastjson.JSONObject;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.utils.CommonUtils;
 import com.zykj.hihome.utils.DateUtil;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
+import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
+import com.zykj.hihome.view.MyRequestDailog;
 import com.zykj.hihome.view.UIDialog;
+import com.zykj.hihome.view.WheelView;
 
 public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		OnCheckedChangeListener, OnItemClickListener {
@@ -63,9 +72,11 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	private CommonAdapter<Bitmap> imgAdapter;
 	private CommonAdapter<String> btnAdapter;
 	private List<String> taskType=new ArrayList<String>();
-	private int[] imgs = new int[]{R.drawable.ic_clock,R.drawable.ic_repeat,R.drawable.ic_dingwei};
+	private int[] imgResource = new int[]{R.drawable.ic_clock,R.drawable.ic_repeat,R.drawable.ic_dingwei};
 	private boolean[] flags = new boolean[3];
-	private int tixing,chongfu;
+	private int tixing = -1,chongfu = -1,isday,index;;
+	private String imgs="";
+	private RequestParams params;
 
 	// uid必须，用户ID编号title必须，任务名称content必须，任务内容isday必须，是否是全天任务start必须，任务开始时间
 	// end必须，任务结束时间tip必须，任务提醒：数值意义见左侧repeat必须，任务重复：数值意义见左侧tasker必须，任务执行人ID编号，如1,2,3,4多个之间用英文,分隔
@@ -122,7 +133,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 					checkboxParms.height = Tools.M_SCREEN_WIDTH * 2 / 9;
 				}
 				mTextView.setText(type);
-				Drawable topDrawable = getResources().getDrawable(imgs[holder.getPosition()]);
+				Drawable topDrawable = getResources().getDrawable(imgResource[holder.getPosition()]);
 				topDrawable.setBounds(0, 0, topDrawable.getMinimumWidth(), topDrawable.getMinimumHeight());
 				if(!flags[holder.getPosition()]){
 		            mTextView.setCompoundDrawables(null, topDrawable, null, null);
@@ -135,7 +146,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		button_fridview.setOnItemClickListener(this);
 		toggleButton.setOnCheckedChangeListener(this);// 设置ToggleBtoon的监听事件
 
-		String time = DateUtil.dateToString(new Date(), "yyyy-MM-dd hh:mm");
+		String time = DateUtil.dateToString(new Date(), "yyyy-MM-dd HH:mm");
 		tv_starttime.setText(time);
 		tv_finishtime.setText(time);
 		setListener(img_read_contacts, ed_taskexcutor, layout_starttime, layout_finishtime);
@@ -152,35 +163,73 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			startActivityForResult(new Intent(this, B3_1_SelectExecutorActivity.class), 20);
 			break;
 		case R.id.layout_starttime:// 开始时间
-			CommonUtils.showDateTimePicker(this, tv_starttime);
+			View startView = CommonUtils.showDateTimePicker(this, tv_starttime);
+			startView.findViewById(R.id.hour).setVisibility(isday == 0?View.VISIBLE:View.GONE);
+			startView.findViewById(R.id.mins).setVisibility(isday == 0?View.VISIBLE:View.GONE);
 //			DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(this, null);
 //			dateTimePicKDialog.dateTimePicKDialog(tv_starttime);
 			break;
 		case R.id.layout_finishtime:// 结束时间
-			CommonUtils.showDateTimePicker(this, tv_finishtime);
+			View endView = CommonUtils.showDateTimePicker(this, tv_finishtime);
+			endView.findViewById(R.id.hour).setVisibility(isday == 0?View.VISIBLE:View.GONE);
+			endView.findViewById(R.id.mins).setVisibility(isday == 0?View.VISIBLE:View.GONE);
 //			DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(this, null);
 //			dateTimePicKDialog2.dateTimePicKDialog(tv_finishtime);
 			break;
 		case R.id.aci_edit_btn:// 创建任务
 			title = ed_taskname.getText().toString().trim();// 任务名称
-			taskers = ed_taskexcutor.getText().toString().trim();// 任务执行人
 			content = ed_taskcontent.getText().toString().trim();// 任务内容
 			// 读取相册
 			// 设置全天开关
 			starttime = tv_starttime.getText().toString().trim();
 			endtime = tv_finishtime.getText().toString().trim();
-			
-			RequestParams params = new RequestParams();
-			params.put("title", title);
-			params.put("content", content);
-			params.put("start", starttime);
-			params.put("end", endtime);
-			HttpUtils.addTask(new HttpErrorHandler() {
-				@Override
-				public void onRecevieSuccess(JSONObject json) {
-					setResult(RESULT_OK);
+			long distance = 0;
+			try {
+				long startTime = DateUtil.stringToLong(starttime, isday == 0?"yyyy-MM-dd HH:mm":"yyyy-MM-dd");
+				long endTime = DateUtil.stringToLong(endtime, isday == 0?"yyyy-MM-dd HH:mm":"yyyy-MM-dd");
+				distance = startTime - endTime;
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			if(StringUtil.isEmpty(title)){
+				Tools.toast(this, "任务名字不能为空!");
+			}else if(StringUtil.isEmpty(strId)){
+				Tools.toast(this, "至少选择一个执行人!");
+			}else if(StringUtil.isEmpty(strId)){
+				Tools.toast(this, "任务内容不能为空!");
+			}else if(StringUtil.isEmpty(strId)){
+				Tools.toast(this, "至少选择一个执行人!");
+			}else if(tixing < 0){
+				Tools.toast(this, "请选择提醒状态!");
+			}else if(chongfu < 0){
+				Tools.toast(this, "请选择重复状态!");
+			}else if(distance > 0){
+				Tools.toast(this, "结束时间不能比开始时间早!");
+			}else{
+				MyRequestDailog.showDialog(this, "");
+				params = new RequestParams();
+				params.put("uid", BaseApp.getModel().getUserid());//用户Id
+				params.put("title", title);//任务名称
+				params.put("content", content);//任务内容
+				params.put("isday", isday);//是否是全天任务 0不是 1是
+				params.put("start", starttime);//任务开始时间
+				params.put("end", endtime);//任务结束时间
+				params.put("tip", tixing);//提醒
+				params.put("repeat", chongfu);//重复
+				params.put("tasker", strId);//任务执行人
+				index = 0;imgs = "";
+				if(files.size() < 1){
+					submitTask();
+				}else{
+					try {
+						RequestParams paramsImgage = new RequestParams();
+						paramsImgage.put("imgsrc[]", files.get(index));
+						HttpUtils.upLoad(res_upLoad, paramsImgage);//上传图片
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
 				}
-			}, params);
+			}
 			break;
 		case R.id.dialog_modif_1:
 			/* 拍照 */
@@ -211,6 +260,36 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		default:
 			break;
 		}
+	}
+	
+	private AsyncHttpResponseHandler res_upLoad = new HttpErrorHandler() {
+		@Override
+		public void onRecevieSuccess(JSONObject json) {
+			try {
+				String imgsrc = json.getJSONArray(UrlContants.jsonData).getJSONObject(0).getString("imgsrc");
+				params.put("imgsrc"+(++index), imgsrc);//任务执行人
+				if(index < files.size()){
+					RequestParams paramsImgage = new RequestParams();
+					paramsImgage.put("imgsrc[]", files.get(index));
+					HttpUtils.upLoad(res_upLoad, paramsImgage);
+				}else{
+					submitTask();
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	};
+
+	private void submitTask() {
+		HttpUtils.addTask(new HttpErrorHandler() {
+			@Override
+			public void onRecevieSuccess(JSONObject json) {
+				MyRequestDailog.closeDialog();
+				Tools.toast(B3_TaskAddTaskTaskActivity.this, "任务添加成功!");
+				finish();
+			}
+		}, params);
 	}
 
 	@Override
@@ -354,11 +433,13 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		String time1 = StringUtil.toString(tv_starttime.getText());
 		String time2 = StringUtil.toString(tv_finishtime.getText());
 		if (isChecked) {
+			isday = 1;
 			tv_starttime.setText(time1.substring(0, 10));
 			tv_starttime.setTag(time1);
 			tv_finishtime.setText(time2.substring(0, 10));
 			tv_finishtime.setTag(time2);
 		} else {
+			isday = 0;
 			tv_starttime.setText((String)tv_starttime.getTag());
 			tv_finishtime.setText((String)tv_finishtime.getTag());
 		}
@@ -379,10 +460,10 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		case R.id.button_fridview:
 			if (position == 0) {
 				/*设置提醒*/
-				startActivityForResult(new Intent(this, B3_1_TiXingActivity.class).putExtra("position", tixing),21);
+				startActivityForResult(new Intent(this, B3_1_TiXingActivity.class).putExtra("position", tixing<0?0:tixing),21);
 			}else if(position == 1){
 				/*设置重复*/
-				startActivityForResult(new Intent(this, B3_1_RepeatActivity.class).putExtra("position", chongfu),22);
+				startActivityForResult(new Intent(this, B3_1_RepeatActivity.class).putExtra("position", chongfu<0?0:chongfu),22);
 			}else{
 				/*设置位置*/
 			}

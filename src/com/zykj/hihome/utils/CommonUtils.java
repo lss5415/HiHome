@@ -156,7 +156,7 @@ public class CommonUtils {
 	 * @param tv_time
 	 * 调用时间控件,格式:yyyy-MM-dd HH:mm
 	 */
-	public static void showDateTimePicker(Context context, final TextView tv_time){
+	public static View showDateTimePicker(Context context, final TextView tv_time){
 		Calendar calendar = Calendar.getInstance();
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
@@ -286,12 +286,17 @@ public class CommonUtils {
 				String parten = "00";
 				DecimalFormat decimal = new DecimalFormat(parten);
 				// 设置日期的显示
-				 tv_time.setText((wv_year.getCurrentItem() + 1990) + "-"
-				 + decimal.format((wv_month.getCurrentItem() + 1)) + "-"
-				 + decimal.format((wv_day.getCurrentItem() + 1)) + " "
-				 + decimal.format(wv_hours.getCurrentItem()) + ":"
-				 + decimal.format(wv_mins.getCurrentItem()));
-
+				String date = (wv_year.getCurrentItem() + 1990) + "-"
+						 + decimal.format((wv_month.getCurrentItem() + 1)) + "-"
+						 + decimal.format((wv_day.getCurrentItem() + 1));
+				String hours = wv_hours.getVisibility() == View.GONE?"":" " + decimal.format(wv_hours.getCurrentItem());
+				String mins = wv_mins.getVisibility() == View.GONE?"":":" + decimal.format(wv_mins.getCurrentItem());
+				tv_time.setText(date + hours + mins);
+				if(wv_hours.getVisibility() == View.GONE){
+					tv_time.setTag(date + hours + mins+((String)tv_time.getTag()).substring(10));
+				}else{
+					tv_time.setTag(date + hours + mins);
+				}
 				dialog.dismiss();
 			}
 		});
@@ -306,5 +311,6 @@ public class CommonUtils {
 		// 设置dialog的布局,并显示
 		dialog.setContentView(view);
 		dialog.show();
+		return view;
 	}
 }

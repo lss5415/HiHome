@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.data.Friend;
@@ -36,20 +37,18 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 //	private EditText firend_search;
 	private ListView friend_list;
 	private List<Friend> friends = new ArrayList<Friend>();
+	private CommonAdapter<Friend> adapter;
+	private int index = 2;
+	private String[] strType = new String[]{"亲友","星标好友","配偶"};
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initView(R.layout.ui_b4_haoyou);
 		
 		initView();
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
 		requestData();
 	}
-
+	
 	/**
 	 * 初始化页面
 	 */
@@ -59,7 +58,7 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 //		firend_search = (EditText)findViewById(R.id.firend_search);//搜索
 		
 		friend_list = (ListView)findViewById(R.id.friend_list);//搜索
-		friend_list.setAdapter(new CommonAdapter<Friend>(B4_HaoYouActivity.this, R.layout.ui_b4_haoyou_item, friends) {
+		adapter = new CommonAdapter<Friend>(B4_HaoYouActivity.this, R.layout.ui_b4_haoyou_item, friends) {
 			@Override
 			public void convert(ViewHolder holder, Friend friend) {
 				if(holder.getPosition() == 0){
@@ -67,32 +66,48 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 				}else{
 					holder.setImageUrl(R.id.aci_image, StringUtil.toString(friend.getAvatar(), "http://"), 10f);
 				}
+				if(!StringUtil.isEmpty(friend.getType())){
+					holder.setText(R.id.friend_type, friend.getType());
+					holder.setVisibility(R.id.friend_type, true);
+				}
 				holder.setText(R.id.aci_name, friend.getNick());
 			}
-		});
+		};
+		friend_list.setAdapter(adapter);
 		friend_list.setDividerHeight(0);
 		friend_list.setOnItemClickListener(this);
 		setListener(rv_me_avatar, add_friend);
 	}
 
 	private void requestData() {
+		friends.clear();
 		friends.add(0, new Friend("通讯录"));
-		HttpUtils.getFriendsList(new JsonHttpResponseHandler(){
-			@Override
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-				super.onSuccess(statusCode, headers, response);
-				try {
-					int code = response.getInt("code");
-					if(code == 200){
-						JSONArray JSONArray = response.getJSONObject("datas").getJSONArray("list");
-						friends = JSON.parseArray(JSONArray.toString(), Friend.class);
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		}, "5" ,"0");
+		index = 2;
+		HttpUtils.getFriendsList(res_getFriendsList, "5" , index+"");
 	}
+
+	private AsyncHttpResponseHandler res_getFriendsList = new JsonHttpResponseHandler() {
+		@Override
+		public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+			super.onSuccess(statusCode, headers, response);
+			try {
+				int code = response.getInt("code");
+				if(code == 200){
+					JSONArray JSONArray = response.getJSONObject("datas").getJSONArray("list");
+					List<Friend> datas = JSON.parseArray(JSONArray.toString(), Friend.class);
+					datas.get(0).setType(strType[index]);
+					friends.addAll(datas);
+				}
+				if(index >= 0){
+					HttpUtils.getFriendsList(res_getFriendsList, "5" , --index+"");
+				}else{
+					adapter.notifyDataSetChanged();
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+	};
 
 	@Override
 	public void onClick(View v) {

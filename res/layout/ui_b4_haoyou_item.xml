@@ -10,7 +10,8 @@
         android:gravity="center_vertical"
         android:background="#F5F5F5"
         android:paddingLeft="@dimen/fifteen"
-        android:textSize="@dimen/t_twelve"
+		android:textSize="@dimen/eighteen"
+		android:textColor="@color/theme_color"
         android:text="@string/friend_title"
         android:visibility="gone"/>
     <LinearLayout 

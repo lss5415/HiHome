@@ -2,8 +2,6 @@ package com.zykj.hihome.view;
 
 import java.util.Timer;
 
-import com.zykj.hihome.R;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.view.animation.Animation;
@@ -11,6 +9,8 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.zykj.hihome.R;
 
 public class MyRequestDailog extends Dialog {
 
