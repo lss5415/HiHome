@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
@@ -66,6 +68,7 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 		task_finishtime = (TextView) findViewById(R.id.details_publishtask_finishtime);// 结束时间
 		task_excutor_num = (TextView) findViewById(R.id.task_excutor_num);
 		gv_tasker = (GridView) findViewById(R.id.gv_tasker);
+		gv_tasker.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		
 		initializationDate();
 

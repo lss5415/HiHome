@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.R;
 import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.CircularImage;
@@ -85,6 +86,9 @@ public class TaskAdapter extends BaseAdapter{
         	Task task = tasks.get(position);
 //			String time = StringUtil.isEmpty(task.getAddtime())?"00-00":task.getStart().substring(0, 10);
 //			holder.rv_me_avatar.set
+			ImageLoader.getInstance().displayImage(
+					StringUtil.toString(HttpUtils.IMAGE_URL + task.getImgsrc(),
+							"http://"), holder.rv_me_avatar);
 			holder.aci_title.setText(task.getTitle());
 			holder.aci_time.setText(task.getMdate().substring(0, 11));
 			
