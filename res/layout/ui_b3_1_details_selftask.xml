@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text="@string/task_name"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -126,7 +126,10 @@
                     android:textColor="@color/edit_hint_color"
                     android:textSize="16sp" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/text_grey" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -139,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text="@string/task_excutor"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -182,53 +185,6 @@
                 android:background="@color/text_grey" />
 
             <LinearLayout
-                android:id="@+id/task_input_content"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/white"
-                android:orientation="horizontal"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:visibility="gone" >
-
-                <ImageView
-                    android:id="@+id/img_photo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_task_imgview" />
-
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:background="@color/divide_color_grey" />
-
-                <ImageView
-                    android:id="@+id/img_camere"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_task_camere" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:id="@+id/task_input_below"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="15dp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_task_below" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:baselineAligned="false"
@@ -264,7 +220,7 @@
                 <View
                     android:layout_width="0.5dp"
                     android:layout_height="match_parent"
-                    android:background="@color/divide_color_grey" />
+                    android:background="@color/text_grey" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -294,80 +250,22 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal" >
+                android:layout_marginTop="@dimen/one"
+                android:orientation="horizontal"
+                android:padding="@dimen/ten" >
 
-                <LinearLayout
-                    android:id="@+id/ly_clock"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentLeft="true"
-                    android:background="@color/white"
+                <!-- ic_task_imgview -->
+                <GridView
+                    android:id="@+id/button_gridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_clock" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/task_tixing" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ly_repeat"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_centerInParent="true"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_repeat" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/task_repeat" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ly_dingwei"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentRight="true"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_dingwei" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/task_dingwei" />
-                </LinearLayout>
-            </RelativeLayout>
+                    android:numColumns="3"
+                    android:scrollbars="none" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

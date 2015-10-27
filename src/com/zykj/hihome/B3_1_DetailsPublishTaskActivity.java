@@ -34,12 +34,12 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private Task task;
 	private List<Task> tasks;
-	private CommonAdapter<Task> taskAdapter;
 	private GridView gv_tasker,button_gridview;
-	private CommonAdapter<String> btnAdapter;
 	private TextView task_state, task_name, task_publish_name,
 			task_excutor_name, task_content, task_starttime, task_finishtime,
 			task_excutor_num;
+	private CommonAdapter<Task> taskAdapter;
+	private CommonAdapter<String> btnAdapter;
 	private List<String> taskType=new ArrayList<String>();
 	private int[] imgResource = new int[]{R.drawable.ic_clock,R.drawable.ic_repeat,R.drawable.ic_dingwei};
 	private boolean[] flags = new boolean[3];
