@@ -24,7 +24,7 @@ public class B3_1_AnniversaryDetailsActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private Task task;
 	private CircularImage img_anni_avator;
-	private ImageView anniversary_img;
+	private ImageView anniversary_img1,anniversary_img2,anniversary_img3;
 	private List<Task> tasks = new ArrayList<Task>();
 	private CommonAdapter<Task> adapter;
 	private TextView anniversary_title, anniversary_date, anniversary_content;
@@ -47,7 +47,9 @@ public class B3_1_AnniversaryDetailsActivity extends BaseActivity {
 		anniversary_title = (TextView) findViewById(R.id.anniversary_title);
 		anniversary_date = (TextView) findViewById(R.id.anniversary_date);
 		anniversary_content = (TextView) findViewById(R.id.anniversary_content);
-		anniversary_img = (ImageView) findViewById(R.id.anniversary_picture);
+		anniversary_img1 = (ImageView) findViewById(R.id.anniversary_picture1);
+		anniversary_img2 = (ImageView) findViewById(R.id.anniversary_picture2);
+		anniversary_img3 = (ImageView) findViewById(R.id.anniversary_picture3);
 
 		// initializationDate();
 		requestData();// 给详情传值
@@ -67,6 +69,19 @@ public class B3_1_AnniversaryDetailsActivity extends BaseActivity {
 				ImageLoader.getInstance().displayImage(
 						StringUtil.toString(HttpUtils.IMAGE_URL + task.getImgsrc(),
 								"http://"), img_anni_avator);
+				if(!StringUtil.isEmpty(jsonObject.getString("imgsrc1"))){
+					ImageLoader.getInstance().displayImage(
+							StringUtil.toString(HttpUtils.IMAGE_URL + task.getImgsrc1()), anniversary_img1);
+				}
+				if(!StringUtil.isEmpty(jsonObject.getString("imgsrc2"))){
+					ImageLoader.getInstance().displayImage(
+							StringUtil.toString(HttpUtils.IMAGE_URL + task.getImgsrc2()), anniversary_img2);
+				}
+				if(!StringUtil.isEmpty(jsonObject.getString("imgsrc3"))){
+					ImageLoader.getInstance().displayImage(
+							StringUtil.toString(HttpUtils.IMAGE_URL + task.getImgsrc3()), anniversary_img3);
+				}
+				
 			}
 		}, params);
 	}

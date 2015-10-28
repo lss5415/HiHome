@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -99,11 +100,12 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 		btnAdapter = new CommonAdapter<String>(this, R.layout.ui_b3_addtask_check, taskType) {
 			@Override
 			public void convert(ViewHolder holder, String type) {
-				final TextView mTextView = holder.getView(R.id.check_item);
+				RelativeLayout mLayout = holder.getView(R.id.check_relative);
+				TextView mTextView = holder.getView(R.id.check_item);
 				if(Tools.M_SCREEN_WIDTH < 800){
-					LayoutParams checkboxParms = mTextView.getLayoutParams();
-					checkboxParms.width = Tools.M_SCREEN_WIDTH * 2 / 10;
-					checkboxParms.height = Tools.M_SCREEN_WIDTH * 2 / 10;
+					LayoutParams checkboxParms = mLayout.getLayoutParams();
+					checkboxParms.width = Tools.M_SCREEN_WIDTH * 2 / 9;
+					checkboxParms.height = Tools.M_SCREEN_WIDTH * 2 / 9;
 				}
 				mTextView.setText(type);
 				Drawable topDrawable = getResources().getDrawable(imgResource[holder.getPosition()]);

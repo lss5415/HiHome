@@ -23,6 +23,9 @@ public class Task implements Serializable{
 	private String nick;  //任务发布者姓名
 	private String avatar;//任务发布者头像
 	private String imgsrc;//纪念日头像
+	private String imgsrc1;//纪念日详情图片
+	private String imgsrc2;//纪念日详情图片
+	private String imgsrc3;//纪念日详情图片
 	private String mdate;//纪念日日期
 	private List<Map<String, String>> taskerList;
 
@@ -131,4 +134,24 @@ public class Task implements Serializable{
 	public void setTasker(String tasker) {
 		this.tasker = tasker;
 	}
+	public String getImgsrc1() {
+		return imgsrc1;
+	}
+	public void setImgsrc1(String imgsrc1) {
+		this.imgsrc1 = imgsrc1;
+	}
+	public String getImgsrc2() {
+		return imgsrc2;
+	}
+	public void setImgsrc2(String imgsrc2) {
+		this.imgsrc2 = imgsrc2;
+	}
+	public String getImgsrc3() {
+		return imgsrc3;
+	}
+	public void setImgsrc3(String imgsrc3) {
+		this.imgsrc3 = imgsrc3;
+	}
+	
+	
 }

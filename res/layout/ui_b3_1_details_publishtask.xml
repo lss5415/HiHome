@@ -23,47 +23,64 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:gravity="center"
-                android:orientation="horizontal" >
+                android:orientation="vertical" >
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_weight="1"
-                    android:text="@string/task_state"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="1"
+                        android:text="@string/task_state"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/details_receivetask_state"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:background="@drawable/bg_null_white"
+                        android:textColor="@color/theme_colorhuang"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_height="40dp"
                     android:gravity="center_vertical" >
 
                     <Button
-                        android:id="@+id/details_publishtask_cancle"
+                        android:id="@+id/btn_leftButton"
                         android:layout_width="100dp"
                         android:layout_height="30dp"
-                        android:background="@drawable/bg_round_grey"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/bg_null_orange"
                         android:gravity="center"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="@string/task_cancle"
-                        android:textColor="@color/white" />
+                        android:text="标记完成"
+                        android:textColor="@color/theme_colorhuang" />
 
                     <Button
-                        android:id="@+id/details_publishtask_delete"
+                        android:id="@+id/btn_rightButton"
                         android:layout_width="100dp"
                         android:layout_height="30dp"
-                        android:background="@drawable/bg_round_green"
-                        android:gravity="center"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/bg_null_orange"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="@string/task_delete"
-                        android:textColor="@color/white" />
+                        android:text="删除任务"
+                        android:textColor="@color/theme_colorhuang" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -153,8 +170,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/text_grey" />
-
-            <LinearLayout
+<LinearLayout
                 android:id="@+id/ly_list_executor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -168,52 +184,10 @@
                     android:layout_marginLeft="15dp"
                     android:text="@string/task_excutor"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
-                <LinearLayout
-                    android:id="@+id/ly_single_excutor"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:visibility="gone" >
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp" >
-
-                        <ImageView
-                            android:id="@+id/details_publish_excutor_avator"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="15dp"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/ic_user_avtor" />
-
-                        <TextView
-                            android:id="@+id/details_publish_excutor_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:gravity="center"
-                            android:text="张飞"
-                            android:textColor="@color/edit_hint_color"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/details_publishtask_state"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="待执行" />
-                </LinearLayout>
+              
 
                 <LinearLayout
                     android:id="@+id/ly_multi_excutor"
@@ -221,8 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:visibility="visible" >
+                    android:orientation="horizontal">
 
                     <GridView
                         android:id="@+id/gv_tasker"
@@ -235,7 +208,7 @@
                         android:scrollbars="none" />
 
                     <TextView
-                        android:id="@+id/task_excutor_num"
+                        android:id="@+id/tasker_excutor_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -251,6 +224,7 @@
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_task_into" />
             </LinearLayout>
+            
 
             <View
                 android:layout_width="match_parent"
@@ -273,6 +247,36 @@
                     android:text="@string/task_input_content"
                     android:textColor="@color/edit_hint_color"
                     android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/text_grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white" >
+
+                <ImageView
+                    android:id="@+id/task_pic_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/task_pic_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/task_pic_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <View
@@ -354,6 +358,7 @@
                 android:padding="@dimen/ten" >
 
                 <!-- ic_task_imgview -->
+
                 <GridView
                     android:id="@+id/button_gridview"
                     android:layout_width="match_parent"

@@ -10,78 +10,97 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp" >
-
-            <com.zykj.hihome.utils.CircularImage
-                android:id="@+id/img_anni_avator"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:contentDescription="@string/app_name"
-                android:background="@drawable/ic_anniversary"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="20dp" >
-
-                <TextView
-                    android:id="@+id/anniversary_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="元旦" />
-
-                <TextView
-                    android:id="@+id/anniversary_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="2015年10月17日" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/theme_color" />
+        android:layout_height="wrap_content" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:padding="10dp" >
-
-                <TextView
-                    android:id="@+id/anniversary_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:text="@string/yuandan" />
-            </ScrollView>
-
-            <ImageView
-                android:id="@+id/anniversary_picture"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/app_name"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_anniversary_pic" />
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <com.zykj.hihome.utils.CircularImage
+                    android:id="@+id/img_anni_avator"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/ic_anniversary"
+                    android:contentDescription="@string/app_name" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp" >
+
+                    <TextView
+                        android:id="@+id/anniversary_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="元旦" />
+
+                    <TextView
+                        android:id="@+id/anniversary_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="2015年10月17日" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/theme_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:id="@+id/anniversary_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/yuandan"
+                        android:textColor="@color/black" />
+                </ScrollView>
+
+                <ImageView
+                    android:id="@+id/anniversary_picture1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_anniversary_pic" />
+
+                <ImageView
+                    android:id="@+id/anniversary_picture2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="fitXY" />
+
+                <ImageView
+                    android:id="@+id/anniversary_picture3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="fitXY" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

@@ -14,6 +14,7 @@ import com.zykj.hihome.calendar.CalendarManager;
 import com.zykj.hihome.calendar.CollapseCalendarView;
 import com.zykj.hihome.fragment.TaskFragment;
 import com.zykj.hihome.utils.CommonUtils;
+import com.zykj.hihome.view.XListView;
 
 /**
  * @author LSS 2015年9月29日 上午8:55:45
@@ -97,6 +98,10 @@ protected void onActivityResult(int requestCode, int resultCode, Intent intent) 
 		taskFragment1.reflush();
 		taskFragment3.reflush();
 	}
+//	else if(requestCode==10){
+//		taskFragment3.updatelist(getIntent().getIntExtra("position", 0), getIntent().getStringExtra("state"));
+//	}
+	
 	
 }
 }

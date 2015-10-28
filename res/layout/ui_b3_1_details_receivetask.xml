@@ -49,7 +49,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/bg_null_white"
                         android:text="执行中"
-                        android:textColor="@color/theme_color"
+                        android:textColor="@color/theme_colorhuang"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -59,28 +59,19 @@
                     android:gravity="center_vertical" >
 
                     <Button
+                        android:id="@+id/btn_leftButton"
                         android:layout_width="100dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="15dp"
-                        android:background="@drawable/bg_round_grey"
+                        android:background="@drawable/bg_null_orange"
                         android:gravity="center"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:text="标记完成"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/theme_colorhuang"/>
 
                     <Button
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
-                        android:background="@drawable/bg_round_green"
-                        android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:text="已完成"
-                        android:textColor="@color/white" />
-
-                    <Button
+                        android:id="@+id/btn_rightButton"
                         android:layout_width="100dp"
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
@@ -90,7 +81,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:text="删除任务"
-                        android:textColor="@color/theme_color" />
+                        android:textColor="@color/theme_colorhuang"/>
                 </RelativeLayout>
             </LinearLayout>
 
