@@ -25,6 +25,7 @@ import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
+import com.zykj.hihome.utils.UrlContants;
 
 /**
  * @author lss 2015年8月8日	我的
@@ -38,8 +39,7 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 	private ListView friend_list;
 	private List<Friend> friends = new ArrayList<Friend>();
 	private CommonAdapter<Friend> adapter;
-	private int index = 2;
-	private String[] strType = new String[]{"亲友","星标好友","配偶"};
+	private String[] strType = new String[]{"普通好友","星标好友","配偶"};
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,8 +66,8 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 				}else{
 					holder.setImageUrl(R.id.aci_image, StringUtil.toString(friend.getAvatar(), "http://"), 10f);
 				}
-				if(!StringUtil.isEmpty(friend.getType())){
-					holder.setText(R.id.friend_type, friend.getType());
+				if(!StringUtil.isEmpty(friend.getCategory())){
+					holder.setText(R.id.friend_type, friend.getCategory());
 					holder.setVisibility(R.id.friend_type, true);
 				}
 				holder.setText(R.id.aci_name, friend.getNick());
@@ -82,8 +82,7 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 	private void requestData() {
 		friends.clear();
 		friends.add(0, new Friend("通讯录"));
-		index = 2;
-		HttpUtils.getFriendsList(res_getFriendsList, "5" , index+"");
+		HttpUtils.getFriendsList(res_getFriendsList, "5");
 	}
 
 	private AsyncHttpResponseHandler res_getFriendsList = new JsonHttpResponseHandler() {
@@ -93,16 +92,17 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 			try {
 				int code = response.getInt("code");
 				if(code == 200){
-					JSONArray JSONArray = response.getJSONObject("datas").getJSONArray("list");
-					List<Friend> datas = JSON.parseArray(JSONArray.toString(), Friend.class);
-					datas.get(0).setType(strType[index]);
-					friends.addAll(datas);
+					JSONObject jsonObject = response.getJSONObject(UrlContants.jsonData);
+					for (int i = 0; i < strType.length; i++) {
+						JSONArray JSONArray = jsonObject.getJSONArray("list"+i);
+						List<Friend> datas = JSON.parseArray(JSONArray.toString(), Friend.class);
+						if(datas.size()>0){
+							datas.get(0).setCategory(strType[i]);
+						}
+						friends.addAll(datas);
+					}
 				}
-				if(index >= 0){
-					HttpUtils.getFriendsList(res_getFriendsList, "5" , --index+"");
-				}else{
-					adapter.notifyDataSetChanged();
-				}
+				adapter.notifyDataSetChanged();
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -129,7 +129,7 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 		if(position == 0){
 			startActivity(new Intent(this, B4_2_TongXunLuActivity.class));
 		}else{
-			Tools.toast(this, friends.get(position).getNick());
+			startActivity(new Intent(this, B2_FriendDetailActivity.class).putExtra("uid", friends.get(position).getId()));
 		}
 	}
 }

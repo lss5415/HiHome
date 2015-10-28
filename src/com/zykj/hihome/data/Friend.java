@@ -10,6 +10,7 @@ public class Friend implements Serializable{
 	
 	private static final long serialVersionUID = 2420342366118172089L;
 	private String id;//信息ID编号
+	private String type;//0普通、1星标、2配偶
 	private String fid;//好友ID编号
 	private String nick;//好友姓名
 	private String avatar;//好友头像
@@ -17,7 +18,8 @@ public class Friend implements Serializable{
 	private String age;//好友年龄
 	private String sign;//好友签名
 	private String state;
-	private String type;//配偶、星标、普通
+	
+	private String category;//分类{"普通好友","星标好友","配偶"}
 
 	private boolean isChecked;//是否选中
 	
@@ -85,5 +87,11 @@ public class Friend implements Serializable{
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 }

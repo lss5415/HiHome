@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -29,7 +31,7 @@ import com.zykj.hihome.view.MyCommonTitle;
  * @author lss 2015年8月8日	我的
  *
  */
-public class B4_2_HaoYouAddActivity extends BaseActivity {
+public class B4_2_HaoYouAddActivity extends BaseActivity implements OnItemClickListener{
 
 	private MyCommonTitle myCommonTitle;
 	private EditText aci_edittext;
@@ -55,6 +57,8 @@ public class B4_2_HaoYouAddActivity extends BaseActivity {
 		aci_edittext = (EditText) findViewById(R.id.aci_edittext);//查询字段
 		aci_button = (Button) findViewById(R.id.aci_button);//查询按钮
 		aci_listview = (ListView) findViewById(R.id.aci_listview);//查询有数据
+		aci_listview.setDividerHeight(0);
+		aci_listview.setOnItemClickListener(this);
 		search_none = (LinearLayout) findViewById(R.id.search_none);//查询没有数据
 		setListener(aci_button, search_none);
 	}
@@ -113,4 +117,9 @@ public class B4_2_HaoYouAddActivity extends BaseActivity {
 			}
 		}
 	};
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View convertView, int position, long id) {
+		startActivity(new Intent(this, B2_FriendDetailActivity.class).putExtra("uid", friends.get(position).getId()));
+	}
 }

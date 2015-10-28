@@ -1,5 +1,6 @@
 package com.zykj.hihome;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -22,13 +23,15 @@ import com.zykj.hihome.data.Friend;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
+import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 
 public class B3_1_SelectExecutorActivity extends BaseActivity implements OnItemClickListener{
 
 	private MyCommonTitle myCommonTitle;
 	private ListView friend_list;
-	private List<Friend> friends;
+	private List<Friend> friends = new ArrayList<Friend>();
+	private String[] strType = new String[]{"普通好友","星标好友","配偶"};
 	
 	private CommonAdapter<Friend> adapter;
 
@@ -47,11 +50,31 @@ public class B3_1_SelectExecutorActivity extends BaseActivity implements OnItemC
 		myCommonTitle.setLisener(this, null);
 		
 		friend_list = (ListView)findViewById(R.id.excute_lvexcutor);//搜索
+		adapter = new CommonAdapter<Friend>(B3_1_SelectExecutorActivity.this, R.layout.ui_b4_haoyou_item, friends) {
+			@Override
+			public void convert(ViewHolder holder, Friend friend) {
+				if(holder.getPosition() == 0){
+					holder.setImageView(R.id.aci_image, R.drawable.tongxunlu);
+				}else{
+					holder.setImageUrl(R.id.aci_image, StringUtil.toString(friend.getAvatar(), "http://"), 10f);
+				}
+				if(!StringUtil.isEmpty(friend.getCategory())){
+					holder.setText(R.id.friend_type, friend.getCategory());
+					holder.setVisibility(R.id.friend_type, true);
+				}
+				holder.setText(R.id.aci_name, friend.getNick());
+				CheckBox mCheckBox = holder.getView(R.id.cb_choice);
+				mCheckBox.setVisibility(View.VISIBLE);
+				mCheckBox.setChecked(friend.isChecked());
+			}
+		};
+		friend_list.setAdapter(adapter);
 		friend_list.setDividerHeight(0);
 		friend_list.setOnItemClickListener(this);
 	}
 
 	private void requestData() {
+		friends.add(0, new Friend("自己"));
 		HttpUtils.getFriendsList(new JsonHttpResponseHandler(){
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -59,27 +82,22 @@ public class B3_1_SelectExecutorActivity extends BaseActivity implements OnItemC
 				try {
 					int code = response.getInt("code");
 					if(code == 200){
-						JSONArray JSONArray = response.getJSONObject("datas").getJSONArray("list");
-						friends = JSON.parseArray(JSONArray.toString(), Friend.class);
-						adapter = new CommonAdapter<Friend>(B3_1_SelectExecutorActivity.this, R.layout.ui_b4_haoyou_item, friends) {
-							@Override
-							public void convert(ViewHolder holder, Friend friend) {
-								holder.setImageUrl(R.id.aci_image, StringUtil.toString(friend.getAvatar(), "http://"), 10f);
-								holder.setText(R.id.aci_name, friend.getNick());
-								CheckBox mCheckBox = holder.getView(R.id.cb_choice);
-								mCheckBox.setVisibility(View.VISIBLE);
-								mCheckBox.setChecked(friend.isChecked());
+						JSONObject jsonObject = response.getJSONObject(UrlContants.jsonData);
+						for (int i = 0; i < strType.length; i++) {
+							JSONArray JSONArray = jsonObject.getJSONArray("list"+i);
+							List<Friend> datas = JSON.parseArray(JSONArray.toString(), Friend.class);
+							if(datas.size()>0){
+								datas.get(0).setCategory(strType[i]);
 							}
-						};
-						friend_list.setAdapter(adapter);
-					}else{
-						Tools.toast(B3_1_SelectExecutorActivity.this, "没有好友");
+							friends.addAll(datas);
+						}
 					}
+					adapter.notifyDataSetChanged();
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
 			}
-		}, "5", "0");
+		}, "5");
 	}
 
 	@Override

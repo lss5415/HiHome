@@ -73,6 +73,18 @@
     <string name="friend_name">请输入家和的账号</string>
     <string name="friend_link"><u>点击此处邀请好友加入</u></string>
     <string name="friend_search_info">没有找到符合搜索条件的用户</string>
+    <string name="friend_detail">唐嫣&#160;&#160;&#160;&#160;女&#160;&#160;&#160;&#160;23岁</string>
+    <string name="friend_nick">账号信息：</string>
+    <string name="friend_sign">个性签名：</string>
+    <string name="friend_type">与其关系：</string>
+    <string name="friend_task">今日任务：</string>
+    <string name="friend_photo">相册动态：</string>
+    <string name="friend_none">无</string>
+    <string name="friend_look">点击查看</string>
+    <string name="friend_add">加为好友</string>
+    <string name="friend_speak">打招呼</string>
+    <string name="friend_refuse">拒绝</string>
+    <string name="friend_agree">同意</string>
     
     <!-- 聊天 -->
     <string name="chat_title">聊天</string>

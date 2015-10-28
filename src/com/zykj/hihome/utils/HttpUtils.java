@@ -38,8 +38,8 @@ public class HttpUtils {
 	 * @param userId
 	 *            用户Id
 	 */
-	public static void getFriendsList(AsyncHttpResponseHandler res, String userId, String type) {
-		client.get(base_url + "c=friend&a=getList&uid="+userId+"&type="+type, res);
+	public static void getFriendsList(AsyncHttpResponseHandler res, String userId) {
+		client.get(base_url + "c=friend&a=getListGroup&uid="+userId, res);
 	}
 
 	/**
@@ -165,5 +165,30 @@ public class HttpUtils {
 		client.post(base_url + "c=public&a=upload", params, res_upLoad);
 	}
 
+	/**
+	 * 13 查看好友资料
+	 * 
+	 * @param params
+	 */
+	public static void getInfo(AsyncHttpResponseHandler res_upLoad, String uid) {
+		client.get(base_url + "c=user&a=getInfo&id="+uid, res_upLoad);
+	}
 
+	/**
+	 * 14 查看好友资料
+	 * 
+	 * @param params
+	 */
+	public static void getApplyList(AsyncHttpResponseHandler res_upLoad, String uid) {
+		client.get(base_url + "c=friend&a=getApplyList&uid="+uid, res_upLoad);
+	}
+
+	/**
+	 * 15 同意/拒绝好友申请
+	 * 
+	 * @param params
+	 */
+	public static void applyFriend(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=friend&a=applyFriend", params, res_upLoad);
+	}
 }

@@ -176,6 +176,14 @@
             android:name="com.zykj.hihome.B4_1_ForgetPassWordActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name="com.zykj.hihome.B2_FriendDetailActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name="com.zykj.hihome.B1_08_ApplyFriend"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" />
 
           <activity
             android:name="com.mob.tools.MobUIShell"
