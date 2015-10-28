@@ -38,8 +38,9 @@ public class HttpUtils {
 	 * @param userId
 	 *            用户Id
 	 */
-	public static void getFriendsList(AsyncHttpResponseHandler res, String userId) {
-		client.get(base_url + "c=friend&a=getListGroup&uid="+userId, res);
+	public static void getFriendsList(AsyncHttpResponseHandler res,
+			String userId) {
+		client.get(base_url + "c=friend&a=getListGroup&uid=" + userId, res);
 	}
 
 	/**
@@ -112,6 +113,7 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=memorial&a=getInfo", params, res);
 	}
+
 	/**
 	 * 10 创建任务
 	 * 
@@ -121,6 +123,7 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=task&a=addInfo", params, res);
 	}
+
 	/**
 	 * 9 获取我的任务列表
 	 * 
@@ -131,6 +134,7 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=task&a=getMyTask", params, res);
 	}
+
 	/**
 	 * 10 获取我发布的任务列表
 	 * 
@@ -141,18 +145,16 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=task&a=getList", params, res);
 	}
-	
+
 	/**
 	 * 11获取发布的任务详情
 	 * 
 	 * @param params参数id
 	 *            ----任务id
 	 */
-	public static void getTasksInfo(
-			JsonHttpResponseHandler jsonHttpResponseHandler,
+	public static void getTasksInfo(AsyncHttpResponseHandler res,
 			RequestParams params) {
-		client.post(base_url + "c=task&a=getInfo", params,
-				jsonHttpResponseHandler);
+		client.post(base_url + "c=task&a=getInfo", params, res);
 	}
 
 	/**
@@ -171,7 +173,7 @@ public class HttpUtils {
 	 * @param params
 	 */
 	public static void getInfo(AsyncHttpResponseHandler res_upLoad, String uid) {
-		client.get(base_url + "c=user&a=getInfo&id="+uid, res_upLoad);
+		client.get(base_url + "c=user&a=getInfo&id=" + uid, res_upLoad);
 	}
 
 	/**
@@ -179,8 +181,9 @@ public class HttpUtils {
 	 * 
 	 * @param params
 	 */
-	public static void getApplyList(AsyncHttpResponseHandler res_upLoad, String uid) {
-		client.get(base_url + "c=friend&a=getApplyList&uid="+uid, res_upLoad);
+	public static void getApplyList(AsyncHttpResponseHandler res_upLoad,
+			String uid) {
+		client.get(base_url + "c=friend&a=getApplyList&uid=" + uid, res_upLoad);
 	}
 
 	/**
@@ -188,7 +191,37 @@ public class HttpUtils {
 	 * 
 	 * @param params
 	 */
-	public static void applyFriend(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void applyFriend(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=friend&a=applyFriend", params, res_upLoad);
+	}
+
+	/**
+	 * 16 删除纪念日
+	 * 
+	 * @param params
+	 */
+	public static void delAnnversaryInfo(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
+		client.post(base_url + "c=memorial&a=delInfo", params, res_upLoad);
+	}
+
+	/**
+	 * 17 删除任务
+	 * 
+	 * @param params
+	 */
+	public static void delTaskInfo(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
+		client.post(base_url + "c=task&a=delInfo", params, res_upLoad);
+	}
+	/**
+	 * 17 更改任务状态
+	 * 
+	 * @param params
+	 */
+	public static void modTaskState(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
+		client.post(base_url + "c=task&a=modTaskState", params, res_upLoad);
 	}
 }
