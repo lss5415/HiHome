@@ -1,5 +1,6 @@
 package com.zykj.hihome;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -8,6 +9,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,11 +38,15 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 	private Task task;
 	private List<Task> tasks;
 	private CommonAdapter<Task> taskAdapter;
-	private GridView gv_tasker;
+	private GridView gv_tasker,button_gridview;
 	private LinearLayout mLinearLayout;
 	private TextView task_state, task_name, task_publish_name,
 			task_excutor_name, task_content, task_starttime, task_finishtime,
 			task_excutor_num;
+	private CommonAdapter<String> btnAdapter;
+	private List<String> taskType=new ArrayList<String>();
+	private int[] imgResource = new int[]{R.drawable.ic_clock,R.drawable.ic_repeat,R.drawable.ic_dingwei};
+	private boolean[] flags = new boolean[3];
 	private ImageView task_excutor_avator, task_publish_avator;
 	private Button btn_delete;
 	private JSONArray jsonArray;
@@ -78,6 +86,36 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 						B3_1_1_ExecutorsTaskStateActivity.class).putExtra("tasker", jsonArray.toString()));
 			}
 		});
+		
+		gv_tasker = (GridView) findViewById(R.id.gv_tasker);
+		gv_tasker.setSelector(new ColorDrawable(Color.TRANSPARENT));
+		
+		
+		button_gridview=(GridView) findViewById(R.id.button_gridview);
+		button_gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
+		taskType.add("提醒");
+		taskType.add("重复");
+		taskType.add("位置");
+		btnAdapter = new CommonAdapter<String>(this, R.layout.ui_b3_addtask_check, taskType) {
+			@Override
+			public void convert(ViewHolder holder, String type) {
+				final TextView mTextView = holder.getView(R.id.check_item);
+				if(Tools.M_SCREEN_WIDTH < 800){
+					LayoutParams checkboxParms = mTextView.getLayoutParams();
+					checkboxParms.width = Tools.M_SCREEN_WIDTH * 2 / 10;
+					checkboxParms.height = Tools.M_SCREEN_WIDTH * 2 / 10;
+				}
+				mTextView.setText(type);
+				Drawable topDrawable = getResources().getDrawable(imgResource[holder.getPosition()]);
+				topDrawable.setBounds(0, 0, topDrawable.getMinimumWidth(), topDrawable.getMinimumHeight());
+				if(!flags[holder.getPosition()]){
+		            mTextView.setCompoundDrawables(null, topDrawable, null, null);
+				}else{
+		            mTextView.setCompoundDrawables(null, null, null, null);
+				}
+			}
+		};
+		button_gridview.setAdapter(btnAdapter);
 		initializationDate();
 
 	}
