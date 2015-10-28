@@ -38,10 +38,8 @@ public class HttpUtils {
 	 * @param userId
 	 *            用户Id
 	 */
-	public static void getFriendsList(AsyncHttpResponseHandler res,
-			String userId, String type) {
-		client.get(base_url + "c=friend&a=getList&uid=" + userId + "&type="
-				+ type, res);
+	public static void getFriendsList(AsyncHttpResponseHandler res, String userId) {
+		client.get(base_url + "c=friend&a=getListGroup&uid="+userId, res);
 	}
 
 	/**
@@ -114,17 +112,6 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=memorial&a=getInfo", params, res);
 	}
-
-	/**
-	 * 9删除纪念日
-	 * 
-	 * @param params参数
-	 */
-	public static void delAnnversaryInfo(AsyncHttpResponseHandler res,
-			RequestParams params) {
-		client.post(base_url + "c=memorial&a=delInfo", params, res);
-	}
-
 	/**
 	 * 10 创建任务
 	 * 
@@ -134,9 +121,8 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=task&a=addInfo", params, res);
 	}
-
 	/**
-	 * 11 获取我的任务列表
+	 * 9 获取我的任务列表
 	 * 
 	 * @param params参数uid
 	 *            ----用户id
@@ -145,9 +131,8 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=task&a=getMyTask", params, res);
 	}
-
 	/**
-	 * 12获取我发布的任务列表
+	 * 10 获取我发布的任务列表
 	 * 
 	 * @param params参数uid
 	 *            ----用户id
@@ -156,56 +141,54 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=task&a=getList", params, res);
 	}
-
+	
 	/**
-	 * 13获取发布的任务详情
+	 * 11获取发布的任务详情
 	 * 
 	 * @param params参数id
 	 *            ----任务id
 	 */
 	public static void getTasksInfo(
-			AsyncHttpResponseHandler res,
+			JsonHttpResponseHandler jsonHttpResponseHandler,
 			RequestParams params) {
 		client.post(base_url + "c=task&a=getInfo", params,
-				res);
+				jsonHttpResponseHandler);
 	}
 
 	/**
-	 * 14删除任务
-	 * 
-	 * @param params
-	 *            参数id为任务的id
-	 */
-	public static void delTaskInfo(AsyncHttpResponseHandler res,
-			RequestParams params) {
-		client.post(base_url + "c=task&a=delInfo", params, res);
-	}
-
-	/**
-	 * 15上传图片
+	 * 12上传图片
 	 * 
 	 * @param params
 	 */
-	public static void upLoad(AsyncHttpResponseHandler res, RequestParams params) {
-		client.post(base_url + "c=public&a=upload", params, res);
+	public static void upLoad(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
+		client.post(base_url + "c=public&a=upload", params, res_upLoad);
 	}
 
 	/**
-	 * 16获取任务状态
+	 * 13 查看好友资料
 	 * 
-	 * @param params id为任务id 
+	 * @param params
 	 */
-	public static void getTaskState(AsyncHttpResponseHandler res,
-			RequestParams params) {
-		client.post(base_url + "c=task&a=getTaskState", params, res);
+	public static void getInfo(AsyncHttpResponseHandler res_upLoad, String uid) {
+		client.get(base_url + "c=user&a=getInfo&id="+uid, res_upLoad);
 	}
+
 	/**
-	 * 16更改任务状态
+	 * 14 查看好友资料
 	 * 
-	 * @param params  id为任务id state为任务状态
+	 * @param params
 	 */
-	public static void modTaskState(AsyncHttpResponseHandler res,
-			RequestParams params) {
-		client.post(base_url + "c=task&a=modTaskState", params, res);
+	public static void getApplyList(AsyncHttpResponseHandler res_upLoad, String uid) {
+		client.get(base_url + "c=friend&a=getApplyList&uid="+uid, res_upLoad);
+	}
+
+	/**
+	 * 15 同意/拒绝好友申请
+	 * 
+	 * @param params
+	 */
+	public static void applyFriend(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=friend&a=applyFriend", params, res_upLoad);
 	}
 }

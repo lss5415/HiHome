@@ -105,15 +105,19 @@ public class ViewHolder {
 		return this;
 	}
 	
-	public ViewHolder setImageUrl(int viewId, String uri){
-		ImageView view = getView(viewId);
-		ImageLoader.getInstance().displayImage(uri, view);
+	public ViewHolder setImageUrl(int viewId, String url){
+		if(!isEmpty(url)){
+			ImageView view = getView(viewId);
+			ImageLoader.getInstance().displayImage(url, view);
+		}
 		return this;
 	}
 	
-	public ViewHolder setImageUrl(int viewId, String uri, float roundPx){
-		ImageView view = getView(viewId);
-        ImageUtil.displayImage2Circle(view, uri, roundPx, null);//图片
+	public ViewHolder setImageUrl(int viewId, String url, float roundPx){
+		if(!isEmpty(url)){
+			ImageView view = getView(viewId);
+	        ImageUtil.displayImage2Circle(view, url, roundPx, null);//图片
+		}
 		return this;
 	}
 	
@@ -135,4 +139,12 @@ public class ViewHolder {
 		view.setOnClickListener(listener);
 		return this;
 	}
+	
+    public boolean isEmpty(String chkStr) {
+        if (chkStr == null) {
+            return true;
+        } else {
+            return "".equals(chkStr.trim()) ? true : false;
+        }
+    }
 }
