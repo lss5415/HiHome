@@ -69,7 +69,7 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 				if(holder.getPosition() == 0){
 					holder.setImageView(R.id.aci_image, R.drawable.tongxunlu);
 				}else{
-					holder.setImageUrl(R.id.aci_image, StringUtil.toString(friend.getAvatar(), "http://"), 10f);
+					holder.setImageUrl(R.id.aci_image, friend.getAvatar(), 10f);
 				}
 				if(!StringUtil.isEmpty(friend.getCategory())){
 					holder.setText(R.id.friend_type, friend.getCategory());
@@ -131,11 +131,11 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 
 	@Override
 	public void onItemClick(AdapterView<?> parentView, View currentView, int position, long id) {
-		if(position == 0){
+		if(position == 1){
 			startActivity(new Intent(this, B4_2_TongXunLuActivity.class));
 		}else{
 			startActivity(new Intent(this, B2_FriendDetailActivity.class)
-					.putExtra("uid", friends.get(position).getFid()).putExtra("type", friends.get(position).getType()));
+					.putExtra("uid", friends.get(position-1).getFid()).putExtra("type", friends.get(position-1).getType()));
 		}
 	}
 

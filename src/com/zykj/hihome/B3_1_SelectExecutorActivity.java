@@ -19,6 +19,7 @@ import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Friend;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
@@ -74,7 +75,10 @@ public class B3_1_SelectExecutorActivity extends BaseActivity implements OnItemC
 	}
 
 	private void requestData() {
-		friends.add(0, new Friend("自己"));
+		friends.clear();
+		Friend friend = new Friend("自己");
+		friend.setFid(BaseApp.getModel().getUserid());
+		friends.add(0, friend);
 		HttpUtils.getFriendsList(new JsonHttpResponseHandler(){
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -110,7 +114,7 @@ public class B3_1_SelectExecutorActivity extends BaseActivity implements OnItemC
 			for (int i = 0; i < friends.size(); i++) {
 				if(friends.get(i).isChecked()){
 					strName.append(friends.get(i).getNick()+",");
-					strId.append(friends.get(i).getId()+",");
+					strId.append(friends.get(i).getFid()+",");
 				}
 			}
 			if(strId.length()<1){
