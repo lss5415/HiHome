@@ -154,16 +154,16 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 	private void requestData() {
 		params = new RequestParams();
 		params.put("uid", BaseApp.getModel().getUserid());
-		params.put("my", "1");
 		params.put("nowpage", nowpage);
 		params.put("perpage", PERPAGE);
 		if (mType == 1) {
+			params.put("my", "1");
 			HttpUtils.getAnnversaryList(res_getAnnversaryList, params);// 获取纪念日列表
 		} else if (mType == 2) {
-
-		} else if (mType == 3) {
-			HttpUtils.getPublishTaskList(res_getPublishTaskList, params);// 获取我发布的任务列表
 		}
+//		} else if (mType == 3) {
+//			HttpUtils.getPublishTaskList(res_getPublishTaskList, params);// 获取我发布的任务列表
+//		}
 
 	}
 

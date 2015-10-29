@@ -98,7 +98,7 @@ public class TaskAdapter extends BaseAdapter{
             if(convertView == null){
 	            holder2=new ViewHolder2();
 	            taskView = inflater.inflate(R.layout.ui_b3_item_task, parent, false);
-	        	holder2.date = (TextView)taskView.findViewById(R.id.date);//图片
+	        	holder2.date = (TextView)taskView.findViewById(R.id.task_date);//日期
 	        	holder2.task_title = (TextView)taskView.findViewById(R.id.task_title);//标题
 	        	holder2.task_time = (TextView)taskView.findViewById(R.id.task_time);//提醒时间
 	        	holder2.task_repeat = (TextView)taskView.findViewById(R.id.task_repeat);//是否重复
@@ -122,7 +122,7 @@ public class TaskAdapter extends BaseAdapter{
 			holder2.task_repeat.setText(repeat==0?"不重复":repeat==1?"每天":repeat==2?"每周":repeat==3?"每月":"每年");
 			holder2.task_tasker.setText("发布人："+task.getNick());
 			holder2.task_tasker.setVisibility(mType==2?View.VISIBLE:View.GONE);
-			holder2.task_num.setText(mType==2?task.getTasker()+"人":mType==3&&(StringUtil.toString(task.getNick())!=null)?task.getNick():"张三");
+			holder2.task_num.setText(mType==2?task.getTasker()+"人":mType==3&&(StringUtil.isEmpty(task.getNick()))?"张三":task.getNick());
 			holder2.task_num.setVisibility(mType==1?View.GONE:View.VISIBLE);
 			holder2.task_state.setText(state==0?"未接受":state==1?"已接受":state==2?"待执行":state==3?"执行中":state==4?"已完成":"已取消");
         }
