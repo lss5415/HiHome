@@ -10,6 +10,7 @@ public class Task implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String id;//编号ID
+	private String uid;//发布人
 	private String title;//任务名称
 	private String content;//任务内容
 	private String isday;//是否是全天任务
@@ -19,25 +20,16 @@ public class Task implements Serializable{
 	private String repeat;//任务重复0不重复1每天2每周3每月4每年
 	private String state;//任务状态
 	private String addtime;//任务添加时间
-	private String tasker;//任务执行人数
-	private String nick;  //任务发布者姓名
-	private String avatar;//任务发布者头像
 	private String imgsrc;//纪念日头像
 	private String imgsrc1;//纪念日详情图片
 	private String imgsrc2;//纪念日详情图片
 	private String imgsrc3;//纪念日详情图片
+	private String address;//地址
+	private String nick;  //任务发布者姓名
+	private String avatar;//任务发布者头像
 	private String mdate;//纪念日日期
-	private List<Map<String, String>> taskerList;
-
-	public List<Map<String, String>> getTaskerList() {
-		return taskerList;
-	}
-	public void setTaskerList(List<Map<String, String>> taskerList) {
-		this.taskerList = taskerList;
-	}
+	private List<Map<String, String>> tasker;//执行人
 	public Task(){
-		
-		
 	}
 	public String getImgsrc() {
 		return imgsrc;
@@ -128,12 +120,6 @@ public class Task implements Serializable{
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
-	public String getTasker() {
-		return tasker;
-	}
-	public void setTasker(String tasker) {
-		this.tasker = tasker;
-	}
 	public String getImgsrc1() {
 		return imgsrc1;
 	}
@@ -152,6 +138,22 @@ public class Task implements Serializable{
 	public void setImgsrc3(String imgsrc3) {
 		this.imgsrc3 = imgsrc3;
 	}
-	
-	
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public List<Map<String, String>> getTasker() {
+		return tasker;
+	}
+	public void setTasker(List<Map<String, String>> tasker) {
+		this.tasker = tasker;
+	}
 }

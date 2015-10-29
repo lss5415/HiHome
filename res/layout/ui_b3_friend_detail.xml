@@ -122,6 +122,7 @@
 				    android:textSize="@dimen/t_twenty"/>
 		    </LinearLayout>
 		    <LinearLayout 
+		    	android:id="@+id/aci_relation"
 				android:orientation="horizontal"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"

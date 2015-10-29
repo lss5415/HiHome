@@ -91,6 +91,9 @@
     <string name="friend_speak">打招呼</string>
     <string name="friend_refuse">拒绝</string>
     <string name="friend_agree">同意</string>
+    <string name="friend_type1">配偶</string>
+    <string name="friend_type2">星标好友</string>
+    <string name="friend_type3">普通好友</string>
     
     <!-- 聊天 -->
     <string name="chat_title">聊天</string>

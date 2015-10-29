@@ -10,36 +10,39 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Friend;
 import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
-import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.utils.UrlContants;
+import com.zykj.hihome.view.XListView;
+import com.zykj.hihome.view.XListView.IXListViewListener;
 
 /**
  * @author lss 2015年8月8日	我的
  *
  */
-public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListener{
+public class B4_HaoYouActivity extends BaseActivity implements IXListViewListener,OnItemClickListener{
 	
 	private CircularImage rv_me_avatar;
 	private ImageView add_friend;
 //	private EditText firend_search;
-	private ListView friend_list;
+	private XListView friend_list;
 	private List<Friend> friends = new ArrayList<Friend>();
 	private CommonAdapter<Friend> adapter;
 	private String[] strType = new String[]{"普通好友","星标好友","配偶"};
+	private Handler mHandler = new Handler();//异步加载或刷新
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,7 +60,9 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 		add_friend = (ImageView)findViewById(R.id.add_friend);//添加好友
 //		firend_search = (EditText)findViewById(R.id.firend_search);//搜索
 		
-		friend_list = (ListView)findViewById(R.id.friend_list);//搜索
+		friend_list = (XListView)findViewById(R.id.friend_list);//搜索
+		friend_list.setPullLoadEnable(false);
+		friend_list.setXListViewListener(this);
 		adapter = new CommonAdapter<Friend>(B4_HaoYouActivity.this, R.layout.ui_b4_haoyou_item, friends) {
 			@Override
 			public void convert(ViewHolder holder, Friend friend) {
@@ -82,7 +87,7 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 	private void requestData() {
 		friends.clear();
 		friends.add(0, new Friend("通讯录"));
-		HttpUtils.getFriendsList(res_getFriendsList, "5");
+		HttpUtils.getFriendsList(res_getFriendsList, BaseApp.getModel().getUserid());
 	}
 
 	private AsyncHttpResponseHandler res_getFriendsList = new JsonHttpResponseHandler() {
@@ -129,7 +134,25 @@ public class B4_HaoYouActivity extends BaseActivity implements OnItemClickListen
 		if(position == 0){
 			startActivity(new Intent(this, B4_2_TongXunLuActivity.class));
 		}else{
-			startActivity(new Intent(this, B2_FriendDetailActivity.class).putExtra("uid", friends.get(position).getId()));
+			startActivity(new Intent(this, B2_FriendDetailActivity.class)
+					.putExtra("uid", friends.get(position).getFid()).putExtra("type", friends.get(position).getType()));
 		}
+	}
+
+	@Override
+	public void onRefresh() {
+		/**下拉刷新 重建*/
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				requestData();
+				friend_list.stopRefresh();
+				friend_list.setRefreshTime("刚刚");
+			}
+		}, 1000);
+	}
+
+	@Override
+	public void onLoadMore() {
 	}
 }

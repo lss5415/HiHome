@@ -63,7 +63,7 @@
             android:hint="@string/friend_search"
             android:background="@null"/>
 	</RelativeLayout>
-	<ListView 
+	<com.zykj.hihome.view.XListView 
 	    android:id="@+id/friend_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
