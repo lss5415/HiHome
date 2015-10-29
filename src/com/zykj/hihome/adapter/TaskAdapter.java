@@ -53,7 +53,7 @@ public class TaskAdapter extends BaseAdapter{
     
     @Override
     public int getItemViewType(int position) {
-		if (StringUtil.isEmpty(tasks.get(position).getState())) {
+		if (!StringUtil.isEmpty(tasks.get(position).getMdate())) {
 			return TYPE_ANNIVER;// 纪念日类型
 		} else {
 			return TYPE_TASK;// 任务类型
@@ -115,7 +115,7 @@ public class TaskAdapter extends BaseAdapter{
 			String dataend = StringUtil.isEmpty(task.getEnd())?"00-00":task.getEnd().substring(5, 10);
 			int tip = Integer.valueOf(task.getTip());
 			int repeat = Integer.valueOf(task.getRepeat());
-			int state = Integer.valueOf(task.getState());
+			int state = Integer.valueOf(task.getTaskerList().get(0).get("tasker_state"));
 			holder2.date.setText(Html.fromHtml("<big><font color=#EA5414>"+datastart+"</font></big><br>-"+dataend));
 			holder2.task_title.setText(task.getTitle());
 			holder2.task_time.setText(tip==0?"不提醒":tip==1?"正点":tip==2?"五分钟":tip==3?"十分钟":tip==4?"一小时":tip==5?"一天":"三天");
