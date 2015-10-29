@@ -152,16 +152,18 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 	}
 
 	private void requestData() {
-		params = new RequestParams();
-		params.put("uid", BaseApp.getModel().getUserid());
-		params.put("nowpage", nowpage);
-		params.put("perpage", PERPAGE);
+	
 		if (mType == 1) {
-			params.put("my", "1");
+			params = new RequestParams();
+			params.put("uid", BaseApp.getModel().getUserid());
 			HttpUtils.getAnnversaryList(res_getAnnversaryList, params);// 获取纪念日列表
 		} else if (mType == 2) {
 
 		} else if (mType == 3) {
+			params = new RequestParams();
+			params.put("uid", BaseApp.getModel().getUserid());
+			params.put("nowpage", nowpage);
+			params.put("perpage", PERPAGE);
 			HttpUtils.getPublishTaskList(res_getPublishTaskList, params);// 获取我发布的任务列表
 		}
 
@@ -180,6 +182,12 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 			}
 			tasks.addAll(list);
 			adapter.notifyDataSetChanged();
+			
+			params = new RequestParams();
+			params.put("uid", BaseApp.getModel().getUserid());
+			params.put("nowpage", nowpage);
+			params.put("perpage", PERPAGE);
+			params.put("my", "");
 			HttpUtils.getMyTasks(res_getMyTasks, params);// 纪念日列表加载完成再加载任务列表
 		}
 	};
