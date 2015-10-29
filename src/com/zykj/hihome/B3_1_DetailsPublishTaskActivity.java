@@ -3,11 +3,7 @@ package com.zykj.hihome;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -22,8 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
@@ -88,7 +84,7 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 		gv_tasker = (GridView) findViewById(R.id.gv_tasker);
 		gv_tasker.setSelector(new ColorDrawable(Color.TRANSPARENT));// 去掉点击的产生的背景色
 
-		setListener(leftButton, rightButon);// 设置监听事件
+		setListener(gv_tasker,leftButton, rightButon);// 设置监听事件
 
 		button_gridview = (GridView) findViewById(R.id.button_gridview);
 		button_gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -122,18 +118,17 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 		button_gridview.setAdapter(btnAdapter);
 
 		requestData();
-		initializationDate();
 	}
 
 	private void requestData() {
 		RequestParams params = new RequestParams();
-
 		params.put("id", task.getId());
 		HttpUtils.getTasksInfo(new HttpErrorHandler() {
 			@Override
-			public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
-				com.alibaba.fastjson.JSONObject jsonObject = json.getJSONArray(UrlContants.jsonData).getJSONObject(0);
+			public void onRecevieSuccess(JSONObject json) {
+				JSONObject jsonObject = json.getJSONArray(UrlContants.jsonData).getJSONObject(0);
 				state = Integer.valueOf(jsonObject.getString("state"));
+				jsonArray = jsonObject.getJSONArray("tasker");
 				final String statu = state == 0 ? "未接受" : state == 1 ? "已接受"
 						: state == 2 ? "待执行" : state == 3 ? "执行中" : state == 4 ? "已完成"
 								: "已取消";
@@ -161,6 +156,7 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 					ImageLoader.getInstance().displayImage(
 							StringUtil.toString(HttpUtils.IMAGE_URL + task.getImgsrc3()), task_pic3);
 				}
+				initializationDate();
 			}
 		}, params);
 	}
@@ -168,63 +164,35 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 	private void initializationDate() {
 		state = Integer.valueOf(task.getState());
 		final String statu = state == 0 ? "未接受" : state == 1 ? "已接受"
-				: state == 2 ? "待执行" : state == 3 ? "执行中" : state == 4 ? "已完成"
-						: "已取消";
-//		task_state.setText(statu);
-//		stateAndButtonChange();
-//
-//		task_name.setText(task.getTitle());
-//		task_content.setText(task.getContent());
-//		task_starttime.setText(task.getStart());
-//		task_finishtime.setText(task.getEnd());
-//		task_publish_name.setText(task.getNick());
-//		task_excutor_num.setText(task.getTasker() + "人");
-//		ImageLoader.getInstance().displayImage(
-//				StringUtil.toString(HttpUtils.IMAGE_URL + task.getAvatar(),
-//						"http://"), task_publish_avator);
-
-		RequestParams params = new RequestParams();
-		params.put("id", task.getId());
-		HttpUtils.getTasksInfo(new JsonHttpResponseHandler() {
+				: state == 2 ? "待执行" : state == 3 ? "执行中" : state == 4 ? "已完成" : "已取消";
+		
+		tasks = JSON.parseArray(jsonArray.toString(), Task.class);
+		taskAdapter = new CommonAdapter<Task>(
+				B3_1_DetailsPublishTaskActivity.this,
+				R.layout.ui_b3_1_item_multi_excutor, tasks) {
 			@Override
-			public void onSuccess(int statusCode, Header[] headers,
-					JSONObject response) {
-				super.onSuccess(statusCode, headers, response);
-				try {
-					jsonArray = response.getJSONArray("datas").getJSONObject(0)
-							.getJSONArray("tasker");
-					tasks = JSON.parseArray(jsonArray.toString(), Task.class);
-					taskAdapter = new CommonAdapter<Task>(
-							B3_1_DetailsPublishTaskActivity.this,
-							R.layout.ui_b3_1_item_multi_excutor, tasks) {
-						@Override
-						public void convert(ViewHolder holder, Task task) {
-							final LinearLayout mLinearLayout = holder
-									.getView(R.id.ly_item_excutor);
-							if (Tools.M_SCREEN_WIDTH < 800) {
-								LayoutParams checkboxParms = mLinearLayout
-										.getLayoutParams();
-								checkboxParms.width = Tools.M_SCREEN_WIDTH * 3 / 10;
-								checkboxParms.height = Tools.M_SCREEN_WIDTH * 3 / 10;
-							}
-							holder.setText(R.id.tasker_excutor_name,
-									task.getNick())
-									.setText(R.id.tasker_excutor_state, statu)
-									.setImageUrl(
-											R.id.tasker_excutor_avator,
-											StringUtil.toString(
-													HttpUtils.IMAGE_URL
-															+ task.getAvatar(),
-													"http://"), 10f);
-						}
-					};
-				} catch (JSONException e) {
-					e.printStackTrace();
+			public void convert(ViewHolder holder, Task task) {
+				final LinearLayout mLinearLayout = holder
+						.getView(R.id.ly_item_excutor);
+				if (Tools.M_SCREEN_WIDTH < 800) {
+					LayoutParams checkboxParms = mLinearLayout
+							.getLayoutParams();
+					checkboxParms.width = Tools.M_SCREEN_WIDTH * 3 / 10;
+					checkboxParms.height = Tools.M_SCREEN_WIDTH * 3 / 10;
 				}
-				gv_tasker.setAdapter(taskAdapter);
-				taskAdapter.notifyDataSetChanged();
+				holder.setText(R.id.tasker_excutor_name,
+						task.getNick())
+						.setText(R.id.tasker_excutor_state, statu)
+						.setImageUrl(
+								R.id.tasker_excutor_avator,
+								StringUtil.toString(
+										HttpUtils.IMAGE_URL
+												+ task.getAvatar(),
+										"http://"), 10f);
 			}
-		}, params);
+		};
+		gv_tasker.setAdapter(taskAdapter);
+		taskAdapter.notifyDataSetChanged();
 	}
 
 	// state == 0 ? "未接受" : state == 1 ? "已接受"
@@ -293,6 +261,9 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 			break;
 		case R.id.btn_rightButton:
 
+			break;
+		case R.id.gv_tasker:
+			startActivity(new Intent(this, B3_1_1_ExecutorsTaskStateActivity.class).putExtra("tasker", jsonArray.toString()));
 			break;
 		default:
 			break;

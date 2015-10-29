@@ -224,4 +224,12 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=task&a=modTaskState", params, res_upLoad);
 	}
+	/**
+	 * 18 更改任务状态
+	 * 
+	 * @param params
+	 */
+	public static void groupFriend(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=friend&a=groupFriend", params, res_upLoad);
+	}
 }
