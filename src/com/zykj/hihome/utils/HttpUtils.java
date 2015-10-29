@@ -232,4 +232,13 @@ public class HttpUtils {
 	public static void groupFriend(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
 		client.post(base_url + "c=friend&a=groupFriend", params, res_upLoad);
 	}
+	/**
+	 * 19 匹配手机通讯录
+	 * 
+	 * @param params
+	 */
+	public static void mobFriend(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=friend&a=mobFriend", params, res_upLoad);
+	}
+	
 }

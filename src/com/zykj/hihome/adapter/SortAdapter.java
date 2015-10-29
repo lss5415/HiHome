@@ -1,19 +1,28 @@
 package com.zykj.hihome.adapter;
 
 import java.util.List;
-import java.util.Random;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.R;
+import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.SortModel;
+import com.zykj.hihome.utils.HttpErrorHandler;
+import com.zykj.hihome.utils.HttpUtils;
+import com.zykj.hihome.utils.Tools;
 
 public class SortAdapter extends BaseAdapter implements SectionIndexer{
 	private List<SortModel> list = null;
@@ -54,10 +63,6 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer{
 			viewHolder.tvTitle = (TextView) view.findViewById(R.id.title);
 			viewHolder.tvLetter = (TextView) view.findViewById(R.id.catalog);
 			viewHolder.tvEdit = (TextView) view.findViewById(R.id.edit);
-			int random = new Random().nextInt(3);
-			viewHolder.tvEdit.setText(random == 0?"添加":random == 1?"邀请":"已同意");
-			viewHolder.tvEdit.setTextColor(Color.parseColor(random == 2?"#AAAAAA":"#FFFFFF"));
-			viewHolder.tvEdit.setBackgroundColor(Color.parseColor(random == 0?"#01CF97":random == 1?"#EA5414":"#FFFFFF"));
 			view.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) view.getTag();
@@ -75,10 +80,47 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer{
 		}
 	
 		viewHolder.tvTitle.setText(this.list.get(position).getName());
-		
+		String random = list.get(position).getState();
+		viewHolder.tvEdit.setText("1".equals(random)?"已同意":"2".equals(random)?"添加":"邀请");
+		viewHolder.tvEdit.setTextColor(Color.parseColor("1".equals(random)?"#AAAAAA":"#FFFFFF"));
+		viewHolder.tvEdit.setBackgroundColor(Color.parseColor("1".equals(random)?"#FFFFFF":"2".equals(random)?"#01CF97":"#EA5414"));
+		if("1".equals(random)){
+			viewHolder.tvEdit.setOnClickListener(null);
+		}else if("2".equals(random)){
+			viewHolder.tvEdit.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					RequestParams params = new RequestParams();
+					params.put("fid", list.get(position).getId());
+					params.put("uid", BaseApp.getModel().getUserid());
+					params.put("intro", "请求添加好友");
+					HttpUtils.addFriend(res_addFriend, params);
+				}
+			});
+		}else{
+			viewHolder.tvEdit.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+				    Uri uri = Uri.parse("smsto:" + list.get(position).getPhone());
+				    Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+				    sendIntent.putExtra("sms_body", "http://www.xiaojia.com");
+				    mContext.startActivity(sendIntent);
+				}
+			});
+		}
 		return view;
-
 	}
+	
+	private AsyncHttpResponseHandler res_addFriend = new HttpErrorHandler() {
+		@Override
+		public void onRecevieSuccess(JSONObject json) {
+			Tools.toast(mContext, json.getString("message"));
+		}
+		@Override
+		public void onRecevieFailed(String status, JSONObject json) {
+			Tools.toast(mContext, json.getString("message"));
+		}
+	};
 	
 
 
