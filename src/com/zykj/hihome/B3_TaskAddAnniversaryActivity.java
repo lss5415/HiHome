@@ -139,30 +139,9 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 						params = new RequestParams();
 						params.put("imgsrc[]", file);
 						HttpUtils.upLoad(res_upLoad1, params);
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
 					}
-					
-//					params.put("uid", BaseApp.getModel().getUserid());
-//					params.put("title", anni_title);
-//					params.put("mdate", anni_time.substring(0, 11));
-//					params.put("content", anni_content);
-//					
-//				
-//				index = 0;
-//				imgs = "";
-//				if (files.size() < 1) {///////////////////
-//					submitAnniData();
-//				} else {
-//					try {
-//						RequestParams paramsImg = new RequestParams();
-//						paramsImg.put("imagsrc[]", files.get(index));
-//						HttpUtils.upLoad(res_upLoad, paramsImg);// 上传图片
-//					} catch (FileNotFoundException e) {
-//						e.printStackTrace();
-//					}
-//				}
-					
 			}
 			break;
 		case R.id.dialog_modif_1:
@@ -214,9 +193,9 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 			submitAnniData();
 		} else {
 			try {
-				RequestParams paramsImg = new RequestParams();
-				paramsImg.put("imgsrc[]", files.get(index));
-				HttpUtils.upLoad(res_upLoad, paramsImg);// 上传图片
+				RequestParams paramsImage = new RequestParams();
+				paramsImage.put("imgsrc[]", files.get(index));
+				HttpUtils.upLoad(res_upLoad, paramsImage);// 上传图片
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -231,16 +210,6 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
-//				String imgAvtor=json.getJSONArray(UrlContants.jsonData).getJSONObject(0).getString("imgsrc");
-//				params=new RequestParams();
-//				params.put("imgsrc", imgAvtor);
-//				HttpUtils.upLoad(new HttpErrorHandler() {
-//					
-//					@Override
-//					public void onRecevieSuccess(JSONObject json) {
-//						
-//					}
-//				}, params);
 				Tools.toast(B3_TaskAddAnniversaryActivity.this, "信息发布成功");
 				setResult(RESULT_OK);
 				finish();
@@ -261,7 +230,7 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 				params.put("imgsrc" + (++index), imgsrc);
 				if (index < files.size()) {
 					RequestParams paramsImage = new RequestParams();
-					params.put("imgsrc[]", files.get(index));
+					paramsImage.put("imgsrc[]", files.get(index));
 					HttpUtils.upLoad(res_upLoad, paramsImage);// 上传图片
 				} else {
 					submitAnniData();

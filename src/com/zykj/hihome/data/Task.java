@@ -11,6 +11,7 @@ public class Task implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id;//编号ID
 	private String title;//任务名称
+	private String uid;//用户id
 	private String content;//任务内容
 	private String isday;//是否是全天任务
 	private String start;//任务开始时间
@@ -27,6 +28,7 @@ public class Task implements Serializable{
 	private String imgsrc2;//纪念日详情图片
 	private String imgsrc3;//纪念日详情图片
 	private String mdate;//纪念日日期
+	private String address;//地址
 	private List<Map<String, String>> taskerList;
 
 	public List<Map<String, String>> getTaskerList() {
@@ -151,6 +153,18 @@ public class Task implements Serializable{
 	}
 	public void setImgsrc3(String imgsrc3) {
 		this.imgsrc3 = imgsrc3;
+	}
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	
