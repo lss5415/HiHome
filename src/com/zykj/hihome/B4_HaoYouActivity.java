@@ -69,7 +69,11 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 				if(holder.getPosition() == 0){
 					holder.setImageView(R.id.aci_image, R.drawable.tongxunlu);
 				}else{
-					holder.setImageUrl(R.id.aci_image, friend.getAvatar(), 10f);
+					if(StringUtil.isEmpty(friend.getAvatar())){
+						holder.setImageView(R.id.aci_image, R.drawable.xinagcetouxiang);
+					}else{
+						holder.setImageUrl(R.id.aci_image, friend.getAvatar());
+					}
 				}
 				if(!StringUtil.isEmpty(friend.getCategory())){
 					holder.setText(R.id.friend_type, friend.getCategory());
@@ -98,7 +102,7 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 				int code = response.getInt("code");
 				if(code == 200){
 					JSONObject jsonObject = response.getJSONObject(UrlContants.jsonData);
-					for (int i = 0; i < strType.length; i++) {
+					for (int i = strType.length-1; i >= 0; i--) {
 						JSONArray JSONArray = jsonObject.getJSONArray("list"+i);
 						List<Friend> datas = JSON.parseArray(JSONArray.toString(), Friend.class);
 						if(datas.size()>0){
