@@ -85,19 +85,16 @@ public class B4_1_ForgetPassWordActivity extends BaseActivity {
 			break;
 
 		case R.id.positive:// 确定
-			if (!TextUtil.isMobile(mobile)) {
-				Tools.toast(B4_1_ForgetPassWordActivity.this, "手机号格式不正确");
-				return;
-			}
-			if (StringUtil.isEmpty(mobilecode)) {
-				Tools.toast(B4_1_ForgetPassWordActivity.this, "验证码不能为空");
+		
+			if (!TextUtil.isCode(mobilecode,4)) {
+				Tools.toast(B4_1_ForgetPassWordActivity.this, "验证码不正确");
 				return;
 			}
 			if (StringUtil.isEmpty(newpass)) {
 				Tools.toast(B4_1_ForgetPassWordActivity.this, "新密码不能为空");
 				return;
 			}
-			if (TextUtil.isPasswordLengthLegal(newpass)) {
+			if (!TextUtil.isPasswordLengthLegal(newpass)) {
 				Tools.toast(B4_1_ForgetPassWordActivity.this,"密码长度合法性校验6-20位任意字符");
 				return;
 			}
@@ -105,7 +102,7 @@ public class B4_1_ForgetPassWordActivity extends BaseActivity {
 				Tools.toast(B4_1_ForgetPassWordActivity.this, "再次输入的新密码不能为空");
 				return;
 			}
-			if (TextUtil.isPasswordLengthLegal(confirmpass)) {
+			if (!TextUtil.isPasswordLengthLegal(confirmpass)) {
 				Tools.toast(B4_1_ForgetPassWordActivity.this,"密码长度合法性校验6-20位任意字符");
 				return;
 			}
@@ -114,11 +111,6 @@ public class B4_1_ForgetPassWordActivity extends BaseActivity {
 				return;
 			}
               //提交修改
-			
-			
-			
-			
-			
 			
 			MyRequestDailog.showDialog(this, "");
 			SMSSDK.submitVerificationCode("86", mobile, mobilecode);
