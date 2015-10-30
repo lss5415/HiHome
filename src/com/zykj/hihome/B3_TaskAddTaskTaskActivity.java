@@ -323,7 +323,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			}
 			break;
 		case 21:
-			/* 选择执行人 */
+			/* 设置提醒 */
 			if (data != null) {
 				tixing = data.getIntExtra("position", 0);
 				taskType.set(0, tixing==0?"正点":tixing==1?"五分钟前":tixing==2?"十分钟前":tixing==3?"一小时之前":tixing==4?"一天前":tixing==5?"三天前":"不提醒");
@@ -332,7 +332,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			}
 			break;
 		case 22:
-			/* 选择执行人 */
+			/* 设置重复 */
 			if (data != null) {
 				chongfu = data.getIntExtra("position", 0);
 				taskType.set(1, chongfu==0?"不重复":chongfu==1?"每天":chongfu==2?"每周":chongfu==3?"每月":"每年");

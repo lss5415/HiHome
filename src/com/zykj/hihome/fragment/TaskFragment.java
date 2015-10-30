@@ -152,20 +152,20 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 	}
 
 	private void requestData() {
-		params = new RequestParams();
-		params.put("uid", BaseApp.getModel().getUserid());
-		params.put("nowpage", nowpage);
-		params.put("perpage", PERPAGE);
+	
 		if (mType == 1) {
-			params.put("my", "1");
+			params = new RequestParams();
+			params.put("uid", BaseApp.getModel().getUserid());
 			HttpUtils.getAnnversaryList(res_getAnnversaryList, params);// 获取纪念日列表
 		} else if (mType == 2) {
-			
-			
-		} 
-//		else if (mType == 3) {
-//			HttpUtils.getPublishTaskList(res_getPublishTaskList, params);// 获取我发布的任务列表
-//		}
+
+		} else if (mType == 3) {
+			params = new RequestParams();
+			params.put("uid", BaseApp.getModel().getUserid());
+			params.put("nowpage", nowpage);
+			params.put("perpage", PERPAGE);
+			HttpUtils.getPublishTaskList(res_getPublishTaskList, params);// 获取我发布的任务列表
+		}
 
 	}
 
@@ -182,6 +182,12 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 			}
 			tasks.addAll(list);
 			adapter.notifyDataSetChanged();
+			
+			params = new RequestParams();
+			params.put("uid", BaseApp.getModel().getUserid());
+			params.put("nowpage", nowpage);
+			params.put("perpage", PERPAGE);
+			params.put("my", "");
 			HttpUtils.getMyTasks(res_getMyTasks, params);// 纪念日列表加载完成再加载任务列表
 		}
 	};
@@ -195,7 +201,7 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 		@Override
 		public void onReadSuccess(List<Task> list) {
 			if (nowpage == 1) {
-//				tasks.clear();
+				// tasks.clear();
 			}
 			tasks.addAll(list);
 			adapter.notifyDataSetChanged();
@@ -290,21 +296,19 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 
 			@Override
 			public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
-				if (mType == 2||mType == 3) {// 提示接受的任务需要取消后才能删除
-					int state = Integer.valueOf(task.getState());
-					if (state == 1 || state == 2 || state == 3 || state == 4) {
-						Tools.toast(getActivity(), "请先取消任务再删除");
-					}
-					// final String statu = state == 0 ? "未接受" : state == 1 ?
-					// "已接受"
-					// : state == 2 ? "待执行" : state == 3 ? "已执行" : state == 4 ?
-					// "已完成": "已取消";
-
-				}
-				// else {
-				// tasks.remove(position);
-				// adapter.notifyDataSetChanged();
+				// if (mType == 2||mType == 3) {// 提示接受的任务需要取消后才能删除
+				// int state = Integer.valueOf(task.getState());
+				// if (state == 1 || state == 2 || state == 3 || state == 4) {
+				// Tools.toast(getActivity(), "请先取消任务再删除");
 				// }
+				// final String statu = state == 0 ? "未接受" : state == 1 ?
+				// "已接受"
+				// : state == 2 ? "待执行" : state == 3 ? "已执行" : state == 4 ?
+				// "已完成": "已取消";
+				if (mType == 3) {
+					tasks.remove(position);
+					adapter.notifyDataSetChanged();
+				}
 			}
 		}, params);
 

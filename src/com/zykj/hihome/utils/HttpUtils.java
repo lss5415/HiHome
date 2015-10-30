@@ -222,7 +222,7 @@ public class HttpUtils {
 	 */
 	public static void modTaskState(AsyncHttpResponseHandler res_upLoad,
 			RequestParams params) {
-		client.post(base_url + "c=task&a=modTaskState", params, res_upLoad);
+		client.post(base_url + "c=task&a=applyTask", params, res_upLoad);
 	}
 	/**
 	 * 18 更改任务状态
