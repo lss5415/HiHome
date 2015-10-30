@@ -91,7 +91,7 @@ public class SideBar extends View {
 			break;
 
 		default:
-			setBackgroundResource(R.drawable.sidebar_background);
+			//setBackgroundResource(R.drawable.sidebar_background);
 			setAlpha((float) 0.7);
 			if (oldChoose != c) {
 				if (c >= 0 && c < b.length) {
