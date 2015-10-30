@@ -77,8 +77,8 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 				}
 				if(!StringUtil.isEmpty(friend.getCategory())){
 					holder.setText(R.id.friend_type, friend.getCategory());
-					holder.setVisibility(R.id.friend_type, true);
 				}
+				holder.setVisibility(R.id.friend_type, !StringUtil.isEmpty(friend.getCategory()));
 				holder.setText(R.id.aci_name, friend.getNick());
 			}
 		};
