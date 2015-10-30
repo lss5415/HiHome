@@ -158,7 +158,12 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 			params.put("uid", BaseApp.getModel().getUserid());
 			HttpUtils.getAnnversaryList(res_getAnnversaryList, params);// 获取纪念日列表
 		} else if (mType == 2) {
-
+			params = new RequestParams();
+			params.put("uid", BaseApp.getModel().getUserid());
+			params.put("nowpage", nowpage);
+			params.put("perpage", PERPAGE);
+			params.put("my", "");
+			HttpUtils.getMyTasks(res_getMyTasks, params);// 纪念日列表加载完成再加载任务列表
 		} else if (mType == 3) {
 			params = new RequestParams();
 			params.put("uid", BaseApp.getModel().getUserid());
@@ -177,17 +182,17 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 
 		@Override
 		public void onReadSuccess(List<Task> list) {
-			if (nowpage == 1) {
+//			if (nowpage == 1) {
 				tasks.clear();
-			}
+//			}
 			tasks.addAll(list);
 			adapter.notifyDataSetChanged();
 			
 			params = new RequestParams();
 			params.put("uid", BaseApp.getModel().getUserid());
-			params.put("nowpage", nowpage);
-			params.put("perpage", PERPAGE);
-			params.put("my", "");
+//			params.put("nowpage", nowpage);
+//			params.put("perpage", PERPAGE);
+			params.put("my", "1");
 			HttpUtils.getMyTasks(res_getMyTasks, params);// 纪念日列表加载完成再加载任务列表
 		}
 	};
@@ -200,9 +205,9 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 
 		@Override
 		public void onReadSuccess(List<Task> list) {
-			if (nowpage == 1) {
-				// tasks.clear();
-			}
+//			if (nowpage == 1) {
+//				 tasks.clear();
+//			}
 			tasks.addAll(list);
 			adapter.notifyDataSetChanged();
 		}

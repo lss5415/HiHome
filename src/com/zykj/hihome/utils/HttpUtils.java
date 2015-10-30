@@ -240,5 +240,10 @@ public class HttpUtils {
 	public static void mobFriend(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
 		client.post(base_url + "c=friend&a=mobFriend", params, res_upLoad);
 	}
-	
+	/**
+	 * 忘记密码
+	 */
+	public static void resetPassWord(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=user&a=resetPassword", params, res_upLoad);
+	}
 }
