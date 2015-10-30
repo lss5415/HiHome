@@ -10,8 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+
+import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.utils.HttpErrorHandler;
+import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.TextUtil;
 import com.zykj.hihome.utils.Tools;
@@ -149,7 +153,21 @@ public class B4_1_ForgetPassWordActivity extends BaseActivity {
 		private void registerNewUser() {
 			RequestParams params = new RequestParams();
 			params.put("mob", mobile);
-			params.put("password", newpass);
+			params.put("pass", newpass);
+			HttpUtils.resetPassWord(new HttpErrorHandler() {
+				
+				@Override
+				public void onRecevieSuccess(JSONObject json) {
+					 MyRequestDailog.closeDialog();
+					 Tools.toast(B4_1_ForgetPassWordActivity.this,"密码修改成");
+					 finish();
+				}
+				 @Override
+				 public void onRecevieFailed(String status, JSONObject json) {
+				 MyRequestDailog.closeDialog();
+				 Tools.toast(B4_1_ForgetPassWordActivity.this,"密码修失败");
+				 }
+			}, params);
 			// HttpUtils.resetPassword(new HttpErrorHandler() {
 			// @Override
 			// public void onRecevieSuccess(JSONObject json) {

@@ -29,9 +29,11 @@ import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.data.Task;
+import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
+import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 
 public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
@@ -118,8 +120,23 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 			}
 		};
 		button_gridview.setAdapter(btnAdapter);
-		initializationDate();
+		
+            requestData();
+	}
 
+	private void requestData() {
+		RequestParams params=new RequestParams();
+		params.put("id", task.getId());
+		HttpUtils.getTasksInfo(new HttpErrorHandler() {
+			
+			@Override
+			public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
+				com.alibaba.fastjson.JSONObject jsonObject=json.getJSONArray(UrlContants.jsonData).getJSONObject(0);
+				jsonObject.getJSONArray("taskerlist").getJSONObject(0).getString("taskerlist");
+			}
+		}, params);
+		
+		initializationDate();
 	}
 
 	private void initializationDate() {

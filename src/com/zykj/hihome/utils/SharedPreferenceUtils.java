@@ -24,6 +24,10 @@ public class SharedPreferenceUtils {
     private static final String LATITUDE="latitude";
     private static final String LONGITUDE="longitude";
     private static final String SIGN="sign";
+    private static final String NICK="nick";
+    private static final String SEX="sex";
+    private static final String AGE="age";
+    
 	
     private SharedPreferenceUtils(Context context){
         mSharedPreference=context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -48,8 +52,20 @@ public class SharedPreferenceUtils {
 	public String getPassword() {
 		return mSharedPreference.getString(PASSWORD, null);
 	}
+	
+	public String getNick() {
+		return mSharedPreference.getString(NICK, null);
+	}
 
-	public static String getAvatar() {
+	public String getAge() {
+		return mSharedPreference.getString(AGE, null);
+	}
+
+	public String getSex() {
+		return mSharedPreference.getString(SEX, null);
+	}
+
+	public  String getAvatar() {
 		return mSharedPreference.getString(AVATAR, null);
 	}
 
@@ -91,7 +107,22 @@ public class SharedPreferenceUtils {
         mEditor.putString(PASSWORD, password);
         mEditor.commit();
     }
+    
+    public void setNick(String nick){
+        mEditor.putString(NICK, nick);
+        mEditor.commit();
+    }
+    
+    public void setAge(String age){
+        mEditor.putString(AGE, age);
+        mEditor.commit();
+    }
 
+    public void setSex(String sex){
+        mEditor.putString(SEX, sex);
+        mEditor.commit();
+    }
+    
     public void setAvatar(String avatar){
         mEditor.putString(AVATAR,avatar);
         mEditor.commit();
