@@ -140,8 +140,13 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 				task_state.setText(statu);
 				task_name.setText(jsonObject.getString("title"));
 				task_content.setText(jsonObject.getString("content"));
-				task_starttime.setText(jsonObject.getString("start"));
-				task_finishtime.setText(jsonObject.getString("end"));
+				if(jsonObject.getString("isday").equals("1")){
+					task_starttime.setText(jsonObject.getString("start").substring(0, 11));
+					task_finishtime.setText(jsonObject.getString("end").substring(0, 11));
+				}else{
+					task_starttime.setText(jsonObject.getString("start"));
+					task_finishtime.setText(jsonObject.getString("end"));
+				}
 				task_publish_name.setText(task.getNick());
 				task_excutor_num.setText(task.getTasker() + "人");
 				ImageLoader.getInstance().displayImage(
