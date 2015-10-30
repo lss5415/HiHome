@@ -246,4 +246,11 @@ public class HttpUtils {
 	public static void resetPassWord(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
 		client.post(base_url + "c=user&a=resetPassword", params, res_upLoad);
 	}
+	/**
+	 * 获取任务接受状态
+	 */
+	public static void getTaskState(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=task&a=getTaskState", params, res_upLoad);
+	}
+	
 }

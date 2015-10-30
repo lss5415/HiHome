@@ -1,6 +1,8 @@
 package com.zykj.hihome;
 
 import org.apache.http.Header;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -87,9 +89,18 @@ public class B4_1_LoginActivity extends BaseActivity {
 
 					@Override
 					public void onRecevieSuccess(JSONObject json) {
-						JSONArray data=json.getJSONArray(UrlContants.jsonData);
+						JSONObject data=json.getJSONArray(UrlContants.jsonData).getJSONObject(0);
 						Tools.toast(B4_1_LoginActivity.this, "登录成功");
-						BaseApp.getModel().setUserid(StringUtil.toStringOfObject(data.getJSONObject(0).getString("id")));
+//						String avatar=StringUtil.toStringOfObject(data.getString("avatar"));
+						BaseApp.getModel().setAvatar(StringUtil.toStringOfObject(data.getString("avatar")));
+						BaseApp.getModel().setUserid(StringUtil.toStringOfObject(data.getString("id")));
+						BaseApp.getModel().setMobile(StringUtil.toStringOfObject(data.getString("mobile")));
+						BaseApp.getModel().setPassword(passWord);
+						BaseApp.getModel().setNick(StringUtil.toStringOfObject(data.getString("nick")));
+						BaseApp.getModel().setSex(StringUtil.toStringOfObject(data.getString("sex")));
+						BaseApp.getModel().setAge(StringUtil.toStringOfObject(data.getString("age")));
+						BaseApp.getModel().setSign(StringUtil.toStringOfObject(data.getString("sign")));
+						submitDeviceToken(data.getString("id"));
 						startActivity(new Intent(B4_1_LoginActivity.this,
 								B0_MainActivity.class));
 						finish();
@@ -116,5 +127,10 @@ public class B4_1_LoginActivity extends BaseActivity {
 			break;
 
 		}
+	}
+	private void submitDeviceToken(String userid){
+		//Tools.toast(this, device_token);
+		setResult(Activity.RESULT_OK, getIntent().putExtra("userid", userid));
+		finish();
 	}
 }

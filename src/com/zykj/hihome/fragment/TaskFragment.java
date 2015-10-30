@@ -160,15 +160,15 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 		} else if (mType == 2) {
 			params = new RequestParams();
 			params.put("uid", BaseApp.getModel().getUserid());
-			params.put("nowpage", nowpage);
-			params.put("perpage", PERPAGE);
+//			params.put("nowpage", nowpage);
+//			params.put("perpage", PERPAGE);
 			params.put("my", "");
-			HttpUtils.getMyTasks(res_getMyTasks, params);// 纪念日列表加载完成再加载任务列表
+			HttpUtils.getMyTasks(res_getMyTasks, params);//获取自己接受任务列表
 		} else if (mType == 3) {
 			params = new RequestParams();
 			params.put("uid", BaseApp.getModel().getUserid());
-			params.put("nowpage", nowpage);
-			params.put("perpage", PERPAGE);
+//			params.put("nowpage", nowpage);
+//			params.put("perpage", PERPAGE);
 			HttpUtils.getPublishTaskList(res_getPublishTaskList, params);// 获取我发布的任务列表
 		}
 
@@ -193,7 +193,7 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 //			params.put("nowpage", nowpage);
 //			params.put("perpage", PERPAGE);
 			params.put("my", "1");
-			HttpUtils.getMyTasks(res_getMyTasks, params);// 纪念日列表加载完成再加载任务列表
+			HttpUtils.getMyTasks(res_getMyTasks, params);// 纪念日列表加载完成再加载自己的任务列表
 		}
 	};
 
@@ -310,7 +310,7 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 				// "已接受"
 				// : state == 2 ? "待执行" : state == 3 ? "已执行" : state == 4 ?
 				// "已完成": "已取消";
-				if (mType == 3) {
+				if (mType == 3||mType==1) {
 					tasks.remove(position);
 					adapter.notifyDataSetChanged();
 				}

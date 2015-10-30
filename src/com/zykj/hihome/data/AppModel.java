@@ -160,6 +160,7 @@ public class AppModel {
 	}
 	public void setSign(String sign) {
 		this.sign = sign;
+		utils.setSign(sign);
 	}
 	public String getNick() {
 		return nick;
@@ -167,6 +168,7 @@ public class AppModel {
 
 	public void setNick(String nick) {
 		this.nick = nick;
+		utils.setNick(nick);
 	}
 
 	public String getSex() {
@@ -175,6 +177,7 @@ public class AppModel {
 
 	public void setSex(String sex) {
 		this.sex = sex;
+		utils.setSex(sex);
 	}
 
 	public String getAge() {
@@ -183,6 +186,7 @@ public class AppModel {
 
 	public void setAge(String age) {
 		this.age = age;
+		utils.setAge(age);
 	}
 
 	public void clear(){
