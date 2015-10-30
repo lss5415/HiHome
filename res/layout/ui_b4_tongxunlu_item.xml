@@ -43,6 +43,7 @@
             android:layout_width="60dp"
             android:text="@string/edit"
             android:gravity="center"
+            android:layout_marginRight="@dimen/ten"
             android:textColor="@color/white"
             android:textSize="@dimen/sixteen"
             android:background="@color/green"/>
