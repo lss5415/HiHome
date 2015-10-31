@@ -52,8 +52,28 @@
             android:hint="@string/friend_search"
             android:background="@null"/>
 	</RelativeLayout>
-	<ListView 
+	<Button
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="连接融云服务器" >
+    </Button>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="启动列表会话页面" >
+    </Button>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="启动会话页面" >
+    </Button>
+	<!-- <ListView 
 	    android:id="@+id/chat_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"/> -->
 </LinearLayout>

@@ -18,6 +18,7 @@
 	<classpathentry kind="lib" path="libs/android-auto-scroll-view-pager.jar"/>
 	<classpathentry kind="lib" path="libs/support-annotations-21.0.0-rc1.jar"/>
 	<classpathentry kind="lib" path="libs/joda-time-2.1.jar"/>
+	<classpathentry kind="lib" path="libs/Rong_IMKit_v2_3_4.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>

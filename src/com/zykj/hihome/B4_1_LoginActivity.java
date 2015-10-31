@@ -1,14 +1,20 @@
 package com.zykj.hihome;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+
 import org.apache.http.Header;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -36,6 +42,7 @@ public class B4_1_LoginActivity extends BaseActivity {
 	private Button btn_login;
 	private ImageView img_qq, img_weixin;
 	private String username, passWord;
+	private String token,uid;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +96,8 @@ public class B4_1_LoginActivity extends BaseActivity {
 					public void onRecevieSuccess(JSONObject json) {
 						JSONArray data=json.getJSONArray(UrlContants.jsonData);
 						Tools.toast(B4_1_LoginActivity.this, "登录成功");
-						BaseApp.getModel().setUserid(StringUtil.toStringOfObject(data.getJSONObject(0).getString("id")));
-						startActivity(new Intent(B4_1_LoginActivity.this,
-								B0_MainActivity.class));
-						finish();
+						uid = data.getJSONObject(0).getString("id");
+						requestData();
 					}
 
 					@Override
@@ -116,5 +121,72 @@ public class B4_1_LoginActivity extends BaseActivity {
 			break;
 
 		}
+	}
+
+	private void requestData() {
+		HttpUtils.getToken(new HttpErrorHandler() {
+			@Override
+			public void onRecevieSuccess(JSONObject json) {				
+				token = json.getString("token");
+				Toast.makeText(B4_1_LoginActivity.this, "用户ID为："+token,Toast.LENGTH_LONG).show();
+				connect(token);
+			}
+			@Override
+			public void onRecevieFailed(String status, JSONObject json) {
+				
+			}
+		}, uid);
+	}
+	
+	/**
+	 * 建立与融云服务器的连接
+	 *
+	 * @param token
+	 */
+	private void connect(String token) {
+
+	    if (getApplicationInfo().packageName.equals(BaseApp.getCurProcessName(getApplicationContext()))) {
+
+	        /**
+	         * IMKit SDK调用第二步,建立与服务器的连接
+	         */
+	        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+
+	            /**
+	             * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
+	             */
+	            @Override
+	            public void onTokenIncorrect() {
+
+	                Log.d("LoginActivity", "--onTokenIncorrect");
+	            }
+
+	            /**
+	             * 连接融云成功
+	             * @param userid 当前 token
+	             */
+	            @Override
+	            public void onSuccess(String userid) {
+
+	                Log.d("LoginActivity", "--onSuccess" + userid);
+//	                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+					putSharedPreferenceValue("uid", uid);
+					BaseApp.getModel().setUserid(StringUtil.toStringOfObject(uid));
+					startActivity(new Intent(B4_1_LoginActivity.this,
+							B0_MainActivity.class));
+					finish();
+	            }
+
+	            /**
+	             * 连接融云失败
+	             * @param errorCode 错误码，可到官网 查看错误码对应的注释
+	             */
+	            @Override
+	            public void onError(RongIMClient.ErrorCode errorCode) {
+
+	                Log.d("LoginActivity", "--onError" + errorCode);
+	            }
+	        });
+	    }
 	}
 }

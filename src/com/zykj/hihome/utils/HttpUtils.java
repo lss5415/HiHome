@@ -232,4 +232,12 @@ public class HttpUtils {
 	public static void groupFriend(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
 		client.post(base_url + "c=friend&a=groupFriend", params, res_upLoad);
 	}
+	/**
+	 * 19 获取Token
+	 * 
+	 * @param params
+	 */
+	public static void getToken(AsyncHttpResponseHandler res_upLoad, String uid) {
+		client.get(base_url + "c=chat&a=getToken&uid=" + uid, res_upLoad);
+	}
 }
