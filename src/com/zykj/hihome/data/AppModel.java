@@ -1,5 +1,7 @@
 package com.zykj.hihome.data;
 
+import cn.jpush.android.service.t;
+
 import com.zykj.hihome.utils.SharedPreferenceUtils;
 
 import android.content.Context;
@@ -17,17 +19,20 @@ public class AppModel {
     public static boolean is_login = false;
     public static String NAME = "name";
     public static String PHONE = "phone";
-	
-    private String username;//登录账号
+	private String username;
+    private String nick;//昵称
     private String password;//登录密码
     private String userid;//用户Id
     private String avatar;//头像
     private String mobile;//手机
+    private String sign;//签名
+    private String sex;//性别
+    private String age;//年龄
     private String money;//红包金额
     private String integral;//红包个数
     private String latitude;//经度
     private String longitude;//纬度
-    private String sign;
+
 
     private static SharedPreferenceUtils utils;
     
@@ -46,7 +51,18 @@ public class AppModel {
         if(utils.getUserid() != null){
             model.userid= utils.getUserid();
         }
+        
+        if(utils.getAge()!=null){
+            model.age= utils.getAge();
+        }
 
+        if(utils.getNick()!=null){
+        	model.nick=utils.getNick();
+        }
+        
+        if(utils.getSex()!=null){
+        	model.sex=utils.getSex();
+        }
         if(utils.getAvatar() != null){
             model.avatar= utils.getAvatar();
         }
@@ -144,7 +160,35 @@ public class AppModel {
 	}
 	public void setSign(String sign) {
 		this.sign = sign;
+		utils.setSign(sign);
 	}
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
+		utils.setNick(nick);
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+		utils.setSex(sex);
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+		utils.setAge(age);
+	}
+
 	public void clear(){
 		this.setUsername("");
 		this.setPassword("");
@@ -153,6 +197,10 @@ public class AppModel {
 		this.setMobile("");
 		this.setMoney("");
 		this.setIntegral("");
+		this.setSex("");
+		this.setAge("");
+		this.setSign("");
+		this.setNick("");
 		utils.clear();
 	}
 }

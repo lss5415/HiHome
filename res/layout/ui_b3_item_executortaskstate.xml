@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:padding="10dp"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="horizontal" >
 
     <ImageView
         android:id="@+id/item_excutor_avator"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/icon_image_default" />
 
     <LinearLayout
@@ -24,6 +25,7 @@
             android:gravity="center"
             android:layout_weight="1"
             android:text="刘大伟" 
+            android:textColor="@color/tx_color"
             android:textSize="20sp"/>
 
         <TextView

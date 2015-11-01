@@ -50,6 +50,7 @@ public class ConstactUtil {
 						}
 					phones.close();
 				}
+				number = number.replaceAll("[^0-9\\+]","");
 				temp.put(name, number);
 			} while (c.moveToNext());
 		}

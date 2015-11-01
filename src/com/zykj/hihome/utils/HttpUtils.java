@@ -222,7 +222,7 @@ public class HttpUtils {
 	 */
 	public static void modTaskState(AsyncHttpResponseHandler res_upLoad,
 			RequestParams params) {
-		client.post(base_url + "c=task&a=modTaskState", params, res_upLoad);
+		client.post(base_url + "c=task&a=applyTask", params, res_upLoad);
 	}
 	/**
 	 * 18 更改任务状态
@@ -240,4 +240,25 @@ public class HttpUtils {
 	public static void getToken(AsyncHttpResponseHandler res_upLoad, String uid) {
 		client.get(base_url + "c=chat&a=getToken&uid=" + uid, res_upLoad);
 	}
+	/**
+	 * 19 匹配手机通讯录
+	 * 
+	 * @param params
+	 */
+	public static void mobFriend(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=friend&a=mobFriend", params, res_upLoad);
+	}
+	/**
+	 * 忘记密码
+	 */
+	public static void resetPassWord(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=user&a=resetPassword", params, res_upLoad);
+	}
+	/**
+	 * 获取任务接受状态
+	 */
+	public static void getTaskState(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=task&a=getTaskState", params, res_upLoad);
+	}
+	
 }

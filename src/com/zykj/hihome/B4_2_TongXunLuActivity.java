@@ -19,11 +19,18 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.adapter.SortAdapter;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.SortModel;
 import com.zykj.hihome.utils.ConstactUtil;
+import com.zykj.hihome.utils.HttpErrorHandler;
+import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.Tools;
+import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.CharacterParser;
 import com.zykj.hihome.view.LoadingView;
 import com.zykj.hihome.view.MyCommonTitle;
@@ -45,6 +52,7 @@ public class B4_2_TongXunLuActivity extends BaseActivity {
 	private TextView dialog;
 	private SortAdapter adapter;
 	private Map<String, String> callRecords;
+	private StringBuffer phones = new StringBuffer();
 	/**
 	 * 汉字转换成拼音的类
 	 */
@@ -130,19 +138,32 @@ public class B4_2_TongXunLuActivity extends BaseActivity {
 			if(result==1){
 				resultdata.setVisibility(View.VISIBLE);
 				mLoadingView.setVisibility(View.GONE);
-				List<String> constact = new ArrayList<String>();
+				final List<String> constact = new ArrayList<String>();
 				for (Iterator<String> keys = callRecords.keySet().iterator(); keys.hasNext();) {
 					String key = keys.next();
 					constact.add(key);
+					phones.append(callRecords.get(key)+",");
 				}
-				String[] names = new String[] {};
-				names = constact.toArray(names);
-				SourceDateList = filledData(names);
+				if(phones.length()>0){
+					RequestParams params = new RequestParams();
+					params.put("uid", BaseApp.getModel().getUserid());
+					params.put("mob", phones.substring(0, phones.length()-1));
+					HttpUtils.mobFriend(new HttpErrorHandler() {
+						@Override
+						public void onRecevieSuccess(JSONObject json) {
+							JSONArray jsonArray = json.getJSONObject(UrlContants.jsonData).getJSONArray("list");
 
-				// 根据a-z进行排序源数据
-				Collections.sort(SourceDateList, pinyinComparator);
-				adapter = new SortAdapter(B4_2_TongXunLuActivity.this, SourceDateList);
-				sortListView.setAdapter(adapter);
+							String[] names = new String[] {};
+							names = constact.toArray(names);
+							//Tools.toast(B4_2_TongXunLuActivity.this, "sort="+names.length+",state="+jsonArray.size());
+							SourceDateList = filledData(names, jsonArray);
+							// 根据a-z进行排序源数据
+							Collections.sort(SourceDateList, pinyinComparator);
+							adapter = new SortAdapter(B4_2_TongXunLuActivity.this, SourceDateList);
+							sortListView.setAdapter(adapter);
+						}
+					}, params);
+				}
 			}else{
 				mLoadingView.setText("网络异常...");
 			}
@@ -170,12 +191,15 @@ public class B4_2_TongXunLuActivity extends BaseActivity {
 		}
 	}	
 	
-	private List<SortModel> filledData(String[] date) {
+	private List<SortModel> filledData(String[] date, JSONArray jsonArray) {
 		List<SortModel> mSortList = new ArrayList<SortModel>();
 
 		for (int i = 0; i < date.length; i++) {
 			SortModel sortModel = new SortModel();
 			sortModel.setName(date[i]);
+			sortModel.setId(jsonArray.getJSONObject(i).getString("id"));
+			sortModel.setPhone(jsonArray.getJSONObject(i).getString("mob"));
+			sortModel.setState(jsonArray.getJSONObject(i).getString("state"));
 			// 汉字转换成拼音
 			String pinyin = characterParser.getSelling(date[i]);
 			String sortString = pinyin.substring(0, 1).toUpperCase(Locale.getDefault());

@@ -69,12 +69,16 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 				if(holder.getPosition() == 0){
 					holder.setImageView(R.id.aci_image, R.drawable.tongxunlu);
 				}else{
-					holder.setImageUrl(R.id.aci_image, StringUtil.toString(friend.getAvatar(), "http://"), 10f);
+					if(StringUtil.isEmpty(friend.getAvatar())){
+						holder.setImageView(R.id.aci_image, R.drawable.xinagcetouxiang);
+					}else{
+						holder.setImageUrl(R.id.aci_image, friend.getAvatar());
+					}
 				}
 				if(!StringUtil.isEmpty(friend.getCategory())){
 					holder.setText(R.id.friend_type, friend.getCategory());
-					holder.setVisibility(R.id.friend_type, true);
 				}
+				holder.setVisibility(R.id.friend_type, !StringUtil.isEmpty(friend.getCategory()));
 				holder.setText(R.id.aci_name, friend.getNick());
 			}
 		};
@@ -98,7 +102,7 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 				int code = response.getInt("code");
 				if(code == 200){
 					JSONObject jsonObject = response.getJSONObject(UrlContants.jsonData);
-					for (int i = 0; i < strType.length; i++) {
+					for (int i = strType.length-1; i >= 0; i--) {
 						JSONArray JSONArray = jsonObject.getJSONArray("list"+i);
 						List<Friend> datas = JSON.parseArray(JSONArray.toString(), Friend.class);
 						if(datas.size()>0){
@@ -131,11 +135,11 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 
 	@Override
 	public void onItemClick(AdapterView<?> parentView, View currentView, int position, long id) {
-		if(position == 0){
+		if(position == 1){
 			startActivity(new Intent(this, B4_2_TongXunLuActivity.class));
 		}else{
 			startActivity(new Intent(this, B2_FriendDetailActivity.class)
-					.putExtra("uid", friends.get(position).getFid()).putExtra("type", friends.get(position).getType()));
+					.putExtra("uid", friends.get(position-1).getFid()).putExtra("type", friends.get(position-1).getType()));
 		}
 	}
 

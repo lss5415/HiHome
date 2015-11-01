@@ -10,8 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+
+import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.utils.HttpErrorHandler;
+import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.TextUtil;
 import com.zykj.hihome.utils.Tools;
@@ -85,19 +89,16 @@ public class B4_1_ForgetPassWordActivity extends BaseActivity {
 			break;
 
 		case R.id.positive:// 确定
-			if (!TextUtil.isMobile(mobile)) {
-				Tools.toast(B4_1_ForgetPassWordActivity.this, "手机号格式不正确");
-				return;
-			}
-			if (StringUtil.isEmpty(mobilecode)) {
-				Tools.toast(B4_1_ForgetPassWordActivity.this, "验证码不能为空");
+		
+			if (!TextUtil.isCode(mobilecode,4)) {
+				Tools.toast(B4_1_ForgetPassWordActivity.this, "验证码不正确");
 				return;
 			}
 			if (StringUtil.isEmpty(newpass)) {
 				Tools.toast(B4_1_ForgetPassWordActivity.this, "新密码不能为空");
 				return;
 			}
-			if (TextUtil.isPasswordLengthLegal(newpass)) {
+			if (!TextUtil.isPasswordLengthLegal(newpass)) {
 				Tools.toast(B4_1_ForgetPassWordActivity.this,"密码长度合法性校验6-20位任意字符");
 				return;
 			}
@@ -105,7 +106,7 @@ public class B4_1_ForgetPassWordActivity extends BaseActivity {
 				Tools.toast(B4_1_ForgetPassWordActivity.this, "再次输入的新密码不能为空");
 				return;
 			}
-			if (TextUtil.isPasswordLengthLegal(confirmpass)) {
+			if (!TextUtil.isPasswordLengthLegal(confirmpass)) {
 				Tools.toast(B4_1_ForgetPassWordActivity.this,"密码长度合法性校验6-20位任意字符");
 				return;
 			}
@@ -114,11 +115,6 @@ public class B4_1_ForgetPassWordActivity extends BaseActivity {
 				return;
 			}
               //提交修改
-			
-			
-			
-			
-			
 			
 			MyRequestDailog.showDialog(this, "");
 			SMSSDK.submitVerificationCode("86", mobile, mobilecode);
@@ -157,7 +153,21 @@ public class B4_1_ForgetPassWordActivity extends BaseActivity {
 		private void registerNewUser() {
 			RequestParams params = new RequestParams();
 			params.put("mob", mobile);
-			params.put("password", newpass);
+			params.put("pass", newpass);
+			HttpUtils.resetPassWord(new HttpErrorHandler() {
+				
+				@Override
+				public void onRecevieSuccess(JSONObject json) {
+					 MyRequestDailog.closeDialog();
+					 Tools.toast(B4_1_ForgetPassWordActivity.this,"密码修改成");
+					 finish();
+				}
+				 @Override
+				 public void onRecevieFailed(String status, JSONObject json) {
+				 MyRequestDailog.closeDialog();
+				 Tools.toast(B4_1_ForgetPassWordActivity.this,"密码修失败");
+				 }
+			}, params);
 			// HttpUtils.resetPassword(new HttpErrorHandler() {
 			// @Override
 			// public void onRecevieSuccess(JSONObject json) {

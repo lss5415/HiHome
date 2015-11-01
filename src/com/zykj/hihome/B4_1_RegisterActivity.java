@@ -96,7 +96,7 @@ public class B4_1_RegisterActivity extends BaseActivity {
 			break;
 
 		case R.id.positive:// 确定
-			if (TextUtil.isCode(mobilecode, 4)) {
+			if (!TextUtil.isCode(mobilecode, 4)) {
 				Tools.toast(B4_1_RegisterActivity.this, "验证码不正确");
 				return;
 			}

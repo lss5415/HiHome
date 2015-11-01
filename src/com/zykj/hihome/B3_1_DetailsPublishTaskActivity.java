@@ -23,6 +23,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
@@ -33,6 +34,7 @@ import com.zykj.hihome.view.MyCommonTitle;
 
 public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
+	private LinearLayout ly_multi_excutor;
 	private Task task;
 	private List<Task> tasks;
 	private GridView gv_tasker, button_gridview;
@@ -49,7 +51,8 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 			task_pic2, task_pic3;
 	private Button leftButton, rightButon;
 	private JSONArray jsonArray;
-	private int state;
+	private int state=0;
+	private String taskstate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,7 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 		task_pic1 = (ImageView) findViewById(R.id.task_pic_1);
 		task_pic2 = (ImageView) findViewById(R.id.task_pic_2);
 		task_pic3 = (ImageView) findViewById(R.id.task_pic_3);
-		task_state = (TextView) findViewById(R.id.details_receivetask_state);// 任务状态
+		task_state = (TextView) findViewById(R.id.details_publictask_state);// 任务状态
 		leftButton = (Button) findViewById(R.id.btn_leftButton);
 		rightButon = (Button) findViewById(R.id.btn_rightButton);
 		task_name = (TextView) findViewById(R.id.details_publishtaskname);// 任务名称
@@ -81,10 +84,11 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 		task_starttime = (TextView) findViewById(R.id.details_publishtask_starttime);// 开始时间
 		task_finishtime = (TextView) findViewById(R.id.details_publishtask_finishtime);// 结束时间
 		task_excutor_num = (TextView) findViewById(R.id.tasker_excutor_num);// 执行人数量
+		ly_multi_excutor=(LinearLayout) findViewById(R.id.ly_multi_excutor);
 		gv_tasker = (GridView) findViewById(R.id.gv_tasker);
 		gv_tasker.setSelector(new ColorDrawable(Color.TRANSPARENT));// 去掉点击的产生的背景色
 
-		setListener(gv_tasker,leftButton, rightButon);// 设置监听事件
+		setListener(ly_multi_excutor, leftButton, rightButon);// 设置监听事件
 
 		button_gridview = (GridView) findViewById(R.id.button_gridview);
 		button_gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -127,34 +131,44 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
 				JSONObject jsonObject = json.getJSONArray(UrlContants.jsonData).getJSONObject(0);
-				state = Integer.valueOf(jsonObject.getString("state"));
-				jsonArray = jsonObject.getJSONArray("tasker");
+				jsonArray = jsonObject.getJSONArray("taskerlist");
+				taskstate = jsonObject.getJSONArray("taskerlist").getJSONObject(0).getString("tasker_state");
+				state = Integer.valueOf(taskstate);
 				final String statu = state == 0 ? "未接受" : state == 1 ? "已接受"
-						: state == 2 ? "待执行" : state == 3 ? "执行中" : state == 4 ? "已完成"
-								: "已取消";
-				task_state.setText(statu);
+						: state == 2 ? "待执行" : state == 3 ? "执行中"
+								: state == 4 ? "已完成" : "已取消";
 				stateAndButtonChange();
+				task_state.setText(statu);
 				task_name.setText(jsonObject.getString("title"));
 				task_content.setText(jsonObject.getString("content"));
-				task_starttime.setText(jsonObject.getString("start"));
-				task_finishtime.setText(jsonObject.getString("end"));
+				if(jsonObject.getString("isday").equals("1")){
+					task_starttime.setText(jsonObject.getString("start").substring(0, 11));
+					task_finishtime.setText(jsonObject.getString("end").substring(0, 11));
+				}else{
+					task_starttime.setText(jsonObject.getString("start"));
+					task_finishtime.setText(jsonObject.getString("end"));
+				}
 				task_publish_name.setText(task.getNick());
 				task_excutor_num.setText(task.getTasker() + "人");
 				ImageLoader.getInstance().displayImage(
-				StringUtil.toString(HttpUtils.IMAGE_URL + task.getAvatar(),
-						"http://"), task_publish_avator);
-				
-				if(!StringUtil.isEmpty(jsonObject.getString("imgsrc1"))){
+						StringUtil.toString(
+								HttpUtils.IMAGE_URL + task.getAvatar(),
+								"http://"), task_publish_avator);
+
+				if (!StringUtil.isEmpty(jsonObject.getString("imgsrc1"))) {
 					ImageLoader.getInstance().displayImage(
-							StringUtil.toString(HttpUtils.IMAGE_URL + task.getImgsrc1()), task_pic1);
+							StringUtil.toString(HttpUtils.IMAGE_URL
+									+ task.getImgsrc1()), task_pic1);
 				}
-				if(!StringUtil.isEmpty(jsonObject.getString("imgsrc2"))){
+				if (!StringUtil.isEmpty(jsonObject.getString("imgsrc2"))) {
 					ImageLoader.getInstance().displayImage(
-							StringUtil.toString(HttpUtils.IMAGE_URL + task.getImgsrc2()), task_pic2);
+							StringUtil.toString(HttpUtils.IMAGE_URL
+									+ task.getImgsrc2()), task_pic2);
 				}
-				if(!StringUtil.isEmpty(jsonObject.getString("imgsrc3"))){
+				if (!StringUtil.isEmpty(jsonObject.getString("imgsrc3"))) {
 					ImageLoader.getInstance().displayImage(
-							StringUtil.toString(HttpUtils.IMAGE_URL + task.getImgsrc3()), task_pic3);
+							StringUtil.toString(HttpUtils.IMAGE_URL
+									+ task.getImgsrc3()), task_pic3);
 				}
 				initializationDate();
 			}
@@ -162,10 +176,11 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 	}
 
 	private void initializationDate() {
-		state = Integer.valueOf(task.getState());
+		state = Integer.valueOf(taskstate);
 		final String statu = state == 0 ? "未接受" : state == 1 ? "已接受"
-				: state == 2 ? "待执行" : state == 3 ? "执行中" : state == 4 ? "已完成" : "已取消";
-		
+				: state == 2 ? "待执行" : state == 3 ? "执行中" : state == 4 ? "已完成"
+						: "已取消";
+
 		tasks = JSON.parseArray(jsonArray.toString(), Task.class);
 		taskAdapter = new CommonAdapter<Task>(
 				B3_1_DetailsPublishTaskActivity.this,
@@ -180,14 +195,12 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 					checkboxParms.width = Tools.M_SCREEN_WIDTH * 3 / 10;
 					checkboxParms.height = Tools.M_SCREEN_WIDTH * 3 / 10;
 				}
-				holder.setText(R.id.tasker_excutor_name,
-						task.getNick())
+				holder.setText(R.id.tasker_excutor_name, task.getNick())
 						.setText(R.id.tasker_excutor_state, statu)
 						.setImageUrl(
 								R.id.tasker_excutor_avator,
 								StringUtil.toString(
-										HttpUtils.IMAGE_URL
-												+ task.getAvatar(),
+										HttpUtils.IMAGE_URL + task.getAvatar(),
 										"http://"), 10f);
 			}
 		};
@@ -239,7 +252,7 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 
 	private void modTaskState() {
 		RequestParams params = new RequestParams();
-		params.put("id", task.getId());
+		params.put("sid", task.getId());
 		params.put("state", state);
 		HttpUtils.modTaskState(new HttpErrorHandler() {
 
@@ -262,8 +275,10 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 		case R.id.btn_rightButton:
 
 			break;
-		case R.id.gv_tasker:
-			startActivity(new Intent(this, B3_1_1_ExecutorsTaskStateActivity.class).putExtra("tasker", jsonArray.toString()));
+		case R.id.ly_multi_excutor:
+			startActivity(new Intent(this,
+					B3_1_1_ExecutorsTaskStateActivity.class).putExtra("tasker",
+					jsonArray.toString()));
 			break;
 		default:
 			break;

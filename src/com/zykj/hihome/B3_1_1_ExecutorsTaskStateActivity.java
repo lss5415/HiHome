@@ -2,6 +2,7 @@ package com.zykj.hihome;
 
 import java.util.List;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -29,6 +30,8 @@ public class B3_1_1_ExecutorsTaskStateActivity extends BaseActivity {
 		myCommonTitle = (MyCommonTitle) findViewById(R.id.aci_mytitle);
 		myCommonTitle.setTitle("成员任务状态");
 		mListView = (ListView) findViewById(R.id.list_excutor_taskstate);
+		mListView.setDivider(new ColorDrawable(0xffeeeeee));
+		mListView.setDividerHeight(3);
 
 		executorAdapter = new CommonAdapter<Object>(this,R.layout.ui_b3_item_executortaskstate, tasker) {
 			@Override
@@ -38,7 +41,7 @@ public class B3_1_1_ExecutorsTaskStateActivity extends BaseActivity {
 						: state == 2 ? "待执行" : state == 3 ? "已执行" : state == 4 ? "已完成" : "已取消";
 				holder.setText(R.id.item_excutor_name, ((JSONObject)task).getString("nick"))
 						.setText(R.id.item_excutor_state, statu)
-						.setImageUrl(R.id.item_excutor_avator,((JSONObject)task).getString("tasker_state"), 10f);
+						.setImageUrl(R.id.item_excutor_avator, ((JSONObject)task).getString("avatar"), 10f);
 			}
 		};
 		mListView.setAdapter(executorAdapter);

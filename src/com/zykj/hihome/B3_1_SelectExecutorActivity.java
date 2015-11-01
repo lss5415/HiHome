@@ -19,6 +19,7 @@ import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Friend;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
@@ -56,7 +57,11 @@ public class B3_1_SelectExecutorActivity extends BaseActivity implements OnItemC
 				if(holder.getPosition() == 0){
 					holder.setImageView(R.id.aci_image, R.drawable.tongxunlu);
 				}else{
-					holder.setImageUrl(R.id.aci_image, StringUtil.toString(friend.getAvatar(), "http://"), 10f);
+					if(StringUtil.isEmpty(friend.getAvatar())){
+						holder.setImageView(R.id.aci_image, R.drawable.xinagcetouxiang);
+					}else{
+						holder.setImageUrl(R.id.aci_image, friend.getAvatar());
+					}
 				}
 				if(!StringUtil.isEmpty(friend.getCategory())){
 					holder.setText(R.id.friend_type, friend.getCategory());
@@ -74,7 +79,10 @@ public class B3_1_SelectExecutorActivity extends BaseActivity implements OnItemC
 	}
 
 	private void requestData() {
-		friends.add(0, new Friend("自己"));
+		friends.clear();
+		Friend friend = new Friend("自己");
+		friend.setFid(BaseApp.getModel().getUserid());
+		friends.add(0, friend);
 		HttpUtils.getFriendsList(new JsonHttpResponseHandler(){
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -83,7 +91,7 @@ public class B3_1_SelectExecutorActivity extends BaseActivity implements OnItemC
 					int code = response.getInt("code");
 					if(code == 200){
 						JSONObject jsonObject = response.getJSONObject(UrlContants.jsonData);
-						for (int i = 0; i < strType.length; i++) {
+						for (int i = strType.length-1; i >= 0; i--) {
 							JSONArray JSONArray = jsonObject.getJSONArray("list"+i);
 							List<Friend> datas = JSON.parseArray(JSONArray.toString(), Friend.class);
 							if(datas.size()>0){
@@ -110,7 +118,7 @@ public class B3_1_SelectExecutorActivity extends BaseActivity implements OnItemC
 			for (int i = 0; i < friends.size(); i++) {
 				if(friends.get(i).isChecked()){
 					strName.append(friends.get(i).getNick()+",");
-					strId.append(friends.get(i).getId()+",");
+					strId.append(friends.get(i).getFid()+",");
 				}
 			}
 			if(strId.length()<1){

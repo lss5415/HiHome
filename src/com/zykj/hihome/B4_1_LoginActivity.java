@@ -128,7 +128,6 @@ public class B4_1_LoginActivity extends BaseActivity {
 			@Override
 			public void onRecevieSuccess(JSONObject json) {				
 				token = json.getString("token");
-				Toast.makeText(B4_1_LoginActivity.this, "用户ID为："+token,Toast.LENGTH_LONG).show();
 				connect(token);
 			}
 			@Override
@@ -170,6 +169,7 @@ public class B4_1_LoginActivity extends BaseActivity {
 
 	                Log.d("LoginActivity", "--onSuccess" + userid);
 //	                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+					Toast.makeText(B4_1_LoginActivity.this, "融云连接成功",Toast.LENGTH_LONG).show();
 					putSharedPreferenceValue("uid", uid);
 					BaseApp.getModel().setUserid(StringUtil.toStringOfObject(uid));
 					startActivity(new Intent(B4_1_LoginActivity.this,

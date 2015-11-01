@@ -68,7 +68,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:text="标记完成"
-                        android:textColor="@color/theme_colorhuang"/>
+                        android:textColor="@color/theme_colorhuang" />
 
                     <Button
                         android:id="@+id/btn_rightButton"
@@ -81,7 +81,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:text="删除任务"
-                        android:textColor="@color/theme_colorhuang"/>
+                        android:textColor="@color/theme_colorhuang" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -241,10 +241,10 @@
                         android:id="@+id/gv_tasker"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
                         android:layout_weight="1"
-                        android:numColumns="3" />
+                        android:numColumns="3"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp" />
 
                     <TextView
                         android:id="@+id/task_excutor_num"
@@ -291,10 +291,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/text_grey" />
-<View
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/task_pic_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/task_pic_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/task_pic_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/text_grey" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -369,6 +396,7 @@
                 android:padding="@dimen/ten" >
 
                 <!-- ic_task_imgview -->
+
                 <GridView
                     android:id="@+id/button_gridview"
                     android:layout_width="match_parent"
