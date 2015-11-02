@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -29,28 +29,20 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
+                    android:layout_height="60dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
                     <TextView
                         android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:layout_weight="1"
                         android:text="@string/task_state"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/details_publictask_state"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_weight="1"
-                        android:text="@string/task_state"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                    
 
                     <Button
                         android:id="@+id/btn_topRightButton"
@@ -58,19 +50,20 @@
                         android:layout_height="30dp"
                         android:layout_marginRight="15dp"
                         android:background="@drawable/bg_null_orange"
-                        android:gravity="center"
+                        android:layout_gravity="center_vertical|right"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:text="标记完成"
                         android:textColor="@color/theme_colorhuang"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
                 </LinearLayout>
 
-                <RelativeLayout
+                <!-- <RelativeLayout
+                    android:id="@+id/rl_receive_button"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:visibility="visible" >
+                    android:visibility="gone" >
 
                     <Button
                         android:id="@+id/btn_leftButton"
@@ -96,7 +89,7 @@
                         android:paddingRight="10dp"
                         android:text="删除任务"
                         android:textColor="@color/theme_colorhuang" />
-                </RelativeLayout>
+                </RelativeLayout> -->
             </LinearLayout>
 
             <View
@@ -194,21 +187,67 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="15dp"
                     android:text="@string/task_excutor"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
+                <LinearLayout
+                    android:id="@+id/ly_single_excutor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:visibility="visible" >
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp" >
+
+                        <ImageView
+                            android:id="@+id/single_tasker_avator"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="15dp"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/ic_user_avtor" />
+
+                        <TextView
+                            android:id="@+id/single_tasker_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center"
+                            android:text="张飞"
+                            android:textColor="@color/edit_hint_color"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/single_tasker_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="仅自己" />
+                </LinearLayout>
+                
                 <LinearLayout
                     android:id="@+id/ly_multi_excutor"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:orientation="horizontal" >
+                    android:layout_weight="2"
+                    android:orientation="horizontal" 
+                    android:visibility="gone">
 
                     <GridView
                         android:id="@+id/gv_tasker"
@@ -221,7 +260,7 @@
                         android:scrollbars="none" />
 
                     <TextView
-                        android:id="@+id/tasker_excutor_num"
+                        android:id="@+id/pub_multasker_excutor_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
