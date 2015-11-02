@@ -16,7 +16,7 @@
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="100dp" >
+                android:layout_height="110dp" >
                 <LinearLayout 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -41,6 +41,56 @@
                         android:textColor="@color/theme_color"
                         android:text="10月20日（星期2）"/>
                 </LinearLayout>
+                <ImageView 
+                    android:id="@+id/im_tianqi"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/tianqi"/>
+                <RelativeLayout 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/im_tianqi">
+                    
+                <TextView 
+                        android:id="@+id/tv_wendu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/theme_colorhuang"
+                        android:gravity="center_horizontal"
+                    	android:layout_marginTop="5dp"
+                        android:textStyle="bold"
+                        android:text="℃13"
+                        android:textSize="30sp"/>
+                <TextView 
+                        android:id="@+id/tv_zgd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/theme_color"
+                    	android:layout_marginTop="5dp"
+                    	android:layout_below="@id/tv_wendu"
+                    	android:layout_marginLeft="10dp"
+                    	android:layout_centerHorizontal="true"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:text="L5-L15"/>
+                </RelativeLayout>
+                
+                <TextView 
+                        android:id="@+id/tv_zgd"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/theme_color"
+                    	android:layout_centerHorizontal="true"
+                    	android:layout_marginTop="75dp"
+                    	android:layout_marginLeft="45dp"
+                    	android:singleLine="true"
+                    	android:ellipsize="end"
+                    	android:text="水电费的覆盖的覆盖的凤飞飞"
+                        android:textSize="12sp"
+                        android:textStyle="bold"/>
             </RelativeLayout>
 
             <View
