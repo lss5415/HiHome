@@ -4,15 +4,29 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.format.Time;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.base.BaseApp;
+import com.zykj.hihome.data.Friend;
+import com.zykj.hihome.utils.HttpErrorHandler;
+import com.zykj.hihome.utils.HttpUtils;
+import com.zykj.hihome.utils.StringUtil;
+import com.zykj.hihome.utils.Tools;
+import com.zykj.hihome.utils.UrlContants;
 
 /**
  * @author LSS 2015年9月29日 上午8:50:02
@@ -140,5 +154,4 @@ public class B1_TiXingActivity extends BaseActivity {
 			break;
 		}
 	}
-
 }

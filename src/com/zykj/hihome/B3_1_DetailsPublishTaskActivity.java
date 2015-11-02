@@ -131,6 +131,7 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
 				JSONObject jsonObject = json.getJSONArray(UrlContants.jsonData).getJSONObject(0);
+				jsonArray = jsonObject.getJSONArray("taskerlist");
 				taskstate = jsonObject.getJSONArray("taskerlist").getJSONObject(0).getString("tasker_state");
 				state = Integer.valueOf(taskstate);
 				final String statu = state == 0 ? "未接受" : state == 1 ? "已接受"

@@ -225,12 +225,20 @@ public class HttpUtils {
 		client.post(base_url + "c=task&a=applyTask", params, res_upLoad);
 	}
 	/**
-	 * 18 更改任务状态
+	 * 18 标记好友关系
 	 * 
 	 * @param params
 	 */
 	public static void groupFriend(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
 		client.post(base_url + "c=friend&a=groupFriend", params, res_upLoad);
+	}
+	/**
+	 * 19 获取Token
+	 * 
+	 * @param params
+	 */
+	public static void getToken(AsyncHttpResponseHandler res_upLoad, String uid) {
+		client.get(base_url + "c=chat&a=getToken&uid=" + uid, res_upLoad);
 	}
 	/**
 	 * 19 匹配手机通讯录
@@ -251,6 +259,48 @@ public class HttpUtils {
 	 */
 	public static void getTaskState(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
 		client.post(base_url + "c=task&a=getTaskState", params, res_upLoad);
+	}
+	/**
+	 * 发起聊天
+	 */
+	public static void getChat(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=chat&a=postChat", params, res_upLoad);
+	}
+	/**
+	 * 创建相册
+	 */
+	public static void getAddXiangCe(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=album&a=addInfo", params, res_upLoad);
+	}
+	/**
+	 * 删除相册
+	 */
+	public static void getDelXiangCe(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=album&a=delInfo", params, res_upLoad);
+	}
+	/**
+	 * 获取相册列表
+	 */
+	public static void getXiangCeList(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=album&a=getList", params, res_upLoad);
+	}
+	/**
+	 * 获取相册详情
+	 */
+	public static void getXiangCeInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=album&a=getInfo", params, res_upLoad);
+	}
+	/**
+	 * 删除相片
+	 */
+	public static void getDelXiangPian(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=photo&a=delInfo", params, res_upLoad);
+	}
+	/**
+	 * 获取相片列表
+	 */
+	public static void getXiangPianInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=photo&a=getList", params, res_upLoad);
 	}
 	
 }
