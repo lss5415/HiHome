@@ -41,6 +41,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
+import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.CommonUtils;
 import com.zykj.hihome.utils.DateUtil;
 import com.zykj.hihome.utils.HttpErrorHandler;
@@ -85,6 +86,19 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		setContentView(R.layout.ui_b3_taskaddtask);
 
 		initView();
+		//任务详情(编辑)跳转过来
+		Task task = (Task) getIntent().getSerializableExtra("task");
+		if(task != null){
+			initializationData(task);
+		}
+	}
+
+	private void initializationData(Task task) {
+		myCommonTitle.setTitle("编辑任务");
+		ed_taskname.setText(task.getTitle());
+		ed_taskexcutor.setText("自己");
+		strId = BaseApp.getModel().getUserid();
+		ed_taskcontent.setText(task.getContent());
 	}
 
 	private void initView() {
@@ -203,7 +217,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			}else if(chongfu < 0){
 				Tools.toast(this, "请选择重复状态!");
 			}else if(StringUtil.isEmpty(address)){
-				Tools.toast(this, "结束时间不能比开始时间早!");
+				Tools.toast(this, "请选择地理位置!");
 			}else if(distance > 0){
 				Tools.toast(this, "结束时间不能比开始时间早!");
 			}else{
