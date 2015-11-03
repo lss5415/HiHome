@@ -227,7 +227,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:gravity="center"
-                            android:text="张飞"
+                            android:text=""
                             android:textColor="@color/edit_hint_color"
                             android:textSize="16sp" />
                     </LinearLayout>

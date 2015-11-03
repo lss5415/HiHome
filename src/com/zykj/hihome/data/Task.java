@@ -19,6 +19,7 @@ public class Task implements Serializable{
 	private String tip;//任务提醒0不提醒1正点2五分钟3十分钟4一小时5一天6三天
 	private String repeat;//任务重复0不重复1每天2每周3每月4每年
 	private String state;//任务状态
+	private String sid;//任务状态ID
 	private String addtime;//任务添加时间
 	private String tasker;//任务执行人数
 	private String nick;  //任务发布者姓名
@@ -39,7 +40,12 @@ public class Task implements Serializable{
 	}
 	public Task(){
 		
-		
+	}
+	public String getSid() {
+		return sid;
+	}
+	public void setSid(String sid) {
+		this.sid = sid;
 	}
 	public String getImgsrc() {
 		return imgsrc;

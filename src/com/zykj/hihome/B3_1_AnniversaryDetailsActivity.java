@@ -41,7 +41,7 @@ public class B3_1_AnniversaryDetailsActivity extends BaseActivity {
 	private void initView() {
 
 		myCommonTitle = (MyCommonTitle) findViewById(R.id.aci_mytitle);
-		myCommonTitle.setTitle("纪念日详情");
+		myCommonTitle.setTitle(task.getTitle());
 
 		img_anni_avator = (CircularImage) findViewById(R.id.img_anni_avator);
 		anniversary_title = (TextView) findViewById(R.id.anniversary_title);
@@ -54,7 +54,9 @@ public class B3_1_AnniversaryDetailsActivity extends BaseActivity {
 		// initializationDate();
 		requestData();// 给详情传值
 	}
-
+/**
+ * 请求服务器数据
+ */
 	private void requestData() {
 		RequestParams params=new RequestParams();
 		
@@ -64,7 +66,7 @@ public class B3_1_AnniversaryDetailsActivity extends BaseActivity {
 			public void onRecevieSuccess(JSONObject json) {
 				JSONObject jsonObject=json.getJSONArray("datas").getJSONObject(0);
 				anniversary_title.setText(jsonObject.getString("title"));
-				anniversary_date.setText(jsonObject.getString("mdate"));
+				anniversary_date.setText(jsonObject.getString("mdate").substring(0,11));
 				anniversary_content.setText(jsonObject.getString("content"));
 				ImageLoader.getInstance().displayImage(
 						StringUtil.toString(HttpUtils.IMAGE_URL + task.getImgsrc(),
