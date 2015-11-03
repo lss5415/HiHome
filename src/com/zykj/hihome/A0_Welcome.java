@@ -4,9 +4,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.location.LocationManagerProxy;
+import com.amap.api.location.LocationProviderProxy;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
@@ -21,6 +27,10 @@ public class A0_Welcome extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initView(R.layout.ui_a0_welcome);
+		
+		mLocationManger=LocationManagerProxy.getInstance(this);
+		//进行一次定位
+		mLocationManger.requestLocationData(LocationProviderProxy.AMapNetwork, -1, 15, mLocationListener);
 		
 		checkLogin();
 		Timer timer = new Timer();
@@ -85,4 +95,33 @@ public class A0_Welcome extends BaseActivity {
 			}
 		}, params);
 	}	
+	
+	//定位
+	private LocationManagerProxy mLocationManger;
+	private AMapLocationListener mLocationListener=new AMapLocationListener() {
+		
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {}
+		
+		@Override
+		public void onProviderEnabled(String provider) {}
+		
+		@Override
+		public void onProviderDisabled(String provider) {}
+		
+		@Override
+		public void onLocationChanged(Location location) {}
+		
+		@Override
+		public void onLocationChanged(AMapLocation location) {
+			Tools.CURRENTCITY = location.getCity().replace("市", "").replace("区", "");
+			if (location != null && location.getAMapException().getErrorCode() == 0) {
+				BaseApp.getModel().setLatitude(location.getLatitude()+"");
+				BaseApp.getModel().setLongitude(location.getLongitude()+"");
+				Tools.toast(A0_Welcome.this, "城市="+location.getCity()+"lat="+location.getLatitude()+"long="+location.getLongitude());
+			}else{
+				Tools.toast(A0_Welcome.this, "定位出现异常");
+			}
+		}
+	};
 }

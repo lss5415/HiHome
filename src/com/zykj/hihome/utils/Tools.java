@@ -33,6 +33,8 @@ public class Tools {
 	public static int M_SCREEN_WIDTH;
 
 	public static int M_SCREEN_HEIGHT;
+	
+	public static String CURRENTCITY="";
 
 
 	/**

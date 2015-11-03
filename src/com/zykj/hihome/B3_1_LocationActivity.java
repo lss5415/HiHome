@@ -22,6 +22,7 @@ import com.amap.api.services.geocoder.GeocodeSearch.OnGeocodeSearchListener;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.MyCommonTitle;
 
@@ -45,7 +46,9 @@ public class B3_1_LocationActivity extends BaseActivity implements OnGeocodeSear
 		initView(R.layout.ui_b3_1_location);
 		mapView = (MapView) findViewById(R.id.map);
 		mapView.onCreate(savedInstanceState);// 此方法必须重写
-		latLonPoint = new LatLonPoint(35.063112, 118.344225);
+		float latitude = Float.valueOf(BaseApp.getModel().getLatitude());
+		float longitude = Float.valueOf(BaseApp.getModel().getLongitude());
+		latLonPoint = new LatLonPoint(latitude, longitude);
 		
 		initView();
 	}
