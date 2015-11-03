@@ -312,5 +312,12 @@ public class HttpUtils {
 	public static void getXiangPianInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
 		client.post(base_url + "c=photo&a=getList", params, res_upLoad);
 	}
+	/**
+	 * 获取天气
+	 */
+	public static void getWeatherInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.addHeader("apikey", "98381cf1c5996fa7c49c25bcac69a83c");
+		client.post("http://apis.baidu.com/heweather/weather/free", params, res_upLoad);
+	}
 	
 }

@@ -41,7 +41,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
-import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.CommonUtils;
 import com.zykj.hihome.utils.DateUtil;
 import com.zykj.hihome.utils.HttpErrorHandler;
@@ -65,17 +64,16 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	private TextView tv_starttime, tv_finishtime;
 	private File file;
 	private String timeString;// 上传头像的字段
-	private String title, content, starttime, endtime, strId;
-	private Task task;
+	private String title, content, starttime, endtime, strId, address, lat, lng;
+
 	private List<File> files = new ArrayList<File>();
 	private List<Bitmap> images = new ArrayList<Bitmap>();
 	private CommonAdapter<Bitmap> imgAdapter;
 	private CommonAdapter<String> btnAdapter;
-	private List<String> taskType = new ArrayList<String>();
-	private int[] imgResource = new int[] { R.drawable.ic_clock,
-			R.drawable.ic_repeat, R.drawable.ic_dingwei };
+	private List<String> taskType=new ArrayList<String>();
+	private int[] imgResource = new int[]{R.drawable.ic_clock,R.drawable.ic_repeat,R.drawable.ic_dingwei};
 	private boolean[] flags = new boolean[3];
-	private int tixing = -1, chongfu = -1, isday, index;;
+	private int tixing = -1,chongfu = -1,isday,index;;
 	private RequestParams params;
 
 	// uid必须，用户ID编号title必须，任务名称content必须，任务内容isday必须，是否是全天任务start必须，任务开始时间
@@ -85,31 +83,27 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ui_b3_taskaddtask);
-		task = (Task) getIntent().getSerializableExtra("task");
+
 		initView();
 	}
 
 	private void initView() {
-	
 		myCommonTitle = (MyCommonTitle) findViewById(R.id.aci_mytitle);
 		myCommonTitle.setLisener(this, null);
 		myCommonTitle.setTitle("创建任务");
 		myCommonTitle.setEditTitle("完成");
-	
+
 		ed_taskname = (EditText) findViewById(R.id.input_taskname);// 任务名称
 		ed_taskexcutor = (TextView) findViewById(R.id.input_taskexcutor);// 任务执行人
 		img_read_contacts = (ImageView) findViewById(R.id.img_read_contacts);// 读取联系人
 		ed_taskcontent = (EditText) findViewById(R.id.input_taskcontent);// 任务内容
 		img_photo = (GridView) findViewById(R.id.img_photo);// 读取相册
 		img_photo.setSelector(new ColorDrawable(Color.TRANSPARENT));
-		images.add(BitmapFactory.decodeResource(getResources(),
-				R.drawable.ic_task_imgview));
-		imgAdapter = new CommonAdapter<Bitmap>(this, R.layout.ui_b3_item_image,
-				images) {
+		images.add(BitmapFactory.decodeResource(getResources(), R.drawable.ic_task_imgview));
+		imgAdapter = new CommonAdapter<Bitmap>(this, R.layout.ui_b3_item_image, images) {
 			@Override
 			public void convert(ViewHolder holder, Bitmap bitmap) {
-				LayoutParams pageParms = holder.getView(R.id.assess_image)
-						.getLayoutParams();
+				LayoutParams pageParms = holder.getView(R.id.assess_image).getLayoutParams();
 				pageParms.width = (Tools.M_SCREEN_WIDTH - 40) / 10;
 				pageParms.height = (Tools.M_SCREEN_WIDTH - 40) / 10;
 				holder.setImageView(R.id.assess_image, bitmap);
@@ -127,27 +121,23 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		taskType.add("提醒");
 		taskType.add("重复");
 		taskType.add("位置");
-		btnAdapter = new CommonAdapter<String>(this,
-				R.layout.ui_b3_addtask_check, taskType) {
+		btnAdapter = new CommonAdapter<String>(this, R.layout.ui_b3_addtask_check, taskType) {
 			@Override
 			public void convert(ViewHolder holder, String type) {
 				RelativeLayout mLayout = holder.getView(R.id.check_relative);
 				TextView mTextView = holder.getView(R.id.check_item);
-				if (Tools.M_SCREEN_WIDTH < 800) {
+				if(Tools.M_SCREEN_WIDTH < 800){
 					LayoutParams checkboxParms = mLayout.getLayoutParams();
 					checkboxParms.width = Tools.M_SCREEN_WIDTH * 2 / 9;
 					checkboxParms.height = Tools.M_SCREEN_WIDTH * 2 / 9;
 				}
 				mTextView.setText(type);
-				Drawable topDrawable = getResources().getDrawable(
-						imgResource[holder.getPosition()]);
-				topDrawable.setBounds(0, 0, topDrawable.getMinimumWidth(),
-						topDrawable.getMinimumHeight());
-				if (!flags[holder.getPosition()]) {
-					mTextView.setCompoundDrawables(null, topDrawable, null,
-							null);
-				} else {
-					mTextView.setCompoundDrawables(null, null, null, null);
+				Drawable topDrawable = getResources().getDrawable(imgResource[holder.getPosition()]);
+				topDrawable.setBounds(0, 0, topDrawable.getMinimumWidth(), topDrawable.getMinimumHeight());
+				if(!flags[holder.getPosition()]){
+		            mTextView.setCompoundDrawables(null, topDrawable, null, null);
+				}else{
+		            mTextView.setCompoundDrawables(null, null, null, null);
 				}
 			}
 		};
@@ -158,20 +148,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		String time = DateUtil.dateToString(new Date(), "yyyy-MM-dd HH:mm");
 		tv_starttime.setText(time);
 		tv_finishtime.setText(time);
-		setListener(img_read_contacts, ed_taskexcutor, layout_starttime,
-				layout_finishtime);
-	
-	
-		if(task!=null){
-			myCommonTitle.setTitle(task.getTitle());
-			ed_taskname.setText(task.getTitle());
-			ed_taskexcutor.setText(BaseApp.getModel().getNick());
-			ed_taskcontent.setText(task.getContent());
-			tv_starttime.setText(task.getStart());
-			tv_finishtime.setText(task.getEnd());
-			
-			
-		}
+		setListener(img_read_contacts, ed_taskexcutor, layout_starttime, layout_finishtime);
 	}
 
 	@Override
@@ -179,32 +156,24 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		super.onClick(view);
 		switch (view.getId()) {
 		case R.id.img_read_contacts:// 执行人，读取通讯录
-			startActivityForResult(new Intent(this,
-					B3_1_SelectExecutorActivity.class), 20);
+			startActivityForResult(new Intent(this, B3_1_SelectExecutorActivity.class), 20);
 			break;
 		case R.id.input_taskexcutor:// 执行人，读取通讯录
-			startActivityForResult(new Intent(this,
-					B3_1_SelectExecutorActivity.class), 20);
+			startActivityForResult(new Intent(this, B3_1_SelectExecutorActivity.class), 20);
 			break;
 		case R.id.layout_starttime:// 开始时间
 			View startView = CommonUtils.showDateTimePicker(this, tv_starttime);
-			startView.findViewById(R.id.hour).setVisibility(
-					isday == 0 ? View.VISIBLE : View.GONE);
-			startView.findViewById(R.id.mins).setVisibility(
-					isday == 0 ? View.VISIBLE : View.GONE);
-			// DateTimePickDialogUtil dateTimePicKDialog = new
-			// DateTimePickDialogUtil(this, null);
-			// dateTimePicKDialog.dateTimePicKDialog(tv_starttime);
+			startView.findViewById(R.id.hour).setVisibility(isday == 0?View.VISIBLE:View.GONE);
+			startView.findViewById(R.id.mins).setVisibility(isday == 0?View.VISIBLE:View.GONE);
+//			DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(this, null);
+//			dateTimePicKDialog.dateTimePicKDialog(tv_starttime);
 			break;
 		case R.id.layout_finishtime:// 结束时间
 			View endView = CommonUtils.showDateTimePicker(this, tv_finishtime);
-			endView.findViewById(R.id.hour).setVisibility(
-					isday == 0 ? View.VISIBLE : View.GONE);
-			endView.findViewById(R.id.mins).setVisibility(
-					isday == 0 ? View.VISIBLE : View.GONE);
-			// DateTimePickDialogUtil dateTimePicKDialog2 = new
-			// DateTimePickDialogUtil(this, null);
-			// dateTimePicKDialog2.dateTimePicKDialog(tv_finishtime);
+			endView.findViewById(R.id.hour).setVisibility(isday == 0?View.VISIBLE:View.GONE);
+			endView.findViewById(R.id.mins).setVisibility(isday == 0?View.VISIBLE:View.GONE);
+//			DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(this, null);
+//			dateTimePicKDialog2.dateTimePicKDialog(tv_finishtime);
 			break;
 		case R.id.aci_edit_btn:// 创建任务
 			title = ed_taskname.getText().toString().trim();// 任务名称
@@ -215,48 +184,51 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			endtime = tv_finishtime.getText().toString().trim();
 			long distance = 0;
 			try {
-				long startTime = DateUtil.stringToLong(starttime,
-						isday == 0 ? "yyyy-MM-dd HH:mm" : "yyyy-MM-dd");
-				long endTime = DateUtil.stringToLong(endtime,
-						isday == 0 ? "yyyy-MM-dd HH:mm" : "yyyy-MM-dd");
+				long startTime = DateUtil.stringToLong(starttime, isday == 0?"yyyy-MM-dd HH:mm":"yyyy-MM-dd");
+				long endTime = DateUtil.stringToLong(endtime, isday == 0?"yyyy-MM-dd HH:mm":"yyyy-MM-dd");
 				distance = startTime - endTime;
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
-			if (StringUtil.isEmpty(title)) {
+			if(StringUtil.isEmpty(title)){
 				Tools.toast(this, "任务名字不能为空!");
-			} else if (StringUtil.isEmpty(strId)) {
+			}else if(StringUtil.isEmpty(strId)){
 				Tools.toast(this, "至少选择一个执行人!");
-			} else if (StringUtil.isEmpty(strId)) {
+			}else if(StringUtil.isEmpty(strId)){
 				Tools.toast(this, "任务内容不能为空!");
-			} else if (StringUtil.isEmpty(strId)) {
+			}else if(StringUtil.isEmpty(strId)){
 				Tools.toast(this, "至少选择一个执行人!");
-			} else if (tixing < 0) {
+			}else if(tixing < 0){
 				Tools.toast(this, "请选择提醒状态!");
-			} else if (chongfu < 0) {
+			}else if(chongfu < 0){
 				Tools.toast(this, "请选择重复状态!");
-			} else if (distance > 0) {
+			}else if(StringUtil.isEmpty(address)){
 				Tools.toast(this, "结束时间不能比开始时间早!");
-			} else {
+			}else if(distance > 0){
+				Tools.toast(this, "结束时间不能比开始时间早!");
+			}else{
 				MyRequestDailog.showDialog(this, "");
 				params = new RequestParams();
-				params.put("uid", BaseApp.getModel().getUserid());// 用户Id
-				params.put("title", title);// 任务名称
-				params.put("content", content);// 任务内容
-				params.put("isday", isday);// 是否是全天任务 0不是 1是
-				params.put("start", starttime);// 任务开始时间
-				params.put("end", endtime);// 任务结束时间
-				params.put("tip", tixing);// 提醒
-				params.put("repeat", chongfu);// 重复
-				params.put("tasker", strId);// 任务执行人
+				params.put("uid", BaseApp.getModel().getUserid());//用户Id
+				params.put("title", title);//任务名称
+				params.put("content", content);//任务内容
+				params.put("isday", isday);//是否是全天任务 0不是 1是
+				params.put("start", starttime);//任务开始时间
+				params.put("end", endtime);//任务结束时间
+				params.put("tip", tixing);//提醒
+				params.put("repeat", chongfu);//重复
+				params.put("tasker", strId);//任务执行人
+				params.put("lat", lat);//经度
+				params.put("lng", lng);//纬度
+				params.put("address", address);//地址
 				index = 0;
-				if (files.size() < 1) {
+				if(files.size() < 1){
 					submitTask();
-				} else {
+				}else{
 					try {
 						RequestParams paramsImgage = new RequestParams();
 						paramsImgage.put("imgsrc[]", files.get(index));
-						HttpUtils.upLoad(res_upLoad, paramsImgage);// 上传图片
+						HttpUtils.upLoad(res_upLoad, paramsImgage);//上传图片
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					}
@@ -293,19 +265,18 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			break;
 		}
 	}
-
+	
 	private AsyncHttpResponseHandler res_upLoad = new HttpErrorHandler() {
 		@Override
 		public void onRecevieSuccess(JSONObject json) {
 			try {
-				String imgsrc = json.getJSONArray(UrlContants.jsonData)
-						.getJSONObject(0).getString("imgsrc");
-				params.put("imgsrc" + (++index), imgsrc);// 任务执行人
-				if (index < files.size()) {
+				String imgsrc = json.getJSONArray(UrlContants.jsonData).getJSONObject(0).getString("imgsrc");
+				params.put("imgsrc"+(++index), imgsrc);//任务执行人
+				if(index < files.size()){
 					RequestParams paramsImgage = new RequestParams();
 					paramsImgage.put("imgsrc[]", files.get(index));
 					HttpUtils.upLoad(res_upLoad, paramsImgage);
-				} else {
+				}else{
 					submitTask();
 				}
 			} catch (FileNotFoundException e) {
@@ -360,10 +331,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			/* 设置提醒 */
 			if (data != null) {
 				tixing = data.getIntExtra("position", 0);
-				taskType.set(0, tixing == 0 ? "正点" : tixing == 1 ? "五分钟前"
-						: tixing == 2 ? "十分钟前" : tixing == 3 ? "一小时之前"
-								: tixing == 4 ? "一天前" : tixing == 5 ? "三天前"
-										: "不提醒");
+				taskType.set(0, tixing==0?"正点":tixing==1?"五分钟前":tixing==2?"十分钟前":tixing==3?"一小时之前":tixing==4?"一天前":tixing==5?"三天前":"不提醒");
 				flags[0] = true;
 				btnAdapter.notifyDataSetChanged();
 			}
@@ -372,10 +340,18 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			/* 设置重复 */
 			if (data != null) {
 				chongfu = data.getIntExtra("position", 0);
-				taskType.set(1, chongfu == 0 ? "不重复" : chongfu == 1 ? "每天"
-						: chongfu == 2 ? "每周" : chongfu == 3 ? "每月" : "每年");
+				taskType.set(1, chongfu==0?"不重复":chongfu==1?"每天":chongfu==2?"每周":chongfu==3?"每月":"每年");
 				flags[1] = true;
 				btnAdapter.notifyDataSetChanged();
+			}
+			break;
+		case 23:
+			/* 设置位置 */
+			if (data != null) {
+				//address, lat, lng
+				lat = data.getStringExtra("latitude");//经度
+				lng = data.getStringExtra("longitude");//纬度
+				address = data.getStringExtra("address");//地址
 			}
 			break;
 		default:
@@ -385,8 +361,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	}
 
 	public void createSDCardDir() {
-		if (Environment.MEDIA_MOUNTED.equals(Environment
-				.getExternalStorageState())) {
+		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
 			// 创建一个文件夹对象，赋值为外部存储器的目录
 			File sdcardDir = Environment.getExternalStorageDirectory();
 			// 得到一个路径，内容是sdcard的文件夹路径和名字
@@ -467,7 +442,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		// Tools.toast(B3_TaskAddTaskTaskActivity.this, "请先设置起始时间");
+		//Tools.toast(B3_TaskAddTaskTaskActivity.this, "请先设置起始时间");
 		String time1 = StringUtil.toString(tv_starttime.getText());
 		String time2 = StringUtil.toString(tv_finishtime.getText());
 		if (isChecked) {
@@ -478,20 +453,18 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			tv_finishtime.setTag(time2);
 		} else {
 			isday = 0;
-			tv_starttime.setText((String) tv_starttime.getTag());
-			tv_finishtime.setText((String) tv_finishtime.getTag());
+			tv_starttime.setText((String)tv_starttime.getTag());
+			tv_finishtime.setText((String)tv_finishtime.getTag());
 		}
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View convertView,
-			int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View convertView, int position, long id) {
 		switch (parent.getId()) {
 		case R.id.img_photo:
 			if (position == 0) {
 				if (files.size() < 3) {
-					UIDialog.ForThreeBtn(this, new String[] { "拍照", "从相册中选取",
-							"取消" }, this);
+					UIDialog.ForThreeBtn(this, new String[] { "拍照", "从相册中选取", "取消" }, this);
 				} else {
 					Tools.toast(this, "最多上传三张图片");
 				}
@@ -499,17 +472,14 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			break;
 		case R.id.button_fridview:
 			if (position == 0) {
-				/* 设置提醒 */
-				startActivityForResult(new Intent(this,
-						B3_1_TiXingActivity.class).putExtra("position",
-						tixing < 0 ? 0 : tixing), 21);
-			} else if (position == 1) {
-				/* 设置重复 */
-				startActivityForResult(new Intent(this,
-						B3_1_RepeatActivity.class).putExtra("position",
-						chongfu < 0 ? 0 : chongfu), 22);
-			} else {
-				/* 设置位置 */
+				/*设置提醒*/
+				startActivityForResult(new Intent(this, B3_1_TiXingActivity.class).putExtra("position", tixing<0?0:tixing),21);
+			}else if(position == 1){
+				/*设置重复*/
+				startActivityForResult(new Intent(this, B3_1_RepeatActivity.class).putExtra("position", chongfu<0?0:chongfu),22);
+			}else{
+				/*设置位置*/
+				startActivityForResult(new Intent(this, B3_1_LocationActivity.class), 23);
 			}
 			break;
 		default:
