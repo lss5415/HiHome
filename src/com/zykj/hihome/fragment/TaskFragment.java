@@ -167,11 +167,10 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 		} else if (mType == 3) {
 			params = new RequestParams();
 			params.put("uid", BaseApp.getModel().getUserid());
-//			params.put("nowpage", nowpage);
-//			params.put("perpage", PERPAGE);
+			params.put("nowpage", nowpage);
+			params.put("perpage", PERPAGE);
 			HttpUtils.getPublishTaskList(res_getPublishTaskList, params);// 获取我发布的任务列表
 		}
-
 	}
 
 	/**
@@ -205,9 +204,9 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 
 		@Override
 		public void onReadSuccess(List<Task> list) {
-//			if (nowpage == 1) {
-//				 tasks.clear();
-//			}
+			if (mType == 2) {
+				 tasks.clear();
+			}
 			tasks.addAll(list);
 			adapter.notifyDataSetChanged();
 		}
