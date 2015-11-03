@@ -64,7 +64,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	private TextView tv_starttime, tv_finishtime;
 	private File file;
 	private String timeString;// 上传头像的字段
-	private String title, content, starttime, endtime, strId;
+	private String title, content, starttime, endtime, strId, address, lat, lng;
 
 	private List<File> files = new ArrayList<File>();
 	private List<Bitmap> images = new ArrayList<Bitmap>();
@@ -202,6 +202,8 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 				Tools.toast(this, "请选择提醒状态!");
 			}else if(chongfu < 0){
 				Tools.toast(this, "请选择重复状态!");
+			}else if(StringUtil.isEmpty(address)){
+				Tools.toast(this, "结束时间不能比开始时间早!");
 			}else if(distance > 0){
 				Tools.toast(this, "结束时间不能比开始时间早!");
 			}else{
@@ -216,6 +218,9 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 				params.put("tip", tixing);//提醒
 				params.put("repeat", chongfu);//重复
 				params.put("tasker", strId);//任务执行人
+				params.put("lat", lat);//经度
+				params.put("lng", lng);//纬度
+				params.put("address", address);//地址
 				index = 0;
 				if(files.size() < 1){
 					submitTask();
@@ -338,6 +343,15 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 				taskType.set(1, chongfu==0?"不重复":chongfu==1?"每天":chongfu==2?"每周":chongfu==3?"每月":"每年");
 				flags[1] = true;
 				btnAdapter.notifyDataSetChanged();
+			}
+			break;
+		case 23:
+			/* 设置位置 */
+			if (data != null) {
+				//address, lat, lng
+				lat = data.getStringExtra("latitude");//经度
+				lng = data.getStringExtra("longitude");//纬度
+				address = data.getStringExtra("address");//地址
 			}
 			break;
 		default:
@@ -465,6 +479,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 				startActivityForResult(new Intent(this, B3_1_RepeatActivity.class).putExtra("position", chongfu<0?0:chongfu),22);
 			}else{
 				/*设置位置*/
+				startActivityForResult(new Intent(this, B3_1_LocationActivity.class), 23);
 			}
 			break;
 		default:
