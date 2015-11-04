@@ -161,6 +161,7 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 						: state == 2 ? "待执行" : state == 3 ? "已执行"
 								: state == 4 ? "已完成" : "已取消";
 				single_tasker_state.setText(statu);
+				stateAndButtonChange();//很据任务状态显示Button功能
 			}
 		}, params);
 
