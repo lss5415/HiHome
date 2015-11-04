@@ -39,8 +39,10 @@ import android.widget.ToggleButton;
 import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
+import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.CommonUtils;
 import com.zykj.hihome.utils.DateUtil;
 import com.zykj.hihome.utils.HttpErrorHandler;
@@ -85,8 +87,55 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		setContentView(R.layout.ui_b3_taskaddtask);
 
 		initView();
+		//任务详情(编辑)跳转过来
+		Task task = (Task) getIntent().getSerializableExtra("task");
+		if(task != null){
+			initializationData(task);
+		}
 	}
 
+	/**
+	 * 编辑任务
+	 * @param task 任务详情
+	 */
+	private void initializationData(Task task) {
+		myCommonTitle.setTitle("编辑任务");
+		ed_taskname.setText(task.getTitle());
+		ed_taskexcutor.setText("自己");
+		strId = BaseApp.getModel().getUserid();
+		ed_taskcontent.setText(task.getContent());
+		if(!StringUtil.isEmpty(task.getImgsrc1())){
+			images.add(ImageLoader.getInstance().loadImageSync(HttpUtils.IMAGE_URL+task.getImgsrc1()));
+		}
+		if(!StringUtil.isEmpty(task.getImgsrc2())){
+			images.add(ImageLoader.getInstance().loadImageSync(HttpUtils.IMAGE_URL+task.getImgsrc2()));
+		}
+		if(!StringUtil.isEmpty(task.getImgsrc3())){
+			images.add(ImageLoader.getInstance().loadImageSync(HttpUtils.IMAGE_URL+task.getImgsrc3()));
+		}
+		imgAdapter.notifyDataSetChanged();
+		tv_starttime.setText(task.getStart());
+		tv_finishtime.setText(task.getEnd());
+		if("1".equals(task.getIsday())){
+			toggleButton.setSelected(true);
+		}
+		tixing = Integer.valueOf(task.getTip());
+		taskType.set(0, tixing==0?"正点":tixing==1?"五分钟前":tixing==2?"十分钟前":tixing==3?"一小时之前":tixing==4?"一天前":tixing==5?"三天前":"不提醒");
+		flags[0] = true;
+		chongfu = Integer.valueOf(task.getRepeat());
+		taskType.set(1, chongfu==0?"不重复":chongfu==1?"每天":chongfu==2?"每周":chongfu==3?"每月":"每年");
+		flags[1] = true;
+		lat = task.getLat();//纬度
+		lng = task.getLng();//经度
+		address = task.getAddress();//地址
+		taskType.set(2, address.length()>3?address.substring(0, 3)+"...":"无地址");
+		flags[2] = true;
+		btnAdapter.notifyDataSetChanged();
+	}
+
+	/**
+	 * 加载任务
+	 */
 	private void initView() {
 		myCommonTitle = (MyCommonTitle) findViewById(R.id.aci_mytitle);
 		myCommonTitle.setLisener(this, null);
@@ -116,7 +165,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		tv_starttime = (TextView) findViewById(R.id.input_task_starttime);// 设置开始时间
 		layout_finishtime = (LinearLayout) findViewById(R.id.layout_finishtime);// 设置结束时间
 		tv_finishtime = (TextView) findViewById(R.id.input_task_finishtime);// 设置结束时间
-		button_fridview = (GridView) findViewById(R.id.button_fridview);// 读取相册
+		button_fridview = (GridView) findViewById(R.id.button_fridview);// 提醒、重复、位置按钮
 		button_fridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		taskType.add("提醒");
 		taskType.add("重复");
@@ -203,7 +252,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			}else if(chongfu < 0){
 				Tools.toast(this, "请选择重复状态!");
 			}else if(StringUtil.isEmpty(address)){
-				Tools.toast(this, "结束时间不能比开始时间早!");
+				Tools.toast(this, "请选择地理位置!");
 			}else if(distance > 0){
 				Tools.toast(this, "结束时间不能比开始时间早!");
 			}else{
@@ -266,6 +315,9 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		}
 	}
 	
+	/**
+	 * 上传图片接口
+	 */
 	private AsyncHttpResponseHandler res_upLoad = new HttpErrorHandler() {
 		@Override
 		public void onRecevieSuccess(JSONObject json) {
@@ -285,17 +337,23 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		}
 	};
 
+	/**
+	 * 添加任务接口
+	 */
 	private void submitTask() {
 		HttpUtils.addTask(new HttpErrorHandler() {
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
 				MyRequestDailog.closeDialog();
-				Tools.toast(B3_TaskAddTaskTaskActivity.this, "任务添加成功!");
+				Tools.toast(B3_TaskAddTaskTaskActivity.this, myCommonTitle.getTitle().getText()+"成功!");
 				finish();
 			}
 		}, params);
 	}
 
+	/**
+	 * 编辑Result信息
+	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
@@ -352,6 +410,9 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 				lat = data.getStringExtra("latitude");//经度
 				lng = data.getStringExtra("longitude");//纬度
 				address = data.getStringExtra("address");//地址
+				taskType.set(2, address.length()>3?address.substring(0, 3)+"...":"无地址");
+				flags[2] = true;
+				btnAdapter.notifyDataSetChanged();
 			}
 			break;
 		default:
@@ -458,6 +519,9 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 底部按钮点击事件
+	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View convertView, int position, long id) {
 		switch (parent.getId()) {

@@ -3,6 +3,7 @@ package com.zykj.hihome;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.provider.SyncStateContract.Constants;
 import android.view.View;
 
 import com.amap.api.maps2d.AMap;
@@ -23,6 +24,7 @@ import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
+import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.MyCommonTitle;
 
@@ -46,8 +48,10 @@ public class B3_1_LocationActivity extends BaseActivity implements OnGeocodeSear
 		initView(R.layout.ui_b3_1_location);
 		mapView = (MapView) findViewById(R.id.map);
 		mapView.onCreate(savedInstanceState);// 此方法必须重写
-		float latitude = Float.valueOf(BaseApp.getModel().getLatitude());
-		float longitude = Float.valueOf(BaseApp.getModel().getLongitude());
+		//new LatLng(35.063112, 118.344225);// 临沂市经纬度
+		//new LatLng(39.90403, 116.407525);// 北京市经纬度
+		float latitude = Float.valueOf(StringUtil.toString(BaseApp.getModel().getLatitude(), "35.063112"));
+		float longitude = Float.valueOf(StringUtil.toString(BaseApp.getModel().getLongitude(), "118.344225"));
 		latLonPoint = new LatLonPoint(latitude, longitude);
 		
 		initView();
