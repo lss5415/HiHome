@@ -209,7 +209,17 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 							StringUtil.toString(HttpUtils.IMAGE_URL
 									+ task.getImgsrc3()), task_pic3);
 				}
-
+				//获得任务的提醒和重复
+				String tip1 = jsonObject.getString("tip");
+				String repeat1 = jsonObject.getString("repeat");
+				int tip = Integer.parseInt(tip1);
+				int repeat = Integer.parseInt(repeat1);
+				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "五分钟前"
+						: tip == 2 ? "十分钟前" : tip == 3 ? "一小时前"
+								: tip == 4 ? "一天前" : "三天前");
+				taskType.set(1, repeat == 0 ? "不重复" : repeat == 1 ? "每天"
+						: repeat == 2 ? "每周" : "每年");
+				btnAdapter.notifyDataSetChanged();
 			}
 
 		}, params);

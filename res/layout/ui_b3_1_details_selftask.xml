@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:background="@drawable/bg_null_white"
-                        android:text="执行中"
+                        android:text=""
                         android:textColor="@color/theme_color"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -67,7 +67,7 @@
                         android:gravity="center"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="已完成"
+                        android:text=""
                         android:textColor="@color/white" />
 
                     <Button
@@ -80,7 +80,7 @@
                         android:background="@drawable/bg_null_orange"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="删除任务"
+                        android:text=""
                         android:textColor="@color/theme_color" />
                 </RelativeLayout>
             </LinearLayout>
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@drawable/bg_null_white"
-                    android:text="下载hihomeapp"
+                    android:text=""
                     android:textColor="@color/edit_hint_color"
                     android:textSize="16sp" />
             </LinearLayout>

@@ -40,9 +40,10 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 	private CommonAdapter<String> btnAdapter;
 	private List<String> taskType = new ArrayList<String>();
 	private int[] imgResource = new int[] { R.drawable.ic_clock,
-			R.drawable.ic_repeat, R.drawable.ic_dingwei };
+			R.drawable.ic_repeat, R.drawable.ic_dingwei};
 	private boolean[] flags = new boolean[3];
 	private int state = 0;
+	private RequestParams params;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +66,9 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 		task_img3 = (ImageView) findViewById(R.id.task_pic_3);
 		// 任务的Button
 		leftButton = (Button) findViewById(R.id.btn_leftButton);
-		leftButton.setText("接受任务");
+//		leftButton.setText("接受任务");
 		rightButton = (Button) findViewById(R.id.btn_rightButton);
+		
 		setListener(leftButton, rightButton);
 		// 任务的信息
 		task_state = (TextView) findViewById(R.id.details_selftask_state);// 任务状态
@@ -115,9 +117,31 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 	 * 请求服务器数据
 	 */
 	private void requstData() {
-		RequestParams params = new RequestParams();
-		params.put("id", task.getId());
 
+		params = new RequestParams();
+		params.put("id", task.getId());
+		/**
+		 * 获取任务执行状态
+		 */
+		HttpUtils.getTaskState(new HttpErrorHandler() {
+
+			@Override
+			public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
+				JSONObject jsonObject = json.getJSONArray(UrlContants.jsonData)
+						.getJSONArray(0).getJSONObject(0);
+				String taskstate = jsonObject.getString("state");
+
+				state = Integer.valueOf(taskstate);
+				final String statu = state == 0 ? "未接受" : state == 1 ? "已接受"
+						: state == 2 ? "待执行" : state == 3 ? "已执行"
+								: state == 4 ? "已完成" : "已取消";
+				task_state.setText(statu);
+				stateAndButtonChange();
+			}
+		}, params);
+		/**
+		 * 获取任务其他详情
+		 */
 		HttpUtils.getTasksInfo(new HttpErrorHandler() {
 
 			@Override
@@ -160,24 +184,16 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 				String repeat1 = jsonObject.getString("repeat");
 				int tip = Integer.parseInt(tip1);
 				int repeat = Integer.parseInt(repeat1);
-				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "五分钟前": tip == 2 ? "十分钟前" : tip == 3 ? "一小时前": tip == 4 ? "一天前" : "三天前");
-				taskType.set(1, repeat==0?"不重复":repeat==1?"每天":repeat==2?"每周":"每年");
+				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "五分钟前"
+						: tip == 2 ? "十分钟前" : tip == 3 ? "一小时前"
+								: tip == 4 ? "一天前" : "三天前");
+				taskType.set(1, repeat == 0 ? "不重复" : repeat == 1 ? "每天"
+						: repeat == 2 ? "每周" : "每年");
 				btnAdapter.notifyDataSetChanged();
 			}
 		}, params);
 	}
 
-	// private void initializationDate() {
-	// int state = Integer.valueOf(task.getState());
-	// task_state.setText(state == 0 ? "未接受" : state == 1 ? "已接受"
-	// : state == 2 ? "待执行" : state == 3 ? "已执行" : state == 4 ? "已完成"
-	// : "已取消");
-	// task_name.setText(task.getTitle());
-	// task_excutor.setText("自己");
-	// task_content.setText(task.getContent());
-	// task_starttime.setText(task.getStart());
-	// task_finishtime.setText(task.getEnd());
-	// }
 	@Override
 	public void onClick(View view) {
 		super.onClick(view);

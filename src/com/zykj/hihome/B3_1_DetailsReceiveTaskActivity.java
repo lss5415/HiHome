@@ -161,6 +161,7 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 						: state == 2 ? "待执行" : state == 3 ? "已执行"
 								: state == 4 ? "已完成" : "已取消";
 				single_tasker_state.setText(statu);
+				stateAndButtonChange();//很据任务状态显示Button功能
 			}
 		}, params);
 
@@ -169,13 +170,13 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 			@Override
 			public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
 				JSONObject jsonObject = json.getJSONArray(UrlContants.jsonData).getJSONObject(0);
-				JSONArray tasker_list = jsonObject.getJSONArray("taskerlist");
+				tasker_list = jsonObject.getJSONArray("taskerlist");
 				//发布人信息
 				task_publisher_name.setText(jsonObject.getString("nick"));
 				ImageLoader.getInstance().displayImage(StringUtil.toString(
 								HttpUtils.IMAGE_URL + task.getAvatar(),
 								"http://"), task_publisher_avator);
-				//任务信息
+				//任务标题和内容
 				task_name.setText(jsonObject.getString("title"));
 				task_content.setText(jsonObject.getString("content"));
 				//任务时间信息
@@ -204,7 +205,18 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 							StringUtil.toString(HttpUtils.IMAGE_URL
 									+ task.getImgsrc3()), task_pic3);
 				}
-				
+				//提醒和重复
+				String tip1 = jsonObject.getString("tip");
+				String repeat1 = jsonObject.getString("repeat");
+				int tip = Integer.parseInt(tip1);
+				int repeat = Integer.parseInt(repeat1);
+				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "五分钟前"
+						: tip == 2 ? "十分钟前" : tip == 3 ? "一小时前"
+								: tip == 4 ? "一天前" : "三天前");
+				taskType.set(1, repeat == 0 ? "不重复" : repeat == 1 ? "每天"
+						: repeat == 2 ? "每周" : "每年");
+				btnAdapter.notifyDataSetChanged();
+				//判别执行人为单人或多人
 				if(tasker_list.size()==1){
 					ly_single_excutor.setVisibility(View.VISIBLE);
 					ly_multi_excutor.setVisibility(View.GONE);
@@ -217,7 +229,6 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 				mul_tasker_num.setText(tasker_list.size() + "人");
 				initializationDate();
 				}
-				
 //				initializationDate();
 //				stateAndButtonChange();
 			}
@@ -291,7 +302,7 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 							: state == 4 ? "已完成" : "已取消");
 			leftButton.setText("删除任务");
 			rightButton.setVisibility(View.GONE);
-			modTaskState();
+//			modTaskState();
 			break;
 		default:
 			break;
