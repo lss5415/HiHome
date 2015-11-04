@@ -30,6 +30,8 @@ public class Task implements Serializable{
 	private String imgsrc3;//纪念日详情图片
 	private String mdate;//纪念日日期
 	private String address;//地址
+	private String lng;//经度
+	private String lat;//纬度
 	private List<Map<String, String>> taskerList;
 
 	public List<Map<String, String>> getTaskerList() {
@@ -172,6 +174,16 @@ public class Task implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
-	
+	public String getLng() {
+		return lng;
+	}
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
+	public String getLat() {
+		return lat;
+	}
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
 }
