@@ -20,6 +20,7 @@ import com.zykj.hihome.calendar.CalendarManager;
 import com.zykj.hihome.calendar.CollapseCalendarView;
 import com.zykj.hihome.calendar.CollapseCalendarView.OnDateSelect;
 import com.zykj.hihome.fragment.TaskFragment;
+import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.Tools;
@@ -29,13 +30,15 @@ import com.zykj.hihome.utils.UrlContants;
  * @author LSS 2015年9月29日 上午8:55:45
  * 
  */
-public class B3_TaskActivity extends FragmentActivity implements OnClickListener{
+public class B3_0_TaskActivity extends FragmentActivity implements OnClickListener{
 
 	private ImageView img_create_anniversary, img_publish_task;
+	private CircularImage img_ico;
     private CollapseCalendarView mCalendarView;
 	private RadioGroup tab_rwGroup;
     private TaskFragment taskFragment1,taskFragment2,taskFragment3;
     private ArrayList<String> taskDates = new ArrayList<String>();
+    public static String clickdate="";
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,6 +67,7 @@ public class B3_TaskActivity extends FragmentActivity implements OnClickListener
 	}
 
 	public void initView() {
+		img_ico=(CircularImage) findViewById(R.id.rv_me_avatar);
 		img_publish_task = (ImageView) findViewById(R.id.img_publish_task);
 		img_create_anniversary = (ImageView) findViewById(R.id.img_create_anniversary);
 		//加载日历控件
@@ -73,7 +77,11 @@ public class B3_TaskActivity extends FragmentActivity implements OnClickListener
         mCalendarView.setListener(new OnDateSelect() {
 			@Override
 			public void onDateSelected(LocalDate date) {
-				Tools.toast(B3_TaskActivity.this, date.toString());
+				clickdate = date.toString();
+				taskFragment1.reflush();//刷新任务列表
+				taskFragment2.reflush();//刷新任务列表
+				taskFragment3.reflush();//刷新任务列表
+				//Tools.toast(B3_TaskActivity.this, date.toString());
 			}
 		});
         //加载三个任务模块
@@ -111,13 +119,15 @@ public class B3_TaskActivity extends FragmentActivity implements OnClickListener
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
+		case R.id.rv_me_avatar:
+//			startActivity(new Intent(B3_0_TaskActivity.this, B0_MainActivity.class));
 		case R.id.img_create_anniversary:// 创建纪念日
-			startActivityForResult(new Intent(B3_TaskActivity.this,
-					B3_TaskAddAnniversaryActivity.class),1);
+			startActivityForResult(new Intent(B3_0_TaskActivity.this,
+					B3_1_TaskAddAnniversaryActivity.class),1);
 			break;
 		case R.id.img_publish_task:// 发布任务
-			startActivityForResult(new Intent(B3_TaskActivity.this,
-					B3_TaskAddTaskTaskActivity.class),2);
+			startActivityForResult(new Intent(B3_0_TaskActivity.this,
+					B3_2_TaskAddTaskTaskActivity.class),2);
 			break;
 		default:
 			break;

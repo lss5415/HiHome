@@ -28,7 +28,7 @@ import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.MyCommonTitle;
 
-public class B3_1_LocationActivity extends BaseActivity implements OnGeocodeSearchListener,OnCameraChangeListener{
+public class B3_23_LocationActivity extends BaseActivity implements OnGeocodeSearchListener,OnCameraChangeListener{
 
 	private ProgressDialog progDialog = null;
 	private MyCommonTitle myCommonTitle;
@@ -156,14 +156,14 @@ public class B3_1_LocationActivity extends BaseActivity implements OnGeocodeSear
 //						+ address.getFormatAddress();
 //				Tools.toast(B3_1_LocationActivity.this, addressName);
 			} else {
-				Tools.toast(B3_1_LocationActivity.this, "对不起，没有搜索到相关数据！");
+				Tools.toast(B3_23_LocationActivity.this, "对不起，没有搜索到相关数据！");
 			}
 		} else if (rCode == 27) {
-			Tools.toast(B3_1_LocationActivity.this, "搜索失败,请检查网络连接！");
+			Tools.toast(B3_23_LocationActivity.this, "搜索失败,请检查网络连接！");
 		} else if (rCode == 32) {
-			Tools.toast(B3_1_LocationActivity.this, "key验证无效！");
+			Tools.toast(B3_23_LocationActivity.this, "key验证无效！");
 		} else {
-			Tools.toast(B3_1_LocationActivity.this, "未知错误，请稍后重试!错误码为" + rCode);
+			Tools.toast(B3_23_LocationActivity.this, "未知错误，请稍后重试!错误码为" + rCode);
 		}
 	}
 
@@ -181,16 +181,16 @@ public class B3_1_LocationActivity extends BaseActivity implements OnGeocodeSear
 				aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
 						new LatLng(latLonPoint.getLatitude(), latLonPoint.getLongitude()), zoom));
 				//regeoMarker.setPosition(new LatLng(latLonPoint.getLatitude(), latLonPoint.getLongitude()));
-				Tools.toast(B3_1_LocationActivity.this, addressName);
+				Tools.toast(B3_23_LocationActivity.this, addressName);
 			} else {
-				Tools.toast(B3_1_LocationActivity.this, "对不起，没有搜索到相关数据！");
+				Tools.toast(B3_23_LocationActivity.this, "对不起，没有搜索到相关数据！");
 			}
 		} else if (rCode == 27) {
-			Tools.toast(B3_1_LocationActivity.this, "搜索失败,请检查网络连接！");
+			Tools.toast(B3_23_LocationActivity.this, "搜索失败,请检查网络连接！");
 		} else if (rCode == 32) {
-			Tools.toast(B3_1_LocationActivity.this, "key验证无效！");
+			Tools.toast(B3_23_LocationActivity.this, "key验证无效！");
 		} else {
-			Tools.toast(B3_1_LocationActivity.this, "未知错误，请稍后重试!错误码为" + rCode);
+			Tools.toast(B3_23_LocationActivity.this, "未知错误，请稍后重试!错误码为" + rCode);
 		}
 	}
 

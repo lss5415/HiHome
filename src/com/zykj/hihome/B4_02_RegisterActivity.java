@@ -29,7 +29,7 @@ import com.zykj.hihome.view.MyRequestDailog;
  * @author LSS 2015年9月29日 上午9:19:36
  * 
  */
-public class B4_1_RegisterActivity extends BaseActivity {
+public class B4_02_RegisterActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private EditText et_mobile, et_code, et_newpass, et_confirmpass;
 	private Button identifying_code, btn_confirm;
@@ -86,7 +86,7 @@ public class B4_1_RegisterActivity extends BaseActivity {
 		switch (view.getId()) {
 		case R.id.idenfy_code:// 获取验证码
 			if (!TextUtil.isMobile(mobile)) {
-				Tools.toast(B4_1_RegisterActivity.this, "手机号格式不正确");
+				Tools.toast(B4_02_RegisterActivity.this, "手机号格式不正确");
 				return;
 			}
 			/* 发送手机验证码 */
@@ -97,27 +97,27 @@ public class B4_1_RegisterActivity extends BaseActivity {
 
 		case R.id.positive:// 确定
 			if (!TextUtil.isCode(mobilecode, 4)) {
-				Tools.toast(B4_1_RegisterActivity.this, "验证码不正确");
+				Tools.toast(B4_02_RegisterActivity.this, "验证码不正确");
 				return;
 			}
 			if (StringUtil.isEmpty(newpass)) {
-				Tools.toast(B4_1_RegisterActivity.this, "新密码不能为空");
+				Tools.toast(B4_02_RegisterActivity.this, "新密码不能为空");
 				return;
 			}
 			if (!TextUtil.isPasswordLengthLegal(newpass)) {
-				Tools.toast(B4_1_RegisterActivity.this, "密码长度合法性校验6-20位任意字符");
+				Tools.toast(B4_02_RegisterActivity.this, "密码长度合法性校验6-20位任意字符");
 				return;
 			}
 			if (StringUtil.isEmpty(confirmpass)) {
-				Tools.toast(B4_1_RegisterActivity.this, "再次输入的新密码不能为空");
+				Tools.toast(B4_02_RegisterActivity.this, "再次输入的新密码不能为空");
 				return;
 			}
 			if (!TextUtil.isPasswordLengthLegal(confirmpass)) {
-				Tools.toast(B4_1_RegisterActivity.this, "密码长度合法性校验6-20位任意字符");
+				Tools.toast(B4_02_RegisterActivity.this, "密码长度合法性校验6-20位任意字符");
 				return;
 			}
 			if (!newpass.equals(confirmpass)) {
-				Tools.toast(B4_1_RegisterActivity.this, "两次输入的密码不一致,请重新输入");
+				Tools.toast(B4_02_RegisterActivity.this, "两次输入的密码不一致,请重新输入");
 				return;
 			}
 			// 提交修改
@@ -146,7 +146,7 @@ public class B4_1_RegisterActivity extends BaseActivity {
 				if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
 					registerNewUser();
 				} else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-					Tools.toast(B4_1_RegisterActivity.this, "验证码已发送");
+					Tools.toast(B4_02_RegisterActivity.this, "验证码已发送");
 				}
 			} else {
 				 ((Throwable) data).printStackTrace();
@@ -171,14 +171,14 @@ public class B4_1_RegisterActivity extends BaseActivity {
 				@Override
 				public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
 					MyRequestDailog.closeDialog();
-					Tools.toast(B4_1_RegisterActivity.this, "注册成功");
+					Tools.toast(B4_02_RegisterActivity.this, "注册成功");
 					finish();					
 				}
 
 				@Override
 				public void onRecevieFailed(String status,JSONObject json) {
 					super.onRecevieFailed(status, json);
-					Tools.toast(B4_1_RegisterActivity.this, json.getString("message"));
+					Tools.toast(B4_02_RegisterActivity.this, json.getString("message"));
 				}
 			}, params);
 		}
@@ -193,7 +193,7 @@ public class B4_1_RegisterActivity extends BaseActivity {
 		@Override
 		public void onFinish() {
 			identifying_code.setText("点击获取验证码");
-			identifying_code.setOnClickListener(B4_1_RegisterActivity.this);
+			identifying_code.setOnClickListener(B4_02_RegisterActivity.this);
 		}
 
 		@Override

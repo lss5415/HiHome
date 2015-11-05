@@ -87,47 +87,47 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_TaskActivity"
+            android:name="com.zykj.hihome.B3_0_TaskActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_TaskAddAnniversaryActivity"
+            android:name="com.zykj.hihome.B3_1_TaskAddAnniversaryActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_1_SelectExecutorActivity"
+            android:name="com.zykj.hihome.B3_24_SelectExecutorActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_TaskAddTaskTaskActivity"
+            android:name="com.zykj.hihome.B3_2_TaskAddTaskTaskActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_1_AnniversaryDetailsActivity"
+            android:name="com.zykj.hihome.B3_30_AnniversaryDetailsActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_1_DetailsPublishTaskActivity"
+            android:name="com.zykj.hihome.B3_33_DetailsPublishTaskActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_1_DetailsReceiveTaskActivity"
+            android:name="com.zykj.hihome.B3_32_DetailsReceiveTaskActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_1_1_ExecutorsTaskStateActivity"
+            android:name="com.zykj.hihome.B3_32_1_ExecutorsTaskStateActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_1_DetailsSelfTaskActivity"
+            android:name="com.zykj.hihome.B3_31_DetailsSelfTaskActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_1_TiXingActivity"
+            android:name="com.zykj.hihome.B3_21_TiXingActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_1_RepeatActivity"
+            android:name="com.zykj.hihome.B3_22_RepeatActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
@@ -194,19 +194,19 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B4_1_LoginActivity"
+            android:name="com.zykj.hihome.B4_01_LoginActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B4_1_UserInfoActivity"
+            android:name="com.zykj.hihome.B4_03_UserInfoActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B4_1_RegisterActivity"
+            android:name="com.zykj.hihome.B4_02_RegisterActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B4_1_ForgetPassWordActivity"
+            android:name="com.zykj.hihome.B4_04_ForgetPassWordActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
@@ -222,7 +222,7 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.zykj.hihome.B3_1_LocationActivity"
+            android:name="com.zykj.hihome.B3_23_LocationActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity

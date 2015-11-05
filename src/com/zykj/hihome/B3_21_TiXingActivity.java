@@ -21,7 +21,7 @@ import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.MyCommonTitle;
 
-public class B3_1_TiXingActivity extends BaseActivity {
+public class B3_21_TiXingActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private GridView gridView;
 	private ListView mListView;
@@ -59,7 +59,7 @@ public class B3_1_TiXingActivity extends BaseActivity {
 		}
 		flags[getIntent().getIntExtra("position", 0)] = true;
 		
-		clockAdapter = new CommonAdapter<String>(B3_1_TiXingActivity.this, R.layout.ui_b3_check_item, clocksList) {
+		clockAdapter = new CommonAdapter<String>(B3_21_TiXingActivity.this, R.layout.ui_b3_check_item, clocksList) {
 			@Override
 			public void convert(final ViewHolder holder, final String ckockStr) {
 				final TextView mTextView = holder.getView(R.id.check_item);
@@ -106,7 +106,7 @@ public class B3_1_TiXingActivity extends BaseActivity {
 		};
 		gridView.setAdapter(clockAdapter);
 		
-		addClockAdapter=new CommonAdapter<String>(B3_1_TiXingActivity.this, R.layout.ui_b3_1_item_add_clock, remindList) {
+		addClockAdapter=new CommonAdapter<String>(B3_21_TiXingActivity.this, R.layout.ui_b3_1_item_add_clock, remindList) {
 			@Override
 			public void convert(ViewHolder holder, String str) {
 				holder.setText(R.id.tv_tixing_time, StringUtil.toString(str.split(",")[0]))

@@ -34,7 +34,7 @@ import com.zykj.hihome.view.MyCommonTitle;
  * @author Administrator
  * 我自己的任务详情
  */
-public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
+public class B3_31_DetailsSelfTaskActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private Task task;
 	private Button leftButton, rightButton;
@@ -189,9 +189,9 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 				String repeat1 = jsonObject.getString("repeat");
 				int tip = Integer.parseInt(tip1);
 				int repeat = Integer.parseInt(repeat1);
-				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "正点"
-						: tip == 2 ? "五分钟" : tip == 3 ? "十分钟"
-								: tip == 4 ? "一小时" : tip == 5 ? "一天" : "三天");
+				taskType.set(0, tip == 0 ? "正点"
+						: tip == 1 ? "五分钟" : tip == 2 ? "十分钟"
+								: tip == 3 ? "一小时" : tip == 4 ? "一天" :tip == 5 ? "三天" :  "不提醒");
 				taskType.set(1, repeat == 0 ? "不重复" : repeat == 1 ? "每天"
 						: repeat == 2 ? "每周" : "每年");
 				btnAdapter.notifyDataSetChanged();
@@ -212,8 +212,8 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 			modTaskState();
 			break;
 		case R.id.aci_edit_btn:
-			startActivityForResult(new Intent(B3_1_DetailsSelfTaskActivity.this,
-					B3_TaskAddTaskTaskActivity.class).putExtra("task", task), 20);
+			startActivityForResult(new Intent(B3_31_DetailsSelfTaskActivity.this,
+					B3_2_TaskAddTaskTaskActivity.class).putExtra("task", task), 20);
 			break;
 		default:
 			break;

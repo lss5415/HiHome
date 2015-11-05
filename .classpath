@@ -27,6 +27,7 @@
 	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-2.6.1.jar"/>
 	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-Core-2.6.1.jar"/>
 	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-Moments-2.6.1.jar"/>
+	<classpathentry kind="lib" path="libs/open_sdk_r5043_lite.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>

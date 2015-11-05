@@ -11,7 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.view.MyCommonTitle;
 
-public class B3_1_1_ExecutorsTaskStateActivity extends BaseActivity {
+public class B3_32_1_ExecutorsTaskStateActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private ListView mListView;
 	private CommonAdapter<Object> executorAdapter;

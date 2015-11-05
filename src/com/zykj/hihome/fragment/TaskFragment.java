@@ -24,10 +24,11 @@ import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.zykj.hihome.B3_1_AnniversaryDetailsActivity;
-import com.zykj.hihome.B3_1_DetailsPublishTaskActivity;
-import com.zykj.hihome.B3_1_DetailsReceiveTaskActivity;
-import com.zykj.hihome.B3_1_DetailsSelfTaskActivity;
+import com.zykj.hihome.B3_30_AnniversaryDetailsActivity;
+import com.zykj.hihome.B3_33_DetailsPublishTaskActivity;
+import com.zykj.hihome.B3_32_DetailsReceiveTaskActivity;
+import com.zykj.hihome.B3_31_DetailsSelfTaskActivity;
+import com.zykj.hihome.B3_0_TaskActivity;
 import com.zykj.hihome.adapter.TaskAdapter;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Task;
@@ -42,6 +43,7 @@ import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
+import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.XListView;
 
 public class TaskFragment extends Fragment implements IXListViewListener,
@@ -156,6 +158,7 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 		if (mType == 1) {
 			params = new RequestParams();
 			params.put("uid", BaseApp.getModel().getUserid());
+			params.put("uid", BaseApp.getModel().getUserid());
 			HttpUtils.getAnnversaryList(res_getAnnversaryList, params);// 获取纪念日列表
 		} else if (mType == 2) {
 			params = new RequestParams();
@@ -163,12 +166,14 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 			// params.put("nowpage", nowpage);
 			// params.put("perpage", PERPAGE);
 			params.put("my", "");
+			params.put("addtime", B3_0_TaskActivity.clickdate);// 获取点击当天的列表
 			HttpUtils.getMyTasks(res_getMyTasks, params);// 获取自己接受任务列表
 		} else if (mType == 3) {
 			params = new RequestParams();
 			params.put("uid", BaseApp.getModel().getUserid());
 			params.put("nowpage", nowpage);
 			params.put("perpage", PERPAGE);
+			params.put("addtime", B3_0_TaskActivity.clickdate);// 获取点击当天的列表
 			HttpUtils.getPublishTaskList(res_getPublishTaskList, params);// 获取我发布的任务列表
 		}
 	}
@@ -192,6 +197,7 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 			// params.put("nowpage", nowpage);
 			// params.put("perpage", PERPAGE);
 			params.put("my", "1");
+			params.put("addtime", B3_0_TaskActivity.clickdate);// 获取点击当天的列表
 			HttpUtils.getMyTasks(res_getMyTasks, params);// 纪念日列表加载完成再加载自己的任务列表
 		}
 	};
@@ -264,20 +270,20 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 		if (mType == 1) {
 			if (!StringUtil.isEmpty(task.getState())) {
 				startActivity(new Intent(getActivity(),
-						B3_1_DetailsSelfTaskActivity.class).putExtra("task",
+						B3_31_DetailsSelfTaskActivity.class).putExtra("task",
 						task));// 1 自己的任务
 			} else {
 				startActivity(new Intent(getActivity(),
-						B3_1_AnniversaryDetailsActivity.class).putExtra("task",
+						B3_30_AnniversaryDetailsActivity.class).putExtra("task",
 						task));
 			}
 		} else if (mType == 2) {
 			startActivity(new Intent(getActivity(),
-					B3_1_DetailsReceiveTaskActivity.class).putExtra("task",
+					B3_32_DetailsReceiveTaskActivity.class).putExtra("task",
 					task));// 2 接受的任务
 		} else {
 			startActivity(new Intent(getActivity(),
-					B3_1_DetailsPublishTaskActivity.class).putExtra("task",
+					B3_33_DetailsPublishTaskActivity.class).putExtra("task",
 					task));// 3 发布的任务
 		}
 	}
@@ -301,23 +307,27 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 			@Override
 			public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
 				if (mType == 2) {// 提示接受的任务需要取消后才能删除
-
-					int state = Integer.valueOf(task.getState());
-					if (state == 2 || state == 3 || state == 1) {
-						final String statu = state == 0 ? "未接受"
-								: state == 1 ? "已接受" : state == 2 ? "待执行"
-										: state == 3 ? "已执行"
-												: state == 4 ? "已完成" : "已取消";
-						Tools.toast(getActivity(), "请先取消任务再删除");
-					} else {
-						tasks.remove(position);
-						adapter.notifyDataSetChanged();
+					com.alibaba.fastjson.JSONArray jsonArray = json
+							.getJSONObject(UrlContants.jsonData).getJSONArray(
+									"list");
+					for (int i = 0; i < jsonArray.size(); i++) {
+						String id = jsonArray.getJSONObject(i).getString("id");
+						if (tasks.get(position).getId().toString().equals(id)) {
+							String task_state = jsonArray.getJSONObject(i)
+									.getString("state");
+							int state = Integer.valueOf(task_state);
+							if (state == 2 || state == 3 || state == 1) {
+								final String statu = state == 0 ? "未接受": state == 1 ? "已接受": state == 2 ? "待执行": state == 3 ? "已执行": state == 4 ? "已完成": "已取消";
+								Tools.toast(getActivity(), "请先取消任务再删除");
+							} else {
+								tasks.remove(position);
+								adapter.notifyDataSetChanged();
+							}
+						}
 					}
-
-					if (mType == 3 || mType == 1) {
-						tasks.remove(position);
-						adapter.notifyDataSetChanged();
-					}
+				} else {
+					tasks.remove(position);
+					adapter.notifyDataSetChanged();
 				}
 			}
 		}, params);
