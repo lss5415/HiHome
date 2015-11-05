@@ -35,8 +35,8 @@ public class B4_1_RegisterActivity extends BaseActivity {
 	private Button identifying_code, btn_confirm;
 	private String mobile, mobilecode, newpass, confirmpass;
 	private CheckBox cb_service, cb_secret;
-	private static String APPKEY = "b32dc8e5171d";
-	private static String APPKEYSECRET = "c1bf32da73cd112f432c828865c4d330";
+	private static String APPKEY = "b5174972a9ac";
+	private static String APPKEYSECRET = "8536890596fff208c04a3e52c88a2060";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

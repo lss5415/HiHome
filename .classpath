@@ -22,6 +22,11 @@
 	<classpathentry kind="lib" path="libs/AMap_2DMap_v2.6.0_20150916.jar"/>
 	<classpathentry kind="lib" path="libs/AMap_Search_v2.6.0_20150914.jar"/>
 	<classpathentry kind="lib" path="libs/AMap_Location_v1.4.1_20150917.jar"/>
+	<classpathentry kind="lib" path="libs/ShareSDK-Core-2.6.1.jar"/>
+	<classpathentry kind="lib" path="libs/ShareSDK-QQ-2.6.1.jar"/>
+	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-2.6.1.jar"/>
+	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-Core-2.6.1.jar"/>
+	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-Moments-2.6.1.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>

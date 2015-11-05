@@ -54,7 +54,7 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 	private Button leftButton, rightButton;
 	private JSONArray tasker_list;
 	private int state = 0;
-	private String taskState;
+	private String task_state;
 	private RequestParams params;
 	private String single_taskerstate, single_taskername;
 	private List<Object> tasker;
@@ -151,17 +151,22 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 
 			@Override
 			public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
-				JSONObject jsonObject = json
-						.getJSONArray(UrlContants.jsonData)
-						.getJSONArray(0).getJSONObject(0);
-				String task_state = jsonObject.getString("state");
+				JSONArray jsonArray = json.getJSONArray(UrlContants.jsonData)
+						.getJSONArray(0);
+				for (int i = 0; i < jsonArray.size(); i++) {
+					String id = jsonArray.getJSONObject(i).getString("uid");
+					if (BaseApp.getModel().getUserid().equals(id)) {
+						task_state = jsonArray.getJSONObject(i).getString(
+								"state");
+					}
+				}
 
 				state = Integer.valueOf(task_state);
 				final String statu = state == 0 ? "未接受" : state == 1 ? "已接受"
 						: state == 2 ? "待执行" : state == 3 ? "已执行"
 								: state == 4 ? "已完成" : "已取消";
 				single_tasker_state.setText(statu);
-				stateAndButtonChange();//很据任务状态显示Button功能
+				stateAndButtonChange();// 很据任务状态显示Button功能
 			}
 		}, params);
 
@@ -169,17 +174,19 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 
 			@Override
 			public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
-				JSONObject jsonObject = json.getJSONArray(UrlContants.jsonData).getJSONObject(0);
+				JSONObject jsonObject = json.getJSONArray(UrlContants.jsonData)
+						.getJSONObject(0);
 				tasker_list = jsonObject.getJSONArray("taskerlist");
-				//发布人信息
+				// 发布人信息
 				task_publisher_name.setText(jsonObject.getString("nick"));
-				ImageLoader.getInstance().displayImage(StringUtil.toString(
+				ImageLoader.getInstance().displayImage(
+						StringUtil.toString(
 								HttpUtils.IMAGE_URL + task.getAvatar(),
 								"http://"), task_publisher_avator);
-				//任务标题和内容
+				// 任务标题和内容
 				task_name.setText(jsonObject.getString("title"));
 				task_content.setText(jsonObject.getString("content"));
-				//任务时间信息
+				// 任务时间信息
 				if (jsonObject.getString("isday").equals("1")) {
 					task_starttime.setText(jsonObject.getString("start")
 							.substring(0, 11));
@@ -205,39 +212,43 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 							StringUtil.toString(HttpUtils.IMAGE_URL
 									+ task.getImgsrc3()), task_pic3);
 				}
-				//提醒和重复
+				// 提醒和重复
 				String tip1 = jsonObject.getString("tip");
 				String repeat1 = jsonObject.getString("repeat");
 				int tip = Integer.parseInt(tip1);
 				int repeat = Integer.parseInt(repeat1);
-				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "五分钟前"
-						: tip == 2 ? "十分钟前" : tip == 3 ? "一小时前"
-								: tip == 4 ? "一天前" : "三天前");
+				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "正点"
+						: tip == 2 ? "五分钟" : tip == 3 ? "十分钟"
+								: tip == 4 ? "一小时" : tip == 5 ? "一天" : "三天");
 				taskType.set(1, repeat == 0 ? "不重复" : repeat == 1 ? "每天"
 						: repeat == 2 ? "每周" : "每年");
 				btnAdapter.notifyDataSetChanged();
-				//判别执行人为单人或多人
-				if(tasker_list.size()==1){
+				// 判别执行人为单人或多人
+				if (tasker_list.size() == 1) {
 					ly_single_excutor.setVisibility(View.VISIBLE);
 					ly_multi_excutor.setVisibility(View.GONE);
-					single_tasker_name.setText(tasker_list.getJSONObject(0).getString("nick"));
-					ImageLoader.getInstance().displayImage(StringUtil.toString(HttpUtils.IMAGE_URL+task.getAvatar(), "http://"), single_tasker_avator);
-					
-				}else{
-				ly_single_excutor.setVisibility(View.GONE);
-				ly_multi_excutor.setVisibility(View.VISIBLE);
-				mul_tasker_num.setText(tasker_list.size() + "人");
-				initializationDate();
+					single_tasker_name.setText(tasker_list.getJSONObject(0)
+							.getString("nick"));
+					ImageLoader.getInstance().displayImage(
+							StringUtil.toString(
+									HttpUtils.IMAGE_URL + task.getAvatar(),
+									"http://"), single_tasker_avator);
+
+				} else {
+					ly_single_excutor.setVisibility(View.GONE);
+					ly_multi_excutor.setVisibility(View.VISIBLE);
+					mul_tasker_num.setText(tasker_list.size() + "人");
+					initializationDate();
 				}
-//				initializationDate();
-//				stateAndButtonChange();
+				// initializationDate();
+				// stateAndButtonChange();
 			}
 		}, params);
 	}
 
 	private void initializationDate() {
 		tasker = tasker_list.subList(0, tasker_list.size());
-//		tasks = JSON.parseArray(jsonArray.toString(), Task.class);
+		// tasks = JSON.parseArray(jsonArray.toString(), Task.class);
 		taskAdapter = new CommonAdapter<Object>(
 				B3_1_DetailsReceiveTaskActivity.this,
 				R.layout.ui_b3_1_item_multi_excutor, tasker) {
@@ -248,7 +259,7 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 				final String statu = state == 0 ? "未接受" : state == 1 ? "已接受"
 						: state == 2 ? "待执行" : state == 3 ? "执行中"
 								: state == 4 ? "已完成" : "已取消";
-				
+
 				final LinearLayout mLinearLayout = holder
 						.getView(R.id.ly_item_excutor);
 				if (Tools.M_SCREEN_WIDTH < 800) {
@@ -257,9 +268,11 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 					checkboxParms.width = Tools.M_SCREEN_WIDTH * 3 / 10;
 					checkboxParms.height = Tools.M_SCREEN_WIDTH * 3 / 10;
 				}
-				holder.setText(R.id.tasker_excutor_name, ((JSONObject) task).getString("nick"))
+				holder.setText(R.id.tasker_excutor_name,
+						((JSONObject) task).getString("nick"))
 						.setText(R.id.tasker_excutor_state, statu)
-						.setImageUrl(R.id.tasker_excutor_avator,((JSONObject) task).getString("avatar"), 10f);
+						.setImageUrl(R.id.tasker_excutor_avator,
+								((JSONObject) task).getString("avatar"), 10f);
 			}
 
 		};
@@ -275,7 +288,16 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 		case 0:// 未接受
 			leftButton.setText("接受任务");
 			rightButton.setText("删除任务");
-			state += 2;
+			state += 1;
+			modTaskState();
+			break;
+		case 1:// 已接受
+			single_tasker_state.setText(state == 0 ? "未接受" : state == 1 ? "已接受"
+					: state == 2 ? "待执行" : state == 3 ? "执行中"
+							: state == 4 ? "已完成" : "已取消");
+			leftButton.setText("开始执行");
+			rightButton.setText("取消任务");
+			state += 1;
 			modTaskState();
 			break;
 		case 2:// 待执行
@@ -302,7 +324,7 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 							: state == 4 ? "已完成" : "已取消");
 			leftButton.setText("删除任务");
 			rightButton.setVisibility(View.GONE);
-//			modTaskState();
+			modTaskState();
 			break;
 		default:
 			break;

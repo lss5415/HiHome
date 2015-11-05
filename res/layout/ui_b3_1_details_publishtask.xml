@@ -29,31 +29,85 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical" >
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_weight="1"
-                        android:text="@string/task_state"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
 
-                    <Button
-                        android:id="@+id/btn_topRightButton"
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_vertical|right"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/bg_null_orange"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:text="标记完成"
-                        android:textColor="@color/theme_colorhuang"
-                        android:visibility="visible" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="@string/task_state"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/pub_task_state"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="@string/task_state"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:visibility="gone" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <Button
+                            android:id="@+id/btn_topRightButton"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_vertical|right"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/bg_null_orange"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="标记完成"
+                            android:textColor="@color/theme_colorhuang"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_pub_self_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical" 
+                        android:visibility="gone">
+
+                        <Button
+                            android:id="@+id/btn_leftButton"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/bg_null_orange"
+                            android:gravity="center"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="标记完成"
+                            android:textColor="@color/theme_colorhuang" />
+
+                        <Button
+                            android:id="@+id/btn_rightButton"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/bg_null_orange"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="删除任务"
+                            android:textColor="@color/theme_colorhuang" />
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <View
@@ -214,14 +268,14 @@
                         android:orientation="horizontal"
                         android:visibility="gone" >
 
-                            <GridView
-                                android:id="@+id/gv_tasker"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:numColumns="3"
-                                android:scrollbars="none" />
+                        <GridView
+                            android:id="@+id/gv_tasker"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:numColumns="3"
+                            android:scrollbars="none" />
 
                         <TextView
                             android:id="@+id/pub_multasker_excutor_num"
