@@ -3,7 +3,6 @@ package com.zykj.hihome;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.provider.SyncStateContract.Constants;
 import android.view.View;
 
 import com.amap.api.maps2d.AMap;
@@ -35,7 +34,7 @@ public class B3_1_LocationActivity extends BaseActivity implements OnGeocodeSear
 	private AMap aMap;
 	private MapView mapView;
 	private GeocodeSearch geocoderSearch;
-	private String addressName;
+	private String addressName = "北京市天安门广场";
 //	private Marker geoMarker;
 	private Marker regeoMarker;
 	private LatLonPoint latLonPoint;
@@ -50,8 +49,8 @@ public class B3_1_LocationActivity extends BaseActivity implements OnGeocodeSear
 		mapView.onCreate(savedInstanceState);// 此方法必须重写
 		//new LatLng(35.063112, 118.344225);// 临沂市经纬度
 		//new LatLng(39.90403, 116.407525);// 北京市经纬度
-		float latitude = Float.valueOf(StringUtil.toString(BaseApp.getModel().getLatitude(), "35.063112"));
-		float longitude = Float.valueOf(StringUtil.toString(BaseApp.getModel().getLongitude(), "118.344225"));
+		float latitude = Float.valueOf(StringUtil.toString(BaseApp.getModel().getLatitude(), "39.90403"));
+		float longitude = Float.valueOf(StringUtil.toString(BaseApp.getModel().getLongitude(), "116.407525"));
 		latLonPoint = new LatLonPoint(latitude, longitude);
 		
 		initView();
