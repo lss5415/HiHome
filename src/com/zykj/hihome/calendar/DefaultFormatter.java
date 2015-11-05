@@ -18,7 +18,7 @@ public class DefaultFormatter implements Formatter {
     private final DateTimeFormatter monthHeaderFormatter;
 
     public DefaultFormatter() {
-        this("E", "'week' w", "MMMM yyyy");
+        this("E", "MMMM yyyy", "MMMM yyyy");//'week' w
     }
 
     public DefaultFormatter(@NonNull String dayPattern, @NonNull String weekPattern, @NonNull String monthPattern) {

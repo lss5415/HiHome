@@ -3,6 +3,7 @@ package com.zykj.hihome;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -29,6 +30,10 @@ import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 
+/**
+ * @author Administrator
+ * 我自己的任务详情
+ */
 public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private Task task;
@@ -205,8 +210,8 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 
 			break;
 		case R.id.aci_edit_btn:
-			startActivity(new Intent(B3_1_DetailsSelfTaskActivity.this,
-					B3_TaskAddTaskTaskActivity.class).putExtra("task", task));
+			startActivityForResult(new Intent(B3_1_DetailsSelfTaskActivity.this,
+					B3_TaskAddTaskTaskActivity.class).putExtra("task", task), 20);
 			break;
 		default:
 			break;
@@ -271,5 +276,12 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 			}
 		}, params);
 	}
-
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == 20 && resultCode == Activity.RESULT_OK){
+			finish();//编辑任务成功之后，直接返回任务列表
+		}
+	}
 }

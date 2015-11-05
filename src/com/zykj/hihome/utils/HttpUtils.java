@@ -319,5 +319,10 @@ public class HttpUtils {
 		client.addHeader("apikey", "98381cf1c5996fa7c49c25bcac69a83c");
 		client.post("http://apis.baidu.com/heweather/weather/free", params, res_upLoad);
 	}
-	
+	/**
+	 * 获取任务日历
+	 */
+	public static void getDateTaskList(AsyncHttpResponseHandler res_upLoad, String uid) {
+		client.get(base_url + "c=task&a=getDateTaskList&uid=" + uid, res_upLoad);
+	}
 }

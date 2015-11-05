@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -259,7 +260,6 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			}else if(distance > 0){
 				Tools.toast(this, "结束时间不能比开始时间早!");
 			}else{
-				imgs = images.size();//已存在的图片数量
 				MyRequestDailog.showDialog(this, "");
 				params = new RequestParams();
 				if(task != null){
@@ -377,7 +377,15 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			public void onRecevieSuccess(JSONObject json) {
 				MyRequestDailog.closeDialog();
 				Tools.toast(B3_TaskAddTaskTaskActivity.this, "更新任务成功!");
+				setResult(Activity.RESULT_OK);
 				finish();
+			}
+			@Override
+			public void onRecevieFailed(String status, JSONObject json) {
+				String code= json.getString("code");
+				if("400".equals(code)){
+					Tools.toast(B3_TaskAddTaskTaskActivity.this, "没有任何改动!");
+				}
 			}
 		}, params);
 	}
@@ -558,7 +566,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		switch (parent.getId()) {
 		case R.id.img_photo:
 			if (position == 0) {
-				if (files.size() < 3) {
+				if (imgs+files.size() < 3) {
 					UIDialog.ForThreeBtn(this, new String[] { "拍照", "从相册中选取", "取消" }, this);
 				} else {
 					Tools.toast(this, "最多上传三张图片");
@@ -588,6 +596,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	public void onLoadingComplete(String arg0, View arg1, Bitmap bitmap) {
 		images.add(bitmap);
 		imgAdapter.notifyDataSetChanged();
+		imgs = images.size()-1;//已存在的图片数量
 	}
 	@Override
 	public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
