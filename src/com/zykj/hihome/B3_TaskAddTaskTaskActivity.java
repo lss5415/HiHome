@@ -40,6 +40,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Task;
@@ -55,7 +57,7 @@ import com.zykj.hihome.view.MyRequestDailog;
 import com.zykj.hihome.view.UIDialog;
 
 public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
-		OnCheckedChangeListener, OnItemClickListener {
+		OnCheckedChangeListener, OnItemClickListener, ImageLoadingListener {
 	private MyCommonTitle myCommonTitle;
 	private ImageView img_read_contacts;
 	private GridView img_photo, button_fridview;
@@ -77,6 +79,8 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	private boolean[] flags = new boolean[3];
 	private int tixing = -1,chongfu = -1,isday,index;;
 	private RequestParams params;
+	private Task task;
+	private int imgs;
 
 	// uid必须，用户ID编号title必须，任务名称content必须，任务内容isday必须，是否是全天任务start必须，任务开始时间
 	// end必须，任务结束时间tip必须，任务提醒：数值意义见左侧repeat必须，任务重复：数值意义见左侧tasker必须，任务执行人ID编号，如1,2,3,4多个之间用英文,分隔
@@ -88,9 +92,9 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 
 		initView();
 		//任务详情(编辑)跳转过来
-		Task task = (Task) getIntent().getSerializableExtra("task");
+		task = (Task) getIntent().getSerializableExtra("task");
 		if(task != null){
-			initializationData(task);
+			initializationData();
 		}
 	}
 
@@ -98,22 +102,21 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 	 * 编辑任务
 	 * @param task 任务详情
 	 */
-	private void initializationData(Task task) {
+	private void initializationData() {
 		myCommonTitle.setTitle("编辑任务");
 		ed_taskname.setText(task.getTitle());
 		ed_taskexcutor.setText("自己");
 		strId = BaseApp.getModel().getUserid();
 		ed_taskcontent.setText(task.getContent());
 		if(!StringUtil.isEmpty(task.getImgsrc1())){
-			images.add(ImageLoader.getInstance().loadImageSync(HttpUtils.IMAGE_URL+task.getImgsrc1()));
+			ImageLoader.getInstance().loadImage(HttpUtils.IMAGE_URL+task.getImgsrc1(), this);
 		}
 		if(!StringUtil.isEmpty(task.getImgsrc2())){
-			images.add(ImageLoader.getInstance().loadImageSync(HttpUtils.IMAGE_URL+task.getImgsrc2()));
+			ImageLoader.getInstance().loadImage(HttpUtils.IMAGE_URL+task.getImgsrc2(), this);
 		}
 		if(!StringUtil.isEmpty(task.getImgsrc3())){
-			images.add(ImageLoader.getInstance().loadImageSync(HttpUtils.IMAGE_URL+task.getImgsrc3()));
+			ImageLoader.getInstance().loadImage(HttpUtils.IMAGE_URL+task.getImgsrc3(), this);
 		}
-		imgAdapter.notifyDataSetChanged();
 		tv_starttime.setText(task.getStart());
 		tv_finishtime.setText(task.getEnd());
 		if("1".equals(task.getIsday())){
@@ -256,8 +259,14 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			}else if(distance > 0){
 				Tools.toast(this, "结束时间不能比开始时间早!");
 			}else{
+				imgs = images.size();//已存在的图片数量
 				MyRequestDailog.showDialog(this, "");
 				params = new RequestParams();
+				if(task != null){
+					params.put("id", task.getId());//用户Id
+				}else{
+					params.put("uid", BaseApp.getModel().getUserid());//用户Id
+				}
 				params.put("uid", BaseApp.getModel().getUserid());//用户Id
 				params.put("title", title);//任务名称
 				params.put("content", content);//任务内容
@@ -272,7 +281,11 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 				params.put("address", address);//地址
 				index = 0;
 				if(files.size() < 1){
-					submitTask();
+					if(task != null){
+						operatTask();
+					}else{
+						submitTask();
+					}
 				}else{
 					try {
 						RequestParams paramsImgage = new RequestParams();
@@ -314,7 +327,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			break;
 		}
 	}
-	
+
 	/**
 	 * 上传图片接口
 	 */
@@ -323,13 +336,17 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		public void onRecevieSuccess(JSONObject json) {
 			try {
 				String imgsrc = json.getJSONArray(UrlContants.jsonData).getJSONObject(0).getString("imgsrc");
-				params.put("imgsrc"+(++index), imgsrc);//任务执行人
+				params.put("imgsrc"+((++index)+imgs), imgsrc);//任务执行人
 				if(index < files.size()){
 					RequestParams paramsImgage = new RequestParams();
 					paramsImgage.put("imgsrc[]", files.get(index));
 					HttpUtils.upLoad(res_upLoad, paramsImgage);
 				}else{
-					submitTask();
+					if(task != null){
+						operatTask();
+					}else{
+						submitTask();
+					}
 				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -345,8 +362,21 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
 				MyRequestDailog.closeDialog();
-				Tools.toast(B3_TaskAddTaskTaskActivity.this, myCommonTitle.getTitle().getText()+"成功!");
-				setResult(RESULT_OK);
+				Tools.toast(B3_TaskAddTaskTaskActivity.this, "创建任务成功!");
+				finish();
+			}
+		}, params);
+	}
+
+	/**
+	 * 修改任务接口
+	 */
+	private void operatTask() {
+		HttpUtils.upDateTasksInfo(new HttpErrorHandler() {
+			@Override
+			public void onRecevieSuccess(JSONObject json) {
+				MyRequestDailog.closeDialog();
+				Tools.toast(B3_TaskAddTaskTaskActivity.this, "更新任务成功!");
 				finish();
 			}
 		}, params);
@@ -550,5 +580,19 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		default:
 			break;
 		}
+	}
+	@Override
+	public void onLoadingCancelled(String arg0, View arg1) {
+	}
+	@Override
+	public void onLoadingComplete(String arg0, View arg1, Bitmap bitmap) {
+		images.add(bitmap);
+		imgAdapter.notifyDataSetChanged();
+	}
+	@Override
+	public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+	}
+	@Override
+	public void onLoadingStarted(String arg0, View arg1) {
 	}
 }
