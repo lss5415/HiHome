@@ -45,7 +45,7 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 	private CommonAdapter<String> btnAdapter;
 	private List<String> taskType = new ArrayList<String>();
 	private int[] imgResource = new int[] { R.drawable.ic_clock,
-			R.drawable.ic_repeat, R.drawable.ic_dingwei};
+			R.drawable.ic_repeat, R.drawable.ic_dingwei };
 	private boolean[] flags = new boolean[3];
 	private int state = 0;
 	private RequestParams params;
@@ -71,9 +71,9 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 		task_img3 = (ImageView) findViewById(R.id.task_pic_3);
 		// 任务的Button
 		leftButton = (Button) findViewById(R.id.btn_leftButton);
-//		leftButton.setText("接受任务");
+		// leftButton.setText("接受任务");
 		rightButton = (Button) findViewById(R.id.btn_rightButton);
-		
+
 		setListener(leftButton, rightButton);
 		// 任务的信息
 		task_state = (TextView) findViewById(R.id.details_selftask_state);// 任务状态
@@ -189,9 +189,9 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 				String repeat1 = jsonObject.getString("repeat");
 				int tip = Integer.parseInt(tip1);
 				int repeat = Integer.parseInt(repeat1);
-				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "五分钟前"
-						: tip == 2 ? "十分钟前" : tip == 3 ? "一小时前"
-								: tip == 4 ? "一天前" : "三天前");
+				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "正点"
+						: tip == 2 ? "五分钟" : tip == 3 ? "十分钟"
+								: tip == 4 ? "一小时" : tip == 5 ? "一天" : "三天");
 				taskType.set(1, repeat == 0 ? "不重复" : repeat == 1 ? "每天"
 						: repeat == 2 ? "每周" : "每年");
 				btnAdapter.notifyDataSetChanged();
@@ -205,9 +205,11 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 		switch (view.getId()) {
 		case R.id.btn_leftButton:
 			stateAndButtonChange();
+
 			break;
 		case R.id.btn_rightButton:
-
+			state -= state;
+			modTaskState();
 			break;
 		case R.id.aci_edit_btn:
 			startActivityForResult(new Intent(B3_1_DetailsSelfTaskActivity.this,
@@ -227,7 +229,16 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 		case 0:// 未接受
 			leftButton.setText("接受任务");
 			rightButton.setText("删除任务");
-			state += 2;
+			state += 1;
+			modTaskState();
+			break;
+		case 1:// 已接受
+			task_state.setText(state == 0 ? "未接受" : state == 1 ? "已接受"
+					: state == 2 ? "待执行" : state == 3 ? "执行中"
+							: state == 4 ? "已完成" : "已取消");
+			leftButton.setText("开始执行");
+			rightButton.setText("取消任务");
+			state += 1;
 			modTaskState();
 			break;
 		case 2:// 待执行
@@ -239,7 +250,7 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 			state += 1;
 			modTaskState();
 			break;
-		case 3:// 执行中
+		case 3:// 待执行
 			task_state.setText(state == 0 ? "未接受" : state == 1 ? "已接受"
 					: state == 2 ? "待执行" : state == 3 ? "执行中"
 							: state == 4 ? "已完成" : "已取消");
@@ -272,7 +283,7 @@ public class B3_1_DetailsSelfTaskActivity extends BaseActivity {
 
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
-
+				// requstData();
 			}
 		}, params);
 	}

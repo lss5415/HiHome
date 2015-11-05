@@ -35,11 +35,11 @@ import com.zykj.hihome.view.MyCommonTitle;
 public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private LinearLayout ly_single_excutor, ly_multi_excutor;
-	private RelativeLayout rl_receive_Button;
+	private RelativeLayout rl_pub_self_button;
 	private Task task;
 	private List<Task> tasks;
 	private GridView gv_tasker, button_gridview;
-	private TextView task_publisher_name, single_tasker_name,
+	private TextView task_publisher_name, single_tasker_name, pub_task_state,
 			single_tasker_state, task_name, task_content, task_starttime,
 			task_finishtime, mul_tasker_num, mul_tasker_name, mul_tasker_state;
 	private CommonAdapter<Object> taskAdapter;
@@ -73,6 +73,9 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 		// 任务的顶部按钮
 		topRightButton = (Button) findViewById(R.id.btn_topRightButton);// 顶部按钮，取消删除任务
 		topRightButton.setText("取消任务");
+		// 当发布的任务里含有自己的时候，任务执行状态和执行按钮可见
+		pub_task_state = (TextView) findViewById(R.id.pub_task_state);
+		rl_pub_self_button = (RelativeLayout) findViewById(R.id.rl_pub_self_button);
 		// 任务的图片信息
 		task_pic1 = (ImageView) findViewById(R.id.task_pic_1);
 		task_pic2 = (ImageView) findViewById(R.id.task_pic_2);
@@ -209,14 +212,14 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 							StringUtil.toString(HttpUtils.IMAGE_URL
 									+ task.getImgsrc3()), task_pic3);
 				}
-				//获得任务的提醒和重复
+				// 获得任务的提醒和重复
 				String tip1 = jsonObject.getString("tip");
 				String repeat1 = jsonObject.getString("repeat");
 				int tip = Integer.parseInt(tip1);
 				int repeat = Integer.parseInt(repeat1);
-				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "五分钟前"
-						: tip == 2 ? "十分钟前" : tip == 3 ? "一小时前"
-								: tip == 4 ? "一天前" : "三天前");
+				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "正点"
+						: tip == 2 ? "五分钟" : tip == 3 ? "十分钟"
+								: tip == 4 ? "一小时" : tip == 5 ? "一天" : "三天");
 				taskType.set(1, repeat == 0 ? "不重复" : repeat == 1 ? "每天"
 						: repeat == 2 ? "每周" : "每年");
 				btnAdapter.notifyDataSetChanged();
