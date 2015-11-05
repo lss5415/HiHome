@@ -1,5 +1,7 @@
 package com.zykj.hihome;
 
+import java.util.ArrayList;
+
 import org.joda.time.LocalDate;
 
 import android.content.Intent;
@@ -10,11 +12,18 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.calendar.CalendarManager;
 import com.zykj.hihome.calendar.CollapseCalendarView;
+import com.zykj.hihome.calendar.CollapseCalendarView.OnDateSelect;
 import com.zykj.hihome.fragment.TaskFragment;
-import com.zykj.hihome.utils.CommonUtils;
-import com.zykj.hihome.view.XListView;
+import com.zykj.hihome.utils.HttpErrorHandler;
+import com.zykj.hihome.utils.HttpUtils;
+import com.zykj.hihome.utils.Tools;
+import com.zykj.hihome.utils.UrlContants;
 
 /**
  * @author LSS 2015年9月29日 上午8:55:45
@@ -26,13 +35,32 @@ public class B3_TaskActivity extends FragmentActivity implements OnClickListener
     private CollapseCalendarView mCalendarView;
 	private RadioGroup tab_rwGroup;
     private TaskFragment taskFragment1,taskFragment2,taskFragment3;
+    private ArrayList<String> taskDates = new ArrayList<String>();
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ui_b3_task);
 		
-		initView();
-		requestData();
+		getDateTaskList();
+	}
+	
+	public void getDateTaskList(){
+		HttpUtils.getDateTaskList(new HttpErrorHandler() {
+			@Override
+			public void onRecevieSuccess(JSONObject json) {
+				JSONArray jsonArray = json.getJSONObject(UrlContants.jsonData).getJSONArray("list");
+				for (int i = 0; i < jsonArray.size(); i++) {
+					JSONArray dateArray = jsonArray.getJSONObject(i).getJSONArray("date");
+					for (int j = 0; j < dateArray.size(); j++) {
+						if(!taskDates.contains(dateArray.getString(j))){
+							taskDates.add(dateArray.getString(j));
+						}
+					}
+				}
+				initView();
+				requestData();
+			}
+		}, BaseApp.getModel().getUserid());
 	}
 
 	public void initView() {
@@ -41,7 +69,13 @@ public class B3_TaskActivity extends FragmentActivity implements OnClickListener
 		//加载日历控件
         CalendarManager manager = new CalendarManager(LocalDate.now(), CalendarManager.State.MONTH, LocalDate.now(), LocalDate.now().plusYears(1));
         mCalendarView = (CollapseCalendarView) findViewById(R.id.calendar);
-        mCalendarView.init(manager);
+        mCalendarView.init(manager, taskDates);
+        mCalendarView.setListener(new OnDateSelect() {
+			@Override
+			public void onDateSelected(LocalDate date) {
+				Tools.toast(B3_TaskActivity.this, date.toString());
+			}
+		});
         //加载三个任务模块
 		tab_rwGroup = (RadioGroup) findViewById(R.id.tab_rwGroup);
 		taskFragment1 = TaskFragment.getInstance(1);//自己的任务

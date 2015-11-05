@@ -1,5 +1,6 @@
 package com.zykj.hihome.calendar;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -10,6 +11,7 @@ import org.joda.time.LocalDate;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -50,6 +52,7 @@ public class CollapseCalendarView extends LinearLayout implements View.OnClickLi
     @NonNull private ResizeManager mResizeManager;
 
     private boolean initialized;
+    private List<String> taskDates;
 
     public CollapseCalendarView(Context context) {
         this(context, null);
@@ -71,7 +74,8 @@ public class CollapseCalendarView extends LinearLayout implements View.OnClickLi
         setOrientation(VERTICAL);
     }
 
-    public void init(@NonNull CalendarManager manager) {
+    public void init(@NonNull CalendarManager manager, ArrayList<String> taskDates) {
+    	this.taskDates = taskDates;
         if (manager != null) {
 
             mManager = manager;
@@ -255,13 +259,21 @@ public class CollapseCalendarView extends LinearLayout implements View.OnClickLi
             final Day day = days.get(i);
             DayView dayView = (DayView) weekView.getChildAt(i);
 
-            dayView.setText(day.getText());
-            dayView.setSelected(day.isSelected());
-            dayView.setCurrent(day.isCurrent());
+            dayView.setText(day.getText());//日期
+            dayView.setSelected(day.isSelected());//选中
+            dayView.setCurrent(day.isCurrent());//当前日期
+            //是否显示白点
+            if(taskDates.contains(day.getDate().toString())){
+    			Drawable bottomDrawable = getResources().getDrawable(R.drawable.wpoint);
+    			bottomDrawable.setBounds(0, 0, bottomDrawable.getMinimumWidth(), bottomDrawable.getMinimumHeight());
+            	dayView.setCompoundDrawables(null, null, null, bottomDrawable);
+			}else{
+				dayView.setCompoundDrawables(null, null, null, null);
+			}
 
-            boolean enables = day.isEnabled();
+            boolean enables = day.isEnabled();//可选
             dayView.setEnabled(enables);
-
+            /*点击事件*/
             if (enables) {
                 dayView.setOnClickListener(new OnClickListener() {
                     @Override
