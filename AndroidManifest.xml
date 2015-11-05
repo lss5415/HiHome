@@ -30,6 +30,12 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 第三方登录 -->
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <!-- 连接互联网Internet权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -219,60 +225,41 @@
             android:name="com.zykj.hihome.B3_1_LocationActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
-<!--             	AuthorizeAdapter表示一个继承自cn.sharesdk.framework.authorize.AuthorizeAdapter
-            	的类，这个类可以监听到页面的生命周期，也可以获取授权页面的各种UI控件。 
-            	开发者可以通过继承AuthorizeAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
-        <meta-data
-            android:name="AuthorizeAdapter"
-            android:value="cn.sharesdk.demo.MyAdapter" />
-            	QZoneWebShareAdapter表示一个继承自cn.sharesdk.tencent.qzone.QZoneWebShareAdapter
-            	的类，这个类可以监听到页面的生命周期，也可以获QQ空间网页分享权页面的各种UI控件。 
-            	开发者可以通过继承QZoneWebShareAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
-        <meta-data
-            android:name="QZoneWebShareAdapter"
-            android:value="cn.sharesdk.demo.MyQZoneWebShareAdapter" />
-        <meta-data
-            android:name="QQWebShareAdapter"
-            android:value="cn.sharesdk.demo.MyQQWebShareAdapter" />
-            	Dropbox的SSO功能需要在此处添加一个对ACTION_VIEW事件的过滤器，其中的scheme是
-            	“db-”前缀再开发者应用的加上appKey。如果此过滤器不设置，则不能完成SSO功能授权
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
-            <intent-filter>
-                <data android:scheme="db-7janx53ilz11gbs" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        【QQ客户端回调】
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+     
+     <!--【QQ第三方登录】-->
         <activity
-            android:name="cn.sharesdk.tencent.qq.ResultReceiver"
-            android:launchMode="singleTask"
-            android:noHistory="true" >
-            	如果集成QQ分享，或者使用QQ客户端来进行QQ空间的分享，须要在此处添加一个对ACTION_VIEW
-            	事件的过滤器，其中的scheme是“tencent”前缀再开发者应用的加上appId。如果此过滤器不设置，
-            	则分享结束以后不能得到正确的回调
-            <intent-filter android:priority="1000" >
-                <data android:scheme="tencent1104931910" />
-
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+			android:launchMode="singleTask" >
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1104931910" />
+                <!-- tencent1104931910 -->
             </intent-filter>
         </activity>
-      【微信分享回调】   
+
+        <!-- 微信分享回调 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+       
+
 
         <!-- 会话列表 Activity -->
         <activity
@@ -315,7 +302,8 @@
         <service
             android:name="io.rong.push.PushService"
             android:process="io.rong.push" >
- <!-- Waring: The name of the push process can't be changed!!! -->
+
+            <!-- Waring: The name of the push process can't be changed!!! -->
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -325,7 +313,8 @@
         <service
             android:name="io.rong.push.CommandService"
             android:process="io.rong.push" >
- <!-- Waring: The name of the push process can't be changed!!! -->
+
+            <!-- Waring: The name of the push process can't be changed!!! -->
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -336,7 +325,8 @@
         <receiver
             android:name="io.rong.push.PushReceiver"
             android:process="io.rong.push" >
- <!-- Waring: The name of the push process can't be changed!!! -->
+
+            <!-- Waring: The name of the push process can't be changed!!! -->
             <intent-filter>
                 <action android:name="io.rong.imlib.action.push.heartbeat" />
             </intent-filter>

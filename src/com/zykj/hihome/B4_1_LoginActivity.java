@@ -2,34 +2,26 @@ package com.zykj.hihome;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
-
-import org.apache.http.Header;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
-import com.zykj.hihome.utils.CommonUtils;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
-import com.zykj.hihome.view.RequestDailog;
 
 /**
  * @author LSS 2015年9月29日 上午9:19:36
@@ -43,6 +35,9 @@ public class B4_1_LoginActivity extends BaseActivity {
 	private ImageView img_qq, img_weixin;
 	private String username, passWord;
 	private String token,uid;
+	
+	private final String APP_ID = "1104931910";
+//	private Tencent mTencent; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +47,12 @@ public class B4_1_LoginActivity extends BaseActivity {
 		initView();
 	}
 
+	@Override
+	protected void onStart() {
+		
+		
+		super.onStart();
+	}
 	private void initView() {
 
 		myCommonTitle = (MyCommonTitle) findViewById(R.id.aci_mytitle);
