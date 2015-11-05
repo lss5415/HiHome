@@ -363,6 +363,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			public void onRecevieSuccess(JSONObject json) {
 				MyRequestDailog.closeDialog();
 				Tools.toast(B3_TaskAddTaskTaskActivity.this, "创建任务成功!");
+				setResult(RESULT_OK);
 				finish();
 			}
 		}, params);
