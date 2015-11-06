@@ -45,7 +45,8 @@ import com.zykj.hihome.view.MyRequestDailog;
  * @author LSS 2015年9月29日 上午9:19:36
  * 
  */
-public class B4_01_LoginActivity extends BaseActivity implements Callback, PlatformActionListener {
+public class B4_01_LoginActivity extends BaseActivity implements Callback,
+		PlatformActionListener {
 	private static final int MSG_AUTH_CANCEL = 2;
 	private static final int MSG_AUTH_ERROR = 3;
 	private static final int MSG_AUTH_COMPLETE = 4;
@@ -281,35 +282,27 @@ public class B4_01_LoginActivity extends BaseActivity implements Callback, Platf
 			// 授权成功
 			Tools.toast(this, "登录成功");
 			Platform platform = (Platform) msg.obj;
-			String icon = platform.getDb().getUserIcon();
+			// String icon = platform.getDb().getUserIcon();
 			String userid = platform.getDb().getUserId();
-			String nickname = platform.getDb().getUserName();
-			String gender = platform.getDb().getUserGender();
+			String nickname = platform.getDb().getUserName()+ userid.substring(userid.length() - 4, userid.length());
+			// String gender = platform.getDb().getUserGender();
 			RequestParams params = new RequestParams();
-			params.put("openid", userid);
-			params.put("member_name", nickname);
-			params.put("member_sex", "m".equals(gender) ? "1" : "2");
-			params.put("member_avatar", icon);
-			params.put("member_lati", BaseApp.getModel().getLatitude());
-			params.put("member_longi", BaseApp.getModel().getLongitude());
-//			HttpUtils.thirdpartlogin(new HttpErrormHandler() {
-//				@Override
-//				public void onRecevieSuccess(JSONObject json) {
-//					JSONObject data = json.getJSONObject("data");
-//					BaseApp.getModel().setAvatar(
-//							data.getString("member_avatar"));
-//					BaseApp.getModel().setUserid(data.getString("member_id"));// 用户Id
-//					BaseApp.getModel().setUsername(
-//							data.getString("member_name"));// 登录账号
-//					submitDeviceToken("device_token",
-//							data.getString("member_id"));
-//				}
-//
-//				@Override
-//				public void onRecevieFailed(String status, JSONObject json) {
-//					MyRequestDailog.closeDialog();
-//				}
-//			}, params);
+			params.put("mob", nickname);
+			params.put("pass", userid);
+			HttpUtils.register(new HttpErrorHandler() {
+
+				@Override
+				public void onRecevieSuccess(JSONObject json) {
+				}
+			}, params);
+			HttpUtils.login(new HttpErrorHandler() {
+
+				@Override
+				public void onRecevieSuccess(JSONObject json) {
+
+				}
+			}, params);
+			
 		}
 			break;
 		}

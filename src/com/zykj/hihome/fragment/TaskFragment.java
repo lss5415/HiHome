@@ -269,69 +269,71 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 		Task task = tasks.get(position - 1);
 		if (mType == 1) {
 			if (!StringUtil.isEmpty(task.getState())) {
-				startActivity(new Intent(getActivity(),
+				startActivityForResult((new Intent(getActivity(),
 						B3_31_DetailsSelfTaskActivity.class).putExtra("task",
-						task));// 1 自己的任务
+						task)), 55);// 1 自己的任务
 			} else {
 				startActivity(new Intent(getActivity(),
-						B3_30_AnniversaryDetailsActivity.class).putExtra("task",
-						task));
+						B3_30_AnniversaryDetailsActivity.class).putExtra(
+						"task", task));
 			}
 		} else if (mType == 2) {
-			startActivity(new Intent(getActivity(),
+			startActivityForResult((new Intent(getActivity(),
 					B3_32_DetailsReceiveTaskActivity.class).putExtra("task",
-					task));// 2 接受的任务
+					task)), 55);// 2 接受的任务
 		} else {
-			startActivity(new Intent(getActivity(),
+			startActivityForResult((new Intent(getActivity(),
 					B3_33_DetailsPublishTaskActivity.class).putExtra("task",
-					task));// 3 发布的任务
+					task)), 55);// 3 发布的任务
 		}
 	}
 
 	@Override
 	public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
+
 		RequestParams params = new RequestParams();
 		params.put("uid", BaseApp.getModel().getUserid());
 		params.put("id", tasks.get(position).getId());
-		HttpUtils.delAnnversaryInfo(new HttpErrorHandler() {
+		if (tasks.get(position).getAddress() == null) {
+			HttpUtils.delAnnversaryInfo(new HttpErrorHandler() {
 
-			@Override
-			public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
-				tasks.remove(position);
-				adapter.notifyDataSetChanged();
-			}
-		}, params);
-
-		HttpUtils.delTaskInfo(new HttpErrorHandler() {
-
-			@Override
-			public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
-				if (mType == 2) {// 提示接受的任务需要取消后才能删除
-					com.alibaba.fastjson.JSONArray jsonArray = json
-							.getJSONObject(UrlContants.jsonData).getJSONArray(
-									"list");
-					for (int i = 0; i < jsonArray.size(); i++) {
-						String id = jsonArray.getJSONObject(i).getString("id");
-						if (tasks.get(position).getId().toString().equals(id)) {
-							String task_state = jsonArray.getJSONObject(i)
-									.getString("state");
-							int state = Integer.valueOf(task_state);
-							if (state == 2 || state == 3 || state == 1) {
-								final String statu = state == 0 ? "未接受": state == 1 ? "已接受": state == 2 ? "待执行": state == 3 ? "已执行": state == 4 ? "已完成": "已取消";
-								Tools.toast(getActivity(), "请先取消任务再删除");
-							} else {
-								tasks.remove(position);
-								adapter.notifyDataSetChanged();
-							}
-						}
-					}
-				} else {
+				@Override
+				public void onRecevieSuccess(
+						com.alibaba.fastjson.JSONObject json) {
 					tasks.remove(position);
 					adapter.notifyDataSetChanged();
 				}
-			}
-		}, params);
+			}, params);
+		} else {
+			if (mType == 2) {// 提示接受的任务需要取消后才能删除
+				int state = Integer.parseInt(tasks.get(position).getState());
+				if (state == 2 || state == 3 || state == 1) {
+					Tools.toast(getActivity(), "请先取消任务再删除");
+				} else {
+					HttpUtils.delTaskInfo(new HttpErrorHandler() {
 
+						@Override
+						public void onRecevieSuccess(
+								com.alibaba.fastjson.JSONObject json) {
+							Tools.toast(getActivity(), "删除成功");
+							tasks.remove(position);
+							adapter.notifyDataSetChanged();
+						}
+					}, params);
+				}
+			} else {
+				HttpUtils.delTaskInfo(new HttpErrorHandler() {
+
+					@Override
+					public void onRecevieSuccess(
+							com.alibaba.fastjson.JSONObject json) {
+						Tools.toast(getActivity(), "删除成功");
+						tasks.remove(position);
+						adapter.notifyDataSetChanged();
+					}
+				}, params);
+			}
+		}
 		return false;
 	}
 

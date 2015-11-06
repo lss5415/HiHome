@@ -353,13 +353,14 @@ public class B3_32_DetailsReceiveTaskActivity extends BaseActivity {
 
 	}
 
+	
 	@Override
 	public void onClick(View view) {
 		super.onClick(view);
 		switch (view.getId()) {
 		case R.id.btn_leftButton:
-			stateAndButtonChange();
 			if(leftButton.getText().toString().equals("删除任务")){
+		
 				RequestParams params=new RequestParams();
 				params.put("id", task.getId());
 				HttpUtils.delTaskInfo(new HttpErrorHandler() {
@@ -373,6 +374,7 @@ public class B3_32_DetailsReceiveTaskActivity extends BaseActivity {
 					}
 				}, params);
 			}
+			stateAndButtonChange();
 
 			break;
 		case R.id.btn_rightButton:

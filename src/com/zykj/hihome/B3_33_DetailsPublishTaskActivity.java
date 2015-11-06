@@ -156,10 +156,10 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 						.getJSONObject(0);
 				tasker_list = jsonObject.getJSONArray("taskerlist");// 执行人列表
 				if (tasker_list.size() == 1) {// 执行人列表为一人的时候
-					JSONObject taskerInfo = jsonObject.getJSONArray(
-							"taskerlist").getJSONObject(0);// 执行人信息
+					JSONObject taskerInfo = tasker_list.getJSONObject(0);// 执行人信息
 					single_taskerstate = taskerInfo.getString("tasker_state");
 					single_taskername = taskerInfo.getString("nick");
+					single_tasker_name.setText(single_taskername);
 					ImageLoader.getInstance().displayImage(
 							StringUtil.toString(
 									HttpUtils.IMAGE_URL + task.getAvatar(),

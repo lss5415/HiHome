@@ -142,7 +142,7 @@ public class TaskAdapter extends BaseAdapter {
 				if (task.getTaskerList().size() == 1) {// 如果执行人只有一个
 					state=Integer.parseInt(task.getTaskerList().get(0).get("tasker_state"));
 					
-					holder2.task_num.setText((mType == 3)&& (StringUtil.isEmpty(task.getNick())) ? "昵称": task.getTaskerList().get(0).get("nick"));
+					holder2.task_num.setText((mType == 3)&& (StringUtil.isEmpty(task.getTaskerList().get(0).get("nick"))) ? "昵称": task.getTaskerList().get(0).get("nick"));
 					holder2.task_state.setText(state == 0 ? "未接受": state == 1 ? "已接受" : state == 2 ? "待执行": state == 3 ? "执行中" : state == 4 ? "已完成": "已取消");
 				} else {
 					holder2.task_num.setText(task.getTaskerList().size() + "人");

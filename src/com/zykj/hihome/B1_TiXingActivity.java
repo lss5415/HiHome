@@ -151,17 +151,16 @@ public class B1_TiXingActivity extends BaseActivity {
 		super.onClick(v);
 		switch (v.getId()) {
 		 case R.id.rl_xiaotitixing:
-			 /*提醒*/
+			 /*消息提醒*/
 			 startActivity(new Intent(this, B1_08_XiaoXiTiXingActivity.class));
 			 break;
 		 case R.id.rl_liaotiantixing:
-			 /*聊天*/
+			 /*聊天提醒*/
 			 startActivity(new Intent(this, B2_LiaoTianActivity.class));
 		 break;
 		 case R.id.rl_renwutixing:
-			 /*任务*/
-			 Tools.toast(this, "任务");
-			 //startActivity(new Intent(this, ));
+			 /*任务提醒*/
+			 startActivity(new Intent(B1_TiXingActivity.this, B1_1_Task_Tixing.class));
 			 break;
 		default:
 			break;
