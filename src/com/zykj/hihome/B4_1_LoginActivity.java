@@ -1,5 +1,7 @@
 package com.zykj.hihome;
 
+import java.util.Set;
+
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import android.content.Intent;
@@ -11,6 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
@@ -98,6 +103,14 @@ public class B4_1_LoginActivity extends BaseActivity {
 						JSONArray data=json.getJSONArray(UrlContants.jsonData);
 						Tools.toast(B4_1_LoginActivity.this, "登录成功");
 						uid = data.getJSONObject(0).getString("id");
+						Log.d("jpush---------------", uid);
+						JPushInterface.setAlias(B4_1_LoginActivity.this, uid, new TagAliasCallback() {
+							@Override
+							public void gotResult(int code, String alias, Set<String> tags) {
+								Log.d("jpush---------------", "code="+code+"alias="+alias);
+								Tools.toast(B4_1_LoginActivity.this, "code="+code+"alias="+alias+"tags="+tags.toString());
+							}
+						});
 						requestData();
 					}
 
