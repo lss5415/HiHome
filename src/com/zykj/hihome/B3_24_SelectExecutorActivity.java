@@ -27,7 +27,7 @@ import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 
-public class B3_1_SelectExecutorActivity extends BaseActivity implements OnItemClickListener{
+public class B3_24_SelectExecutorActivity extends BaseActivity implements OnItemClickListener{
 
 	private MyCommonTitle myCommonTitle;
 	private ListView friend_list;
@@ -51,7 +51,7 @@ public class B3_1_SelectExecutorActivity extends BaseActivity implements OnItemC
 		myCommonTitle.setLisener(this, null);
 		
 		friend_list = (ListView)findViewById(R.id.excute_lvexcutor);//搜索
-		adapter = new CommonAdapter<Friend>(B3_1_SelectExecutorActivity.this, R.layout.ui_b4_haoyou_item, friends) {
+		adapter = new CommonAdapter<Friend>(B3_24_SelectExecutorActivity.this, R.layout.ui_b4_haoyou_item, friends) {
 			@Override
 			public void convert(ViewHolder holder, Friend friend) {
 				if(holder.getPosition() == 0){

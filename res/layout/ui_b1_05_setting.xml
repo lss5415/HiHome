@@ -37,6 +37,7 @@
             </RelativeLayout>
 
             <LinearLayout 
+                android:id="@+id/ly_task_permission"
                 android:layout_width="fill_parent" 
                 android:layout_height="45dp"
                 android:background="#FFF">
@@ -68,6 +69,7 @@
                 android:background="#C1C1C1"/>
             
             <LinearLayout 
+                android:id="@+id/ly_message_notice"
                 android:layout_width="fill_parent" 
                 android:layout_height="45dp"
                 android:background="#FFF">
@@ -99,6 +101,7 @@
                 android:background="#C1C1C1"/>
             
             <LinearLayout 
+                android:id="@+id/ly_sound_notice"
                 android:layout_width="fill_parent" 
                 android:layout_height="45dp"
                 android:background="#FFF">
@@ -127,6 +130,7 @@
             
             
             <LinearLayout 
+                android:id="@+id/ly_chat_record"
                 android:layout_width="fill_parent" 
                 android:layout_height="45dp"
                 android:layout_marginTop="5dp"
@@ -158,6 +162,7 @@
                 android:layout_height="1dp"
                 android:background="#C1C1C1"/>
             <LinearLayout 
+                android:id="@+id/ly_version_update"
                 android:layout_width="fill_parent" 
                 android:layout_height="45dp"
                 android:background="#FFF">
@@ -179,7 +184,8 @@
                     android:text="v2.0"/>
             </LinearLayout>
             
-            <LinearLayout 
+            <LinearLayout
+                android:id="@+id/ly_function_intro" 
                 android:layout_width="fill_parent" 
                 android:layout_height="45dp"
                 android:layout_marginTop="5dp"
@@ -212,6 +218,7 @@
                 android:background="#C1C1C1"/>
             
             <LinearLayout 
+                android:id="@+id/ly_help_feedback" 
                 android:layout_width="fill_parent" 
                 android:layout_height="45dp"
                 android:background="#FFF">
@@ -239,6 +246,7 @@
             </LinearLayout>
             
             <LinearLayout 
+                android:id="@+id/ly_logout" 
                 android:layout_width="fill_parent" 
                 android:layout_height="45dp"
                 android:layout_marginTop="5dp"
@@ -271,6 +279,7 @@
                 android:background="#C1C1C1"/>
             
             <LinearLayout 
+                android:id="@+id/ly_cancle" 
                 android:layout_width="fill_parent" 
                 android:layout_height="45dp"
                 android:background="#FFF">

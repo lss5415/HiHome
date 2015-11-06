@@ -21,7 +21,7 @@ import com.zykj.hihome.utils.DateUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.MyCommonTitle;
 
-public class B3_1_RepeatActivity extends BaseActivity {
+public class B3_22_RepeatActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private GridView gridView;
 	private List<String> repeatList=new ArrayList<String>();
@@ -59,7 +59,7 @@ public class B3_1_RepeatActivity extends BaseActivity {
 		flags[getIntent().getIntExtra("position", 0)] = true;
 		notifyDataForListView();
 		
-		repeatAdapter=new CommonAdapter<String>(B3_1_RepeatActivity.this,R.layout.ui_b3_check_item ,repeatList) {
+		repeatAdapter=new CommonAdapter<String>(B3_22_RepeatActivity.this,R.layout.ui_b3_check_item ,repeatList) {
 			@Override
 			public void convert(final ViewHolder holder,String str) {
 				final TextView mTextView = holder.getView(R.id.check_item);

@@ -12,7 +12,7 @@ import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.MyCommonTitle;
 
-public class B4_1_UserInfoActivity extends BaseActivity {
+public class B4_03_UserInfoActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private EditText ed_username, ed_userAge, ed_userSign;
 	private String username,userAge,userSign;
@@ -49,15 +49,15 @@ public class B4_1_UserInfoActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.positive:
 			if (StringUtil.isEmpty(username)) {
-				Tools.toast(B4_1_UserInfoActivity.this, "名称不能为空");
+				Tools.toast(B4_03_UserInfoActivity.this, "名称不能为空");
 				return;
 			}
 			if (StringUtil.isEmpty(userAge)) {
-				Tools.toast(B4_1_UserInfoActivity.this, "年龄不能为空");
+				Tools.toast(B4_03_UserInfoActivity.this, "年龄不能为空");
 				return;
 			}
 			if (StringUtil.isEmpty(userSign)) {
-				Tools.toast(B4_1_UserInfoActivity.this, "签名不能为空");
+				Tools.toast(B4_03_UserInfoActivity.this, "签名不能为空");
 				return;
 			}
 			submitData();

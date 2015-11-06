@@ -57,7 +57,7 @@ import com.zykj.hihome.view.MyCommonTitle;
 import com.zykj.hihome.view.MyRequestDailog;
 import com.zykj.hihome.view.UIDialog;
 
-public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
+public class B3_2_TaskAddTaskTaskActivity extends BaseActivity implements
 		OnCheckedChangeListener, OnItemClickListener, ImageLoadingListener {
 	private MyCommonTitle myCommonTitle;
 	private ImageView img_read_contacts;
@@ -209,10 +209,10 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		super.onClick(view);
 		switch (view.getId()) {
 		case R.id.img_read_contacts:// 执行人，读取通讯录
-			startActivityForResult(new Intent(this, B3_1_SelectExecutorActivity.class), 20);
+			startActivityForResult(new Intent(this, B3_24_SelectExecutorActivity.class), 20);
 			break;
 		case R.id.input_taskexcutor:// 执行人，读取通讯录
-			startActivityForResult(new Intent(this, B3_1_SelectExecutorActivity.class), 20);
+			startActivityForResult(new Intent(this, B3_24_SelectExecutorActivity.class), 20);
 			break;
 		case R.id.layout_starttime:// 开始时间
 			View startView = CommonUtils.showDateTimePicker(this, tv_starttime);
@@ -362,7 +362,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
 				MyRequestDailog.closeDialog();
-				Tools.toast(B3_TaskAddTaskTaskActivity.this, "创建任务成功!");
+				Tools.toast(B3_2_TaskAddTaskTaskActivity.this, "创建任务成功!");
 				setResult(RESULT_OK);
 				finish();
 			}
@@ -377,7 +377,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
 				MyRequestDailog.closeDialog();
-				Tools.toast(B3_TaskAddTaskTaskActivity.this, "更新任务成功!");
+				Tools.toast(B3_2_TaskAddTaskTaskActivity.this, "更新任务成功!");
 				setResult(Activity.RESULT_OK);
 				finish();
 			}
@@ -385,7 +385,7 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 			public void onRecevieFailed(String status, JSONObject json) {
 				String code= json.getString("code");
 				if("400".equals(code)){
-					Tools.toast(B3_TaskAddTaskTaskActivity.this, "没有任何改动!");
+					Tools.toast(B3_2_TaskAddTaskTaskActivity.this, "没有任何改动!");
 				}
 			}
 		}, params);
@@ -577,13 +577,13 @@ public class B3_TaskAddTaskTaskActivity extends BaseActivity implements
 		case R.id.button_fridview:
 			if (position == 0) {
 				/*设置提醒*/
-				startActivityForResult(new Intent(this, B3_1_TiXingActivity.class).putExtra("position", tixing<0?0:tixing),21);
+				startActivityForResult(new Intent(this, B3_21_TiXingActivity.class).putExtra("position", tixing<0?0:tixing),21);
 			}else if(position == 1){
 				/*设置重复*/
-				startActivityForResult(new Intent(this, B3_1_RepeatActivity.class).putExtra("position", chongfu<0?0:chongfu),22);
+				startActivityForResult(new Intent(this, B3_22_RepeatActivity.class).putExtra("position", chongfu<0?0:chongfu),22);
 			}else{
 				/*设置位置*/
-				startActivityForResult(new Intent(this, B3_1_LocationActivity.class), 23);
+				startActivityForResult(new Intent(this, B3_23_LocationActivity.class), 23);
 			}
 			break;
 		default:

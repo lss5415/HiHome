@@ -46,7 +46,7 @@ import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 import com.zykj.hihome.view.UIDialog;
 
-public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
+public class B3_1_TaskAddAnniversaryActivity extends BaseActivity implements
 		OnItemClickListener {
 	
 	private MyCommonTitle myCommonTitle;
@@ -119,7 +119,7 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 			break;
 		case R.id.input_selectdate:// 选择时间
 			DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
-					B3_TaskAddAnniversaryActivity.this, null);
+					B3_1_TaskAddAnniversaryActivity.this, null);
 			dateTimePicKDialog.dateTimePicKDialog(anniversaryt_selecttime);
 			break;
 		case R.id.aci_edit_btn:// 完成创建
@@ -127,13 +127,13 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 			anni_time = anniversaryt_selecttime.getText().toString().trim();
 			anni_content = anniversaryt_content.getText().toString().trim();
 			if (file == null) {///////////////////////////////
-				Tools.toast(B3_TaskAddAnniversaryActivity.this, "头像不能为空");
+				Tools.toast(B3_1_TaskAddAnniversaryActivity.this, "头像不能为空");
 			} else if (StringUtil.isEmpty(anni_title)) {
-				Tools.toast(B3_TaskAddAnniversaryActivity.this, "标题不能为空");
+				Tools.toast(B3_1_TaskAddAnniversaryActivity.this, "标题不能为空");
 			} else if (StringUtil.isEmpty(anni_time)) {
-				Tools.toast(B3_TaskAddAnniversaryActivity.this, "日期不能为空");
+				Tools.toast(B3_1_TaskAddAnniversaryActivity.this, "日期不能为空");
 			} else if (StringUtil.isEmpty(anni_content)) {
-				Tools.toast(B3_TaskAddAnniversaryActivity.this, "内容不能为空");
+				Tools.toast(B3_1_TaskAddAnniversaryActivity.this, "内容不能为空");
 			} else {
 					try {
 						params = new RequestParams();
@@ -210,7 +210,7 @@ public class B3_TaskAddAnniversaryActivity extends BaseActivity implements
 
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
-				Tools.toast(B3_TaskAddAnniversaryActivity.this, "信息发布成功");
+				Tools.toast(B3_1_TaskAddAnniversaryActivity.this, "信息发布成功");
 				setResult(RESULT_OK);
 				finish();
 			}

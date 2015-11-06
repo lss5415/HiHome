@@ -35,7 +35,7 @@ import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 
-public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
+public class B3_32_DetailsReceiveTaskActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private ImageView task_pic1, task_pic2, task_pic3, task_publisher_avator,
 			single_tasker_avator, mul_tasker_avator;
@@ -217,9 +217,9 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 				String repeat1 = jsonObject.getString("repeat");
 				int tip = Integer.parseInt(tip1);
 				int repeat = Integer.parseInt(repeat1);
-				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "正点"
-						: tip == 2 ? "五分钟" : tip == 3 ? "十分钟"
-								: tip == 4 ? "一小时" : tip == 5 ? "一天" : "三天");
+				taskType.set(0, tip == 0 ? "正点"
+						: tip == 1 ? "五分钟" : tip == 2 ? "十分钟"
+								: tip == 3 ? "一小时" : tip == 4 ? "一天" :tip == 5 ? "三天" :  "不提醒");
 				taskType.set(1, repeat == 0 ? "不重复" : repeat == 1 ? "每天"
 						: repeat == 2 ? "每周" : "每年");
 				btnAdapter.notifyDataSetChanged();
@@ -250,7 +250,7 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 		tasker = tasker_list.subList(0, tasker_list.size());
 		// tasks = JSON.parseArray(jsonArray.toString(), Task.class);
 		taskAdapter = new CommonAdapter<Object>(
-				B3_1_DetailsReceiveTaskActivity.this,
+				B3_32_DetailsReceiveTaskActivity.this,
 				R.layout.ui_b3_1_item_multi_excutor, tasker) {
 			@Override
 			public void convert(ViewHolder holder, Object task) {
@@ -326,6 +326,14 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 			rightButton.setVisibility(View.GONE);
 			modTaskState();
 			break;
+		case 5:
+			single_tasker_state.setText(state == 0 ? "未接受" : state == 1 ? "已接受"
+					: state == 2 ? "待执行" : state == 3 ? "执行中"
+							: state == 4 ? "已完成" : "已取消");
+			leftButton.setText("删除任务");
+			rightButton.setVisibility(View.GONE);
+			modTaskState();
+			break;
 		default:
 			break;
 		}
@@ -345,20 +353,38 @@ public class B3_1_DetailsReceiveTaskActivity extends BaseActivity {
 
 	}
 
+	
 	@Override
 	public void onClick(View view) {
 		super.onClick(view);
 		switch (view.getId()) {
 		case R.id.btn_leftButton:
+			if(leftButton.getText().toString().equals("删除任务")){
+		
+				RequestParams params=new RequestParams();
+				params.put("id", task.getId());
+				HttpUtils.delTaskInfo(new HttpErrorHandler() {
+					
+					@Override
+					public void onRecevieSuccess(JSONObject json) {
+						Tools.toast(B3_32_DetailsReceiveTaskActivity.this, "删除成功!");
+						setResult(RESULT_OK);
+						finish();
+						
+					}
+				}, params);
+			}
 			stateAndButtonChange();
 
 			break;
 		case R.id.btn_rightButton:
+			state = 5;
+			stateAndButtonChange();
 
 			break;
 		case R.id.ly_multi_excutor:
 			startActivity(new Intent(this,
-					B3_1_1_ExecutorsTaskStateActivity.class).putExtra("tasker",
+					B3_32_1_ExecutorsTaskStateActivity.class).putExtra("tasker",
 					tasker_list.toString()));
 			break;
 		default:

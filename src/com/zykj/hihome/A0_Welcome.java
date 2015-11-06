@@ -61,7 +61,7 @@ public class A0_Welcome extends BaseActivity {
 					Intent intent = new Intent(A0_Welcome.this,A1_IntroActivity.class);
 					startActivity(intent);
 				} else {
-					Intent intent = new Intent(A0_Welcome.this, B4_1_LoginActivity.class);
+					Intent intent = new Intent(A0_Welcome.this, B4_01_LoginActivity.class);
 					startActivity(intent);
 				}
 				finish();

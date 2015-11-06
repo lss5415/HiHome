@@ -32,7 +32,7 @@ import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 
-public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
+public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private LinearLayout ly_single_excutor, ly_multi_excutor;
 	private RelativeLayout rl_pub_self_button;
@@ -156,10 +156,10 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 						.getJSONObject(0);
 				tasker_list = jsonObject.getJSONArray("taskerlist");// 执行人列表
 				if (tasker_list.size() == 1) {// 执行人列表为一人的时候
-					JSONObject taskerInfo = jsonObject.getJSONArray(
-							"taskerlist").getJSONObject(0);// 执行人信息
+					JSONObject taskerInfo = tasker_list.getJSONObject(0);// 执行人信息
 					single_taskerstate = taskerInfo.getString("tasker_state");
 					single_taskername = taskerInfo.getString("nick");
+					single_tasker_name.setText(single_taskername);
 					ImageLoader.getInstance().displayImage(
 							StringUtil.toString(
 									HttpUtils.IMAGE_URL + task.getAvatar(),
@@ -217,14 +217,12 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 				String repeat1 = jsonObject.getString("repeat");
 				int tip = Integer.parseInt(tip1);
 				int repeat = Integer.parseInt(repeat1);
-				taskType.set(0, tip == 0 ? "不提醒" : tip == 1 ? "正点"
-						: tip == 2 ? "五分钟" : tip == 3 ? "十分钟"
-								: tip == 4 ? "一小时" : tip == 5 ? "一天" : "三天");
+				taskType.set(0, tip == 0 ? "正点": tip == 1 ? "五分钟" : tip == 2 ? "十分钟"
+								: tip == 3 ? "一小时" : tip == 4 ? "一天" :tip == 5 ? "三天" :  "不提醒");
 				taskType.set(1, repeat == 0 ? "不重复" : repeat == 1 ? "每天"
 						: repeat == 2 ? "每周" : "每年");
 				btnAdapter.notifyDataSetChanged();
 			}
-
 		}, params);
 	}
 
@@ -232,7 +230,7 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 		tasker = tasker_list.subList(0, tasker_list.size());
 		// tasks = JSON.parseArray(tasker_list.toString(), Task.class);
 		taskAdapter = new CommonAdapter<Object>(
-				B3_1_DetailsPublishTaskActivity.this,
+				B3_33_DetailsPublishTaskActivity.this,
 				R.layout.ui_b3_1_item_multi_excutor, tasker) {
 			@Override
 			public void convert(ViewHolder holder, Object task) {
@@ -372,7 +370,7 @@ public class B3_1_DetailsPublishTaskActivity extends BaseActivity {
 			break;
 		case R.id.ly_multi_excutor:
 			startActivity(new Intent(this,
-					B3_1_1_ExecutorsTaskStateActivity.class).putExtra("tasker",
+					B3_32_1_ExecutorsTaskStateActivity.class).putExtra("tasker",
 					tasker_list.toString()));
 			break;
 		default:
