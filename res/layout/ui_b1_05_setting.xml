@@ -14,27 +14,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <!-- 导入title -->
-
-                <include layout="@layout/layout_head" />
-
-                <ImageView
-                    android:id="@+id/im_b105_back"
-                    android:layout_width="33dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/fanhui" />
-
-                <TextView
-                    style="@style/title_head"
-                    android:text="设置" />
-            </RelativeLayout>
+    
+		    <com.zykj.hihome.view.MyCommonTitle 
+		        android:id="@+id/aci_mytitle"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" />
 
             <LinearLayout 
                 android:id="@+id/ly_task_permission"
@@ -60,7 +44,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/youjiantou"/>
+                    android:src="@drawable/ic_task_into"/>
                 </RelativeLayout>
             </LinearLayout>
             <View 
@@ -92,7 +76,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/youjiantou"/>
+                    android:src="@drawable/ic_task_into"/>
                 </RelativeLayout>
             </LinearLayout>
             <View 
@@ -124,7 +108,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/youjiantou"/>
+                    android:src="@drawable/ic_task_into"/>
                 </RelativeLayout>
             </LinearLayout>
             
@@ -154,7 +138,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/youjiantou"/>
+                    android:src="@drawable/ic_task_into"/>
                 </RelativeLayout>
             </LinearLayout>
             <View 
@@ -175,13 +159,14 @@
                     android:textSize="16sp"
                     android:text="版本更新"/>
                 <TextView 
+                	android:id="@+id/ly_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     android:textColor="#666"
                     android:textSize="16sp"
-                    android:text="v2.0"/>
+                    android:text="v1.0.2"/>
             </LinearLayout>
             
             <LinearLayout
@@ -209,7 +194,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/youjiantou"/>
+                    android:src="@drawable/ic_task_into"/>
                 </RelativeLayout>
             </LinearLayout>
             <View 
@@ -241,7 +226,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/youjiantou"/>
+                    android:src="@drawable/ic_task_into"/>
                 </RelativeLayout>
             </LinearLayout>
             
@@ -270,7 +255,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/youjiantou"/>
+                    android:src="@drawable/ic_task_into"/>
                 </RelativeLayout>
             </LinearLayout>
             <View 
@@ -302,7 +287,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/youjiantou"/>
+                    android:src="@drawable/ic_task_into"/>
                 </RelativeLayout>
             </LinearLayout>
             

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grey" >
+    
+    <com.zykj.hihome.view.MyCommonTitle 
+        android:id="@+id/aci_mytitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+    
+    <!-- 任务权限 -->
+    <LinearLayout 
+        android:id="@+id/aci_part1"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+	    <TextView 
+	        android:id="@+id/aci_date"
+	        android:layout_width="fill_parent"
+	        android:layout_height="35dp"
+	        android:text="权限选择"
+	        android:textSize="@dimen/t_sixteen"
+	        android:paddingLeft="15dp"
+	        android:gravity="center_vertical"
+	        android:textColor="@color/theme_colorhuang"
+	        android:background="#EEE"/>
+	    
+	    <TextView 
+	        android:id="@+id/aci_item1"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="只对家庭圈"
+	        android:textSize="@dimen/t_sixteen"
+	        android:padding="15dp"
+	        android:textColor="@color/date_color"
+	        android:background="@drawable/list_selector"/>
+	    
+	    <View 
+	        android:layout_width="fill_parent"
+	        android:layout_height="1dp"
+	        android:background="@color/grey"/>
+	    
+	    <TextView 
+	        android:id="@+id/aci_item2"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="对所有人"
+	        android:textSize="@dimen/t_sixteen"
+	        android:padding="15dp"
+	        android:textColor="@color/date_color"
+	        android:background="@drawable/list_selector"/>
+	    
+	    <View 
+	        android:layout_width="fill_parent"
+	        android:layout_height="1dp"
+	        android:background="@color/grey"/>
+	    
+	    <TextView 
+	        android:id="@+id/aci_item3"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="对好友"
+	        android:textSize="@dimen/t_sixteen"
+	        android:padding="15dp"
+	        android:textColor="@color/date_color"
+	        android:background="@drawable/list_selector"/>
+	    
+	    <View 
+	        android:layout_width="fill_parent"
+	        android:layout_height="1dp"
+	        android:background="@color/grey"/>
+    </LinearLayout>
+    <!-- 消息通知 -->
+    <LinearLayout 
+        android:id="@+id/aci_part2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/aci_select1"
+                android:layout_width="0.0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/tx_color"
+                android:text="消息内容开关"
+                android:textSize="@dimen/t_sixteen" />
+            <ToggleButton
+                android:id="@+id/toggle1"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:textOn=""
+                android:textOff=""
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/toggle_btn" />
+        </LinearLayout>
+	    <View 
+	        android:layout_width="fill_parent"
+	        android:layout_height="1dp"
+	        android:background="@color/grey"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/aci_select2"
+                android:layout_width="0.0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/tx_color"
+                android:text="通知时指示灯闪烁开关"
+                android:textSize="16sp" />
+            <ToggleButton
+                android:id="@+id/toggle2"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:textOn=""
+                android:textOff=""
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/toggle_btn" />
+        </LinearLayout>
+	    <View 
+	        android:layout_width="fill_parent"
+	        android:layout_height="1dp"
+	        android:background="@color/grey"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/aci_select3"
+                android:layout_width="0.0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/tx_color"
+                android:text="任务接受开关"
+                android:textSize="16sp" />
+            <ToggleButton
+                android:id="@+id/toggle3"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:textOn=""
+                android:textOff=""
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/toggle_btn" />
+        </LinearLayout>
+	    <View 
+	        android:layout_width="fill_parent"
+	        android:layout_height="1dp"
+	        android:background="@color/grey"/>
+	</LinearLayout>
+    
+</LinearLayout>

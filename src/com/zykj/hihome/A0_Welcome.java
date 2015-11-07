@@ -3,10 +3,13 @@ package com.zykj.hihome;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
+import cn.jpush.android.api.JPushInterface;
 
 import com.alibaba.fastjson.JSONObject;
 import com.amap.api.location.AMapLocation;
@@ -24,9 +27,11 @@ import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.utils.UrlContants;
 
 public class A0_Welcome extends BaseActivity {
+	public static boolean isForeground = false;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initView(R.layout.ui_a0_welcome);
+		JPushInterface.init(getApplicationContext());
 		
 		mLocationManger=LocationManagerProxy.getInstance(this);
 		//进行一次定位
@@ -124,4 +129,53 @@ public class A0_Welcome extends BaseActivity {
 			}
 		}
 	};
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		isForeground = true;
+		JPushInterface.onResume(this);
+	}
+
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		isForeground = false;
+		JPushInterface.onPause(this);
+	}
+
+	private MessageReceiver mMessageReceiver;
+	public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
+	public static final String KEY_MESSAGE = "message";
+	public static final String KEY_EXTRAS = "extras";
+	public void registerMessageReceiver() {
+		mMessageReceiver = new MessageReceiver();
+		IntentFilter filter = new IntentFilter();
+		filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+		filter.addAction(MESSAGE_RECEIVED_ACTION);
+		registerReceiver(mMessageReceiver, filter);
+	}
+
+	public class MessageReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+              String messge = intent.getStringExtra(KEY_MESSAGE);
+              String extras = intent.getStringExtra(KEY_EXTRAS);
+              StringBuilder showMsg = new StringBuilder();
+              showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+              if (!StringUtil.isEmpty(extras)) {
+            	  showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+              }
+              //setCostomMsg(showMsg.toString());
+			}
+		}
+	}
+//	private void setCostomMsg(String msg){
+//		 if (null != msgText) {
+//			 msgText.setText(msg);
+//			 msgText.setVisibility(android.view.View.VISIBLE);
+//        }
+//	}
 }

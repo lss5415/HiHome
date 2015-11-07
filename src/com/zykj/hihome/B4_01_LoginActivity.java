@@ -1,9 +1,10 @@
 package com.zykj.hihome;
 
-import java.util.HashMap;
-
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+
+import java.util.HashMap;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -26,11 +26,6 @@ import cn.sharesdk.wechat.friends.Wechat;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
-import com.tencent.connect.UserInfo;
-import com.tencent.connect.auth.QQToken;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.utils.HttpErrorHandler;
