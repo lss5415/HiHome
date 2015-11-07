@@ -312,6 +312,18 @@ public class HttpUtils {
 		client.post(base_url + "c=photo&a=getList", params, res_upLoad);
 	}
 	/**
+	 * 修改用户资料
+	 */
+	public static void getXiuGaiInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=user&a=modInfo", params, res_upLoad);
+	}
+	/**
+	 * 修改用户资料
+	 */
+	public static void geZuiJinXiangPian(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=photo&a=getLatelyList", params, res_upLoad);
+	}
+	/**
 	 * 获取天气
 	 */
 	public static void getWeatherInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {

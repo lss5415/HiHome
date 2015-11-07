@@ -73,7 +73,7 @@ public class B2_LiaoTianActivity extends BaseActivity {
 			RongIM.getInstance().startConversationList(B2_LiaoTianActivity.this);
 			break;
 		case R.id.button2:
-			RongIM.getInstance().startConversation(B2_LiaoTianActivity.this, Conversation.ConversationType.PRIVATE, "9527", "会话");
+			RongIM.getInstance().startConversation(B2_LiaoTianActivity.this, Conversation.ConversationType.PRIVATE, "5", "会话");
 			break;
 		default:
 			break;

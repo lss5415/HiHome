@@ -1,5 +1,7 @@
 package com.zykj.hihome;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +25,10 @@ import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 
+/**
+ * @author csh 2015-11-07
+ * 好友资料
+ */
 public class B2_FriendDetailActivity extends BaseActivity {
 
 	private MyCommonTitle aci_mytitle;
@@ -44,6 +50,25 @@ public class B2_FriendDetailActivity extends BaseActivity {
 		requestData();
 	}
 
+	private void initView() {
+		aci_mytitle = (MyCommonTitle)findViewById(R.id.aci_mytitle);
+		aci_mytitle.setTitle("好友资料");
+		
+		rv_me_avatar = (CircularImage)findViewById(R.id.rv_me_avatar);
+		aci_title = (TextView)findViewById(R.id.aci_title);
+		aci_nick = (TextView)findViewById(R.id.aci_nick);
+		aci_sign = (TextView)findViewById(R.id.aci_sign);
+		aci_relation = (LinearLayout)findViewById(R.id.aci_relation);
+		aci_type = (TextView)findViewById(R.id.aci_type);
+		aci_task = (LinearLayout)findViewById(R.id.aci_task);
+		button1 = (Button)findViewById(R.id.aci_button_left);
+		button2 = (Button)findViewById(R.id.aci_button_right);
+		button1.setVisibility(StringUtil.isEmpty(type)?View.VISIBLE:View.GONE);
+		button2.setVisibility(View.VISIBLE);
+		
+		setListener(aci_relation, aci_task, button1, button2);
+	}
+
 	private void requestData() {
 		HttpUtils.getInfo(new HttpErrorHandler() {
 			@Override
@@ -62,23 +87,6 @@ public class B2_FriendDetailActivity extends BaseActivity {
 		}, uid);
 	}
 
-	private void initView() {
-		aci_mytitle = (MyCommonTitle)findViewById(R.id.aci_mytitle);
-		aci_mytitle.setTitle("好友资料");
-		
-		rv_me_avatar = (CircularImage)findViewById(R.id.rv_me_avatar);
-		aci_title = (TextView)findViewById(R.id.aci_title);
-		aci_nick = (TextView)findViewById(R.id.aci_nick);
-		aci_sign = (TextView)findViewById(R.id.aci_sign);
-		aci_relation = (LinearLayout)findViewById(R.id.aci_relation);
-		aci_type = (TextView)findViewById(R.id.aci_type);
-		aci_task = (LinearLayout)findViewById(R.id.aci_task);
-		button1 = (Button)findViewById(R.id.aci_button_left);
-		button2 = (Button)findViewById(R.id.aci_button_right);
-		
-		setListener(aci_relation, aci_task, button1, button2);
-	}
-
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
@@ -89,7 +97,7 @@ public class B2_FriendDetailActivity extends BaseActivity {
 			HttpUtils.addFriend(res_addFriend, params);
 			break;
 		case R.id.aci_button_right:
-			Tools.toast(this, "聊天");
+			RongIM.getInstance().startConversation(this, Conversation.ConversationType.PRIVATE, friend.getId(), "会话");
 			break;
 		case R.id.aci_relation:
 			startActivityForResult(new Intent(this, B2_RelationFriend.class).putExtra("friend", friend), 6);
