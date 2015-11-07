@@ -103,6 +103,13 @@ public class B4_1_LoginActivity extends BaseActivity {
 						JSONArray data=json.getJSONArray(UrlContants.jsonData);
 						Tools.toast(B4_1_LoginActivity.this, "登录成功");
 						uid = data.getJSONObject(0).getString("id");
+						BaseApp.getModel().setUserid(StringUtil.toStringOfObject(uid));
+						BaseApp.getModel().setMobile(StringUtil.toStringOfObject(data.getJSONObject(0).getString("mobile")));
+						BaseApp.getModel().setNick(StringUtil.toStringOfObject(data.getJSONObject(0).getString("nick")));
+						BaseApp.getModel().setAvatar(StringUtil.toStringOfObject(data.getJSONObject(0).getString("avatar")));
+						BaseApp.getModel().setSex(StringUtil.toStringOfObject(data.getJSONObject(0).getString("sex")));
+						BaseApp.getModel().setAge(StringUtil.toStringOfObject(data.getJSONObject(0).getString("age")));
+						BaseApp.getModel().setSign(StringUtil.toStringOfObject(data.getJSONObject(0).getString("sign")));
 						Log.d("jpush---------------", uid);
 						JPushInterface.setAlias(B4_1_LoginActivity.this, uid, new TagAliasCallback() {
 							@Override
@@ -184,8 +191,6 @@ public class B4_1_LoginActivity extends BaseActivity {
 	                Log.d("LoginActivity", "--onSuccess" + userid);
 //	                startActivity(new Intent(LoginActivity.this, MainActivity.class));
 					Toast.makeText(B4_1_LoginActivity.this, "融云连接成功",Toast.LENGTH_LONG).show();
-					putSharedPreferenceValue("uid", uid);
-					BaseApp.getModel().setUserid(StringUtil.toStringOfObject(uid));
 					startActivity(new Intent(B4_1_LoginActivity.this,
 							B0_MainActivity.class));
 					finish();
