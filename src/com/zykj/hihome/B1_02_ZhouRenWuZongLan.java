@@ -136,10 +136,10 @@ public class B1_02_ZhouRenWuZongLan extends BaseActivity implements OnItemClickL
 	public void onItemClick(AdapterView<?> parent, View converView, int position, long id) {
 		Task task = tasks.get(position);
 		if(!StringUtil.isEmpty(isMySelfTask)){
-			startActivity(new Intent(this, B3_1_DetailsSelfTaskActivity.class)
+			startActivity(new Intent(this, B3_31_DetailsSelfTaskActivity.class)
 					.putExtra("task", task));// 1 自己的任务
 		}else{
-			startActivity(new Intent(this, B3_1_DetailsReceiveTaskActivity.class)
+			startActivity(new Intent(this, B3_32_DetailsReceiveTaskActivity.class)
 					.putExtra("task", task));// 2 接受的任务
 		}
 	}

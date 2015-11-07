@@ -78,11 +78,11 @@ public class B4_1_LoginActivity extends BaseActivity {
 		switch (view.getId()) {
 		case R.id.tv_new_user:// 新用户注册
 			startActivity(new Intent(B4_1_LoginActivity.this,
-					B4_1_RegisterActivity.class));
+					B4_02_RegisterActivity.class));
 			break;
 		case R.id.tv_forgetPassWord:// 忘记密码
 			startActivity(new Intent(B4_1_LoginActivity.this,
-					B4_1_ForgetPassWordActivity.class));
+					B4_04_ForgetPassWordActivity.class));
 			break;
 		case R.id.btn_login:
 			username = et_username.getText().toString().trim();

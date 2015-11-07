@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 
@@ -325,4 +324,23 @@ public class HttpUtils {
 	public static void getDateTaskList(AsyncHttpResponseHandler res_upLoad, String uid) {
 		client.get(base_url + "c=task&a=getDateTaskList&uid=" + uid, res_upLoad);
 	}
+	/**
+	 * 获取功能介绍(应用说明)
+	 */
+	public static void getAppInfo(AsyncHttpResponseHandler res_upLoad) {
+		client.get(base_url + "c=article&a=getInfo", res_upLoad);
+	}
+	/**
+	 * 帮助与反馈
+	 */
+	public static void addInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=gbook&a=addInfo", params, res_upLoad);
+	}
+	/**
+	 * 获取新版本
+	 */
+	public static void getNew(AsyncHttpResponseHandler res_upLoad, String version) {
+		client.get(base_url + "c=version&a=getInfo&version="+version, res_upLoad);
+	}
+	
 }
