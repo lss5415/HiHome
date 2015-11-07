@@ -160,7 +160,7 @@ public class B1_TiXingActivity extends BaseActivity {
 		 break;
 		 case R.id.rl_renwutixing:
 			 /*任务提醒*/
-			 startActivity(new Intent(B1_TiXingActivity.this, B1_1_Task_Tixing1.class));
+			 startActivity(new Intent(B1_TiXingActivity.this, B1_1_Task_Tixing.class));
 			 break;
 		default:
 			break;
