@@ -63,17 +63,6 @@ public class TaskTiXingAdapter extends BaseAdapter {
 			convertView = mLayoutInflater.inflate(R.layout.ui_b2_item_tasktx,null);
 			holder.ly_taskitem=(LinearLayout) convertView.findViewById(R.id.ly_item_onclick);
 			holder.rl_button=(RelativeLayout) convertView.findViewById(R.id.rl_button);
-
-			holder.ly_taskitem.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					holder.rl_button.setVisibility(View.VISIBLE);
-					holder.tv_task_state.setVisibility(View.GONE);
-					holder.tv_task_publish_date.setVisibility(View.GONE);
-					holder.rl_button.setVisibility(View.VISIBLE);
-				}
-			});
 			
 			
 			holder.img_task_publisher_avatar = (ImageView) convertView
@@ -99,28 +88,47 @@ public class TaskTiXingAdapter extends BaseAdapter {
 			holder.btn_rightButton = (Button) convertView
 					.findViewById(R.id.btn_refuse_task);
 			convertView.setTag(holder);
+			flags1.add(true);flags2.add(true);flags3.add(false);
 		} else {
 			holder = (ViewHold) convertView.getTag();
 		}
-			Task task=dataList.get(position);
-			int state=Integer.parseInt(task.getState());
-			int tip=Integer.parseInt(task.getTip());
-			int repeat=Integer.parseInt(task.getRepeat());
-			String datastart = StringUtil.isEmpty(task.getStart()) ? "00-00" : dataList.get(position).getStart().substring(5, 10);
-			String dataend = StringUtil.isEmpty(task.getEnd()) ? "00-00": dataList.get(position).getEnd().substring(5, 10);
-			ImageLoader.getInstance().displayImage(
-					StringUtil.toString(HttpUtils.IMAGE_URL + task.getAvatar(),
-							"http://"), holder.img_task_publisher_avatar);
-			holder.tv_task_publisher_name.setText(task.getNick());
-			holder.tv_task_publish_date.setText(task.getAddtime());
-			holder.tv_task_state.setText(state == 0 ? "未接受": state == 1 ? "已接受" : state == 2 ? "待执行": state == 3 ? "执行中" : state == 4 ? "已完成": "已取消");
-			holder.tv_task_date.setText(Html.fromHtml("<big><font color=#EA5414>" + datastart+ "</font></big><br>-" + dataend));
-			holder.tv_task_tip.setText(tip == 0 ? "正点": tip == 1 ? "五分钟" : tip == 2 ? "十分钟" : tip == 3 ? "一小时": tip == 4 ? "一天" : tip==5?"三天":"不提醒");
-			holder.tv_task_repeat.setText(repeat == 0 ? "不重复": repeat == 1 ? "每天" : repeat == 2 ? "每周": repeat == 3 ? "每月" : "每年");
-			holder.tv_task_title.setText(task.getTitle());
-			holder.tv_task_tasker.setText(Integer.parseInt(task.getTasker())==1?"仅自己":Integer.parseInt(task.getTasker())+"人");
-			holder.btn_leftButton.setText("接受任务");
-			holder.btn_rightButton.setText("拒绝任务");
+		
+		holder.tv_task_state.setVisibility(flags1.get(position)?View.VISIBLE:View.GONE);
+		holder.tv_task_publish_date.setVisibility(flags2.get(position)?View.VISIBLE:View.GONE);
+		holder.rl_button.setVisibility( flags3.get(position)?View.VISIBLE:View.GONE);
+		
+		
+		
+		holder.ly_taskitem.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				holder.tv_task_state.setVisibility(View.GONE);
+				holder.tv_task_publish_date.setVisibility(View.GONE);
+				holder.rl_button.setVisibility(View.VISIBLE);
+			}
+		});
+		
+		
+		Task task=dataList.get(position);
+		int state=Integer.parseInt(task.getState());
+		int tip=Integer.parseInt(task.getTip());
+		int repeat=Integer.parseInt(task.getRepeat());
+		String datastart = StringUtil.isEmpty(task.getStart()) ? "00-00" : dataList.get(position).getStart().substring(5, 10);
+		String dataend = StringUtil.isEmpty(task.getEnd()) ? "00-00": dataList.get(position).getEnd().substring(5, 10);
+		ImageLoader.getInstance().displayImage(
+				StringUtil.toString(HttpUtils.IMAGE_URL + task.getAvatar(),
+						"http://"), holder.img_task_publisher_avatar);
+		holder.tv_task_publisher_name.setText(task.getNick());
+		holder.tv_task_publish_date.setText(task.getAddtime());
+		holder.tv_task_state.setText(state == 0 ? "未接受": state == 1 ? "已接受" : state == 2 ? "待执行": state == 3 ? "执行中" : state == 4 ? "已完成": "已取消");
+		holder.tv_task_date.setText(Html.fromHtml("<big><font color=#EA5414>" + datastart+ "</font></big><br>-" + dataend));
+		holder.tv_task_tip.setText(tip == 0 ? "正点": tip == 1 ? "五分钟" : tip == 2 ? "十分钟" : tip == 3 ? "一小时": tip == 4 ? "一天" : tip==5?"三天":"不提醒");
+		holder.tv_task_repeat.setText(repeat == 0 ? "不重复": repeat == 1 ? "每天" : repeat == 2 ? "每周": repeat == 3 ? "每月" : "每年");
+		holder.tv_task_title.setText(task.getTitle());
+		holder.tv_task_tasker.setText(Integer.parseInt(task.getTasker())==1?"仅自己":Integer.parseInt(task.getTasker())+"人");
+		holder.btn_leftButton.setText("接受任务");
+		holder.btn_rightButton.setText("拒绝任务");
 
 
 			
