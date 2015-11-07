@@ -19,7 +19,8 @@ public abstract class HttpErrorHandler extends AbstractHttpHandler {
     private static final String TAG="httpResponse";
     @Override
     public void onJsonSuccess(JSONObject json) {
-       String status= json.getString("code");
+
+    	String status= json.getString("code");
        String msg=  json.getString("message");
         if(TextUtils.isEmpty(status) || !status.equals("200")){
             if(!TextUtils.isEmpty(msg)){

@@ -212,15 +212,17 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 							StringUtil.toString(HttpUtils.IMAGE_URL
 									+ task.getImgsrc3()), task_pic3);
 				}
-				// 获得任务的提醒和重复
+				// 获得任务的提醒和重复和位置 
 				String tip1 = jsonObject.getString("tip");
 				String repeat1 = jsonObject.getString("repeat");
+				String address=jsonObject.getString("address");
 				int tip = Integer.parseInt(tip1);
 				int repeat = Integer.parseInt(repeat1);
 				taskType.set(0, tip == 0 ? "正点": tip == 1 ? "五分钟" : tip == 2 ? "十分钟"
 								: tip == 3 ? "一小时" : tip == 4 ? "一天" :tip == 5 ? "三天" :  "不提醒");
 				taskType.set(1, repeat == 0 ? "不重复" : repeat == 1 ? "每天"
 						: repeat == 2 ? "每周" : "每年");
+				taskType.set(2, address.length()>3?address.substring(0, 3)+"...":"无地址");
 				btnAdapter.notifyDataSetChanged();
 			}
 		}, params);
@@ -259,47 +261,7 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 		// taskAdapter.notifyDataSetChanged();
 	}
 
-	// state == 0 ? "未接受" : state == 1 ? "已接受"
-	// : state == 2 ? "待执行" : state == 3 ? "执行中" : state == 4 ? "已完成"
-	// : "已取消";
-	// private void stateAndButtonChange() {
-	// switch (state) {
-	// case 0:// 未接受
-	// leftButton.setText("接受任务");
-	// rightButon.setText("删除任务");
-	// state += 2;
-	// modTaskState();
-	// break;
-	// case 2:// 待执行
-	// task_state.setText(state == 0 ? "未接受" : state == 1 ? "已接受"
-	// : state == 2 ? "待执行" : state == 3 ? "执行中"
-	// : state == 4 ? "已完成" : "已取消");
-	// leftButton.setText("开始执行");
-	// rightButon.setText("取消任务");
-	// state += 1;
-	// modTaskState();
-	// break;
-	// case 3:// 执行中
-	// task_state.setText(state == 0 ? "未接受" : state == 1 ? "已接受"
-	// : state == 2 ? "待执行" : state == 3 ? "执行中"
-	// : state == 4 ? "已完成" : "已取消");
-	// leftButton.setText("标记完成");
-	// rightButon.setText("取消任务");
-	// state += 1;
-	// modTaskState();
-	// break;
-	// case 4:// 已完成
-	// task_state.setText(state == 0 ? "未接受" : state == 1 ? "已接受"
-	// : state == 2 ? "待执行" : state == 3 ? "执行中"
-	// : state == 4 ? "已完成" : "已取消");
-	// leftButton.setText("删除任务");
-	// rightButon.setVisibility(View.GONE);
-	// modTaskState();
-	// break;
-	// default:
-	// break;
-	// }
-	// }
+	
 	/**
 	 * 获取任务状态并判定是否为0
 	 */
@@ -363,9 +325,6 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 		switch (view.getId()) {
 		case R.id.btn_topRightButton:
 			modTaskState();
-
-			break;
-		case R.id.btn_rightButton:
 
 			break;
 		case R.id.ly_multi_excutor:

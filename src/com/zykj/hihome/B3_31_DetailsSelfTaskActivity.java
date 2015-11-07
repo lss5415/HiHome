@@ -187,6 +187,7 @@ public class B3_31_DetailsSelfTaskActivity extends BaseActivity {
 				}
 				String tip1 = jsonObject.getString("tip");
 				String repeat1 = jsonObject.getString("repeat");
+				String address = jsonObject.getString("address");
 				int tip = Integer.parseInt(tip1);
 				int repeat = Integer.parseInt(repeat1);
 				taskType.set(0, tip == 0 ? "正点"
@@ -194,6 +195,7 @@ public class B3_31_DetailsSelfTaskActivity extends BaseActivity {
 								: tip == 3 ? "一小时" : tip == 4 ? "一天" :tip == 5 ? "三天" :  "不提醒");
 				taskType.set(1, repeat == 0 ? "不重复" : repeat == 1 ? "每天"
 						: repeat == 2 ? "每周" : "每年");
+				taskType.set(2, address.length()>3?address.substring(0, 3)+"...":"无地址");
 				btnAdapter.notifyDataSetChanged();
 			}
 		}, params);
