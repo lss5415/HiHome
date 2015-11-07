@@ -44,13 +44,15 @@
                 android:background="@drawable/gerenback"
                 android:gravity="bottom" >
 
-                <ImageView
+                <com.zykj.hihome.utils.CircularImage
+                    android:id="@+id/im_me_avatar"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="15dp"
-                    android:src="@drawable/touxiang" />
+                    android:background="@drawable/touxiang" />
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -59,6 +61,7 @@
                     android:textColor="#FFF" />
 
                 <TextView
+                    android:id="@+id/tv_sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -67,6 +70,7 @@
                     android:textColor="#FFF" />
 
                 <TextView
+                    android:id="@+id/tv_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -94,6 +98,7 @@
                     android:layout_height="fill_parent" >
 
                     <TextView
+                        android:id="@+id/tv_mobile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -135,6 +140,7 @@
                     android:layout_height="fill_parent" >
 
                     <TextView
+                        android:id="@+id/tv_sign"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"

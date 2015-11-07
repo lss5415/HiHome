@@ -25,52 +25,15 @@
             style="@style/title_head"
             android:text="纪念日总览" />
     </RelativeLayout>
-    <LinearLayout 
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:background="#FFF">
-        <ImageView 
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/jnr1"/>
-        <View 
-            android:layout_width="1dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="10dp"
-            android:background="#999"/>
-        <LinearLayout 
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="15dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:textColor="@color/theme_color"
-                android:gravity="bottom"
-                android:text="元旦"/>
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:textSize="13sp"
-                android:text="2016年1月1日"/>
-        </LinearLayout>
-    </LinearLayout>
+    
 	<View 
 	    android:layout_width="fill_parent"
 	    android:layout_height="1dp"
 	    android:background="#A7A7A7"/>
-    <ListView 
+	
+    <com.zykj.hihome.view.XListView
         android:id="@+id/lv_jinianri"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        
-    </ListView>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     
 </LinearLayout>
