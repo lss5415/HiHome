@@ -27,8 +27,8 @@ public class CalendarManager {
 
     public CalendarManager(@NonNull LocalDate selected, @NonNull State state, @Nullable LocalDate minDate,
             @Nullable LocalDate maxDate, @Nullable Formatter formatter) {
-        mToday = LocalDate.now();
-        mState = state;
+        mToday = LocalDate.now();//当前日期
+        mState = state;//周视图、月视图
 
         if (formatter == null) {
             this.formatter = new DefaultFormatter();

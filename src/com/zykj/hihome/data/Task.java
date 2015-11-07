@@ -19,6 +19,7 @@ public class Task implements Serializable{
 	private String tip;//任务提醒0不提醒1正点2五分钟3十分钟4一小时5一天6三天
 	private String repeat;//任务重复0不重复1每天2每周3每月4每年
 	private String state;//任务状态
+	private String sid;//任务状态ID
 	private String addtime;//任务添加时间
 	private String tasker;//任务执行人数
 	private String nick;  //任务发布者姓名
@@ -29,6 +30,8 @@ public class Task implements Serializable{
 	private String imgsrc3;//纪念日详情图片
 	private String mdate;//纪念日日期
 	private String address;//地址
+	private String lng;//经度
+	private String lat;//纬度
 	private List<Map<String, String>> taskerList;
 
 	public List<Map<String, String>> getTaskerList() {
@@ -39,7 +42,12 @@ public class Task implements Serializable{
 	}
 	public Task(){
 		
-		
+	}
+	public String getSid() {
+		return sid;
+	}
+	public void setSid(String sid) {
+		this.sid = sid;
 	}
 	public String getImgsrc() {
 		return imgsrc;
@@ -166,6 +174,16 @@ public class Task implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
-	
+	public String getLng() {
+		return lng;
+	}
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
+	public String getLat() {
+		return lat;
+	}
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
 }

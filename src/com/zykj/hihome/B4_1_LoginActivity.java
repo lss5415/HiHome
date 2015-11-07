@@ -1,35 +1,32 @@
 package com.zykj.hihome;
 
+import java.util.Set;
+
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
-
-import org.apache.http.Header;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
-import com.zykj.hihome.utils.CommonUtils;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
-import com.zykj.hihome.view.RequestDailog;
 
 /**
  * @author LSS 2015年9月29日 上午9:19:36
@@ -43,6 +40,9 @@ public class B4_1_LoginActivity extends BaseActivity {
 	private ImageView img_qq, img_weixin;
 	private String username, passWord;
 	private String token,uid;
+	
+	private final String APP_ID = "1104931910";
+//	private Tencent mTencent; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,12 @@ public class B4_1_LoginActivity extends BaseActivity {
 		initView();
 	}
 
+	@Override
+	protected void onStart() {
+		
+		
+		super.onStart();
+	}
 	private void initView() {
 
 		myCommonTitle = (MyCommonTitle) findViewById(R.id.aci_mytitle);
@@ -72,11 +78,11 @@ public class B4_1_LoginActivity extends BaseActivity {
 		switch (view.getId()) {
 		case R.id.tv_new_user:// 新用户注册
 			startActivity(new Intent(B4_1_LoginActivity.this,
-					B4_1_RegisterActivity.class));
+					B4_02_RegisterActivity.class));
 			break;
 		case R.id.tv_forgetPassWord:// 忘记密码
 			startActivity(new Intent(B4_1_LoginActivity.this,
-					B4_1_ForgetPassWordActivity.class));
+					B4_04_ForgetPassWordActivity.class));
 			break;
 		case R.id.btn_login:
 			username = et_username.getText().toString().trim();
@@ -104,6 +110,14 @@ public class B4_1_LoginActivity extends BaseActivity {
 						BaseApp.getModel().setSex(StringUtil.toStringOfObject(data.getJSONObject(0).getString("sex")));
 						BaseApp.getModel().setAge(StringUtil.toStringOfObject(data.getJSONObject(0).getString("age")));
 						BaseApp.getModel().setSign(StringUtil.toStringOfObject(data.getJSONObject(0).getString("sign")));
+						Log.d("jpush---------------", uid);
+						JPushInterface.setAlias(B4_1_LoginActivity.this, uid, new TagAliasCallback() {
+							@Override
+							public void gotResult(int code, String alias, Set<String> tags) {
+								Log.d("jpush---------------", "code="+code+"alias="+alias);
+								Tools.toast(B4_1_LoginActivity.this, "code="+code+"alias="+alias+"tags="+tags.toString());
+							}
+						});
 						requestData();
 					}
 

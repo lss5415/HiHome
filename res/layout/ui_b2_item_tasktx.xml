@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/ly_item_onclick" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <ImageView
+                android:id="@+id/tx_task_publisher_avator"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:src="@drawable/gerentouxiang" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="任务发布人：" />
+
+                    <TextView
+                        android:id="@+id/tx_task_publisher_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="美丽的" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ly_tx_task_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="发布时间："
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/t_ten" />
+
+                    <TextView
+                        android:id="@+id/tx_task_publish_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2015-11-05"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/t_ten" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tx_task_mystate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:text="待执行"
+                android:textColor="@color/theme_colorhuang" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="85dp"
+            android:background="@color/theme_colordivide" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:id="@+id/tx_task_date"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:text="10/19-10/20"
+                android:textSize="@dimen/t_fourteen" />
+
+            <View
+                android:id="@+id/divide"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:background="@color/theme_colorhuang" />
+
+            <LinearLayout
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="15dp" >
+
+                <TextView
+                    android:id="@+id/tx_task_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="去超市买奶粉"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/eighteen" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/three"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="@dimen/fifteen"
+                        android:layout_height="@dimen/fifteen"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_task_clock" />
+
+                    <TextView
+                        android:id="@+id/tx_task_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:singleLine="true"
+                        android:text="五分钟前"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/t_ten" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fifteen"
+                        android:layout_height="@dimen/fifteen"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/twenty"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_task_fresh" />
+
+                    <TextView
+                        android:id="@+id/tx_task_repeat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:singleLine="true"
+                        android:text="每天"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/t_ten" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 状态 -->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/five"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tx_tasker_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="100人"
+                    android:textColor="@color/state_color"
+                    android:textSize="@dimen/t_sixteen" />
+            </LinearLayout>
+            <!-- 详情 -->
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_task_into" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_button"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_receive_task"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/bg_round_green"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="接受任务"
+                android:textColor="@color/white" 
+                android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/btn_refuse_task"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bg_null_orange"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="拒绝任务"
+                android:textColor="@color/theme_colorhuang" 
+                android:textSize="14sp"/>
+        </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#EEEEEE" />
+
+</LinearLayout>

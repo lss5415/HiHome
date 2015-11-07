@@ -121,22 +121,28 @@ public class TaskAdapter extends BaseAdapter {
 			String dataend = StringUtil.isEmpty(task.getEnd()) ? "00-00" : task.getEnd().substring(5, 10);
 			int tip = Integer.valueOf(task.getTip());
 			int repeat = Integer.valueOf(task.getRepeat());
-			int state = 0;
+			int state=0;
+
 			if (task.getTaskerList()==null) {
 				//if(type=1?----2?)
+				state=Integer.parseInt(task.getState().toString());
 				if(mType==1){
+					
 					holder2.task_state.setText(state == 0 ? "未接受": state == 1 ? "已接受" : state == 2 ? "待执行": state == 3 ? "执行中" : state == 4 ? "已完成": "已取消");
 				}else if(mType==2&&Integer.valueOf(task.getTasker())==1){
 					holder2.task_num.setText("仅自己");
+					
 					holder2.task_state.setText(state == 0 ? "未接受": state == 1 ? "已接受" : state == 2 ? "待执行": state == 3 ? "执行中" : state == 4 ? "已完成": "已取消");
 				}else{
 					holder2.task_num.setText(Integer.valueOf(task.getTasker()) + "人");
-					holder2.task_state.setText("多人任务");
+					holder2.task_state.setText(state == 0 ? "未接受": state == 1 ? "已接受" : state == 2 ? "待执行": state == 3 ? "执行中" : state == 4 ? "已完成": "已取消");
 				}
 	
 			}else{
 				if (task.getTaskerList().size() == 1) {// 如果执行人只有一个
-					holder2.task_num.setText((mType == 3)&& (StringUtil.isEmpty(task.getNick())) ? "张三": task.getNick());
+					state=Integer.parseInt(task.getTaskerList().get(0).get("tasker_state"));
+					
+					holder2.task_num.setText((mType == 3)&& (StringUtil.isEmpty(task.getTaskerList().get(0).get("nick"))) ? "昵称": task.getTaskerList().get(0).get("nick"));
 					holder2.task_state.setText(state == 0 ? "未接受": state == 1 ? "已接受" : state == 2 ? "待执行": state == 3 ? "执行中" : state == 4 ? "已完成": "已取消");
 				} else {
 					holder2.task_num.setText(task.getTaskerList().size() + "人");
@@ -146,27 +152,13 @@ public class TaskAdapter extends BaseAdapter {
 			holder2.date.setText(Html.fromHtml("<big><font color=#EA5414>"
 					+ datastart + "</font></big><br>-" + dataend));
 			holder2.task_title.setText(task.getTitle());
-			holder2.task_time.setText(tip == 0 ? "不提醒" : tip == 1 ? "正点": tip == 2 ? "五分钟" : tip == 3 ? "十分钟" : tip == 4 ? "一小时": tip == 5 ? "一天" : "三天");
+			holder2.task_time.setText(tip == 0 ? "正点": tip == 1 ? "五分钟" : tip == 2 ? "十分钟" : tip == 3 ? "一小时": tip == 4 ? "一天" : tip==5?"三天":"不提醒");
 			holder2.task_repeat.setText(repeat == 0 ? "不重复": repeat == 1 ? "每天" : repeat == 2 ? "每周": repeat == 3 ? "每月" : "每年");
 			holder2.task_tasker.setText("发布人：" + task.getNick());
 			holder2.task_tasker.setVisibility(mType == 2 ? View.VISIBLE: View.GONE);
-//			if (StringUtil.isEmpty(task.getTasker().toString())) {
-//				if (task.getTaskerList().size() == 1) {// 如果执行人只有一个
-//					holder2.task_num.setText(mType == 2 ? "仅自己" : (mType == 3)&& (StringUtil.isEmpty(task.getNick())) ? "张三": task.getNick());
-//					holder2.task_state.setText(state == 0 ? "未接受": state == 1 ? "已接受" : state == 2 ? "待执行": state == 3 ? "执行中" : state == 4 ? "已完成": "已取消");
-//				} else {
-//					holder2.task_num.setText(task.getTaskerList().size() + "人");
-//					holder2.task_state.setText("多人任务");
-//				}
-//			}
+
 			holder2.task_num.setVisibility(mType == 1 ? View.GONE: View.VISIBLE);
-////			if (StringUtil.isEmpty(task.getTasker().toString())) {
-//				if (task.getTaskerList().size() == 1) {// 如果执行人只有一个
-//					holder2.task_state.setText(state == 0 ? "未接受": state == 1 ? "已接受" : state == 2 ? "待执行": state == 3 ? "执行中" : state == 4 ? "已完成": "已取消");
-//				} else {
-//					holder2.task_state.setText("多人任务");
-//				}
-////			}
+
 		}
 		return convertView;
 	}

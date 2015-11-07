@@ -63,4 +63,8 @@ public class MyCommonTitle extends RelativeLayout {
 			titleBack.setVisibility(View.INVISIBLE);
 		}
 	}
+
+	public TextView getTitle() {
+		return (TextView) findViewById(R.id.aci_title_tv);
+	}
 }

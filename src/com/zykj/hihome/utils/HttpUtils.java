@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 
@@ -33,7 +32,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 1 获取好友列表
+	 *  获取好友列表
 	 * 
 	 * @param userId
 	 *            用户Id
@@ -44,7 +43,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 2 添加好友
+	 *  添加好友
 	 * 
 	 * @param params参数
 	 *            (fid 要添加好友的ID编号,uid用户ID编号,intro 备注信息)
@@ -55,7 +54,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 3 搜索联系人
+	 *  搜索联系人
 	 * 
 	 * @param params参数
 	 *            (keys 搜索关键词,uid(非必须),nowpage(非必须),perpage(非必须))
@@ -66,7 +65,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 4登陆
+	 * 登陆
 	 * 
 	 * @param params参数
 	 */
@@ -75,7 +74,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 5 注册
+	 *  注册
 	 * 
 	 * @param params参数
 	 */
@@ -85,7 +84,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 6 创建纪念日
+	 *  创建纪念日
 	 * 
 	 * @param params参数
 	 */
@@ -95,7 +94,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 7 获取纪念日列表
+	 *  获取纪念日列表
 	 * 
 	 * @param params参数
 	 */
@@ -105,7 +104,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 8 获取纪念日详情
+	 *  获取纪念日详情
 	 * 
 	 * @param params参数
 	 */
@@ -115,7 +114,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 10 创建任务
+	 *  创建任务
 	 * 
 	 * @param params
 	 */
@@ -125,7 +124,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 9 获取我的任务列表
+	 *  获取我的任务列表
 	 * 
 	 * @param params参数uid
 	 *            ----用户id
@@ -136,7 +135,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 10 获取我发布的任务列表
+	 *  获取我发布的任务列表
 	 * 
 	 * @param params参数uid
 	 *            ----用户id
@@ -147,7 +146,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 11获取发布的任务详情
+	 * 获取任务详情
 	 * 
 	 * @param params参数id
 	 *            ----任务id
@@ -156,9 +155,19 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=task&a=getInfo", params, res);
 	}
+	/**
+	 * 更新任务详情
+	 * 
+	 * @param params参数id
+	 *            ----任务id
+	 */
+	public static void upDateTasksInfo(AsyncHttpResponseHandler res,
+			RequestParams params) {
+		client.post(base_url + "c=task&a=editInfo", params, res);
+	}
 
 	/**
-	 * 12上传图片
+	 * 上传图片
 	 * 
 	 * @param params
 	 */
@@ -168,7 +177,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 13 查看好友资料
+	 *  查看好友资料
 	 * 
 	 * @param params
 	 */
@@ -177,7 +186,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 14 查看好友资料
+	 *  查看好友资料
 	 * 
 	 * @param params
 	 */
@@ -187,7 +196,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 15 同意/拒绝好友申请
+	 *  同意/拒绝好友申请
 	 * 
 	 * @param params
 	 */
@@ -197,7 +206,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 16 删除纪念日
+	 *  删除纪念日
 	 * 
 	 * @param params
 	 */
@@ -216,7 +225,7 @@ public class HttpUtils {
 		client.post(base_url + "c=task&a=delInfo", params, res_upLoad);
 	}
 	/**
-	 * 17 更改任务状态
+	 *  更改任务状态
 	 * 
 	 * @param params
 	 */
@@ -225,7 +234,7 @@ public class HttpUtils {
 		client.post(base_url + "c=task&a=applyTask", params, res_upLoad);
 	}
 	/**
-	 * 18 标记好友关系
+	 *  标记好友关系
 	 * 
 	 * @param params
 	 */
@@ -233,7 +242,7 @@ public class HttpUtils {
 		client.post(base_url + "c=friend&a=groupFriend", params, res_upLoad);
 	}
 	/**
-	 * 19 获取Token
+	 *  获取Token
 	 * 
 	 * @param params
 	 */
@@ -241,7 +250,7 @@ public class HttpUtils {
 		client.get(base_url + "c=chat&a=getToken&uid=" + uid, res_upLoad);
 	}
 	/**
-	 * 19 匹配手机通讯录
+	 *  匹配手机通讯录
 	 * 
 	 * @param params
 	 */
@@ -313,6 +322,37 @@ public class HttpUtils {
 	 */
 	public static void geZuiJinXiangPian(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
 		client.post(base_url + "c=photo&a=getLatelyList", params, res_upLoad);
+	}
+	/**
+	 * 获取天气
+	 */
+	public static void getWeatherInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.addHeader("apikey", "98381cf1c5996fa7c49c25bcac69a83c");
+		client.post("http://apis.baidu.com/heweather/weather/free", params, res_upLoad);
+	}
+	/**
+	 * 获取任务日历
+	 */
+	public static void getDateTaskList(AsyncHttpResponseHandler res_upLoad, String uid) {
+		client.get(base_url + "c=task&a=getDateTaskList&uid=" + uid, res_upLoad);
+	}
+	/**
+	 * 获取功能介绍(应用说明)
+	 */
+	public static void getAppInfo(AsyncHttpResponseHandler res_upLoad) {
+		client.get(base_url + "c=article&a=getInfo", res_upLoad);
+	}
+	/**
+	 * 帮助与反馈
+	 */
+	public static void addInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+		client.post(base_url + "c=gbook&a=addInfo", params, res_upLoad);
+	}
+	/**
+	 * 获取新版本
+	 */
+	public static void getNew(AsyncHttpResponseHandler res_upLoad, String version) {
+		client.get(base_url + "c=version&a=getInfo&version="+version, res_upLoad);
 	}
 	
 }

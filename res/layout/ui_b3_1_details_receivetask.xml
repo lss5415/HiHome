@@ -191,7 +191,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:visibility="gone" >
+                    android:visibility="visible" >
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -235,7 +235,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:visibility="visible" >
+                    android:visibility="gone" >
 
                     <GridView
                         android:id="@+id/gv_tasker"
@@ -287,6 +287,36 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
+                        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/text_grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/task_pic_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/task_pic_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/task_pic_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"

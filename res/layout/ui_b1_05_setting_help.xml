@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grey" >
+    
+    <com.zykj.hihome.view.MyCommonTitle 
+        android:id="@+id/aci_mytitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+    <EditText 
+        android:id="@+id/aci_title"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/fifty"
+        android:hint="标题"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/fifteen"/>
+    <View 
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/one"
+        android:background="@color/grey"/>
+    <EditText 
+        android:id="@+id/aci_content"
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1"
+        android:hint="请输入宝贵意见"
+        android:gravity="top"
+        android:padding="@dimen/fifteen"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/fifteen"/>
+    <Button 
+        android:id="@+id/aci_submit"
+	    android:layout_width="match_parent"
+		android:layout_height="@dimen/forty"
+	    android:text="提交"
+	    android:textSize="@dimen/t_twenty"
+	    android:layout_margin="@dimen/fifteen"
+	    android:textColor="@color/white"
+	    android:background="@drawable/bg_round_theme"/>
+</LinearLayout>
