@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/onclick" >
+    android:id="@+id/ly_item_onclick" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -12,7 +12,7 @@
             android:padding="5dp" >
 
             <ImageView
-                android:id="@+id/tx_publisher_avator"
+                android:id="@+id/tx_task_publisher_avator"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:src="@drawable/gerentouxiang" />
@@ -36,7 +36,7 @@
                         android:text="任务发布人：" />
 
                     <TextView
-                        android:id="@+id/tx_publisher_name"
+                        android:id="@+id/tx_task_publisher_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -58,7 +58,7 @@
                         android:textSize="@dimen/t_ten" />
 
                     <TextView
-                        android:id="@+id/tx_publisher_time"
+                        android:id="@+id/tx_task_publish_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2015-11-05"
@@ -68,7 +68,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tx_mytask_state"
+                android:id="@+id/tx_task_mystate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -137,7 +137,7 @@
                         android:src="@drawable/ic_task_clock" />
 
                     <TextView
-                        android:id="@+id/tx_task_time"
+                        android:id="@+id/tx_task_tip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -178,7 +178,7 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/tx_task_num"
+                    android:id="@+id/tx_tasker_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
