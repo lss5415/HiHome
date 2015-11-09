@@ -271,7 +271,7 @@ public class CollapseCalendarView extends LinearLayout implements View.OnClickLi
 				dayView.setCompoundDrawables(null, null, null, null);
 			}
 
-            boolean enables = day.isEnabled();//可选
+            boolean enables = true;//day.isEnabled();//可选
             dayView.setEnabled(enables);
             /*点击事件*/
             if (enables) {

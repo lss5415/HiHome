@@ -95,14 +95,14 @@ public class B4_01_LoginActivity extends BaseActivity implements Callback,
 			username = et_username.getText().toString().trim();
 			passWord = et_passWord.getText().toString().trim();
 
-			if (StringUtil.isEmpty("15006598533")) {
+			if (StringUtil.isEmpty(username)) {
 				Tools.toast(B4_01_LoginActivity.this, "用户名不能为空");
-			} else if (StringUtil.isEmpty("111111")) {
+			} else if (StringUtil.isEmpty(passWord)) {
 				Tools.toast(B4_01_LoginActivity.this, "密码不能为空");
 			} else {
 				RequestParams params = new RequestParams();
-				params.put("mob", "13325095533");
-				params.put("pass", "111111");
+				params.put("mob", username);
+				params.put("pass", passWord);
 				HttpUtils.login(new HttpErrorHandler() {
 
 					@Override

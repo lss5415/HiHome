@@ -91,10 +91,36 @@
             android:name="com.zykj.hihome.B1_TiXingActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" />
+        <!-- 会话列表 Activity -->
         <activity
             android:name="com.zykj.hihome.B2_LiaoTianActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar" />
+			android:screenOrientation="portrait"
+		   	android:windowSoftInputMode="stateHidden|adjustResize"
+            android:theme="@android:style/Theme.NoTitleBar" >
+		    <intent-filter>
+		        <action android:name="android.intent.action.VIEW" />
+		        <category android:name="android.intent.category.DEFAULT" />
+		        <data
+		            android:host="com.zykj.hihome"
+		            android:pathPrefix="/conversationlist"
+		            android:scheme="rong" />
+		    </intent-filter>
+        </activity>
+        <!-- 会话 Activity -->
+        <activity
+			android:name="com.zykj.hihome.B2_01_LiaoTianDetailActivity"
+			android:screenOrientation="portrait"
+		   	android:windowSoftInputMode="stateHidden|adjustResize"
+            android:theme="@android:style/Theme.NoTitleBar">
+		 	<intent-filter>
+		     	<action android:name="android.intent.action.VIEW" />
+		      	<category android:name="android.intent.category.DEFAULT" />
+		      	<data
+		        	android:host="com.zykj.hihome"
+		          	android:pathPrefix="/conversation/"
+		          	android:scheme="rong" />
+		 	</intent-filter>
+		</activity>
         <activity
             android:name="com.zykj.hihome.B3_0_TaskActivity"
             android:label="@string/app_name"
@@ -295,38 +321,6 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <!-- 会话列表 Activity -->
-        <activity
-            android:name=".ConversationListActivity"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="com.zykj.hihome"
-                    android:pathPrefix="/conversationlist"
-                    android:scheme="rong" />
-            </intent-filter>
-        </activity>
-
-        <!-- 会话 Activity -->
-        <activity
-            android:name=".ConversationActivity"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="com.zykj.hihome"
-                    android:pathPrefix="/conversation/"
-                    android:scheme="rong" />
-            </intent-filter>
-        </activity>
         <!-- 【短信验证】 -->
         <activity
             android:name="cn.smssdk.SMSSDKUIShell"
@@ -416,7 +410,8 @@
             android:value="lmxuhwagxp4yd" />
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="d4c37692bd00af5d47791b86cc5da5b8" />
+            android:value="010657f8735efe04ef1e83d2f73a7190" />
+        <!-- d4c37692bd00af5d47791b86cc5da5b8发布模式 -->
         
         <!-- 推送配置信息开始-->
         <!-- For test only 测试状态通知栏，需要打开的Activity -->

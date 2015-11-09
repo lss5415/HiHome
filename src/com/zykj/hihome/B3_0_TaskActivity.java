@@ -23,7 +23,6 @@ import com.zykj.hihome.fragment.TaskFragment;
 import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
-import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.utils.UrlContants;
 
 /**
@@ -35,6 +34,7 @@ public class B3_0_TaskActivity extends FragmentActivity implements OnClickListen
 	private ImageView img_create_anniversary, img_publish_task;
 	private CircularImage img_ico;
     private CollapseCalendarView mCalendarView;
+    private CalendarManager manager;
 	private RadioGroup tab_rwGroup;
     private TaskFragment taskFragment1,taskFragment2,taskFragment3;
     private ArrayList<String> taskDates = new ArrayList<String>();
@@ -71,7 +71,7 @@ public class B3_0_TaskActivity extends FragmentActivity implements OnClickListen
 		img_publish_task = (ImageView) findViewById(R.id.img_publish_task);
 		img_create_anniversary = (ImageView) findViewById(R.id.img_create_anniversary);
 		//加载日历控件
-        CalendarManager manager = new CalendarManager(LocalDate.now(), CalendarManager.State.MONTH, LocalDate.now(), LocalDate.now().plusYears(1));
+        manager = new CalendarManager(LocalDate.now(), CalendarManager.State.MONTH, LocalDate.now(), LocalDate.now().plusYears(1));
         mCalendarView = (CollapseCalendarView) findViewById(R.id.calendar);
         mCalendarView.init(manager, taskDates);
         mCalendarView.setListener(new OnDateSelect() {
@@ -133,20 +133,42 @@ public class B3_0_TaskActivity extends FragmentActivity implements OnClickListen
 			break;
 		}
 	}
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-	super.onActivityResult(requestCode, resultCode, intent);
-	if(requestCode==1){
-		taskFragment1.reflush();
-	}else if (requestCode==2||requestCode==55) {
-		taskFragment1.reflush();
-		taskFragment2.reflush();
-		taskFragment3.reflush();
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		super.onActivityResult(requestCode, resultCode, intent);
+		if(requestCode==1){
+			taskFragment1.reflush();
+		}else if (requestCode==2||requestCode==55) {
+			taskFragment1.reflush();
+			taskFragment2.reflush();
+			taskFragment3.reflush();
+		}
+	//	else if(requestCode==10){
+	//		taskFragment3.updatelist(getIntent().getIntExtra("position", 0), getIntent().getStringExtra("state"));
+	//	}
+		
+		
 	}
-//	else if(requestCode==10){
-//		taskFragment3.updatelist(getIntent().getIntExtra("position", 0), getIntent().getStringExtra("state"));
-//	}
 	
-	
-}
+	/**
+	 * 刷新日历
+	 */
+	public void reflushCalendar(){
+		HttpUtils.getDateTaskList(new HttpErrorHandler() {
+			@Override
+			public void onRecevieSuccess(JSONObject json) {
+				taskDates.clear();
+				JSONArray jsonArray = json.getJSONObject(UrlContants.jsonData).getJSONArray("list");
+				for (int i = 0; i < jsonArray.size(); i++) {
+					JSONArray dateArray = jsonArray.getJSONObject(i).getJSONArray("date");
+					for (int j = 0; j < dateArray.size(); j++) {
+						if(!taskDates.contains(dateArray.getString(j))){
+							taskDates.add(dateArray.getString(j));
+						}
+					}
+				}
+		        mCalendarView.init(manager, taskDates);
+			}
+		}, BaseApp.getModel().getUserid());
+	}
 }
