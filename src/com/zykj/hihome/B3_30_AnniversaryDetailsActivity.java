@@ -3,6 +3,7 @@ package com.zykj.hihome;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;

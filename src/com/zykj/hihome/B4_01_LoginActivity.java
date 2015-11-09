@@ -101,7 +101,7 @@ public class B4_01_LoginActivity extends BaseActivity implements Callback,
 				Tools.toast(B4_01_LoginActivity.this, "密码不能为空");
 			} else {
 				RequestParams params = new RequestParams();
-				params.put("mob", "13325095533");
+				params.put("mob", "15006598533");
 				params.put("pass", "111111");
 				HttpUtils.login(new HttpErrorHandler() {
 

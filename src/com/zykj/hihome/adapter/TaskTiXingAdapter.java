@@ -3,15 +3,21 @@ package com.zykj.hihome.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
+import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zykj.hihome.B3_32_DetailsReceiveTaskActivity;
 import com.zykj.hihome.R;
 import com.zykj.hihome.ViewHolder;
 import com.zykj.hihome.data.Task;
+import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
+import com.zykj.hihome.utils.Tools;
 
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,12 +34,13 @@ public class TaskTiXingAdapter extends BaseAdapter {
 	private LayoutInflater mLayoutInflater;
 	private List<Task> dataList;
 	private Context mContext;
-	
+
 	private List<Boolean> flags1 = new ArrayList<Boolean>();// 默认false是隐藏的，true是显示的
 	private List<Boolean> flags2 = new ArrayList<Boolean>();// 默认false是隐藏的，true是显示的
 	private List<Boolean> flags3 = new ArrayList<Boolean>();// 默认false是隐藏的，true是显示的
+	private int state;
 
-	public TaskTiXingAdapter(Context mContext,List<Task> dataList) {
+	public TaskTiXingAdapter(Context mContext, List<Task> dataList) {
 		this.mLayoutInflater = LayoutInflater.from(mContext);
 		this.dataList = dataList;
 		this.mContext = mContext;
@@ -56,15 +63,19 @@ public class TaskTiXingAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		
+
 		final ViewHold holder;
 		if (convertView == null) {
 			holder = new ViewHold();
-			convertView = mLayoutInflater.inflate(R.layout.ui_b2_item_tasktx,null);
-			holder.ly_taskitem=(LinearLayout) convertView.findViewById(R.id.ly_item_onclick);
-			holder.rl_button=(RelativeLayout) convertView.findViewById(R.id.rl_button);
-			
-			
+			convertView = mLayoutInflater.inflate(R.layout.ui_b2_item_tasktx,
+					null);
+			holder.ly_taskitem = (LinearLayout) convertView
+					.findViewById(R.id.ly_item_onclick);
+			holder.rl_button = (RelativeLayout) convertView
+					.findViewById(R.id.rl_button);
+			holder.ly_tx_task_time = (LinearLayout) convertView
+					.findViewById(R.id.ly_tx_task_time);
+
 			holder.img_task_publisher_avatar = (ImageView) convertView
 					.findViewById(R.id.tx_task_publisher_avator);
 			holder.tv_task_publisher_name = (TextView) convertView
@@ -87,54 +98,179 @@ public class TaskTiXingAdapter extends BaseAdapter {
 					.findViewById(R.id.btn_receive_task);
 			holder.btn_rightButton = (Button) convertView
 					.findViewById(R.id.btn_refuse_task);
+
 			convertView.setTag(holder);
-			flags1.add(true);flags2.add(true);flags3.add(false);
+
 		} else {
 			holder = (ViewHold) convertView.getTag();
 		}
-		
-		holder.tv_task_state.setVisibility(flags1.get(position)?View.VISIBLE:View.GONE);
-		holder.tv_task_publish_date.setVisibility(flags2.get(position)?View.VISIBLE:View.GONE);
-		holder.rl_button.setVisibility( flags3.get(position)?View.VISIBLE:View.GONE);
-		
-		
-		
-		holder.ly_taskitem.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				holder.tv_task_state.setVisibility(View.GONE);
-				holder.tv_task_publish_date.setVisibility(View.GONE);
-				holder.rl_button.setVisibility(View.VISIBLE);
-			}
-		});
-		
-		
-		Task task=dataList.get(position);
-		int state=Integer.parseInt(task.getState());
-		int tip=Integer.parseInt(task.getTip());
-		int repeat=Integer.parseInt(task.getRepeat());
-		String datastart = StringUtil.isEmpty(task.getStart()) ? "00-00" : dataList.get(position).getStart().substring(5, 10);
-		String dataend = StringUtil.isEmpty(task.getEnd()) ? "00-00": dataList.get(position).getEnd().substring(5, 10);
+		final Task task = dataList.get(position);
+		state = Integer.parseInt(task.getState());
+		final String sid = task.getSid();
+		int tip = Integer.parseInt(task.getTip());
+		int repeat = Integer.parseInt(task.getRepeat());
+		String datastart = StringUtil.isEmpty(task.getStart()) ? "00-00"
+				: dataList.get(position).getStart().substring(5, 10);
+		String dataend = StringUtil.isEmpty(task.getEnd()) ? "00-00" : dataList
+				.get(position).getEnd().substring(5, 10);
+
 		ImageLoader.getInstance().displayImage(
 				StringUtil.toString(HttpUtils.IMAGE_URL + task.getAvatar(),
 						"http://"), holder.img_task_publisher_avatar);
 		holder.tv_task_publisher_name.setText(task.getNick());
 		holder.tv_task_publish_date.setText(task.getAddtime());
-		holder.tv_task_state.setText(state == 0 ? "未接受": state == 1 ? "已接受" : state == 2 ? "待执行": state == 3 ? "执行中" : state == 4 ? "已完成": "已取消");
-		holder.tv_task_date.setText(Html.fromHtml("<big><font color=#EA5414>" + datastart+ "</font></big><br>-" + dataend));
-		holder.tv_task_tip.setText(tip == 0 ? "正点": tip == 1 ? "五分钟" : tip == 2 ? "十分钟" : tip == 3 ? "一小时": tip == 4 ? "一天" : tip==5?"三天":"不提醒");
-		holder.tv_task_repeat.setText(repeat == 0 ? "不重复": repeat == 1 ? "每天" : repeat == 2 ? "每周": repeat == 3 ? "每月" : "每年");
+		holder.tv_task_state.setText(state == 0 ? "未接受" : state == 1 ? "已接受"
+				: state == 2 ? "待执行" : state == 3 ? "执行中" : state == 4 ? "已完成"
+						: "已取消");
+		holder.tv_task_date.setText(Html.fromHtml("<big><font color=#EA5414>"
+				+ datastart + "</font></big><br>-" + dataend));
+		holder.tv_task_tip.setText(tip == 0 ? "正点" : tip == 1 ? "五分钟"
+				: tip == 2 ? "十分钟" : tip == 3 ? "一小时" : tip == 4 ? "一天"
+						: tip == 5 ? "三天" : "不提醒");
+		holder.tv_task_repeat.setText(repeat == 0 ? "不重复" : repeat == 1 ? "每天"
+				: repeat == 2 ? "每周" : repeat == 3 ? "每月" : "每年");
 		holder.tv_task_title.setText(task.getTitle());
-		holder.tv_task_tasker.setText(Integer.parseInt(task.getTasker())==1?"仅自己":Integer.parseInt(task.getTasker())+"人");
+		holder.tv_task_tasker
+				.setText(Integer.parseInt(task.getTasker()) == 1 ? "仅自己"
+						: Integer.parseInt(task.getTasker()) + "人");
 		holder.btn_leftButton.setText("接受任务");
 		holder.btn_rightButton.setText("拒绝任务");
 
+		flags1.add(true);
+		flags2.add(true);
+		flags3.add(false);
+		holder.tv_task_state.setVisibility(flags1.get(position) ? View.VISIBLE
+				: View.GONE);
+		holder.tv_task_publish_date
+				.setVisibility(flags2.get(position) ? View.VISIBLE : View.GONE);
+		holder.rl_button.setVisibility(flags3.get(position) ? View.VISIBLE
+				: View.GONE);
 
+		/**
+		 * 点击Item事件设置显示和隐藏的控件
+		 */
+		holder.ly_taskitem.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				flags1.clear();
+				flags2.clear();
+				flags3.clear();
+				for (int i = 0; i < dataList.size(); i++) {
+					flags1.add(true);
+					flags2.add(true);
+					flags3.add(false);
+
+				}
+				holder.tv_task_state.setVisibility(View.GONE);
+				holder.ly_tx_task_time.setVisibility(View.GONE);
+				holder.rl_button.setVisibility(View.VISIBLE);
+				// holder.tv_task_state.setVisibility(flags1.get(i)?View.VISIBLE:View.GONE);
+				// holder.tv_task_publish_date.setVisibility(flags2.get(position)?View.VISIBLE:View.GONE);
+				// holder.rl_button.setVisibility(
+				// flags3.get(position)?View.VISIBLE:View.GONE);
+
+			}
 			
-			
-			
+		});
+	
+		state = Integer.parseInt(task.getState());
+
+		if (state == 4 || state == 5) {
+			holder.btn_leftButton.setText("删除任务");
+			holder.btn_rightButton.setVisibility(View.GONE);
+		}
+		/**
+		 * 接受任务
+		 */
+		holder.btn_leftButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				stateAndButton();
+			}
+
+			private void stateAndButton() {
+				switch (state) {
+				case 0:
+					holder.btn_leftButton.setText("接受任务");
+					holder.btn_rightButton.setText("拒绝任务");
+					state += 1;
+					modTaskState();
+					break;
+				case 1:
+					holder.btn_leftButton.setText("执行任务");
+					holder.btn_rightButton.setText("取消任务");
+					state += 2;
+					modTaskState();
+					break;
+				case 2:
+					holder.btn_leftButton.setText("执行任务");
+					holder.btn_rightButton.setText("取消任务");
+					state += 1;
+					modTaskState();
+					break;
+				case 3:
+					holder.btn_leftButton.setText("标记完成");
+					holder.btn_rightButton.setText("取消任务");
+					state += 1;
+					modTaskState();
+					break;
+				case 4:
+					holder.btn_leftButton.setText("删除任务");
+					holder.btn_rightButton.setVisibility(View.GONE);
+					modTaskState();
+				}
+			}
+
+			private void modTaskState() {
+				RequestParams params = new RequestParams();
+				params.put("sid", sid);
+				params.put("state", state);
+				HttpUtils.modTaskState(new HttpErrorHandler() {
+					@Override
+					public void onRecevieSuccess(JSONObject json) {
+
+					}
+				}, params);
+			}
+		});
+
+		// 拒绝任务,将任务状态设置为已取消
+		holder.btn_rightButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				modTaskState1();
+			}
+
+			private void modTaskState1() {
+				RequestParams params = new RequestParams();
+				params.put("sid", sid);
+				params.put("state", 5);
+				HttpUtils.modTaskState(new HttpErrorHandler() {
+					@Override
+					public void onRecevieSuccess(
+							com.alibaba.fastjson.JSONObject json) {
+						holder.btn_rightButton.setVisibility(View.GONE);
+						holder.btn_leftButton.setText("删除任务");
+
+					}
+				}, params);
+			}
+		});
+		if (holder.btn_leftButton.getText().toString().equals("删除任务")) {
+			RequestParams params = new RequestParams();
+			params.put("id", task.getId());
+			HttpUtils.delTaskInfo(new HttpErrorHandler() {
+
+				@Override
+				public void onRecevieSuccess(JSONObject json) {
+
+				}
+			}, params);
+
+		}
 		return convertView;
+
 	}
 
 	public final class ViewHold {
@@ -151,7 +287,8 @@ public class TaskTiXingAdapter extends BaseAdapter {
 		public LinearLayout ly_taskitem;
 		public Button btn_leftButton;// 左侧按钮默认隐藏
 		public Button btn_rightButton;// 右侧按钮默认隐藏
-		
+		public LinearLayout ly_tx_task_time;// 右侧按钮默认隐藏
+
 	}
 
 }

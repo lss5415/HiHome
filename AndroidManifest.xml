@@ -416,7 +416,7 @@
             android:value="lmxuhwagxp4yd" />
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="d4c37692bd00af5d47791b86cc5da5b8" />
+            android:value="8aa6a9015ed665466e99787a77366c01" />
         
         <!-- 推送配置信息开始-->
         <!-- For test only 测试状态通知栏，需要打开的Activity -->

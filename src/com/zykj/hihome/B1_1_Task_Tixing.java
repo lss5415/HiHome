@@ -33,10 +33,7 @@ public class B1_1_Task_Tixing extends BaseActivity implements
 	private TaskTiXingAdapter txTaskAdapter;
 	private Handler mHandler;
 	private List<Task> tasks = new ArrayList<Task>();
-	private List<Boolean> flags1 = new ArrayList<Boolean>();// 默认false是隐藏的，true是显示的
-	private List<Boolean> flags2 = new ArrayList<Boolean>();// 默认false是隐藏的，true是显示的
-	private List<Boolean> flags3 = new ArrayList<Boolean>();// 默认false是隐藏的，true是显示的
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

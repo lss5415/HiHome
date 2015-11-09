@@ -272,13 +272,14 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
-				String state = json.getJSONArray(UrlContants.jsonData)
-						.getJSONArray(0).getJSONObject(0).getString("state");
-				int statu = Integer.parseInt(state);
-				if (statu != 0) {
-					changeTaskState();
-				} else {
-					deleteTask();
+				JSONArray jsonArray = json.getJSONArray(UrlContants.jsonData)
+						.getJSONArray(0);
+				for(int i=0;i>jsonArray.size();i++){
+						String state=jsonArray.getJSONObject(i).getString("state");
+						int statu = Integer.parseInt(state);
+						if (statu != 5) {
+							changeTaskState();
+					}
 				}
 			}
 
@@ -303,7 +304,7 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 			private void changeTaskState() {
 				params = new RequestParams();
 				params.put("sid", task.getSid());
-				params.put("state", "0");
+				params.put("state", 5);
 				HttpUtils.modTaskState(new HttpErrorHandler() {
 
 					@Override
@@ -325,7 +326,6 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 		switch (view.getId()) {
 		case R.id.btn_topRightButton:
 			modTaskState();
-
 			break;
 		case R.id.ly_multi_excutor:
 			startActivity(new Intent(this,
