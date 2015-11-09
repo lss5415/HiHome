@@ -144,7 +144,7 @@
                             android:layout_height="50dp"
                             android:layout_marginLeft="15dp"
                             android:contentDescription="@string/app_name"
-                            android:src="@drawable/ic_user_avtor" />
+                            android:src="@drawable/icon_image_default" />
 
                         <TextView
                             android:id="@+id/details_publishtask_publish_username"
@@ -238,7 +238,7 @@
                                 android:layout_height="40dp"
                                 android:layout_marginLeft="15dp"
                                 android:contentDescription="@string/app_name"
-                                android:src="@drawable/ic_user_avtor" />
+                                android:src="@drawable/icon_image_default" />
 
                             <TextView
                                 android:id="@+id/single_tasker_name"

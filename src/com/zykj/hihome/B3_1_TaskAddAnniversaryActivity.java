@@ -36,6 +36,7 @@ import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.utils.CircularImage;
+import com.zykj.hihome.utils.CommonUtils;
 import com.zykj.hihome.utils.DateTimePickDialogUtil;
 import com.zykj.hihome.utils.DateUtil;
 import com.zykj.hihome.utils.HttpErrorHandler;
@@ -118,9 +119,7 @@ public class B3_1_TaskAddAnniversaryActivity extends BaseActivity implements
 					this);
 			break;
 		case R.id.input_selectdate:// 选择时间
-			DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
-					B3_1_TaskAddAnniversaryActivity.this, null);
-			dateTimePicKDialog.dateTimePicKDialog(anniversaryt_selecttime);
+			View startView = CommonUtils.showDateTimePicker(this, anniversaryt_selecttime);
 			break;
 		case R.id.aci_edit_btn:// 完成创建
 			anni_title = anniversaryt_title.getText().toString().trim();

@@ -179,11 +179,11 @@ public class B3_31_DetailsSelfTaskActivity extends BaseActivity {
 				}
 				if (!StringUtil.isEmpty(jsonObject.getString("imgsrc2"))) {
 					ImageLoader.getInstance().displayImage(
-							HttpUtils.IMAGE_URL + task.getImgsrc1(), task_img2);
+							HttpUtils.IMAGE_URL + task.getImgsrc2(), task_img2);
 				}
 				if (!StringUtil.isEmpty(jsonObject.getString("imgsrc3"))) {
 					ImageLoader.getInstance().displayImage(
-							HttpUtils.IMAGE_URL + task.getImgsrc1(), task_img3);
+							HttpUtils.IMAGE_URL + task.getImgsrc3(), task_img3);
 				}
 				String tip1 = jsonObject.getString("tip");
 				String repeat1 = jsonObject.getString("repeat");

@@ -158,7 +158,6 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 		if (mType == 1) {
 			params = new RequestParams();
 			params.put("uid", BaseApp.getModel().getUserid());
-			params.put("uid", BaseApp.getModel().getUserid());
 			HttpUtils.getAnnversaryList(res_getAnnversaryList, params);// 获取纪念日列表
 		} else if (mType == 2) {
 			params = new RequestParams();
