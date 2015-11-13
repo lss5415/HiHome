@@ -9,6 +9,7 @@ import android.widget.ListView;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.view.MyCommonTitle;
 
 public class B3_32_1_ExecutorsTaskStateActivity extends BaseActivity {
@@ -41,7 +42,7 @@ public class B3_32_1_ExecutorsTaskStateActivity extends BaseActivity {
 						: state == 2 ? "待执行" : state == 3 ? "已执行" : state == 4 ? "已完成" : "已取消";
 				holder.setText(R.id.item_excutor_name, ((JSONObject)task).getString("nick"))
 						.setText(R.id.item_excutor_state, statu)
-						.setImageUrl(R.id.item_excutor_avator, ((JSONObject)task).getString("avatar"), 10f);
+						.setImageUrl(R.id.item_excutor_avator, HttpUtils.IMAGE_URL+((JSONObject)task).getString("avatar"), 10f);
 			}
 		};
 		mListView.setAdapter(executorAdapter);

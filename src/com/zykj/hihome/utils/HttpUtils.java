@@ -32,7 +32,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  获取好友列表
+	 * 获取好友列表
 	 * 
 	 * @param userId
 	 *            用户Id
@@ -43,7 +43,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  添加好友
+	 * 添加好友
 	 * 
 	 * @param params参数
 	 *            (fid 要添加好友的ID编号,uid用户ID编号,intro 备注信息)
@@ -54,7 +54,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  搜索联系人
+	 * 搜索联系人
 	 * 
 	 * @param params参数
 	 *            (keys 搜索关键词,uid(非必须),nowpage(非必须),perpage(非必须))
@@ -74,7 +74,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  注册
+	 * 注册
 	 * 
 	 * @param params参数
 	 */
@@ -84,7 +84,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  创建纪念日
+	 * 创建纪念日
 	 * 
 	 * @param params参数
 	 */
@@ -94,7 +94,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  获取纪念日列表
+	 * 获取纪念日列表
 	 * 
 	 * @param params参数
 	 */
@@ -104,7 +104,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  获取纪念日详情
+	 * 获取纪念日详情
 	 * 
 	 * @param params参数
 	 */
@@ -114,7 +114,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  创建任务
+	 * 创建任务
 	 * 
 	 * @param params
 	 */
@@ -124,7 +124,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  获取我的任务列表
+	 * 获取我的任务列表
 	 * 
 	 * @param params参数uid
 	 *            ----用户id
@@ -135,7 +135,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  获取我发布的任务列表
+	 * 获取我发布的任务列表
 	 * 
 	 * @param params参数uid
 	 *            ----用户id
@@ -155,6 +155,7 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=task&a=getInfo", params, res);
 	}
+
 	/**
 	 * 更新任务详情
 	 * 
@@ -177,7 +178,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  查看好友资料
+	 * 查看好友资料
 	 * 
 	 * @param params
 	 */
@@ -186,7 +187,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  查看好友资料
+	 * 查看好友资料
 	 * 
 	 * @param params
 	 */
@@ -196,7 +197,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  同意/拒绝好友申请
+	 * 同意/拒绝好友申请
 	 * 
 	 * @param params
 	 */
@@ -206,7 +207,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 *  删除纪念日
+	 * 删除纪念日
 	 * 
 	 * @param params
 	 */
@@ -224,8 +225,9 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=task&a=delInfo", params, res_upLoad);
 	}
+
 	/**
-	 *  更改任务状态
+	 * 更改任务状态
 	 * 
 	 * @param params
 	 */
@@ -233,126 +235,178 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=task&a=applyTask", params, res_upLoad);
 	}
+
 	/**
-	 *  标记好友关系
+	 * 标记好友关系
 	 * 
 	 * @param params
 	 */
-	public static void groupFriend(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void groupFriend(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=friend&a=groupFriend", params, res_upLoad);
 	}
+
 	/**
-	 *  获取Token
+	 * 获取Token
 	 * 
 	 * @param params
 	 */
 	public static void getToken(AsyncHttpResponseHandler res_upLoad, String uid) {
 		client.get(base_url + "c=chat&a=getToken&uid=" + uid, res_upLoad);
 	}
+
 	/**
-	 *  匹配手机通讯录
+	 * 匹配手机通讯录
 	 * 
 	 * @param params
 	 */
-	public static void mobFriend(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void mobFriend(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=friend&a=mobFriend", params, res_upLoad);
 	}
+
 	/**
 	 * 忘记密码
 	 */
-	public static void resetPassWord(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void resetPassWord(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=user&a=resetPassword", params, res_upLoad);
 	}
+
 	/**
 	 * 获取任务接受状态
 	 */
-	public static void getTaskState(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void getTaskState(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=task&a=getTaskState", params, res_upLoad);
 	}
+
 	/**
 	 * 发起聊天
 	 */
-	public static void getChat(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void getChat(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=chat&a=postChat", params, res_upLoad);
 	}
+
 	/**
 	 * 创建相册
 	 */
-	public static void getAddXiangCe(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void getAddXiangCe(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=album&a=addInfo", params, res_upLoad);
 	}
+
 	/**
 	 * 删除相册
 	 */
-	public static void getDelXiangCe(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void getDelXiangCe(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=album&a=delInfo", params, res_upLoad);
 	}
+
 	/**
 	 * 获取相册列表
 	 */
-	public static void getXiangCeList(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void getXiangCeList(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=album&a=getList", params, res_upLoad);
 	}
+
 	/**
 	 * 获取相册详情
 	 */
-	public static void getXiangCeInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void getXiangCeInfo(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=album&a=getInfo", params, res_upLoad);
 	}
+
 	/**
 	 * 删除相片
 	 */
-	public static void getDelXiangPian(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void getDelXiangPian(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=photo&a=delInfo", params, res_upLoad);
 	}
+
 	/**
 	 * 获取相片列表
 	 */
-	public static void getXiangPianInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void getXiangPianInfo(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=photo&a=getList", params, res_upLoad);
 	}
+
+	/**
+	 * 修改用户头像
+	 */
+	public static void postUserAvatar(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
+		client.post(base_url + "c=user&a=modAvatar", params, res_upLoad);
+	}
+
 	/**
 	 * 修改用户资料
 	 */
-	public static void getXiuGaiInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void modfyUserInfo(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=user&a=modInfo", params, res_upLoad);
 	}
+
 	/**
-	 * 修改用户资料
+	 * 获取最近照片
 	 */
-	public static void geZuiJinXiangPian(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void geZuiJinXiangPian(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=photo&a=getLatelyList", params, res_upLoad);
 	}
+
 	/**
 	 * 获取天气
 	 */
-	public static void getWeatherInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void getWeatherInfo(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.addHeader("apikey", "98381cf1c5996fa7c49c25bcac69a83c");
-		client.post("http://apis.baidu.com/heweather/weather/free", params, res_upLoad);
+		client.post("http://apis.baidu.com/heweather/weather/free", params,
+				res_upLoad);
 	}
+
 	/**
 	 * 获取任务日历
 	 */
-	public static void getDateTaskList(AsyncHttpResponseHandler res_upLoad, String uid) {
+	public static void getDateTaskList(AsyncHttpResponseHandler res_upLoad,
+			String uid) {
 		client.get(base_url + "c=task&a=getDateTaskList&uid=" + uid, res_upLoad);
 	}
+
 	/**
 	 * 获取功能介绍(应用说明)
 	 */
 	public static void getAppInfo(AsyncHttpResponseHandler res_upLoad) {
 		client.get(base_url + "c=article&a=getInfo", res_upLoad);
 	}
+
 	/**
 	 * 帮助与反馈
 	 */
-	public static void addInfo(AsyncHttpResponseHandler res_upLoad, RequestParams params) {
+	public static void addInfo(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
 		client.post(base_url + "c=gbook&a=addInfo", params, res_upLoad);
 	}
+
 	/**
 	 * 获取新版本
 	 */
-	public static void getNew(AsyncHttpResponseHandler res_upLoad, String version) {
-		client.get(base_url + "c=version&a=getInfo&version="+version, res_upLoad);
+	public static void getNew(AsyncHttpResponseHandler res_upLoad,
+			String version) {
+		client.get(base_url + "c=version&a=getInfo&version=" + version,
+				res_upLoad);
 	}
-	
+	/**
+	 * 创建相册
+	 */
+	public static void addPhoto(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
+		client.post(base_url + "c=album&a=addInfo", params, res_upLoad);
+	}
 }

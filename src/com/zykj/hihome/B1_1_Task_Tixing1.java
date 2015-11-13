@@ -206,11 +206,11 @@ public class B1_1_Task_Tixing1 extends BaseActivity implements IXListViewListene
 							
 							@Override
 							public void onClick(View v) {
-								if(state == 1){
-									//拒绝所做的事情
-								}else{
-									//取消所做的事情
-								}
+//								if(state == 1){
+//									//拒绝所做的事情
+//								}else{
+//									//取消所做的事情
+//								}
 								int state=Integer.parseInt(jsonObject.getString("state"));
 								state=5;
 								String statu=StringUtil.toString(state);

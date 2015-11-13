@@ -2,6 +2,7 @@ package com.zykj.hihome;
 
 import org.apache.http.Header;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -35,7 +36,7 @@ public class B4_02_RegisterActivity extends BaseActivity {
 	private Button identifying_code, btn_confirm;
 	private String mobile, mobilecode, newpass, confirmpass;
 	private CheckBox cb_service, cb_secret;
-	
+
 	private static String APPKEY = "b5174972a9ac";
 	private static String APPKEYSECRET = "8536890596fff208c04a3e52c88a2060";
 
@@ -69,10 +70,10 @@ public class B4_02_RegisterActivity extends BaseActivity {
 		et_newpass = (EditText) findViewById(R.id.user_new_password);
 		et_confirmpass = (EditText) findViewById(R.id.user_comfirm_password);
 		identifying_code = (Button) findViewById(R.id.idenfy_code);
-		
-		cb_service=(CheckBox) findViewById(R.id.cb_service_protocol);
-		cb_secret=(CheckBox) findViewById(R.id.cb_secret_policy);
-		
+
+		cb_service = (CheckBox) findViewById(R.id.cb_service_protocol);
+		cb_secret = (CheckBox) findViewById(R.id.cb_secret_policy);
+
 		btn_confirm = (Button) findViewById(R.id.positive);
 
 		setListener(identifying_code, btn_confirm);
@@ -128,12 +129,13 @@ public class B4_02_RegisterActivity extends BaseActivity {
 			break;
 		}
 	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		SMSSDK.unregisterAllEventHandler();
 	}
-	
+
 	@SuppressLint("HandlerLeak")
 	Handler handler = new Handler() {
 		@Override
@@ -150,36 +152,42 @@ public class B4_02_RegisterActivity extends BaseActivity {
 					Tools.toast(B4_02_RegisterActivity.this, "验证码已发送");
 				}
 			} else {
-				 ((Throwable) data).printStackTrace();
-//				 int resId = getStringRes(B4_1_ForgetPassWordActivity.this,"smssdk_network_error");
-//				 Tools.toast(
-//				 B4_1_ForgetPassWordActivity.this,
-//				 event == SMSSDK.EVENT_GET_VERIFICATION_CODE ? "验证码频繁，请稍后再试！"
-//				 : "验证码错误");
-//				 if (resId > 0) {
-//				 Tools.toast(B4_1_ForgetPassWordActivity.this, resId + "");
-//				 }
+				((Throwable) data).printStackTrace();
+				// int resId =
+				// getStringRes(B4_1_ForgetPassWordActivity.this,"smssdk_network_error");
+				// Tools.toast(
+				// B4_1_ForgetPassWordActivity.this,
+				// event == SMSSDK.EVENT_GET_VERIFICATION_CODE ? "验证码频繁，请稍后再试！"
+				// : "验证码错误");
+				// if (resId > 0) {
+				// Tools.toast(B4_1_ForgetPassWordActivity.this, resId + "");
+				// }
 			}
 		}
 
 		private void registerNewUser() {
-			RequestParams params=new RequestParams();
+			RequestParams params = new RequestParams();
 			params.put("mob", mobile);
 			params.put("pass", newpass);
-			
+
 			HttpUtils.register(new HttpErrorHandler() {
-				
+
 				@Override
-				public void onRecevieSuccess(com.alibaba.fastjson.JSONObject json) {
+				public void onRecevieSuccess(
+						com.alibaba.fastjson.JSONObject json) {
 					MyRequestDailog.closeDialog();
 					Tools.toast(B4_02_RegisterActivity.this, "注册成功");
-					finish();					
+					finish();
+					startActivity(new Intent(B4_02_RegisterActivity.this,
+							B4_02_RegisterNextActivity.class).putExtra(
+							"mobile", mobile));
 				}
 
 				@Override
-				public void onRecevieFailed(String status,JSONObject json) {
+				public void onRecevieFailed(String status, JSONObject json) {
 					super.onRecevieFailed(status, json);
-					Tools.toast(B4_02_RegisterActivity.this, json.getString("message"));
+					Tools.toast(B4_02_RegisterActivity.this,
+							json.getString("message"));
 				}
 			}, params);
 		}

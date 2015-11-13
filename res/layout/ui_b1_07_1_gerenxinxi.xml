@@ -5,6 +5,11 @@
     android:background="#FFF"
     android:orientation="vertical" >
 
+    <com.zykj.hihome.view.MyCommonTitle
+        android:id="@+id/aci_mytitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
@@ -15,29 +20,8 @@
             android:background="#FFF"
             android:orientation="vertical" >
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <!-- 导入title -->
-
-                <include layout="@layout/layout_head" />
-
-                <ImageView
-                    android:id="@+id/im_b107_1_back"
-                    android:layout_width="33dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/fanhui" />
-
-                <TextView
-                    style="@style/title_head"
-                    android:text="个人资料" />
-            </RelativeLayout>
-
             <ImageView
-                android:id="@+id/im_touxiang"
+                android:id="@+id/img_avator"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center_horizontal"
@@ -66,14 +50,14 @@
                     android:orientation="vertical" >
 
                     <EditText
-                        android:id="@+id/et_nick"
+                        android:id="@+id/et_username"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:gravity="center_horizontal"
                         android:hint="请输入您的名称" />
 
-                    <View
+                       <View
                         android:layout_width="fill_parent"
                         android:layout_height="0.3dp"
                         android:background="#D3BCA2" />
@@ -87,6 +71,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="0.3dp"
                         android:background="#D3BCA2" />
+                    
                 </LinearLayout>
             </LinearLayout>
 
@@ -147,7 +132,7 @@
                         android:layout_centerInParent="true" >
 
                         <ImageView
-                            android:id="@+id/im_nan"
+                            android:id="@+id/img_nan"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/xuanzhong" />
@@ -161,7 +146,7 @@
                             android:textSize="16sp" />
 
                         <ImageView
-                            android:id="@+id/im_nv"
+                            android:id="@+id/img_nv"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="60dp"
@@ -200,7 +185,7 @@
                     android:orientation="vertical" >
 
                     <EditText
-                        android:id="@+id/et_age"
+                        android:id="@+id/et_user_age"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -222,7 +207,8 @@
                         android:layout_height="0.3dp"
                         android:background="#D3BCA2" />
                 </LinearLayout>
-                <!-- <RelativeLayout
+                <!--
+                <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" >
                     <DatePicker
@@ -232,7 +218,8 @@
                         android:layout_centerVertical="true"
                         android:calendarViewShown="false"
                         android:spinnersShown="true" />
-                </RelativeLayout> -->
+                </RelativeLayout>
+                -->
             </LinearLayout>
 
             <LinearLayout
@@ -257,7 +244,7 @@
                     android:orientation="vertical" >
 
                     <EditText
-                        android:id="@+id/et_sign"
+                        android:id="@+id/et_user_sign"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -300,9 +287,10 @@
                 android:layout_marginTop="30dp"
                 android:gravity="center"
                 android:text="下次可以直接使用手机号登录" />
-            <View 
+
+            <View
                 android:layout_width="fill_parent"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp" />
         </LinearLayout>
     </ScrollView>
 

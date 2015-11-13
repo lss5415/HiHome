@@ -30,6 +30,7 @@ public class B1_1_Task_Tixing extends BaseActivity implements
 	private int nowpage = 1;// 当前现实的页
 	private MyCommonTitle myCommonTitle;
 	private XListView mListView;
+	private Task task;
 	private TaskTiXingAdapter txTaskAdapter;
 	private Handler mHandler;
 	private List<Task> tasks = new ArrayList<Task>();
@@ -80,7 +81,7 @@ public class B1_1_Task_Tixing extends BaseActivity implements
 				tasks.addAll(list);
 				txTaskAdapter=new TaskTiXingAdapter(B1_1_Task_Tixing.this,tasks);
 				mListView.setAdapter(txTaskAdapter);
-				txTaskAdapter.notifyDataSetChanged();
+				//txTaskAdapter.notifyDataSetChanged();
 				
 			}
 		}, params);
@@ -122,7 +123,7 @@ public class B1_1_Task_Tixing extends BaseActivity implements
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		
+		task=tasks.get(position);
 		
 	}
 	@Override

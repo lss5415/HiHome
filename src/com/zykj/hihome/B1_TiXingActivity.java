@@ -19,9 +19,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.utils.AbstractHttpHandler;
+import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.DateUtil;
 import com.zykj.hihome.utils.HttpUtils;
+import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.MyTextView;
 
@@ -30,6 +33,7 @@ import com.zykj.hihome.view.MyTextView;
  */
 public class B1_TiXingActivity extends BaseActivity {
 	private ImageView im_tianqi;
+	private CircularImage img_avatar;
 	private TextView tv_wendu, tv_zgd, tv_warning, tv_xxtiaoshu;
 	private TextView tv_lttiaoshu, tv_rwtiaoshu, tv_time, tv_date;
 	private MyTextView tixing_bottom;
@@ -95,6 +99,9 @@ public class B1_TiXingActivity extends BaseActivity {
 		tv_rwtiaoshu = (TextView) findViewById(R.id.tv_rwtiaoshu);//任务提醒数量
 		
 		tixing_bottom = (MyTextView) findViewById(R.id.tixing_bottom);//倾斜字体
+		
+		img_avatar=(CircularImage) findViewById(R.id.user_avatar);
+//		ImageLoader.getInstance().displayImage(StringUtil.toString(HttpUtils.IMAGE_URL+BaseApp.getModel().getAvatar(), "http://"), img_avatar);
 		
 		tv_time.setText(DateUtil.dateToString(new Date(), "HH:mm"));
 		mHandler.sendEmptyMessage(msgKey1);

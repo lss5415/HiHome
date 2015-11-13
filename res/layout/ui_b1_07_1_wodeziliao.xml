@@ -155,6 +155,7 @@
                 android:background="#E2E2E2" />
 
             <LinearLayout
+                android:id="@+id/ly_todayTask"
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
                 android:background="#FFF" >
@@ -196,6 +197,7 @@
                 android:background="#E2E2E2" />
 
             <LinearLayout
+                android:id="@+id/ly_photo"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFF" >

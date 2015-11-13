@@ -25,6 +25,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Task;
+import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
@@ -48,8 +49,9 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 	private int[] imgResource = new int[] { R.drawable.ic_clock,
 			R.drawable.ic_repeat, R.drawable.ic_dingwei };
 	private boolean[] flags = new boolean[3];
-	private ImageView task_publisher_avator, single_tasker_avator,
-			mul_tasker_avator, task_pic1, task_pic2, task_pic3;
+	private CircularImage task_publisher_avator, single_tasker_avator,
+			mul_tasker_avator;
+	private ImageView task_pic1, task_pic2, task_pic3;
 	private Button leftButton, rightButon, topRightButton;
 	private JSONArray tasker_list;
 	private int state = 0;
@@ -82,7 +84,7 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 		task_pic3 = (ImageView) findViewById(R.id.task_pic_3);
 		// 为单人任务时的显示
 		ly_single_excutor = (LinearLayout) findViewById(R.id.ly_single_excutor);// 执行人为单人时候
-		single_tasker_avator = (ImageView) findViewById(R.id.single_tasker_avator);// 执行人为单人时候的任务执行人头像
+		single_tasker_avator = (CircularImage) findViewById(R.id.single_tasker_avator);// 执行人为单人时候的任务执行人头像
 		single_tasker_name = (TextView) findViewById(R.id.single_tasker_name);// 执行人为单人时候的任务执行人名字
 		single_tasker_state = (TextView) findViewById(R.id.single_tasker_state);// 执行人为单人时候的任务执行状态
 		ly_single_excutor.setVisibility(View.VISIBLE);// 当只有一个执行人时，多人的不显示，反之依然
@@ -93,12 +95,12 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 		task_name = (TextView) findViewById(R.id.details_publishtaskname);// 任务名称
 		task_content = (TextView) findViewById(R.id.details_publishtaskcontent);// 任务内容
 		// 任务发布人的信息
-		task_publisher_name = (TextView) findViewById(R.id.details_publishtask_publish_username);// 任务发布人头像
-		task_publisher_avator = (ImageView) findViewById(R.id.details_publishtask_publish_avator);// 任务发布人姓名
+		task_publisher_name = (TextView) findViewById(R.id.details_publishtask_publish_username);// 任务发布人姓名
+		task_publisher_avator = (CircularImage) findViewById(R.id.details_publishtask_publish_avator);// 任务发布人头像
 		// 为多人任务时的显示
 		ly_multi_excutor = (LinearLayout) findViewById(R.id.ly_multi_excutor);
 		mul_tasker_name = (TextView) findViewById(R.id.tasker_excutor_name);// 多人时任务执行人姓名
-		mul_tasker_avator = (ImageView) findViewById(R.id.tasker_excutor_avator);// 多人时任务执行人头像
+		mul_tasker_avator = (CircularImage) findViewById(R.id.tasker_excutor_avator);// 多人时任务执行人头像
 		mul_tasker_state = (TextView) findViewById(R.id.tasker_excutor_state);// 多人时任务执行人的任务状态
 		mul_tasker_num = (TextView) findViewById(R.id.pub_multasker_excutor_num);// 执行人数量
 		ly_multi_excutor.setVisibility(View.GONE);
@@ -160,10 +162,11 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 					single_taskerstate = taskerInfo.getString("tasker_state");
 					single_taskername = taskerInfo.getString("nick");
 					single_tasker_name.setText(single_taskername);
-					ImageLoader.getInstance().displayImage(
-							StringUtil.toString(
-									HttpUtils.IMAGE_URL + task.getAvatar(),
-									"http://"), single_tasker_avator);
+					ImageLoader.getInstance()
+							.displayImage(
+									StringUtil.toString(HttpUtils.IMAGE_URL
+											+ taskerInfo.getString("avatar"),
+											"http://"), single_tasker_avator);
 					state = Integer.valueOf(single_taskerstate);
 					final String statu = state == 0 ? "未接受"
 							: state == 1 ? "已接受" : state == 2 ? "待执行"
@@ -181,7 +184,8 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 				task_publisher_name.setText(jsonObject.getString("nick"));
 				ImageLoader.getInstance().displayImage(
 						StringUtil.toString(
-								HttpUtils.IMAGE_URL + task.getAvatar(),
+								HttpUtils.IMAGE_URL
+										+ jsonObject.getString("avatar"),
 								"http://"), task_publisher_avator);
 				// 任务信息
 				task_name.setText(jsonObject.getString("title"));
@@ -212,17 +216,19 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 							StringUtil.toString(HttpUtils.IMAGE_URL
 									+ task.getImgsrc3()), task_pic3);
 				}
-				// 获得任务的提醒和重复和位置 
+				// 获得任务的提醒和重复和位置
 				String tip1 = jsonObject.getString("tip");
 				String repeat1 = jsonObject.getString("repeat");
-				String address=jsonObject.getString("address");
+				String address = jsonObject.getString("address");
 				int tip = Integer.parseInt(tip1);
 				int repeat = Integer.parseInt(repeat1);
-				taskType.set(0, tip == 0 ? "正点": tip == 1 ? "五分钟" : tip == 2 ? "十分钟"
-								: tip == 3 ? "一小时" : tip == 4 ? "一天" :tip == 5 ? "三天" :  "不提醒");
+				taskType.set(0, tip == 0 ? "正点" : tip == 1 ? "五分钟"
+						: tip == 2 ? "十分钟" : tip == 3 ? "一小时" : tip == 4 ? "一天"
+								: tip == 5 ? "三天" : "不提醒");
 				taskType.set(1, repeat == 0 ? "不重复" : repeat == 1 ? "每天"
 						: repeat == 2 ? "每周" : "每年");
-				taskType.set(2, address.length()>3?address.substring(0, 3)+"...":"无地址");
+				taskType.set(2, address.length() > 3 ? address.substring(0, 3)
+						+ "..." : "无地址");
 				btnAdapter.notifyDataSetChanged();
 			}
 		}, params);
@@ -253,15 +259,17 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 				holder.setText(R.id.tasker_excutor_name,
 						((JSONObject) task).getString("nick"))
 						.setText(R.id.tasker_excutor_state, statu)
-						.setImageUrl(R.id.tasker_excutor_avator,
-								((JSONObject) task).getString("avatar"), 10f);
+						.setImageUrl(
+								R.id.tasker_excutor_avator,
+								HttpUtils.IMAGE_URL
+										+ ((JSONObject) task)
+												.getString("avatar"), 10f);
 			}
 		};
 		gv_tasker.setAdapter(taskAdapter);
 		// taskAdapter.notifyDataSetChanged();
 	}
 
-	
 	/**
 	 * 获取任务状态并判定是否为0
 	 */
@@ -274,11 +282,12 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 			public void onRecevieSuccess(JSONObject json) {
 				JSONArray jsonArray = json.getJSONArray(UrlContants.jsonData)
 						.getJSONArray(0);
-				for(int i=0;i>jsonArray.size();i++){
-						String state=jsonArray.getJSONObject(i).getString("state");
-						int statu = Integer.parseInt(state);
-						if (statu != 5) {
-							changeTaskState();
+				for (int i = 0; i > jsonArray.size(); i++) {
+					String state = jsonArray.getJSONObject(i)
+							.getString("state");
+					int statu = Integer.parseInt(state);
+					if (statu != 5) {
+						changeTaskState();
 					}
 				}
 			}
@@ -293,7 +302,7 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 
 					@Override
 					public void onRecevieSuccess(JSONObject json) {
-
+						setResult(RESULT_OK);
 					}
 				}, params);
 			}
@@ -329,8 +338,8 @@ public class B3_33_DetailsPublishTaskActivity extends BaseActivity {
 			break;
 		case R.id.ly_multi_excutor:
 			startActivity(new Intent(this,
-					B3_32_1_ExecutorsTaskStateActivity.class).putExtra("tasker",
-					tasker_list.toString()));
+					B3_32_1_ExecutorsTaskStateActivity.class).putExtra(
+					"tasker", tasker_list.toString()));
 			break;
 		default:
 			break;

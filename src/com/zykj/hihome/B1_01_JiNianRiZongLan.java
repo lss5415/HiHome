@@ -18,6 +18,7 @@ import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Anniversary;
+import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.UrlContants;
@@ -33,19 +34,19 @@ public class B1_01_JiNianRiZongLan extends BaseActivity implements IXListViewLis
 	private XListView lv_jinianri;//纪念日列表
 	private static int PERPAGE=10;//perpage默认每页显示10条信息
 	private int nowpage=1;//当前显示的页面 
-	private List<Anniversary> listanniversary = new ArrayList<Anniversary>();
-	private CommonAdapter<Anniversary> adapter;
+	private List<Task> listanniversary = new ArrayList<Task>();
+	private CommonAdapter<Task> adapter;
 	private Handler mHandler = new Handler();//异步加载或刷新
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ui_b1_01_jinianrizonglan);
-		adapter = new CommonAdapter<Anniversary>(B1_01_JiNianRiZongLan.this, R.layout.ui_jinianrizonglan, listanniversary) {
+		adapter = new CommonAdapter<Task>(B1_01_JiNianRiZongLan.this, R.layout.ui_jinianrizonglan, listanniversary) {
 			@Override
-			public void convert(ViewHolder holder, Anniversary like) {
-				holder.setText(R.id.tv_name, like.getTitle())
-						.setImageUrl(R.id.im_tu, HttpUtils.IMAGE_URL + like.getImgsrc())
-						.setText(R.id.tv_shijian, like.getDate());
+			public void convert(ViewHolder holder, Task task) {
+				holder.setText(R.id.tv_name, task.getTitle())
+						.setImageUrl(R.id.im_tu, HttpUtils.IMAGE_URL + task.getImgsrc())
+						.setText(R.id.tv_shijian, task.getMdate().substring(0, 11));
 			}
 		};
 		initView();
@@ -81,7 +82,7 @@ public class B1_01_JiNianRiZongLan extends BaseActivity implements IXListViewLis
 		public void onRecevieSuccess(JSONObject json) {
 			JSONObject jsonObject = json.getJSONObject(UrlContants.jsonData);
 			String strArray = jsonObject.getString("list");
-			List<Anniversary> list = JSONArray.parseArray(strArray, Anniversary.class);
+			List<Task> list = JSONArray.parseArray(strArray, Task.class);
 			if(nowpage == 1){listanniversary.clear();}
 			listanniversary.addAll(list);
 			adapter.notifyDataSetChanged();
@@ -140,7 +141,7 @@ public class B1_01_JiNianRiZongLan extends BaseActivity implements IXListViewLis
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		String jnrid = listanniversary.get(arg2 - 1).getId();
 		Intent itmrhd = new Intent();
-		itmrhd.setClass(B1_01_JiNianRiZongLan.this,B3_1_AnniversaryDetails1Activity.class);
+		itmrhd.setClass(B1_01_JiNianRiZongLan.this,B3_1_AnniversaryDetailsActivity.class);
 		itmrhd.putExtra("id", jnrid);
 		startActivity(itmrhd);
 	}

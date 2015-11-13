@@ -40,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:textSize="13sp"
-                android:text="2016年1月1日"/>
+                android:text="2016年1月1日"
+                android:textColor="@color/black"/>
         </LinearLayout>
     </LinearLayout>
 	<View 

@@ -35,105 +35,78 @@ import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 import com.zykj.hihome.view.UIDialog;
 
-public class B1_07_1_GeRenXinXi extends BaseActivity {
+public class B4_02_RegisterNextActivity extends BaseActivity {
 	private File file;
 	private String timeString, imgs;// 上传头像的字段
+	
 	private MyCommonTitle myCommonTitle;
-	private ImageView im_touxiang;// 头像
-	private EditText et_nick;// 姓名
+	private ImageView img_avatar;// 头像
+	private EditText ed_nick;// 姓名
 	private TextView tv_mobile;// 电话
-	private ImageView im_nan;// 男
-	private ImageView im_nv;// 女
+	private ImageView img_nan;// 男
+	private ImageView img_nv;// 女
 	// private DatePicker datePicker1;//年龄
-	private EditText et_age;// 年龄
-	private EditText et_sign;// 签名
+	private EditText ed_age;// 年龄
+	private EditText ed_sign;// 签名
 	private TextView tv_queding;// 确定
 	private int sex = 0;// 0：男 1：女
-	private String nick, age, sign, sex1;
+	private String nick, age, sign, sex1,mobile;
 	private RequestParams params;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mobile=(String) getIntent().getSerializableExtra("mobile");
 		setContentView(R.layout.ui_b1_07_1_gerenxinxi);
+		
 		initView();
 	}
 
 	private void initView() {
 		myCommonTitle=(MyCommonTitle) findViewById(R.id.aci_mytitle);
 		myCommonTitle.setTitle("个人资料");
-		
-		im_touxiang = (ImageView) findViewById(R.id.img_avator);
-		et_nick = (EditText) findViewById(R.id.et_username);
+		img_avatar = (ImageView) findViewById(R.id.img_avator);
+		ed_nick = (EditText) findViewById(R.id.et_username);
 		tv_mobile = (TextView) findViewById(R.id.tv_mobile);
-		im_nan = (ImageView) findViewById(R.id.img_nan);
-		im_nv = (ImageView) findViewById(R.id.img_nv);
+		img_nan = (ImageView) findViewById(R.id.img_nan);
+		img_nv = (ImageView) findViewById(R.id.img_nv);
 		// datePicker1 = (DatePicker)findViewById(R.id.datePicker1);
-		et_age = (EditText) findViewById(R.id.et_user_age);
-		et_sign = (EditText) findViewById(R.id.et_user_sign);
+		ed_age = (EditText) findViewById(R.id.et_user_age);
+		ed_sign = (EditText) findViewById(R.id.et_user_sign);
 		tv_queding = (TextView) findViewById(R.id.tv_queding);
-
-		requestData();
-
-		setListener(im_touxiang, im_nan, im_nv, tv_queding);
+		
+		tv_mobile.setText(mobile);
+		setListener(img_avatar, img_nan, img_nv, tv_queding);
 	}
-
-	/**
-	 * 请求数据
-	 */
-	private void requestData() {
-		HttpUtils.getInfo(new HttpErrorHandler() {
-
-			@Override
-			public void onRecevieSuccess(JSONObject json) {
-				JSONObject jsonObject = json.getJSONArray(UrlContants.jsonData)
-						.getJSONObject(0);
-				ImageLoader.getInstance().displayImage(
-						StringUtil.toString(
-								HttpUtils.IMAGE_URL
-										+ jsonObject.getString("avatar"),
-								"htp://"), im_touxiang);
-				et_nick.setText(jsonObject.getString("nick"));
-				et_age.setText(jsonObject.getString("age"));
-				tv_mobile.setText(BaseApp.getModel().getMobile());
-				// tv_mobile.setText(jsonObject.getString("age"));
-				et_sign.setText(jsonObject.getString("sign"));
-				if (jsonObject.getString("sex").equals("男")) {
-					sex = 0;
-					im_nan.setImageResource(R.drawable.xuanzhong);
-					im_nv.setImageResource(R.drawable.buxuanzhong);
-				} else {
-					sex = 1;
-					im_nan.setImageResource(R.drawable.buxuanzhong);
-					im_nv.setImageResource(R.drawable.xuanzhong);
-				}
-
-			}
-		}, BaseApp.getModel().getUserid());
-
-	}
-
 	@Override
 	public void onClick(View v) {
 		super.onClick(v);
 		switch (v.getId()) {
-	
 		case R.id.img_nan:
 			sex = 0;
-			im_nan.setImageResource(R.drawable.xuanzhong);
-			im_nv.setImageResource(R.drawable.buxuanzhong);
+			img_nan.setImageResource(R.drawable.xuanzhong);
+			img_nv.setImageResource(R.drawable.buxuanzhong);
 			break;
 		case R.id.img_nv:
 			sex = 1;
-			im_nan.setImageResource(R.drawable.buxuanzhong);
-			im_nv.setImageResource(R.drawable.xuanzhong);
+			img_nan.setImageResource(R.drawable.buxuanzhong);
+			img_nv.setImageResource(R.drawable.xuanzhong);
 			break;
 		case R.id.tv_queding:
-			RequestParams params = new RequestParams();
-			nick = et_nick.getText().toString();
-			age = et_age.getText().toString();
-			sign = et_sign.getText().toString();
+			nick = ed_nick.getText().toString();
+			age = ed_age.getText().toString();
+			sign = ed_sign.getText().toString();
+			if(StringUtil.isEmpty(nick)){
+				Tools.toast(B4_02_RegisterNextActivity.this, "昵称不能为空");
+			}else if (StringUtil.isEmpty(age)) {
+				Tools.toast(B4_02_RegisterNextActivity.this, "年龄不能为空");
+			}else if (StringUtil.isEmpty(sign)) {
+				Tools.toast(B4_02_RegisterNextActivity.this, "个性签名不能为空");
+			}
+			params = new RequestParams();
 			params.put("id", BaseApp.getModel().getUserid());
 			params.put("nick", nick);
+			params.put("age", age);
+			params.put("sign", sign);
 			if (sex > 0) {
 				sex1 = "女";
 				params.put("sex", sex1);
@@ -141,19 +114,25 @@ public class B1_07_1_GeRenXinXi extends BaseActivity {
 				sex1 = "男";
 				params.put("sex", sex1);
 			}
-			params.put("age", age);
-			params.put("sign", sign);
 			HttpUtils.modfyUserInfo(new HttpErrorHandler() {
 
 				@Override
 				public void onRecevieSuccess(JSONObject json) {
-					Result();
+					BaseApp.getModel().setNick(nick);
+					BaseApp.getModel().setSex(sex1);
+					BaseApp.getModel().setAge(age);
+					BaseApp.getModel().setSign(sign);
+//					BaseApp.getModel().setAvatar(imgAvtor);
+					Tools.toast(B4_02_RegisterNextActivity.this, "注册成功！");
+					setResult(RESULT_OK);
+					startActivity(new Intent(B4_02_RegisterNextActivity.this,B0_MainActivity.class));
+					finish();
 				}
 
 				@Override
 				public void onRecevieFailed(String status, JSONObject json) {
 					super.onRecevieFailed(status, json);
-					Tools.toast(B1_07_1_GeRenXinXi.this, "修改资料失败！");
+					Tools.toast(B4_02_RegisterNextActivity.this, "注册个人资料失败！");
 
 				}
 			}, params);
@@ -297,7 +276,7 @@ public class B1_07_1_GeRenXinXi extends BaseActivity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		im_touxiang.setImageBitmap(bitmap);
+		img_avatar.setImageBitmap(bitmap);
 		upLoadAvatar(file);
 		}
 	
@@ -323,21 +302,13 @@ private AsyncHttpResponseHandler upload1 =new HttpErrorHandler() {
 			
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
-				Tools.toast(B1_07_1_GeRenXinXi.this, "头像上传成功");
+				Tools.toast(B4_02_RegisterNextActivity.this, "头像上传成功");
 				BaseApp.getModel().setAvatar(UrlContants.IMAGE_URL+imgAvtor);
 				setResult(RESULT_OK);
+				
 			}
 		}, params);
 		
 	}
 };
-	public void Result() {
-		BaseApp.getModel().setNick(nick);
-		BaseApp.getModel().setSex(sex1);
-		BaseApp.getModel().setAge(age);
-		BaseApp.getModel().setSign(sign);
-		Tools.toast(B1_07_1_GeRenXinXi.this, "资料修改成功！");
-		setResult(RESULT_OK);
-		this.finish();
-	}
 }

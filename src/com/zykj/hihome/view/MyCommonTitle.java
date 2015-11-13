@@ -21,7 +21,7 @@ public class MyCommonTitle extends RelativeLayout {
 		LayoutInflater.from(context).inflate(R.layout.ui_mycommontitle, this);
 		titleBack = (ImageView) findViewById(R.id.aci_back_btn);//后退
 		titleEdit = (TextView) findViewById(R.id.aci_edit_btn);//编辑
-//		sharedBtn = (ImageView) findViewById(R.id.aci_shared_btn);//分享
+		sharedBtn = (ImageView) findViewById(R.id.aci_shared_btn);//分享
 		titleBack.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

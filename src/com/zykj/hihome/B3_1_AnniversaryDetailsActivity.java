@@ -19,7 +19,7 @@ import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.view.MyCommonTitle;
 
-public class B3_1_AnniversaryDetails1Activity extends BaseActivity {
+public class B3_1_AnniversaryDetailsActivity extends BaseActivity {
 
 	private MyCommonTitle myCommonTitle;
 //	private Task task;

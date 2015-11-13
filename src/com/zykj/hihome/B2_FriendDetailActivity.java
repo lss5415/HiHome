@@ -43,7 +43,7 @@ public class B2_FriendDetailActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initView(R.layout.ui_b3_friend_detail);
-		uid = getIntent().getStringExtra("uid");
+		uid = (String) getIntent().getSerializableExtra("uid");
 		type = getIntent().getStringExtra("type");
 		
 		initView();
@@ -70,14 +70,16 @@ public class B2_FriendDetailActivity extends BaseActivity {
 	}
 
 	private void requestData() {
+		
 		HttpUtils.getInfo(new HttpErrorHandler() {
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
 				JSONObject jsonObject = json.getJSONArray(UrlContants.jsonData).getJSONObject(0);
 				friend = JSONObject.parseObject(jsonObject.toString(), Friend.class);
-				if(!StringUtil.isEmpty(friend.getAvatar())){
-					ImageLoader.getInstance().displayImage(friend.getAvatar(), rv_me_avatar);
-				}
+//				if(!StringUtil.isEmpty(friend.getAvatar())){
+//					ImageLoader.getInstance().displayImage(friend.getAvatar(), rv_me_avatar);
+//				}
+				ImageLoader.getInstance().displayImage(StringUtil.toString(HttpUtils.IMAGE_URL+jsonObject.getString("avatar"),"http://"), rv_me_avatar);
 				friend.setType(type);
 				aci_title.setText(friend.getNick()+"    "+friend.getSex()+"    "+friend.getAge());
 				aci_nick.setText(friend.getNick());

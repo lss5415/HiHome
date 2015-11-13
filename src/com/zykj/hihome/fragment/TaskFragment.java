@@ -3,11 +3,6 @@ package com.zykj.hihome.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -20,9 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.B3_30_AnniversaryDetailsActivity;
 import com.zykj.hihome.B3_33_DetailsPublishTaskActivity;
@@ -43,8 +36,6 @@ import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
-import com.zykj.hihome.utils.UrlContants;
-import com.zykj.hihome.view.XListView;
 
 public class TaskFragment extends Fragment implements IXListViewListener,
 		OnItemClickListener, OnMenuItemClickListener {

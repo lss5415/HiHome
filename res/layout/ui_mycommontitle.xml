@@ -3,51 +3,69 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/fifty"
     android:background="@color/theme_colorhuang" >
+
     <ImageView
-         android:visibility="visible"
         android:id="@+id/aci_back_btn"
         android:layout_width="@dimen/fifty"
         android:layout_height="match_parent"
         android:contentDescription="@string/app_name"
         android:padding="@dimen/fifteen"
-        android:src="@drawable/ic_title_back"/>
-    <LinearLayout 
+        android:src="@drawable/ic_title_back"
+        android:visibility="visible" />
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-	    <TextView
-	        android:id="@+id/aci_title_tv"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/title"
-	        style="@style/title_head" />
-	    <TextView 
-	        android:id="@+id/aci_subtitle_tv"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="@dimen/four"
-	        android:text="@string/title"
-	        android:textSize="@dimen/t_fourteen"
-	        android:visibility="gone"
-	        style="@style/title_head" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/aci_title_tv"
+            style="@style/title_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title" />
+
+        <TextView
+            android:id="@+id/aci_subtitle_tv"
+            style="@style/title_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/four"
+            android:text="@string/title"
+            android:textSize="@dimen/t_fourteen"
+            android:visibility="gone" />
     </LinearLayout>
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-		android:layout_alignParentRight="true"
-        android:orientation="horizontal">
-	    <TextView
-	        android:visibility="gone"
-	        android:id="@+id/aci_edit_btn"
-	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
-	        android:text="@string/edit"
-	        android:textColor="@color/white"
-	        android:textSize="@dimen/t_eighteen"
-	        android:gravity="center"
-	        android:padding="@dimen/five" />
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal" >
 
-	</LinearLayout>
+        <TextView
+            android:id="@+id/aci_edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/five"
+            android:text="@string/edit"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t_eighteen"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="@dimen/one"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/aci_shared_btn"
+            android:layout_width="@dimen/fifty"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:padding="@dimen/ten"
+            android:src="@drawable/ic_publish_task"
+            android:visibility="gone" />
+    </LinearLayout>
 </RelativeLayout>

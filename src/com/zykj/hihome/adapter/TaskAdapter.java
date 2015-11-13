@@ -150,7 +150,7 @@ public class TaskAdapter extends BaseAdapter {
 			}
 				}
 			holder2.date.setText(Html.fromHtml("<big><font color=#EA5414>"
-					+ datastart + "</font></big><br>-" + dataend));
+					+ datastart + "</font></big><br>~" + dataend));
 			holder2.task_title.setText(task.getTitle());
 			holder2.task_time.setText(tip == 0 ? "正点": tip == 1 ? "五分钟" : tip == 2 ? "十分钟" : tip == 3 ? "一小时": tip == 4 ? "一天" : tip==5?"三天":"不提醒");
 			holder2.task_repeat.setText(repeat == 0 ? "不重复": repeat == 1 ? "每天" : repeat == 2 ? "每周": repeat == 3 ? "每月" : "每年");
