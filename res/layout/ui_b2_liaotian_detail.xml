@@ -2,13 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+	android:background="@color/grey" >
+    
+    <com.zykj.hihome.view.MyCommonTitle 
+        android:id="@+id/aci_mytitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
 
-    <!-- 会话页面 Fragment -->
-    <fragment
+	<fragment
+        android:id="@+id/conversation"
         android:name="io.rong.imkit.fragment.ConversationFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    
-
 </LinearLayout>
