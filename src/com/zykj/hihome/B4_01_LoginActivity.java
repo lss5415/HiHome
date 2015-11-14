@@ -4,6 +4,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -61,6 +64,7 @@ public class B4_01_LoginActivity extends BaseActivity implements Callback,
 		super.onCreate(savedInstanceState);
 		initView(R.layout.ui_b4_1_login);
 
+		mHandler = new Handler(this.getMainLooper(), this);
 		ShareSDK.initSDK(this);
 		initView();
 	}
@@ -95,22 +99,38 @@ public class B4_01_LoginActivity extends BaseActivity implements Callback,
 			username = et_username.getText().toString().trim();
 			passWord = et_passWord.getText().toString().trim();
 
-			if (StringUtil.isEmpty("15006598533")) {
+			if (StringUtil.isEmpty(username)) {
 				Tools.toast(B4_01_LoginActivity.this, "用户名不能为空");
-			} else if (StringUtil.isEmpty("111111")) {
+			} else if (StringUtil.isEmpty(passWord)) {
 				Tools.toast(B4_01_LoginActivity.this, "密码不能为空");
 			} else {
 				RequestParams params = new RequestParams();
-				params.put("mob", "15006598533");
-				params.put("pass", "111111");
+				params.put("mob", username);
+				params.put("pass", passWord);
 				HttpUtils.login(new HttpErrorHandler() {
 
 					@Override
 					public void onRecevieSuccess(JSONObject json) {
-						JSONArray data = json
-								.getJSONArray(UrlContants.jsonData);
+						JSONArray data = json.getJSONArray(UrlContants.jsonData);
 						Tools.toast(B4_01_LoginActivity.this, "登录成功");
 						uid = data.getJSONObject(0).getString("id");
+						BaseApp.getModel().setUserid(StringUtil.toStringOfObject(uid));
+						BaseApp.getModel().setMobile(StringUtil.toStringOfObject(data.getJSONObject(0).getString("mobile")));
+						BaseApp.getModel().setNick(StringUtil.toStringOfObject(data.getJSONObject(0).getString("nick")));
+						BaseApp.getModel().setAvatar(StringUtil.toStringOfObject(data.getJSONObject(0).getString("avatar")));
+						BaseApp.getModel().setSex(StringUtil.toStringOfObject(data.getJSONObject(0).getString("sex")));
+						BaseApp.getModel().setAge(StringUtil.toStringOfObject(data.getJSONObject(0).getString("age")));
+						BaseApp.getModel().setSign(StringUtil.toStringOfObject(data.getJSONObject(0).getString("sign")));
+						
+						Log.d("jpush---------------", uid);
+						JPushInterface.setAlias(B4_01_LoginActivity.this, uid, new TagAliasCallback() {
+							@Override
+							public void gotResult(int code, String alias, Set<String> tags) {
+								Log.d("jpush---------------", "code="+code+"alias="+alias);
+								Tools.toast(B4_01_LoginActivity.this, "code="+code+"alias="+alias+"tags="+tags.toString());
+							}
+						});
+						
 						requestData();
 					}
 
@@ -279,7 +299,8 @@ public class B4_01_LoginActivity extends BaseActivity implements Callback,
 			Platform platform = (Platform) msg.obj;
 			// String icon = platform.getDb().getUserIcon();
 			String userid = platform.getDb().getUserId();
-			String nickname = platform.getDb().getUserName()+ userid.substring(userid.length() - 4, userid.length());
+			String nickname = platform.getDb().getUserName()
+					+ userid.substring(userid.length() - 4, userid.length());
 			// String gender = platform.getDb().getUserGender();
 			RequestParams params = new RequestParams();
 			params.put("mob", nickname);
@@ -294,10 +315,14 @@ public class B4_01_LoginActivity extends BaseActivity implements Callback,
 
 				@Override
 				public void onRecevieSuccess(JSONObject json) {
-
+					JSONArray data = json
+							.getJSONArray(UrlContants.jsonData);
+					uid = data.getJSONObject(0).getString("id");
+					requestData();
+					finish();
 				}
 			}, params);
-			
+
 		}
 			break;
 		}
