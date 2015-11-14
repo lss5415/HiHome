@@ -100,7 +100,7 @@ public class B1_04_03_AddPhotoActivity extends BaseActivity {
 //				tv_user_permission.setText(data.getStringExtra("strName"));
 				
 //				tv_user_permission.setTag(permission);
-				tv_user_permission.setTag(userId=="-1"?"仅自己":userId=="0"?"所有人":userId);
+				tv_user_permission.setText(userId=="-1"?"仅自己":userId=="0"?"所有人":userId);
 			}
 			break;
 
