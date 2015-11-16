@@ -1,12 +1,7 @@
 package com.zykj.hihome.menuListView;
 
 
-import com.zykj.hihome.R;
-import com.zykj.hihome.view.XListViewFooter;
-import com.zykj.hihome.view.XListViewHeader;
-
 import android.content.Context;
-import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -21,6 +16,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
+
+import com.zykj.hihome.R;
+import com.zykj.hihome.view.XListViewFooter;
+import com.zykj.hihome.view.XListViewHeader;
 
 /**
  * 

@@ -8,18 +8,18 @@
 
 package cn.sharesdk.onekeyshare.theme.skyblue;
 
+import static com.mob.tools.utils.R.getLayoutRes;
+import static com.mob.tools.utils.R.getStringRes;
+
+import java.util.List;
+
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.Toast;
-
-import java.util.List;
-
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.PlatformListFakeActivity;
-import static com.mob.tools.utils.R.getStringRes;
-import static com.mob.tools.utils.R.getLayoutRes;
 
 public class PlatformListPage extends PlatformListFakeActivity implements View.OnClickListener {
 	private PlatformGridViewAdapter gridViewAdapter;

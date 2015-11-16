@@ -10,6 +10,7 @@ package cn.sharesdk.onekeyshare;
 
 import static com.mob.tools.utils.BitmapHelper.captureView;
 import static com.mob.tools.utils.R.getStringRes;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import cn.sharesdk.framework.CustomPlatform;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
+
 import com.mob.tools.utils.UIHandler;
 
 /**

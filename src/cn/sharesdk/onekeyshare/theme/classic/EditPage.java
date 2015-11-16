@@ -11,9 +11,9 @@ package cn.sharesdk.onekeyshare.theme.classic;
 import static com.mob.tools.utils.BitmapHelper.blur;
 import static com.mob.tools.utils.BitmapHelper.captureView;
 import static com.mob.tools.utils.R.dipToPx;
+import static com.mob.tools.utils.R.getBitmapRes;
 import static com.mob.tools.utils.R.getScreenWidth;
 import static com.mob.tools.utils.R.getStringRes;
-import static com.mob.tools.utils.R.getBitmapRes;
 
 import java.util.ArrayList;
 import java.util.HashMap;

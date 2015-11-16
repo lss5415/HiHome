@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zykj.hihome.base.BaseActivity;
-import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.view.MyCommonTitle;
 
 public class B1_04_04_PermissionActivity extends BaseActivity {

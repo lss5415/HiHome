@@ -16,7 +16,6 @@ import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
-import com.zykj.hihome.utils.UrlContants;
 
 /**
  * Created by ss on 15-4-23.

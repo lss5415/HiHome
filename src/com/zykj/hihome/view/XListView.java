@@ -8,8 +8,6 @@
  */
 package com.zykj.hihome.view;
 
-import com.zykj.hihome.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -23,6 +21,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
+
+import com.zykj.hihome.R;
 
 public class XListView extends ListView implements OnScrollListener {
 

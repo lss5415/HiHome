@@ -19,12 +19,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
-import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.utils.AbstractHttpHandler;
 import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.DateUtil;
 import com.zykj.hihome.utils.HttpUtils;
-import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 import com.zykj.hihome.view.MyTextView;
 

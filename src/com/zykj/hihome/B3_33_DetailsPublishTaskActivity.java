@@ -17,13 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
-import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.HttpErrorHandler;

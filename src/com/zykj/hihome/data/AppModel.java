@@ -1,10 +1,8 @@
 package com.zykj.hihome.data;
 
-import cn.jpush.android.service.t;
+import android.content.Context;
 
 import com.zykj.hihome.utils.SharedPreferenceUtils;
-
-import android.content.Context;
 
 
 /**

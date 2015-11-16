@@ -1,6 +1,7 @@
 package com.zykj.hihome.view;
 
 import java.util.Timer;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.view.animation.Animation;

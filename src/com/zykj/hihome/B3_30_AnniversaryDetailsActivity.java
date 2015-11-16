@@ -3,7 +3,6 @@ package com.zykj.hihome;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,7 +11,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
-import com.zykj.hihome.data.Anniversary;
 import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.HttpErrorHandler;

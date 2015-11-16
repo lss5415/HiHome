@@ -8,14 +8,15 @@
 
 package cn.sharesdk.onekeyshare.theme.classic;
 
-import static com.mob.tools.utils.R.getStringRes;
 import static com.mob.tools.utils.R.getBitmapRes;
+import static com.mob.tools.utils.R.getStringRes;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,10 +35,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.CustomerLogo;
+
 import com.mob.tools.gui.ViewPagerAdapter;
 import com.mob.tools.gui.ViewPagerClassic;
 import com.mob.tools.utils.UIHandler;
-import cn.sharesdk.onekeyshare.CustomerLogo;
 
 /** platform logo list gridview */
 @SuppressWarnings("deprecation")
