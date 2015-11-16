@@ -221,7 +221,7 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 			break;
 		case R.id.ly_add_picture:
 			startActivityForResult(new Intent(B1_04_XiangCe.this, B1_04_01_AddPictureActivity.class),55);
-			finish();
+//			finish();
 			break;
 		case R.id.ly_add_camera:
 			/* 拍照 */
@@ -240,7 +240,7 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 			break;
 		case R.id.ly_add_photo:
 			startActivityForResult(new Intent(B1_04_XiangCe.this, B1_04_03_AddPhotoActivity.class),55);
-			finish();
+//			finish();
 			break;
 		default:
 			break;
