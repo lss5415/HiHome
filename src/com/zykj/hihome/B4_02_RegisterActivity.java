@@ -1,6 +1,5 @@
 package com.zykj.hihome;
 
-import org.apache.http.Header;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;

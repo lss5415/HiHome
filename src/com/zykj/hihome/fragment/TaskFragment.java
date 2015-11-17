@@ -15,13 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.zykj.hihome.B3_30_AnniversaryDetailsActivity;
-import com.zykj.hihome.B3_33_DetailsPublishTaskActivity;
-import com.zykj.hihome.B3_32_DetailsReceiveTaskActivity;
-import com.zykj.hihome.B3_31_DetailsSelfTaskActivity;
 import com.zykj.hihome.B3_0_TaskActivity;
+import com.zykj.hihome.B3_30_AnniversaryDetailsActivity;
+import com.zykj.hihome.B3_31_DetailsSelfTaskActivity;
+import com.zykj.hihome.B3_32_DetailsReceiveTaskActivity;
+import com.zykj.hihome.B3_33_DetailsPublishTaskActivity;
 import com.zykj.hihome.adapter.TaskAdapter;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Task;

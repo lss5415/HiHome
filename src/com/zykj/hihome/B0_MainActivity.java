@@ -1,7 +1,5 @@
 package com.zykj.hihome;
 
-import org.apache.http.params.HttpAbstractParamBean;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,14 +8,10 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
 
-import com.alibaba.fastjson.JSONObject;
 import com.zykj.hihome.ResideMenu.ResideMenu;
 import com.zykj.hihome.ResideMenu.ResideMenuInfo;
 import com.zykj.hihome.ResideMenu.ResideMenuItem;
-import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.base.BaseTabActivity;
-import com.zykj.hihome.utils.HttpErrorHandler;
-import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.Tools;
 
 /**

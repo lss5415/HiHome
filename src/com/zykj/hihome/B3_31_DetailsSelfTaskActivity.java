@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zykj.hihome.R.id;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.data.Task;
 import com.zykj.hihome.utils.HttpErrorHandler;

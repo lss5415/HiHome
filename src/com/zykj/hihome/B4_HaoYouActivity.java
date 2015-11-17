@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Friend;
@@ -57,6 +58,7 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 	 */
 	public void initView() {
 		rv_me_avatar = (CircularImage)findViewById(R.id.rv_me_avatar);//头像
+		ImageLoader.getInstance().displayImage(BaseApp.getModel().getAvatar(), rv_me_avatar);
 		add_friend = (ImageView)findViewById(R.id.add_friend);//添加好友
 //		firend_search = (EditText)findViewById(R.id.firend_search);//搜索
 		
@@ -66,13 +68,12 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 		adapter = new CommonAdapter<Friend>(B4_HaoYouActivity.this, R.layout.ui_b4_haoyou_item, friends) {
 			@Override
 			public void convert(ViewHolder holder, Friend friend) {
+				holder.setImageView(R.id.aci_image, R.drawable.xinagcetouxiang);
 				if(holder.getPosition() == 0){
 					holder.setImageView(R.id.aci_image, R.drawable.tongxunlu);
 				}else{
-					if(StringUtil.isEmpty(friend.getAvatar())){
-						holder.setImageView(R.id.aci_image, R.drawable.xinagcetouxiang);
-					}else{
-						holder.setImageUrl(R.id.aci_image, friend.getAvatar());
+					if(!StringUtil.isEmpty(friend.getAvatar())){
+						holder.setImageUrl(R.id.aci_image, HttpUtils.IMAGE_URL+friend.getAvatar());
 					}
 				}
 				if(!StringUtil.isEmpty(friend.getCategory())){

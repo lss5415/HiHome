@@ -8,8 +8,8 @@
 
 package cn.sharesdk.onekeyshare;
 
-import static com.mob.tools.utils.R.getStringRes;
 import static com.mob.tools.utils.R.getBitmapRes;
+import static com.mob.tools.utils.R.getStringRes;
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;

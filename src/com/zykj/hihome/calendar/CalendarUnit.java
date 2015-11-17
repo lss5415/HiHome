@@ -1,13 +1,13 @@
 package com.zykj.hihome.calendar;
 
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 
 /**
  * Created by Blaz Solar on 27/02/14.
