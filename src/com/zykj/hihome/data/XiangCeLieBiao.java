@@ -11,6 +11,8 @@ public class XiangCeLieBiao implements Serializable{
 	private String permission;  //是否有权限查看相册，0所有人有权限，1当前用户有权限，-1没有权限
 	private String photos;  // 相册内相片数量
 	private String imgsrc;  // 相册内第一张相片地址
+	private boolean isChecked;//是否选中
+	
 	public String getId() {
 		return id;
 	}
@@ -52,6 +54,12 @@ public class XiangCeLieBiao implements Serializable{
 	}
 	public void setImgsrc(String imgsrc) {
 		this.imgsrc = imgsrc;
+	}
+	public boolean isChecked() {
+		return isChecked;
+	}
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
 	}
 	
 }

@@ -139,6 +139,12 @@ public class B3_24_SelectExecutorActivity extends BaseActivity implements OnItem
 	public void onItemClick(AdapterView<?> parent, View convertView, int position, long id) {
 		Friend friend = friends.get(position);
 		friend.setChecked(!friend.isChecked());
+//		if(!friend.isChecked()){
+//			for (int i = 0; i < friends.size(); i++) {
+//				friends.get(i).setChecked(false);
+//			}
+//			friend.setChecked(true);
+//		}
         adapter.notifyDataSetChanged();
 	}
 }

@@ -35,7 +35,7 @@ public class B2_FriendDetailActivity extends BaseActivity {
 	private CircularImage rv_me_avatar;
 	private TextView aci_title,aci_nick,aci_sign,aci_type;
 	private Button button1,button2;
-	private LinearLayout aci_relation,aci_task;
+	private LinearLayout aci_relation,aci_task,aci_photo;
 	private String uid, type;
 	private Friend friend;
 	
@@ -61,6 +61,7 @@ public class B2_FriendDetailActivity extends BaseActivity {
 		aci_relation = (LinearLayout)findViewById(R.id.aci_relation);
 		aci_type = (TextView)findViewById(R.id.aci_type);
 		aci_task = (LinearLayout)findViewById(R.id.aci_task);
+		aci_photo=(LinearLayout) findViewById(R.id.aci_photo);
 		button1 = (Button)findViewById(R.id.aci_button_left);
 		button2 = (Button)findViewById(R.id.aci_button_right);
 		button1.setVisibility(StringUtil.isEmpty(type)?View.VISIBLE:View.GONE);
@@ -104,9 +105,14 @@ public class B2_FriendDetailActivity extends BaseActivity {
 		case R.id.aci_relation:
 			startActivityForResult(new Intent(this, B2_RelationFriend.class).putExtra("friend", friend), 6);
 			break;
-		case R.id.aci_task:
+		case R.id.aci_task://查看好友任务
 			Tools.toast(this, "任务");
 			break;
+		case R.id.aci_photo://查看好友相册
+			
+//			Tools.toast(this, "任务");
+			break;
+			
 		default:
 			break;
 		}

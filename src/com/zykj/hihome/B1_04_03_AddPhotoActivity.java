@@ -27,7 +27,7 @@ public class B1_04_03_AddPhotoActivity extends BaseActivity {
 	private TextView tv_user_permission;
 	private List<String> permissionType=new ArrayList<String>();
 	private int permission=-2;//-1为自己可见,0为所有文可见,1,2,3,4为指定好友可见
-	private String userId;
+	private String userId, userNick;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +72,11 @@ public class B1_04_03_AddPhotoActivity extends BaseActivity {
 			}
 			RequestParams params= new RequestParams();
 			
-			params.put("uid", BaseApp.getModel().getUserid());
-			params.put("title", photoName);
-			params.put("intro", photoDescrip);
-			params.put("pm", tv_user_permission);
-			HttpUtils.addPhoto(new HttpErrorHandler() {
+			params.put("uid", BaseApp.getModel().getUserid());//用户ID
+			params.put("title", photoName);//相册名字
+			params.put("intro", photoDescrip);//相册描述
+			params.put("pm", Integer.parseInt(userId));//权限
+			HttpUtils.createPhoto(new HttpErrorHandler() {
 				
 				@Override
 				public void onRecevieSuccess(JSONObject json) {
@@ -101,9 +101,9 @@ public class B1_04_03_AddPhotoActivity extends BaseActivity {
 				
 //				tv_user_permission.setTag(permission);
 				if("-10".contains(userId)){
-					userId=userId.equals("0")?"所有人":"仅自己";
+					 userNick=userId.equals("0")?"所有人":"仅自己";
 				}
-				tv_user_permission.setText(userId);
+				tv_user_permission.setText(userNick);
 			}
 			break;
 

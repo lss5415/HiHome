@@ -12,6 +12,7 @@ import java.util.Locale;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -80,7 +81,8 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 				R.layout.ui_xiangceliebiao, listxclb) {
 			@Override
 			public void convert(ViewHolder holder, XiangCeLieBiao xclb) {
-				holder.setText(R.id.tv_xcm, xclb.getTitle())
+				holder.setText(R.id.tv_xcm,
+						xclb.getTitle() + "(" + xclb.getPhotos() + ")")
 						.setImageUrl(R.id.im_xc,
 								HttpUtils.IMAGE_URL + xclb.getImgsrc())
 						.setText(R.id.tv_date, xclb.getAddtime());
@@ -91,7 +93,7 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 				R.layout.ui_zuijinxiangpian, listzjxp) {
 			@Override
 			public void convert(ViewHolder holder, ZuiJinXiangPian zjxp) {
-				holder.setText(R.id.tv_time, zjxp.getAddtime())
+				holder.setText(R.id.tv_time, zjxp.getAddtime().substring(0, 11))
 						.setImageUrl(R.id.im_xp,
 								HttpUtils.IMAGE_URL + zjxp.getImgsrc())
 						.setText(R.id.tv_miaoshu, zjxp.getIntro());
@@ -121,11 +123,13 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 		lv_zjxp = (XListView) findViewById(R.id.lv_zjxp);
 		lv_xclb = (XListView) findViewById(R.id.lv_xclb);
 		lv_xclb.setDividerHeight(0);
+		lv_xclb.setSelector(new ColorDrawable(Color.TRANSPARENT));// 去掉点击item的背景色
 		lv_xclb.setPullLoadEnable(true);
 		lv_xclb.setXListViewListener(this);
 		lv_xclb.setOnItemClickListener(this);
 		lv_xclb.setAdapter(adapter1);
 		lv_zjxp.setDividerHeight(0);
+		lv_zjxp.setSelector(new ColorDrawable(Color.TRANSPARENT));// 去掉点击item的背景色
 		lv_zjxp.setPullLoadEnable(true);
 		lv_zjxp.setXListViewListener(this);
 		lv_zjxp.setOnItemClickListener(this);
@@ -221,8 +225,10 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 			// rl_main.setVisibility(View.GONE);
 			break;
 		case R.id.ly_add_picture:
-			startActivityForResult(new Intent(B1_04_XiangCe.this, B1_04_01_AddPictureActivity.class),55);
-//			finish();
+			UIDialog.closeDialog();
+			startActivityForResult(new Intent(B1_04_XiangCe.this,
+					B1_04_01_AddPictureActivity.class), 55);
+			// finish();
 			break;
 		case R.id.ly_add_camera:
 			/* 拍照 */
@@ -240,8 +246,10 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 			startActivityForResult(shootIntent, 2);
 			break;
 		case R.id.ly_add_photo:
-			startActivityForResult(new Intent(B1_04_XiangCe.this, B1_04_03_AddPhotoActivity.class),55);
-//			finish();
+			UIDialog.closeDialog();
+			startActivityForResult(new Intent(B1_04_XiangCe.this,
+					B1_04_03_AddPhotoActivity.class), 55);
+
 			break;
 		default:
 			break;
@@ -272,7 +280,7 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 			}
 			break;
 		case 55:
-			/*创建相册后刷新列表*/
+			/* 创建相册后刷新列表 */
 			requestData();
 			break;
 		default:
@@ -358,11 +366,23 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		startActivityForResult(new Intent(B1_04_XiangCe.this,B1_04_01_AddPictureActivity.class).putExtra("picture", filename),55);
+
 	}
 
+	/**
+	 * 详情
+	 */
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		if (statexc == 1) {
+			XiangCeLieBiao xiangce = listxclb.get(position - 1);
+			startActivity(new Intent(B1_04_XiangCe.this,
+					B1_04_05_XiangCeDetailsActivity.class).putExtra("photo",
+					xiangce));
+		}
 	}
 
 	@Override
