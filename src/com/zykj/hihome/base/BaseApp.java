@@ -204,14 +204,14 @@ public class BaseApp extends Application {
 	 */
 	protected void initImageLoader() {
 		//初始化ImageLoader
-        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(this);
-        config.threadPriority(Thread.NORM_PRIORITY - 2);
-        config.denyCacheImageMultipleSizesInMemory();
-        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
-        config.diskCacheSize(50 * 1024 * 1024);
-        config.tasksProcessingOrder(QueueProcessingType.LIFO);
-        config.writeDebugLogs();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+	        .threadPriority(Thread.NORM_PRIORITY - 2)
+	        .denyCacheImageMultipleSizesInMemory()
+	        .diskCacheFileNameGenerator(new Md5FileNameGenerator())
+	        .diskCacheSize(50 * 1024 * 1024)
+	        .tasksProcessingOrder(QueueProcessingType.LIFO)
+	        .writeDebugLogs().build();
 
-        ImageLoader.getInstance().init(config.build());
+        ImageLoader.getInstance().init(config);
 	}
 }
