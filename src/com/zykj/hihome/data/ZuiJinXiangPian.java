@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class ZuiJinXiangPian implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;   // 图片ID编号
 	private String imgsrc;  // 图片地址
 	private String uid;  // 用户ID编号

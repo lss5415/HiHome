@@ -332,7 +332,7 @@ public class HttpUtils {
 	/**
 	 * 获取相片列表
 	 */
-	public static void getXiangPianInfo(AsyncHttpResponseHandler res_upLoad,
+	public static void getXiangPianList(AsyncHttpResponseHandler res_upLoad,
 			RequestParams params) {
 		client.post(base_url + "c=photo&a=getList", params, res_upLoad);
 	}
@@ -402,11 +402,20 @@ public class HttpUtils {
 		client.get(base_url + "c=version&a=getInfo&version=" + version,
 				res_upLoad);
 	}
+
 	/**
 	 * 创建相册
 	 */
-	public static void addPhoto(AsyncHttpResponseHandler res_upLoad,
+	public static void createPhoto(AsyncHttpResponseHandler res_upLoad,
 			RequestParams params) {
 		client.post(base_url + "c=album&a=addInfo", params, res_upLoad);
+	}
+
+	/**
+	 * 上传照片
+	 */
+	public static void addPicToPhoto(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
+		client.post(base_url + "c=photo&a=addInfo", params, res_upLoad);
 	}
 }

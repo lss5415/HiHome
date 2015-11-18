@@ -71,7 +71,7 @@ public class UIDialog {
 		// *** 主要就是在这里实现这种效果的.
 		// 设置窗口的内容页面,shrew_exit_dialog.xml文件中定义view内容
 		window.setContentView(R.layout.dialog_notic);
-
+//		LinearLayout ly_btn_1=(LinearLayout) window.findViewById(R.id.dialog_notic_1);
 		Button m_btn_1 = (Button) window.findViewById(R.id.dialog_notic_1);
 		if (lisener == null) {
 			lisener = new OnClickListener() {
@@ -80,6 +80,7 @@ public class UIDialog {
 				}
 			};
 		}
+//		ly_btn_1.setOnClickListener(lisener);
 		m_btn_1.setOnClickListener(lisener);
 		// 设置内容
 		TextView m_notic_content = (TextView) window
