@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.XiangCeLieBiao;
@@ -60,6 +62,7 @@ public class B1_04_01_AddPictureActivity extends BaseActivity {
 	private int index;
 	private XiangCeLieBiao  photo ;
 	private String picture;
+	private ImageView img_camera_pic;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,14 +85,21 @@ public class B1_04_01_AddPictureActivity extends BaseActivity {
 		tv_photo_name = (TextView) findViewById(R.id.tv_photo_name);
 		ly_photo_name = (LinearLayout) findViewById(R.id.ly_select_photo_name);
 		gv_add_pic = (GridView) findViewById(R.id.gv_add_pic);
+		img_camera_pic=(ImageView) findViewById(R.id.img_camera_pic);
+		/*从相册中添加图片*/
 		if(photo!=null){
 			tv_photo_name.setText(photo.getTitle());
 			photoId=photo.getId();
 		}
 		gv_add_pic.setSelector(new ColorDrawable(Color.TRANSPARENT));
-//		if(picture){
-//			
-//		}
+		/**
+		 * 判断picture是否为空,不为空gv_add_pic为传过来的图片,不能再添加图片
+		 */
+		if(!StringUtil.isEmpty(picture)){
+			img_camera_pic.setVisibility(View.VISIBLE);
+			gv_add_pic.setVisibility(View.GONE);
+			ImageLoader.getInstance().displayImage(HttpUtils.IMAGE_URL+picture, img_camera_pic);
+		}else{
 		images.add(BitmapFactory.decodeResource(getResources(),
 				R.drawable.ico_photo_add_pic));
 		picAdapter = new CommonAdapter<Bitmap>(this, R.layout.ui_b3_item_image,
@@ -104,6 +114,7 @@ public class B1_04_01_AddPictureActivity extends BaseActivity {
 			}
 		};
 		gv_add_pic.setAdapter(picAdapter);
+	
 		gv_add_pic.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -122,7 +133,7 @@ public class B1_04_01_AddPictureActivity extends BaseActivity {
 			}
 
 		});// 设置GridView的监听事件
-
+	}
 		setListener(ly_photo_name);
 	}
 
@@ -143,7 +154,7 @@ public class B1_04_01_AddPictureActivity extends BaseActivity {
 				Tools.toast(B1_04_01_AddPictureActivity.this, "照片信息描述不能为空");
 			} else if (StringUtil.isEmpty(photoId)) {
 				Tools.toast(B1_04_01_AddPictureActivity.this, "请选择相册");
-			} else if (file == null) {
+			} else if (file == null&&StringUtil.isEmpty(picture)) {
 				Tools.toast(B1_04_01_AddPictureActivity.this, "请选择要上传的图片");
 			} else {
 				try {
@@ -153,10 +164,14 @@ public class B1_04_01_AddPictureActivity extends BaseActivity {
 					params.put("uid", BaseApp.getModel().getUserid());// uid必须，用户ID编号
 					params.put("intro", tv_pic_descrip.getText().toString());// // 照片描述
 					params.put("aid", photoId);// aid必须，相册ID编号?????????????????
-					
-					RequestParams paramsImg = new RequestParams();
-					paramsImg.put("imgsrc[]", files.get(index));
-					HttpUtils.upLoad(res_upLoad, paramsImg);
+					if(file!=null){
+						RequestParams paramsImg = new RequestParams();
+						paramsImg.put("imgsrc[]", files.get(index));
+						HttpUtils.upLoad(res_upLoad, paramsImg);
+					}else{
+						params.put("imgsrc", picture);
+						addPicToPhoto();
+					}
 
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();

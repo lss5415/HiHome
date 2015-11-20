@@ -40,6 +40,7 @@ public class B1_01_JiNianRiZongLan extends BaseActivity implements IXListViewLis
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ui_b1_01_jinianrizonglan);
+		
 		adapter = new CommonAdapter<Task>(B1_01_JiNianRiZongLan.this, R.layout.ui_jinianrizonglan, listanniversary) {
 			@Override
 			public void convert(ViewHolder holder, Task task) {

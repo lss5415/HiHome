@@ -300,7 +300,7 @@ public class HttpUtils {
 	/**
 	 * 删除相册
 	 */
-	public static void getDelXiangCe(AsyncHttpResponseHandler res_upLoad,
+	public static void deleteXiangCe(AsyncHttpResponseHandler res_upLoad,
 			RequestParams params) {
 		client.post(base_url + "c=album&a=delInfo", params, res_upLoad);
 	}
@@ -324,7 +324,7 @@ public class HttpUtils {
 	/**
 	 * 删除相片
 	 */
-	public static void getDelXiangPian(AsyncHttpResponseHandler res_upLoad,
+	public static void deleteXiangPian(AsyncHttpResponseHandler res_upLoad,
 			RequestParams params) {
 		client.post(base_url + "c=photo&a=delInfo", params, res_upLoad);
 	}

@@ -52,12 +52,12 @@ public class B3_1_TaskAddAnniversaryActivity extends BaseActivity implements
 	private CircularImage img_avator;
 	private EditText anniversaryt_title, anniversaryt_content;
 	private TextView anniversaryt_selecttime;
-	private File file;
+	private File file1,file;
 	private String timeString, imgs;// 上传头像的字段
 	private static String anni_title;
 	private static String anni_time;
 	private static String anni_content;
-	private int type = 1, index;
+	private int type = 1, index;//1头像 2详情
 	private List<File> files = new ArrayList<File>();
 	private List<Bitmap> images = new ArrayList<Bitmap>();
 	private CommonAdapter<Bitmap> imgAdapter;
@@ -111,6 +111,7 @@ public class B3_1_TaskAddAnniversaryActivity extends BaseActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.img_avator:
+			//头像
 			type = 1;
 			UIDialog.ForThreeBtn(this, new String[] { "拍照", "从相册中选取", "取消" },
 					this);
@@ -133,7 +134,7 @@ public class B3_1_TaskAddAnniversaryActivity extends BaseActivity implements
 			} else {
 					try {
 						params = new RequestParams();
-						params.put("imgsrc[]", file);
+						params.put("imgsrc[]", file1);
 						HttpUtils.upLoad(res_upLoad1, params);
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
@@ -344,11 +345,12 @@ public class B3_1_TaskAddAnniversaryActivity extends BaseActivity implements
 			e.printStackTrace();
 		}
 		if (type == 1) {
-			img_avator.setImageBitmap(bitmap);
+			img_avator.setImageBitmap(bitmap);//头像
+			file1=file;
 		} else {
 			images.add(bitmap);
 			files.add(file);
-			imgAdapter.notifyDataSetChanged();
+			imgAdapter.notifyDataSetChanged();//详情
 		}
 	}
 

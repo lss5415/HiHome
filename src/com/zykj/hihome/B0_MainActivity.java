@@ -182,21 +182,25 @@ public class B0_MainActivity extends BaseTabActivity implements
 		if (view == itemJiNianRi) {
 			Intent intent = new Intent();
 			intent.putExtra("flog", "纪念日总览");
+//			intent.putExtra("fid", BaseApp.getModel().getUserid());//当前登录用户的id
 			intent.setClass(getApplicationContext(), B1_01_JiNianRiZongLan.class);
 			startActivity(intent);
 		}else if (view == itemZhouRenWu) {
 			Intent intent = new Intent();
 			intent.putExtra("flog", "周任务总览");
+//			intent.putExtra("fid", BaseApp.getModel().getUserid());//当前登录用户的id
 			intent.setClass(getApplicationContext(), B1_02_ZhouRenWuZongLan.class);
 			startActivity(intent);
 		} else if (view == itemYueRenWu) {
 			Intent intent = new Intent();
 			intent.putExtra("flog", "月任务总览");
+//			intent.putExtra("fid", BaseApp.getModel().getUserid());//当前登录用户的id
 			intent.setClass(getApplicationContext(), B1_03_YueRenWuZongLan.class);
 			startActivity(intent);
 		} else if (view == itemXiangCe) {
 			Intent intent = new Intent();
 			intent.putExtra("flog", "相册");
+			intent.putExtra("fid", BaseApp.getModel().getUserid());//当前登录用户的id
 			intent.setClass(getApplicationContext(), B1_04_XiangCe.class);
 			startActivity(intent);
 		} else if (view == itemSheZhi) {
