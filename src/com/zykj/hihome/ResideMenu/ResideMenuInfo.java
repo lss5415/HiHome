@@ -1,11 +1,13 @@
 package com.zykj.hihome.ResideMenu;
 
 import android.content.Context;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.R;
 
 /**
@@ -25,10 +27,11 @@ public class ResideMenuInfo extends LinearLayout {
 		initViews(context);
 	}
 
-	public ResideMenuInfo(Context context, int icon, String title, String dengji) {
+	public ResideMenuInfo(Context context, String avatar, Spanned title, String dengji) {
 		super(context);
 		initViews(context);
-		iv_icon.setImageResource(icon);
+		ImageLoader.getInstance().displayImage(avatar, iv_icon);
+//		iv_icon.setImageResource(icon);
 		tv_username.setText(title);
 		tv_dengji.setText(dengji);
 	}

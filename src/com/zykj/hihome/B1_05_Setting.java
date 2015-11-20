@@ -58,7 +58,8 @@ public class B1_05_Setting extends BaseActivity {
 			startActivity(new Intent(this, B1_05_Setting_Detail.class).putExtra("position", 1));
 			break;
 		case R.id.ly_message_notice:// 消息通知
-			startActivity(new Intent(this, B1_05_Setting_Detail.class).putExtra("position", 2));
+			startActivity(new Intent(this, B1_05_Setting_AppInfo.class).putExtra("type", "notice"));
+//			startActivity(new Intent(this, B1_05_Setting_Detail.class).putExtra("position", 2));
 			break;
 		case R.id.ly_sound_notice:// 声音通知
 			startActivity(new Intent(this, B1_05_Setting_Detail.class).putExtra("position", 3));
@@ -71,7 +72,7 @@ public class B1_05_Setting extends BaseActivity {
 			HttpUtils.getNew(res_getNew, version.substring(1));
 			break;
 		case R.id.ly_function_intro:// 功能介绍
-			startActivity(new Intent(this, B1_05_Setting_AppInfo.class));
+			startActivity(new Intent(this, B1_05_Setting_AppInfo.class).putExtra("type", "intro"));
 			break;
 		case R.id.ly_help_feedback:// 帮助与反馈
 			startActivity(new Intent(this, B1_05_Setting_Help.class));

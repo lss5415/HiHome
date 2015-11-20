@@ -1,7 +1,10 @@
 package com.zykj.hihome;
 
+import java.util.Calendar;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -13,6 +16,8 @@ import com.zykj.hihome.ResideMenu.ResideMenuInfo;
 import com.zykj.hihome.ResideMenu.ResideMenuItem;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.base.BaseTabActivity;
+import com.zykj.hihome.utils.HttpUtils;
+import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
 
 /**
@@ -85,8 +90,17 @@ public class B0_MainActivity extends BaseTabActivity implements
 		resideMenu.addMenuItem(itemSheZhi, ResideMenu.DIRECTION_LEFT);
 		resideMenu.addMenuItem(itemPeiOu, ResideMenu.DIRECTION_LEFT);
 
-		info = new ResideMenuInfo(this, R.drawable.gerentouxiang, "唐嫣爱糖糖","努力做好自己，为自己而努力");
-
+		String age = BaseApp.getModel().getAge();
+		try {
+			String year = age.substring(0, 4);
+			age = (Calendar.getInstance().get(Calendar.YEAR)-Integer.valueOf(year))+"";
+		} catch (Exception e) {
+			age = StringUtil.toString(BaseApp.getModel().getAge());
+		}
+		String name = BaseApp.getModel().getNick();
+		String sex = BaseApp.getModel().getSex();
+		info = new ResideMenuInfo(this, HttpUtils.IMAGE_URL+BaseApp.getModel().getAvatar(), 
+				Html.fromHtml("<big><big><big>"+name+"</big></big></big><br>年龄:"+age+" "+sex),BaseApp.getModel().getSign());
 	}
 
 	private ResideMenu.OnMenuListener menuListener = new ResideMenu.OnMenuListener() {

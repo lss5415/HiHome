@@ -1125,6 +1125,24 @@ public class StringUtil {
     }
  
     /**
+     * 功能：检查这个字符串是不是空字符串。并且包含给定字符串<br/>
+     * 如果这个字符串为null或者trim后为空字符串则返回true，否则返回false。
+     * 
+     * @author 李旺成
+     * @date 2014年09月19日
+     * @param chkStr
+     *            被检查的字符串
+     * @return boolean
+     */
+    public static boolean isEmpty(String chkStr, String defaultStr) {
+        if (chkStr == null || defaultStr.equals(chkStr) || "null".equals(chkStr)) {
+            return true;
+        } else {
+            return "".equals(chkStr.trim()) ? true : false;
+        }
+    }
+ 
+    /**
      * 如果字符串没有超过最长显示长度返回原字符串，否则从开头截取指定长度并加...返回。
      * 
      * @param str

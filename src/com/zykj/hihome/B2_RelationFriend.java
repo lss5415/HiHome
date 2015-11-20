@@ -20,8 +20,8 @@ import com.zykj.hihome.view.MyCommonTitle;
 public class B2_RelationFriend extends BaseActivity {
 	
 	private MyCommonTitle aci_mytitle;
-	private ImageView aci_select1,aci_select2,aci_select3;
-	private LinearLayout layout1,layout2,layout3;
+	private ImageView aci_select2,aci_select3;
+	private LinearLayout layout2,layout3;
 	private Friend friend;
 
 	@Override
@@ -36,26 +36,19 @@ public class B2_RelationFriend extends BaseActivity {
 	private void initView() {
 		aci_mytitle = (MyCommonTitle)findViewById(R.id.aci_mytitle);
 		aci_mytitle.setTitle("选择与其关系");
-
-		layout1 = (LinearLayout)findViewById(R.id.layout1);
+		
 		layout2 = (LinearLayout)findViewById(R.id.layout2);
 		layout3 = (LinearLayout)findViewById(R.id.layout3);
-		aci_select1 = (ImageView)findViewById(R.id.aci_select1);
 		aci_select2 = (ImageView)findViewById(R.id.aci_select2);
 		aci_select3 = (ImageView)findViewById(R.id.aci_select3);
 		initSelect(StringUtil.toString(friend.getType(), "3"));
 		
-		setListener(layout1,layout2,layout3);
+		setListener(layout2,layout3);
 	}
 
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-		case R.id.layout1:
-			/*配偶*/
-			groupFriend("2");
-			initSelect("2");
-			break;
 		case R.id.layout2:
 			/*星标*/
 			groupFriend("1");
@@ -73,15 +66,12 @@ public class B2_RelationFriend extends BaseActivity {
 
 	private void initSelect(String type) {
 		if("0".equals(type)){
-			aci_select1.setVisibility(View.GONE);
 			aci_select2.setVisibility(View.GONE);
 			aci_select3.setVisibility(View.VISIBLE);
 		}else if("1".equals(type)){
-			aci_select1.setVisibility(View.GONE);
 			aci_select2.setVisibility(View.VISIBLE);
 			aci_select3.setVisibility(View.GONE);
 		}else if("2".equals(type)){
-			aci_select1.setVisibility(View.VISIBLE);
 			aci_select2.setVisibility(View.GONE);
 			aci_select3.setVisibility(View.GONE);
 		}

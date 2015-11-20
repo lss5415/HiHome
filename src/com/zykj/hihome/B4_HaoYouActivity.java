@@ -1,8 +1,6 @@
 package com.zykj.hihome;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -10,8 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -24,13 +22,12 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Friend;
+import com.zykj.hihome.utils.AnimateFirstDisplayListener;
 import com.zykj.hihome.utils.CircularImage;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
@@ -52,6 +49,8 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 	private String[] strType = new String[]{"普通好友","星标好友","配偶"};
 	private Handler mHandler = new Handler();//异步加载或刷新
 	private DisplayImageOptions options;
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,7 +75,7 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 	 */
 	public void initView() {
 		rv_me_avatar = (CircularImage)findViewById(R.id.rv_me_avatar);//头像
-		com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(BaseApp.getModel().getAvatar(), rv_me_avatar);
+		imageLoader.displayImage(HttpUtils.IMAGE_URL+BaseApp.getModel().getAvatar(), rv_me_avatar, options, animateFirstListener);
 		add_friend = (ImageView)findViewById(R.id.add_friend);//添加好友
 		
 		friend_list = (XListView)findViewById(R.id.friend_list);//搜索
@@ -84,13 +83,11 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 		friend_list.setXListViewListener(this);
 //		adapter = new LoaderAdapter(this, friends);
 		adapter = new CommonAdapter<Friend>(B4_HaoYouActivity.this, R.layout.ui_b4_haoyou_item, friends) {
-			private ImageLoader imageLoader = ImageLoader.getInstance();
-			private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 			@Override
 			public void convert(ViewHolder holder, Friend friend) {
 				ImageView imageView = holder.getView(R.id.aci_image);
 				imageView.setImageResource(holder.getPosition() == 0?R.drawable.tongxunlu:R.drawable.xinagcetouxiang);
-				if(holder.getPosition() > 0){
+				if(holder.getPosition() > 0 && !StringUtil.isEmpty(friend.getAvatar(), "images/default.jpg")){
 					imageLoader.displayImage(HttpUtils.IMAGE_URL+friend.getAvatar(), imageView, options, animateFirstListener);
 				}
 				holder.setText(R.id.aci_name, friend.getNick())
@@ -102,23 +99,6 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 		friend_list.setDividerHeight(0);
 		friend_list.setOnItemClickListener(this);
 		setListener(rv_me_avatar, add_friend);
-	}
-
-	private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
-
-		static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
-
-		@Override
-		public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-			if (loadedImage != null) {
-				ImageView imageView = (ImageView) view;
-				boolean firstDisplay = !displayedImages.contains(imageUri);
-				if (firstDisplay) {
-					FadeInBitmapDisplayer.animate(imageView, 500);
-					displayedImages.add(imageUri);
-				}
-			}
-		}
 	}
 
 	private void requestData() {
@@ -175,10 +155,18 @@ public class B4_HaoYouActivity extends BaseActivity implements IXListViewListene
 	@Override
 	public void onItemClick(AdapterView<?> parentView, View currentView, int position, long id) {
 		if(position == 1){
-			startActivity(new Intent(this, B4_2_TongXunLuActivity.class));
+			startActivityForResult(new Intent(this, B4_2_TongXunLuActivity.class), 3);
 		}else{
-			startActivity(new Intent(this, B2_FriendDetailActivity.class)
-					.putExtra("uid", friends.get(position-1).getFid()).putExtra("type", friends.get(position-1).getType()));
+			startActivityForResult(new Intent(this, B2_FriendDetailActivity.class)
+					.putExtra("uid", friends.get(position-1).getFid()).putExtra("type", friends.get(position-1).getType()), 3);
+		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == 3 && resultCode == Activity.RESULT_OK){
+			requestData();
 		}
 	}
 
