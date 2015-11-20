@@ -80,7 +80,9 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 	private int statexc = 0;// 0是最近相片，1是相册列表
 	private String timeString, imgs, imgsrc1, fid;// 上传头像的字段
 	private File file;
-
+/**
+ * 侧滑删除
+ */
 	private SwipeMenuCreator creator = new SwipeMenuCreator() {
 		@Override
 		public void create(SwipeMenu menu) {
