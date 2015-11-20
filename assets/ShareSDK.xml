@@ -77,8 +77,8 @@
     <QZone
         Id="3"
         SortId="3"
-        AppId="1104789886"
-        AppKey="pf0F2VTyxsdcjTfM"
+        AppId="1104931910"
+        AppKey="Lle8IoqegSm0Rnvd"
         ShareByAppClient="false"
         Enable="true" />
     
@@ -113,8 +113,8 @@
 	<WechatFavorite
         Id="6"
         SortId="6"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
+        AppId="wx367d784d1cf53eb3"
+        AppSecret="d4624c36b6795d1d99dcf0547af5443d"
         Enable="true" />
     
 	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->

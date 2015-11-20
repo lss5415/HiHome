@@ -161,7 +161,7 @@ public class B2_FriendDetailActivity extends BaseActivity {
 			startActivity(new Intent(this, B1_04_RiRenWuZongLan.class).putExtra("friend", friend));
 			break;
 		case R.id.aci_photo://查看好友相册
-			startActivity(new Intent(this, B1_04_XiangCe.class).putExtra("fid", friend.getFid()));
+			startActivity(new Intent(this, B1_04_XiangCe.class).putExtra("fid", friend.getId()));
 			break;
 		default:
 			break;

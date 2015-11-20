@@ -23,9 +23,10 @@
 	<classpathentry kind="lib" path="libs/AMap_Location_v1.4.1_20150917.jar"/>
 	<classpathentry kind="lib" path="libs/ShareSDK-Core-2.6.1.jar"/>
 	<classpathentry kind="lib" path="libs/ShareSDK-QQ-2.6.1.jar"/>
-	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-2.6.1.jar"/>
-	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-Core-2.6.1.jar"/>
-	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-Moments-2.6.1.jar"/>
+	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-Moments-2.6.4.jar"/>
+	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-Favorite-2.6.4.jar"/>
+	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-Core-2.6.4.jar"/>
+	<classpathentry kind="lib" path="libs/ShareSDK-Wechat-2.6.4.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>
