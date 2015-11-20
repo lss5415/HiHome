@@ -14,12 +14,12 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="@dimen/twenty_eight"
 		    android:layout_centerVertical="true"
-		    android:layout_marginLeft="@dimen/ten"
-		    android:layout_marginRight="@dimen/three"
+		    android:layout_marginLeft="@dimen/fifteen"
+		    android:layout_marginRight="@dimen/five"
 		    android:contentDescription="@string/app_name"
 		    android:src="@drawable/avatar_ico"/>
         <com.zykj.hihome.utils.CircularImage
-            android:id="@+id/rv_me_avatar"
+            android:id="@+id/cimg_me_avatar"
             android:layout_width="@dimen/thirty_five"
             android:layout_height="@dimen/thirty_five"
 		    android:layout_centerVertical="true"

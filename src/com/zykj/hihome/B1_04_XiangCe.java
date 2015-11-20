@@ -1,6 +1,7 @@
 package com.zykj.hihome;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -18,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -35,8 +37,14 @@ import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.XiangCeLieBiao;
 import com.zykj.hihome.data.ZuiJinXiangPian;
+import com.zykj.hihome.menuListView.SwipeMenu;
+import com.zykj.hihome.menuListView.SwipeMenuCreator;
+import com.zykj.hihome.menuListView.SwipeMenuItem;
+import com.zykj.hihome.menuListView.SwipeMenuListView;
+import com.zykj.hihome.menuListView.SwipeMenuListView.OnMenuItemClickListener;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
+import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.UrlContants;
 import com.zykj.hihome.view.MyCommonTitle;
 import com.zykj.hihome.view.UIDialog;
@@ -48,7 +56,7 @@ import com.zykj.hihome.view.XListView.IXListViewListener;
  * 
  */
 public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
-		OnItemClickListener {
+		OnItemClickListener ,OnMenuItemClickListener, com.zykj.hihome.menuListView.SwipeMenuListView.IXListViewListener{
 	private MyCommonTitle myCommonTitle;
 	private ImageView img_add_photo;
 	private TextView tv_zuijinxiangpian;// 最近相片
@@ -58,7 +66,8 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 	private LinearLayout ly_top;
 	private RelativeLayout rl_main;
 	private LinearLayout ly_add_pic, ly_add_camera, ly_add_photo;
-	private XListView lv_zjxp, lv_xclb;// 最近相片列表
+	private XListView lv_zjxp;// 最近相片列表
+	private SwipeMenuListView lv_xclb;
 	private static int PERPAGE1 = 5;// perpage默认每页显示10条信息
 	private int nowpage1 = 1;// 当前显示的页面
 	private static int PERPAGE = 5;// perpage默认每页显示10条信息
@@ -69,12 +78,37 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 	private List<XiangCeLieBiao> listxclb = new ArrayList<XiangCeLieBiao>();
 	private Handler mHandler = new Handler();// 异步加载或刷新
 	private int statexc = 0;// 0是最近相片，1是相册列表
-	private String timeString, imgs;// 上传头像的字段
+	private String timeString, imgs, imgsrc1, fid;// 上传头像的字段
 	private File file;
+
+	private SwipeMenuCreator creator = new SwipeMenuCreator() {
+		@Override
+		public void create(SwipeMenu menu) {
+			SwipeMenuItem openItem = new SwipeMenuItem(B1_04_XiangCe.this);
+			// set item background
+			openItem.setBackground(new ColorDrawable(Color
+					.rgb(0xFF, 0x00, 0x00)));
+			// set item width
+			openItem.setWidth(dp2px(90));
+			// set item title
+			openItem.setTitle("删除");
+			// set item title fontsize
+			openItem.setTitleSize(18);
+			// set item title font color
+			openItem.setTitleColor(Color.WHITE);
+			// add to menu
+			menu.addMenuItem(openItem);
+		}
+	};
+	private int dp2px(int dp) {
+		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+				getResources().getDisplayMetrics());
+	}
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ui_b1_04_xiangce);
+		fid = getIntent().getStringExtra("fid");//相册主人的Id
 		// if (statexc>0) {
 		adapter1 = new CommonAdapter<XiangCeLieBiao>(B1_04_XiangCe.this,
 				R.layout.ui_xiangceliebiao, listxclb) {
@@ -83,7 +117,7 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 				holder.setText(R.id.tv_xcm,
 						xclb.getTitle() + "(" + xclb.getPhotos() + ")")
 						.setImageUrl(R.id.im_xc,
-								HttpUtils.IMAGE_URL + xclb.getImgsrc())
+								StringUtil.toString(HttpUtils.IMAGE_URL + xclb.getImgsrc(),"http://"))
 						.setText(R.id.tv_date, xclb.getAddtime());
 			}
 		};
@@ -120,24 +154,25 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 		ll_zjxp = (LinearLayout) findViewById(R.id.ll_zjxp);
 
 		lv_zjxp = (XListView) findViewById(R.id.lv_zjxp);
-		lv_xclb = (XListView) findViewById(R.id.lv_xclb);
+		lv_xclb = (SwipeMenuListView) findViewById(R.id.lv_xclb);
+		
 		lv_xclb.setDividerHeight(0);
 		lv_xclb.setSelector(new ColorDrawable(Color.TRANSPARENT));// 去掉点击item的背景色
-		lv_xclb.setPullLoadEnable(true);
-		lv_xclb.setXListViewListener(this);
 		lv_xclb.setOnItemClickListener(this);
 		lv_xclb.setAdapter(adapter1);
+		lv_xclb.setPullLoadEnable(true);
+		lv_xclb.setPullRefreshEnable(true);
+		lv_xclb.setXListViewListener(this);
 		lv_zjxp.setDividerHeight(0);
 		lv_zjxp.setSelector(new ColorDrawable(Color.TRANSPARENT));// 去掉点击item的背景色
-		lv_zjxp.setPullLoadEnable(true);
 		lv_zjxp.setXListViewListener(this);
 		lv_zjxp.setOnItemClickListener(this);
 		lv_zjxp.setAdapter(adapter);
-		// lv_xclb.setDividerHeight(0);
-		// lv_xclb.setPullLoadEnable(true);
-		// lv_xclb.setXListViewListener(this);
-		// lv_xclb.setOnItemClickListener(this);
-		// lv_xclb.setAdapter(adapter1);
+		lv_zjxp.setPullLoadEnable(true);
+		lv_zjxp.setPullRefreshEnable(true);
+		
+		lv_xclb.setMenuCreator(creator);
+		lv_xclb.setOnMenuItemClickListener((OnMenuItemClickListener) this);
 		setListener(tv_zuijinxiangpian, tv_xiangpianliebiao);
 	}
 
@@ -145,7 +180,7 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 		if (statexc > 0) {
 			/** 相册列表 */
 			RequestParams params = new RequestParams();
-			params.put("fid", BaseApp.getModel().getUserid());
+			params.put("fid", fid);//fid为传过来的好友id
 			params.put("uid", BaseApp.getModel().getUserid());
 			params.put("nowpage", nowpage1);
 			params.put("perpage", PERPAGE1);
@@ -153,7 +188,7 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 		} else {
 			/** 最近相片 */
 			RequestParams params = new RequestParams();
-			params.put("uid", BaseApp.getModel().getUserid());
+			params.put("uid", fid);//fid为传过来的登录用户的id
 			params.put("nowpage", nowpage);
 			params.put("perpage", PERPAGE);
 			HttpUtils.geZuiJinXiangPian(res_zuijinxiangpianList, params);
@@ -365,9 +400,20 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		startActivityForResult(new Intent(B1_04_XiangCe.this,B1_04_01_AddPictureActivity.class).putExtra("picture", filename),55);
+		try {
+			RequestParams params = new RequestParams();
+			params.put("imgsrc[]", file);
+			HttpUtils.upLoad(new HttpErrorHandler() {
 
+				@Override
+				public void onRecevieSuccess(JSONObject json) {
+					imgsrc1 = json.getJSONArray(UrlContants.jsonData).getJSONObject(0).getString("imgsrc");
+					startActivityForResult(new Intent(B1_04_XiangCe.this,B1_04_01_AddPictureActivity.class).putExtra("picture",imgsrc1), 55);
+				}
+			}, params);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -383,7 +429,28 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 					xiangce));
 		}
 	}
-
+	/**
+	 *相册 item侧滑删除
+	 */
+	@Override
+	public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
+		if(statexc==1){
+			XiangCeLieBiao xiangce = listxclb.get(position);
+			RequestParams params=new RequestParams();
+			params.put("id", xiangce.getId());
+			HttpUtils.deleteXiangCe(new HttpErrorHandler() {
+				
+				@Override
+				public void onRecevieSuccess(JSONObject json) {
+					listxclb.remove(position);
+					adapter1.notifyDataSetChanged();
+				}
+			}, params);
+			
+			
+		}
+		return false;
+	}
 	@Override
 	public void onRefresh() {
 		/** 下拉刷新 重建 */
@@ -433,5 +500,4 @@ public class B1_04_XiangCe extends BaseActivity implements IXListViewListener,
 			lv_zjxp.setRefreshTime("刚刚");
 		}
 	}
-
 }

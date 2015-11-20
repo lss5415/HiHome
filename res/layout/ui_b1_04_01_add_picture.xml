@@ -60,22 +60,28 @@
                 android:src="@drawable/ic_task_into" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@color/white"
-            android:gravity="center"
-            android:orientation="horizontal" >
+            android:background="@color/white">
 
             <GridView
+                android:visibility="visible"
                 android:id="@+id/gv_add_pic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:numColumns="4"
                 android:padding="10dp" />
-        </LinearLayout>
+            <ImageView 
+                android:visibility="gone"
+                android:id="@+id/img_camera_pic"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_picture"/>
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

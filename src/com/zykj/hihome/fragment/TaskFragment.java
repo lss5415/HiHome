@@ -65,7 +65,7 @@ public class TaskFragment extends Fragment implements IXListViewListener,
 			SwipeMenuItem openItem = new SwipeMenuItem(getActivity());
 			// set item background
 			openItem.setBackground(new ColorDrawable(Color
-					.rgb(0xC9, 0xC9, 0xCE)));
+					.rgb(0xFF, 0x00, 0x00)));
 			// set item width
 			openItem.setWidth(dp2px(90));
 			// set item title
