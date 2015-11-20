@@ -64,6 +64,12 @@ public class MyCommonTitle extends RelativeLayout {
 		}
 	}
 
+	public void setBackBtnListener(OnClickListener editListener) {
+		titleBack.setOnClickListener(null);
+		titleBack = (ImageView) findViewById(R.id.aci_back_btn);
+		titleBack.setOnClickListener(editListener);
+	}
+
 	public TextView getTitle() {
 		return (TextView) findViewById(R.id.aci_title_tv);
 	}

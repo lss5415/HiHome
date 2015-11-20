@@ -14,13 +14,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
 import com.zykj.hihome.data.Friend;
+import com.zykj.hihome.utils.AnimateFirstDisplayListener;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
 import com.zykj.hihome.utils.Tools;
@@ -33,6 +39,10 @@ public class B3_24_SelectExecutorActivity extends BaseActivity implements OnItem
 	private ListView friend_list;
 	private List<Friend> friends = new ArrayList<Friend>();
 	private String[] strType = new String[]{"普通好友","星标好友","配偶"};
+	private DisplayImageOptions options;
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+	private String uid = "";
 	
 	private CommonAdapter<Friend> adapter;
 
@@ -40,6 +50,17 @@ public class B3_24_SelectExecutorActivity extends BaseActivity implements OnItem
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ui_b3_1_select_executor);
+		uid = getIntent().getStringExtra("uid");
+		
+		options = new DisplayImageOptions.Builder()
+			.showImageOnLoading(R.drawable.xinagcetouxiang)
+			.showImageForEmptyUri(R.drawable.xinagcetouxiang)
+			.showImageOnFail(R.drawable.xinagcetouxiang)
+			.cacheInMemory(true)
+			.cacheOnDisk(true)
+			.considerExifParams(true)
+			.displayer(new RoundedBitmapDisplayer(5))
+			.build();
 
 		initView();
 		requestData();
@@ -47,6 +68,7 @@ public class B3_24_SelectExecutorActivity extends BaseActivity implements OnItem
 
 	private void initView() {
 		myCommonTitle = (MyCommonTitle)findViewById(R.id.aci_mytitle);
+		myCommonTitle.setTitle("选择好友");
 		myCommonTitle.setEditTitle("确定");
 		myCommonTitle.setLisener(this, null);
 		
@@ -54,14 +76,10 @@ public class B3_24_SelectExecutorActivity extends BaseActivity implements OnItem
 		adapter = new CommonAdapter<Friend>(B3_24_SelectExecutorActivity.this, R.layout.ui_b4_haoyou_item, friends) {
 			@Override
 			public void convert(ViewHolder holder, Friend friend) {
-				if(holder.getPosition() == 0){
-					holder.setImageView(R.id.aci_image, R.drawable.tongxunlu);
-				}else{
-					if(StringUtil.isEmpty(friend.getAvatar())){
-						holder.setImageView(R.id.aci_image, R.drawable.xinagcetouxiang);
-					}else{
-						holder.setImageUrl(R.id.aci_image, friend.getAvatar());
-					}
+				ImageView imageView = holder.getView(R.id.aci_image);
+				imageView.setImageResource(holder.getPosition() == 0?R.drawable.tongxunlu:R.drawable.xinagcetouxiang);
+				if(holder.getPosition() > 0 && !StringUtil.isEmpty(friend.getAvatar(), "images/default.jpg")){
+					imageLoader.displayImage(HttpUtils.IMAGE_URL+friend.getAvatar(), imageView, options, animateFirstListener);
 				}
 				if(!StringUtil.isEmpty(friend.getCategory())){
 					holder.setText(R.id.friend_type, friend.getCategory());
@@ -82,6 +100,9 @@ public class B3_24_SelectExecutorActivity extends BaseActivity implements OnItem
 		friends.clear();
 		Friend friend = new Friend("自己");
 		friend.setFid(BaseApp.getModel().getUserid());
+		if(!StringUtil.isEmpty(uid)){
+			friend.setChecked(true);
+		}
 		friends.add(0, friend);
 		HttpUtils.getFriendsList(new JsonHttpResponseHandler(){
 			@Override
@@ -137,14 +158,10 @@ public class B3_24_SelectExecutorActivity extends BaseActivity implements OnItem
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View convertView, int position, long id) {
-		Friend friend = friends.get(position);
-		friend.setChecked(!friend.isChecked());
-//		if(!friend.isChecked()){
-//			for (int i = 0; i < friends.size(); i++) {
-//				friends.get(i).setChecked(false);
-//			}
-//			friend.setChecked(true);
-//		}
-        adapter.notifyDataSetChanged();
+		if(StringUtil.isEmpty(uid) || position != 0){
+			Friend friend = friends.get(position);
+			friend.setChecked(!friend.isChecked());
+	        adapter.notifyDataSetChanged();
+		}
 	}
 }

@@ -5,15 +5,16 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center_vertical"
+        android:paddingBottom="5dp"
         android:gravity="center_vertical" >
 
         <com.zykj.hihome.utils.CircularImage
             android:id="@+id/image_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="@drawable/ic_launcher" />
 
         <TextView
@@ -21,18 +22,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:textColor="@color/white"
             android:text="QQ昵称" />
     </LinearLayout>
-
+	<View 
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/tab_font_normal"/>
     <TextView
         android:id="@+id/tv_dengji"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:padding="8dp"
         android:singleLine="true"
         android:ellipsize="end"
-        android:text="努力做好自己，为自己而努力"
-        android:textColor="#FFF" />
-
+        android:textColor="@color/tab_font_normal"
+        android:text="努力做好自己，为自己而努力"/>
+	<View 
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/tab_font_normal"/>
 </LinearLayout>

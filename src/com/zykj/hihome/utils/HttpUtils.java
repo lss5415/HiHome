@@ -418,4 +418,13 @@ public class HttpUtils {
 			RequestParams params) {
 		client.post(base_url + "c=photo&a=addInfo", params, res_upLoad);
 	}
+
+	/**
+	 * 设置所有任务权限
+	 */
+	public static void postUserTaskPM(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
+		client.post(base_url + "c=task&a=postUserTaskPM", params, res_upLoad);
+	}
+	
 }

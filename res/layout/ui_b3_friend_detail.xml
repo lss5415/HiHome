@@ -192,11 +192,22 @@
 				    android:textColor="@color/theme_color"
 				    android:textSize="@dimen/t_twenty"
 				    android:text="@string/friend_photo"/>
-		        <GridView 
-		            android:id="@+id/aci_gridview"
+		        <ImageView 
+		            android:id="@+id/photo1"
+				    android:layout_width="60dp"
+				    android:layout_height="60dp"
+				    android:scaleType="fitXY"
+			      	android:visibility="gone"/>
+		        <ImageView 
+		            android:id="@+id/photo2"
+				    android:layout_width="60dp"
+				    android:layout_height="60dp"
+				    android:scaleType="fitXY"
+			      	android:visibility="gone"
+				    android:layout_marginLeft="@dimen/ten"/>
+		        <View 
 				    android:layout_width="0.0dip"
-				    android:layout_height="wrap_content"
-				    android:numColumns="4"
+				    android:layout_height="60dp"
 				    android:layout_weight="1"/>
 		        <ImageView 
 				    android:layout_width="wrap_content"

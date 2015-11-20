@@ -117,7 +117,7 @@
                 android:id="@+id/ly_chat_record"
                 android:layout_width="fill_parent" 
                 android:layout_height="45dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:background="#FFF">
                 <TextView 
                     android:layout_width="wrap_content"
@@ -173,7 +173,7 @@
                 android:id="@+id/ly_function_intro" 
                 android:layout_width="fill_parent" 
                 android:layout_height="45dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:background="#FFF">
                 <TextView 
                     android:layout_width="wrap_content"
@@ -234,7 +234,7 @@
                 android:id="@+id/ly_logout" 
                 android:layout_width="fill_parent" 
                 android:layout_height="45dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:background="#FFF">
                 <TextView 
                     android:layout_width="wrap_content"
