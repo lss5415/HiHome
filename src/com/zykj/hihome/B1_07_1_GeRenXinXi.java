@@ -26,6 +26,7 @@ import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
+import com.zykj.hihome.utils.CommonUtils;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
@@ -73,7 +74,7 @@ public class B1_07_1_GeRenXinXi extends BaseActivity {
 
 		requestData();
 
-		setListener(im_touxiang, im_nan, im_nv, tv_queding);
+		setListener(im_touxiang, et_age,im_nan, im_nv, tv_queding);
 	}
 
 	/**
@@ -126,6 +127,11 @@ public class B1_07_1_GeRenXinXi extends BaseActivity {
 			im_nan.setImageResource(R.drawable.buxuanzhong);
 			im_nv.setImageResource(R.drawable.xuanzhong);
 			break;
+//		case R.id.et_user_age:
+//			View startView = CommonUtils.showDateTimePicker(this, et_age);
+//			startView.findViewById(R.id.hour).setVisibility(View.GONE);
+//			startView.findViewById(R.id.mins).setVisibility(View.GONE);
+//			break;
 		case R.id.tv_queding:
 			RequestParams params = new RequestParams();
 			nick = et_nick.getText().toString();

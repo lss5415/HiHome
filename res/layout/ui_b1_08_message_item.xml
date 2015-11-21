@@ -1,55 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/five"
     android:background="@color/white"
-    android:orientation="horizontal">
-    <ImageView 
-        android:id="@+id/aci_avatar"
-        android:layout_width="55dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="@dimen/five"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/xinagcetouxiang"/>
-    <RelativeLayout 
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <LinearLayout 
+    android:orientation="vertical"
+    android:padding="@dimen/five" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/aci_avatar"
+            android:layout_width="55dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/five"
+            android:src="@drawable/xinagcetouxiang" />
+
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="80dp"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:orientation="vertical">
-            <TextView 
-        		android:id="@+id/aci_nick"
-                android:layout_width="wrap_content"
+            android:layout_height="fill_parent" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="#000"
-                android:text="唐嫣"/>
-            <TextView 
-        		android:id="@+id/aci_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:singleLine="true"
-                android:ellipsize="end"
-	    		android:textColor="@color/state_color"
-                android:text="你好，希望和你加成好友！"/>
-        </LinearLayout>
-        <TextView 
-        	android:id="@+id/aci_state"
-            android:layout_width="70dp"
-            android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/five"
-            android:layout_alignParentRight="true"
-            android:textColor="#FFF"
-            android:text="同意"
-            android:gravity="center"
-            android:background="#01cf97"/>
-    </RelativeLayout>
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="80dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/aci_nick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="唐嫣"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/aci_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="你好，希望和你加成好友！"
+                    android:textColor="@color/state_color" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/aci_state"
+                android:layout_width="70dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/five"
+                android:background="#01cf97"
+                android:gravity="center"
+                android:text="同意"
+                android:textColor="#FFF" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/text_devide" />
+
 </LinearLayout>

@@ -25,7 +25,7 @@
             style="@style/title_head"
             android:text="申请通知" />
     </RelativeLayout>
-    <ListView 
+    <com.zykj.hihome.menuListView.SwipeMenuListView
         android:id="@+id/applyList"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>

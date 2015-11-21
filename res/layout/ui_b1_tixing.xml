@@ -113,7 +113,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/rl_xiaotitixing"
+                android:id="@+id/rl_xiaoxitixing"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
 
@@ -164,7 +164,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="条信息未查看" />
+                            android:text="条信息未处理" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -177,6 +177,7 @@
                             android:text="今天" />
 
                         <TextView
+                            android:id="@+id/tv_xx_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="19：00"/>
@@ -255,7 +256,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="条信息未查看" />
+                            android:text="条信息未处理" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -268,6 +269,7 @@
                             android:text="今天" />
 
                         <TextView
+                            android:id="@+id/tv_lt_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="19：00"/>
@@ -346,7 +348,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="条信息未查看" />
+                            android:text="条信息未处理" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -359,6 +361,7 @@
                             android:text="今天" />
 
                         <TextView
+                            android:id="@+id/tv_rw_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="19：00"/>

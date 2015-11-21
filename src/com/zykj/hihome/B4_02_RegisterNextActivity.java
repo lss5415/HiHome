@@ -25,6 +25,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zykj.hihome.base.BaseActivity;
 import com.zykj.hihome.base.BaseApp;
+import com.zykj.hihome.utils.CommonUtils;
 import com.zykj.hihome.utils.HttpErrorHandler;
 import com.zykj.hihome.utils.HttpUtils;
 import com.zykj.hihome.utils.StringUtil;
@@ -73,7 +74,7 @@ public class B4_02_RegisterNextActivity extends BaseActivity {
 		tv_queding = (TextView) findViewById(R.id.tv_queding);
 		
 		tv_mobile.setText(mobile);
-		setListener(img_avatar, img_nan, img_nv, tv_queding);
+		setListener(img_avatar, img_nan, img_nv, ed_age,tv_queding);
 	}
 	@Override
 	public void onClick(View v) {
@@ -89,6 +90,11 @@ public class B4_02_RegisterNextActivity extends BaseActivity {
 			img_nan.setImageResource(R.drawable.buxuanzhong);
 			img_nv.setImageResource(R.drawable.xuanzhong);
 			break;
+//		case R.id.et_user_age:
+//			View startView = CommonUtils.showDateTimePicker(this, ed_age);
+//			startView.findViewById(R.id.hour).setVisibility(View.GONE);
+//			startView.findViewById(R.id.mins).setVisibility(View.GONE);
+//			break;
 		case R.id.tv_queding:
 			nick = ed_nick.getText().toString();
 			age = ed_age.getText().toString();

@@ -187,13 +187,22 @@ public class HttpUtils {
 	}
 
 	/**
-	 * 查看好友资料
+	 * 好友申请列表
 	 * 
 	 * @param params
 	 */
 	public static void getApplyList(AsyncHttpResponseHandler res_upLoad,
 			String uid) {
 		client.get(base_url + "c=friend&a=getApplyList&uid=" + uid, res_upLoad);
+	}
+	/**
+	 * 删除好友申请列表
+	 * 
+	 * @param params
+	 */
+	public static void delApplyList(AsyncHttpResponseHandler res_upLoad,
+			RequestParams params) {
+		client.get(base_url + "c=friend&a=delApplyInfo",params, res_upLoad);
 	}
 
 	/**

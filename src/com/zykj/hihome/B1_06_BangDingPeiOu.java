@@ -1,6 +1,7 @@
 package com.zykj.hihome;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zykj.hihome.base.BaseActivity;
+import com.zykj.hihome.utils.TextUtil;
 
 /**
  * @author LSS 2015年10月20日 上午9:05:47
@@ -42,13 +44,13 @@ public class B1_06_BangDingPeiOu extends BaseActivity {
 			this.finish();
 			break;
 		 case R.id.tv_queding:
-			 if (et_bangding.getText().toString()==null||et_bangding.getText().toString()=="") {
+			 String Phone=et_bangding.getText().toString();
+			 if (!TextUtil.isMobile(Phone)) {
 				Toast.makeText(getApplicationContext(), "请填写要绑定的配偶的账号或手机号", Toast.LENGTH_LONG).show();
 			}else {
 				Toast.makeText(getApplicationContext(), "恭喜您成功发送邀请通知", Toast.LENGTH_LONG).show();
 			}
-//		 intent = new Intent(this, Restaura.class);
-//		 startActivity(intent);
+
 		 break;
 		default:
 			break;
